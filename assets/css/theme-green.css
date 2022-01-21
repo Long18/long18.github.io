@@ -1822,7 +1822,10 @@ img.shape8 {
     color: #28a745;
     background: rgba(40, 167, 69, .1);
 }
-
+.badge-tritanopia {
+    color: #4F2F4C;
+    background: rgba(140, 88, 136, 0.1);
+  }
 span.blog-by {
     color: #fff;
 }
