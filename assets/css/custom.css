@@ -8,6 +8,12 @@ body {
   display: flex;
 }
 
+.dark-theme {
+  background-color: #22272e;
+  color: #fff;
+  /* Add more styles to adapt other elements for dark mode */
+}
+
 .blog-slider {
   width: 95%;
   position: relative;
