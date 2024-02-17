@@ -8604,7 +8604,7 @@
         options: {
             settings: null,
             cursor: "mfp-ajax-cur",
-            tError: '<a href="%url%">The content</a> could not be loaded.'
+            tError: '<a href="%url%">The content</a> could not be loaded. Click here to download the video or click to share button to download it in the top right corner.'
         },
         proto: {
             initAjax: function() {
@@ -8663,7 +8663,7 @@
             cursor: "mfp-zoom-out-cur",
             titleSrc: "title",
             verticalFit: !0,
-            tError: '<a href="%url%">The image</a> could not be loaded.'
+            tError: '<a href="%url%">The content</a> could not be loaded. Click here to download the video or click to share button to download it in the top right corner.'
         },
         proto: {
             initImage: function() {
