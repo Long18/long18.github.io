@@ -48,7 +48,8 @@
         document.onkeydown = function (e) {
             if (e.which == 123)
                 isCtrl = true;
-            if (((e.which == 85) || (e.which == 65) || (e.which == 88) || (e.which == 67) || (e.which == 86) || (e.which == 2) || (e.which == 3) || (e.which == 123) || (e.which == 83)) && isCtrl == true) {
+            if (((e.which == 85) || (e.which == 65) || (e.which == 88) || (e.which == 67) || (e.which == 86) || (e
+                    .which == 2) || (e.which == 3) || (e.which == 123) || (e.which == 83)) && isCtrl == true) {
                 alert('You Do Not Have Permission To Do That!!');
                 return false;
             }
@@ -56,10 +57,12 @@
         // right click code
         var isNS = (navigator.appName == "Netscape") ? 1 : 0;
         if (navigator.appName == "Netscape") document.captureEvents(Event.MOUSEDOWN || Event.MOUSEUP);
+
         function mischandler() {
             alert('You Do Not Have Permission To Do That!!');
             return false;
         }
+
         function mousehandler(e) {
             var myevent = (isNS) ? e : event;
             var eventbutton = (isNS) ? myevent.which : myevent.button;
@@ -72,6 +75,7 @@
         function killCopy(e) {
             return false
         }
+
         function reEnable() {
             return true
         }
@@ -297,6 +301,78 @@
                                 <div class="blog-slider__item swiper-slide">
                                     <div class="blog-slider__img">
 
+                                        <img src="assets/images/game/cryptoquest.png" alt="">
+                                    </div>
+                                    <div class="blog-slider__content">
+                                        <span class="blog-slider__code">Jul 2023 - Feb 2024</span>
+                                        <div class="blog-slider__title">Crypto Quest</div>
+                                        <div class="blog-slider__text">In this project, I was entrusted with
+                                            implementing core gameplay mechanics, which encompassed a wide range of
+                                            systems, including the ability system, quest system, audio system, inventory
+                                            system, dialog system, cheat system, inn system, settings system timeline,
+                                            and cutscene system.
+                                        </div>
+                                        <a href="https://www.youtube.com/watch?v=DLbbKSdFZEw"
+                                            class="blog-slider__button" style="margin:5px">Trailer</a><br>
+                                        <a href="https://crypto-quest.org/" class="blog-slider__button"
+                                            style="margin:5px">Main Website</a><br>
+                                    </div>
+                                </div>
+                                
+                                <div class="blog-slider__item swiper-slide">
+                                    <div class="blog-slider__img">
+
+                                        <img src="assets/images/game/mugenhorror.jpeg" alt="">
+                                    </div>
+                                    <div class="blog-slider__content">
+                                        <span class="blog-slider__code">Jun 2022 - Nov 2022</span>
+                                        <div class="blog-slider__title">Mugen Horror</div>
+                                        <div class="blog-slider__title">The platform has been shut down</div>
+                                        <div class="blog-slider__text"> A live multi-genre game in which player explores haunted places to uncover the stories behind and defeat the main ghosts. For each level, player starts by searching & solving puzzles to find the key to the room where the main ghost stays. Once entering that room, player is in combat mode with the ghost.
+                                        </div>
+                                        <a href="https://www.youtube.com/watch?v=zg3qNVPQPYg&ab_channel=LamNgo"
+                                            class="blog-slider__button" style="margin:5px">Trailer</a><br>
+                                    </div>
+                                </div>
+
+                                <div class="blog-slider__item swiper-slide">
+                                    <div class="blog-slider__img">
+
+                                        <img src="assets/videos/machingbaccarat.jpg" alt="">
+                                    </div>
+                                    <div class="blog-slider__content">
+                                        <span class="blog-slider__code">Jul 2022 - Jan 2023</span>
+                                        <div class="blog-slider__title">Matching Casino - Baccarat </div>
+                                        <div class="blog-slider__title">The platform has been shut down</div>
+                                        <div class="blog-slider__text"> This is a game for interaction between streamer
+                                            and viewer. Random questions will be given to the streamer and the viewer
+                                            will answer.
+                                        </div>
+                                        <a href="https://www.youtube.com/watch?v=qddxMmCo81U"
+                                            class="blog-slider__button" style="margin:5px">Trailer</a><br>
+                                    </div>
+                                </div>
+
+                                <div class="blog-slider__item swiper-slide">
+                                    <div class="blog-slider__img">
+
+                                        <img src="assets/videos/pinoracing.jpg" alt="">
+                                    </div>
+                                    <div class="blog-slider__content">
+                                        <span class="blog-slider__code">May 2022 - Sep 2022</span>
+                                        <div class="blog-slider__title">Pino Racing</div>
+                                        <div class="blog-slider__text"> Pino Racing is a promotion game. Which is
+                                            developed with Unity like AR Game.
+                                        </div>
+                                        <a href="https://long18.github.io/StrippedPino-Racing/"
+                                            class="blog-slider__button" style="margin:5px">WebGL</a><br>
+
+                                    </div>
+                                </div>
+
+                                <div class="blog-slider__item swiper-slide">
+                                    <div class="blog-slider__img">
+
                                         <img src="assets/images/game/BatteryManRun.png" alt="">
                                     </div>
                                     <div class="blog-slider__content">
@@ -304,9 +380,9 @@
                                         <div class="blog-slider__title">Battery Man Run.</div>
                                         <div class="blog-slider__text">Eat point to live as long as possible.
                                         </div>
-                                        <a href="https://drive.google.com/file/d/15Z8Xwado10npMPNQ9pkGnuyMLj4RB7cA/view?usp=sharing" class="blog-slider__button"
-                                            style="margin:5px">EXE</a><br>
-                                            <a href="https://youtu.be/YkJbXDPT-lo" class="blog-slider__button"
+                                        <a href="https://drive.google.com/file/d/15Z8Xwado10npMPNQ9pkGnuyMLj4RB7cA/view?usp=sharing"
+                                            class="blog-slider__button" style="margin:5px">EXE</a><br>
+                                        <a href="https://youtu.be/YkJbXDPT-lo" class="blog-slider__button"
                                             style="margin:5px">Demo</a><br>
 
                                     </div>
@@ -543,22 +619,22 @@
 
                         <!-- ======================================================HuntingAnimal====================================================== -->
 
-                         <!-- ======================================================ToiletTapTap====================================================== -->
-                         <figure class="col-sm-6 col-md-4 list-item" itemprop="associatedMedia"
-                         data-groups="all slideshow">
-                         <a href="assets/images/game/ToiletTapTap.png" itemprop="contentUrl" data-size="1920x1080">
-                             <img src="assets/images/game/ToiletTapTap.png" itemprop="thumbnail"
-                                 alt="Image description" />
-                         </a>
-                         <figcaption itemprop="caption description">
-                             <div class="caption-inner">
-                                 <h3 class="portfolio-item-title">ToiletTapTap</h3>
-                                 <div class="portfolio-item-desc">Slideshow</div>
-                             </div>
-                         </figcaption>
-                     </figure>
+                        <!-- ======================================================ToiletTapTap====================================================== -->
+                        <figure class="col-sm-6 col-md-4 list-item" itemprop="associatedMedia"
+                            data-groups="all slideshow">
+                            <a href="assets/images/game/ToiletTapTap.png" itemprop="contentUrl" data-size="1920x1080">
+                                <img src="assets/images/game/ToiletTapTap.png" itemprop="thumbnail"
+                                    alt="Image description" />
+                            </a>
+                            <figcaption itemprop="caption description">
+                                <div class="caption-inner">
+                                    <h3 class="portfolio-item-title">ToiletTapTap</h3>
+                                    <div class="portfolio-item-desc">Slideshow</div>
+                                </div>
+                            </figcaption>
+                        </figure>
 
-                     <!-- ======================================================ToiletTapTap====================================================== -->
+                        <!-- ======================================================ToiletTapTap====================================================== -->
 
                         <!-- ======================================================Homewithgrandma====================================================== -->
 
@@ -783,8 +859,37 @@
                         <!-- ======================================================Video====================================================== -->
 
                         <figure class="col-sm-6 col-md-4 list-item" itemprop="associatedMedia" data-groups="all video">
+                            <a href="assets/videos/CryptoQuest.mp4" itemprop="contentUrl" data-size="1920x1080">
+                                <img src="assets/images/game/cryptoquest.png" itemprop="thumbnail" alt="CryptoQuest" />
+                            </a>
+                            <figcaption itemprop="caption description">
+                                <div class="caption-inner">
+                                    <h3 class="portfolio-item-title">Crypto Quest</h3>
+                                    <div class="portfolio-item-desc">video</div>
+                                </div>
+                                <div class="portfolio-item-desc">
+                                </div>
+                            </figcaption>
+                        </figure>
+
+                        <figure class="col-sm-6 col-md-4 list-item" itemprop="associatedMedia" data-groups="all video">
+                            <a href="assets/videos/mugenhorror.mp4" itemprop="contentUrl" data-size="1920x1080">
+                                <img src="assets/images/game/mugenhorror.jpeg" itemprop="thumbnail" alt="CryptoQuest" />
+                            </a>
+                            <figcaption itemprop="caption description">
+                                <div class="caption-inner">
+                                    <h3 class="portfolio-item-title">Mugen Horror</h3>
+                                    <div class="portfolio-item-desc">video</div>
+                                </div>
+                                <div class="portfolio-item-desc">
+                                </div>
+                            </figcaption>
+                        </figure>
+
+                        <figure class="col-sm-6 col-md-4 list-item" itemprop="associatedMedia" data-groups="all video">
                             <a href="assets/videos/machingbaccarat.mp4" itemprop="contentUrl" data-size="1920x1080">
-                                <img src="assets/videos/machingbaccarat.jpg" itemprop="thumbnail" alt="Maching Baccarat" />
+                                <img src="assets/videos/machingbaccarat.jpg" itemprop="thumbnail"
+                                    alt="Maching Baccarat" />
                             </a>
                             <figcaption itemprop="caption description">
                                 <div class="caption-inner">
@@ -991,14 +1096,14 @@
 
                                                     <p>
                                                         <span style="font-weight: bold">Projects: </span>
-                                                    <ul style="list-style-type:circle">
-                                                        <li><a href="https://github.com/Long18/FlappyBird">Flappy
-                                                                Bird.</a> (Click to see more)</li>
-                                                        <li><a href="https://github.com/Long18/Doggy-Movement">Doggy
-                                                                Movement.</a>(Click to see more)</li>
-                                                        <li><a href="https://github.com/Long18/Save_Grandmother">Save
-                                                                Grandmother.</a>(Click to see more)</li>
-                                                    </ul>
+                                                        <ul style="list-style-type:circle">
+                                                            <li><a href="https://github.com/Long18/FlappyBird">Flappy
+                                                                    Bird.</a> (Click to see more)</li>
+                                                            <li><a href="https://github.com/Long18/Doggy-Movement">Doggy
+                                                                    Movement.</a>(Click to see more)</li>
+                                                            <li><a href="https://github.com/Long18/Save_Grandmother">Save
+                                                                    Grandmother.</a>(Click to see more)</li>
+                                                        </ul>
                                                     </p>
 
                                                     <p style="font-weight: bold">Acquired knowledge:</p>
@@ -1268,7 +1373,7 @@
                                 </div>
                             </div>
                         </div>
-                       
+
                         <div class="section-education">
                             <div class="row">
                                 <div class="col-lg-3">
@@ -1284,7 +1389,8 @@
                                                         <img src="assets/images/hutech.png" alt=""
                                                             style=" width:100px;height:100px;">
                                                         <h5>HO CHI MINH CITY UNIVERSITY OF TECHNOLOGY - HUTECH</h5>
-                                                        <h6 class="badge badge-danger d-inline-block my-3">05/2018 - 08/2023</h6>
+                                                        <h6 class="badge badge-danger d-inline-block my-3">05/2018 -
+                                                            08/2023</h6>
                                                         <p>Engineer's degree - Infomation Technology</p>
                                                     </div>
                                                 </div>
@@ -1372,99 +1478,99 @@
         <!-- END: RESUME -->
 
 
-     <!-- START: CONTACT -->
-     <section class="section section-contact" id="contact">
-        <div class="container">
-            <div class="section-head">
-                <span>say Hello</span>
-                <h2>Contact </h2>
-            </div>
+        <!-- START: CONTACT -->
+        <section class="section section-contact" id="contact">
+            <div class="container">
+                <div class="section-head">
+                    <span>say Hello</span>
+                    <h2>Contact </h2>
+                </div>
 
-            <div class="section-inner">
-                <div class="contact-Otherdetails ">
-                    <div class="contact-details">
-                        <h5 class="section-subHead mb-4"> Get in Touch</h5>
-                        <div class="row justify-content-center align-items-center">
-                            <div class="col-sm-6 col-lg-4">
-                                <div class="contact-details--panel p-4 b-box text-center  ">
-                                    <div class="mb-3 list-icon list-icon-1">
-                                        <i class="lni-mobile"></i>
-                                    </div>
-                                    <div class="mt-2">
-                                        <a href="tel:84918399443" class="">(+84) 918 399 xxx</a>
-                                        <p class="mt-2">Call Me</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-sm-6 col-lg-4">
-                                <div class="contact-details--panel p-4 b-box text-center  ">
-                                    <div class="mb-3 list-icon list-icon-5">
-                                        <i class="lni-envelope"></i>
-                                    </div>
-                                    <div class="mt-2">
-                                        <a href="mailto:us.thanhlong18@gmail.com">us.thanhlong18@gmail.com</a>
-                                        <p class="mt-2">Email Me</p>
+                <div class="section-inner">
+                    <div class="contact-Otherdetails ">
+                        <div class="contact-details">
+                            <h5 class="section-subHead mb-4"> Get in Touch</h5>
+                            <div class="row justify-content-center align-items-center">
+                                <div class="col-sm-6 col-lg-4">
+                                    <div class="contact-details--panel p-4 b-box text-center  ">
+                                        <div class="mb-3 list-icon list-icon-1">
+                                            <i class="lni-mobile"></i>
+                                        </div>
+                                        <div class="mt-2">
+                                            <a href="tel:84918399443" class="">(+84) 918 399 xxx</a>
+                                            <p class="mt-2">Call Me</p>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="col-sm-6 col-lg-4">
-                                <div class="contact-details--panel p-4 b-box text-center  ">
-                                    <div class="mb-3 list-icon list-icon-5">
-                                        <i class="lni-pointer"></i>
+                                <div class="col-sm-6 col-lg-4">
+                                    <div class="contact-details--panel p-4 b-box text-center  ">
+                                        <div class="mb-3 list-icon list-icon-5">
+                                            <i class="lni-envelope"></i>
+                                        </div>
+                                        <div class="mt-2">
+                                            <a href="mailto:us.thanhlong18@gmail.com">us.thanhlong18@gmail.com</a>
+                                            <p class="mt-2">Email Me</p>
+                                        </div>
                                     </div>
-                                    <div class="mt-2">
-                                        <a>Ho Chi Minh City</a>
-                                        <p class="mt-2">Address</p>
+                                </div>
+                                <div class="col-sm-6 col-lg-4">
+                                    <div class="contact-details--panel p-4 b-box text-center  ">
+                                        <div class="mb-3 list-icon list-icon-5">
+                                            <i class="lni-pointer"></i>
+                                        </div>
+                                        <div class="mt-2">
+                                            <a>Ho Chi Minh City</a>
+                                            <p class="mt-2">Address</p>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="contact-form mt-5">
-                        <form method="post" action="php/contact.php" id="contactForm" data-toggle="validator">
-                            <h5 class="section-subHead mb-4"> Contact Form</h5>
-                            <div class="row">
-                                <div class="col-lg-6">
-                                    <div class="form-group mb-3">
-                                        <input name="name" id="name" type="text" class="form-control b-box"
-                                            placeholder="Your Name *" required>
+                        <div class="contact-form mt-5">
+                            <form method="post" action="php/contact.php" id="contactForm" data-toggle="validator">
+                                <h5 class="section-subHead mb-4"> Contact Form</h5>
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <div class="form-group mb-3">
+                                            <input name="name" id="name" type="text" class="form-control b-box"
+                                                placeholder="Your Name *" required>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="form-group mb-3">
+                                            <input name="email" id="email" type="email" class="form-control b-box"
+                                                placeholder="Your Email *" required>
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="col-lg-6">
-                                    <div class="form-group mb-3">
-                                        <input name="email" id="email" type="email" class="form-control b-box"
-                                            placeholder="Your Email *" required>
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <div class="form-group mb-3">
+                                            <input name="subject" type="text" class="form-control b-box" id="subject"
+                                                placeholder="Your Subject.." required>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-lg-12">
-                                    <div class="form-group mb-3">
-                                        <input name="subject" type="text" class="form-control b-box" id="subject"
-                                            placeholder="Your Subject.." required>
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <div class="form-group mb-3">
+                                            <textarea name="comments" id="comments" rows="4" class="form-control b-box"
+                                                placeholder="Your message..."></textarea>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-lg-12">
-                                    <div class="form-group mb-3">
-                                        <textarea name="comments" id="comments" rows="4" class="form-control b-box"
-                                            placeholder="Your message..."></textarea>
+                                <div class="row">
+                                    <div class="col-lg-12 mt-4 mb-5 text-center">
+                                        <button type="submit" class="submitBnt btn text-uppercase">Send</button>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-lg-12 mt-4 mb-5 text-center">
-                                    <button type="submit" class="submitBnt btn text-uppercase">Send</button>
-                                </div>
-                            </div>
-                        </form>
+                            </form>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
-    <!-- END: CONTACT -->
+        </section>
+        <!-- END: CONTACT -->
 
         <!--START: FOOTER-->
         <footer class="footer section section-light">
