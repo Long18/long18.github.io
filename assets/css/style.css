@@ -837,6 +837,32 @@ main {
   line-height: 1.6;
 }
 
+.timeline-text ul {
+  position: relative;
+  padding-left: 20px;
+  margin-bottom: 10px;
+}
+
+.timeline-text ul::before {
+  margin-top: 10px;
+  background: var(--text-gradient-yellow);
+  border-radius: 50%;
+  box-shadow: 0 0 0 4px var(--jet);
+}
+
+.timeline-text li::before { 
+  content: "▹";
+  position: absolute;
+  left: -15px;
+  color: var(--text-gradient-yellow);
+  font-size: var(--fw-300);
+  line-height: 1.6;
+
+  /* To prevent overlap with the timeline bullet */
+  z-index: 1;
+  
+}
+
 
 /**
  * skills 
