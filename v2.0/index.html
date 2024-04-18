@@ -3,9 +3,20 @@
 
 <head>
   <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>vCard - Personal Portfolio</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Lê Nguyễn Thành Long</title>
+  <meta name="description" content="Lê Nguyễn Thành Long" />
+  <meta name="keywords"
+    content="blog,creative,cv theme, online resume, personal,professional cv,resume, resume theme" />
+  <meta name="theme-color" content="#000">
+  <meta property="og:title" content="Lê Nguyễn Thành Long || William - Introduce" />
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="https://long18.github.io/assets/images/thumbnail.png" />
+  <meta property="og:description" content="My name is Le Nguyen Thanh Long, game programmer. This is my portfolio." />
+  <meta property="og:url" content="https://long18.github.io" />
+  <meta name="author" content="Lê Nguyễn Thành Long - William">
+  <meta property="og:locale" content="vi_VN">
+  <link rel="icon" href="assets/logo.ico">
 
   <!--
     - favicon
@@ -16,7 +27,7 @@
     - custom css link
   -->
   <link rel="stylesheet" href="../assets/css/style.css">
-  <link rel="stylesheet" href="assets/css/custom.css">
+  <link rel="stylesheet" href="../assets/css/custome-ver2.css">
   <!--
     - google font link
   -->
@@ -588,60 +599,48 @@
         <section class="projects">
 
           <ul class="filter-list">
-
             <li class="filter-item">
               <button class="active" data-filter-btn>All</button>
             </li>
-
             <li class="filter-item">
               <button data-filter-btn>Unity</button>
             </li>
-
             <li class="filter-item">
               <button data-filter-btn>Unreal</button>
             </li>
-
             <li class="filter-item">
               <button data-filter-btn>Applications</button>
             </li>
-
           </ul>
 
+          <!-- Filter  -->
           <div class="filter-select-box">
-
             <button class="filter-select" data-select>
-
               <div class="select-value" data-select-value>Select category</div>
-
               <div class="select-icon">
                 <ion-icon name="chevron-down"></ion-icon>
               </div>
-
             </button>
 
+            <!-- Select List Filter Type Of Project -->
             <ul class="select-list">
-
               <li class="select-item">
                 <button data-select-item>All</button>
               </li>
-
               <li class="select-item">
                 <button data-select-item>Unity</button>
               </li>
-
               <li class="select-item">
                 <button data-select-item>Unreal</button>
               </li>
-
               <li class="select-item">
                 <button data-select-item>Applications</button>
               </li>
-
-
             </ul>
 
           </div>
 
+          <!-- Project Thumbnail -->
           <ul class="project-list">
 
             <li class="project-item  active" data-filter-item data-category="unity">
@@ -649,13 +648,13 @@
 
                 <figure class="project-img">
                   <div class="project-item-icon-box">
-                    <ion-icon name="eye-outline"></ion-icon>
+                    <ion-icon name="eye-outline" data-detail-category="cryptoquest"></ion-icon>
                   </div>
 
                   <img src="../assets/images/game/cryptoquest.png" alt="cryptoquest" loading="lazy">
                 </figure>
 
-                <h3 class="project-title" data-select-item>Crypto Quest</h3>
+                <h3 class="project-title" data-detail-category="cryptoquest">Crypto Quest</h3>
 
                 <p class="project-category">Unity2D</p>
 
@@ -717,16 +716,6 @@
               </a>
             </li>
 
-
-            <li class="project-item active" data-filter-item data-deactive-item data-category="baccarat">
-              <a>
-                <figure class="project-img">
-                  <img src="./assets/images/CryptoQuest/Beast Detail.png" alt="finance" />
-                </figure>
-              </a>
-            </li>
-
-
             <li class="project-item  active" data-filter-item data-category="unity">
               <a href="#">
 
@@ -749,8 +738,9 @@
 
         </section>
 
-        <!-- Crypto Quest Detail -->
-        <section class="timeline project-item active" data-filter-item data-deactive-item data-category="baccarat">
+        <!-- Project Detail -->
+        <section class="timeline project-item" data-filter-item data-deactive-item project-detail
+          data-detail-category="cryptoquest">
           <div class="title-wrapper">
             <div class="icon-box">
               <ion-icon name="book-outline"></ion-icon>

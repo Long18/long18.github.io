@@ -55,8 +55,32 @@ overlay.addEventListener("click", testimonialsModalFunc);
 const select = document.querySelector("[data-select]");
 const selectProject = document.querySelector("[project-select]");
 const selectItems = document.querySelectorAll("[data-select-item]");
+const selectDetailItems = document.querySelectorAll("[data-detail-category]");
 const selectValue = document.querySelector("[data-select-value]");
 const filterBtn = document.querySelectorAll("[data-filter-btn]");
+const removeActive = document.querySelectorAll("[data-deactive-item]");
+const projectDetail = document.querySelectorAll("[project-detail]");
+
+// if data-detail-category clicked, remove active at data-deactive-item contain data-select-item same type
+for (let i = 0; i < selectDetailItems.length; i++) {
+  selectDetailItems[i].addEventListener("click", function () {
+    const selectedType = this.dataset.detailCategory;
+    console.log(selectedType);
+
+    filterFunc("");
+
+    // find data-detail-category same type in projectDetail class
+    for (let j = 0; j < projectDetail.length; j++) {
+      if (projectDetail[j].dataset.detailCategory === selectedType) {
+        projectDetail[j].classList.add("active");
+      } else {
+        projectDetail[j].classList.remove("active");
+      }
+    }
+
+  });
+}
+
 let clickEventAdded = false;
 
 select.addEventListener("click", function () {
@@ -83,7 +107,7 @@ for (let i = 0; i < selectItems.length; i++) {
 
 // filter variables
 const filterItems = document.querySelectorAll("[data-filter-item]");
-const dataDeactive = document.querySelectorAll("[data-deactive-item]");
+const filterDetailItems = document.querySelectorAll("[data-detail-category]");
 
 const filterFunc = function (selectedValue) {
   for (let i = 0; i < filterItems.length; i++) {
@@ -95,6 +119,9 @@ const filterFunc = function (selectedValue) {
     } else {
       filterItems[i].classList.remove("active");
     }
+  }
+  for (let i = 0; i < removeActive.length; i++) {
+    removeActive[i].classList.remove("active");
   }
 };
 
@@ -133,7 +160,7 @@ for (let i = 0; i < formInputs.length; i++) {
 // page navigation variables
 const navigationLinks = document.querySelectorAll("[data-nav-link]");
 const pages = document.querySelectorAll("[data-page]");
-// Remove active variables
+
 // add event to all nav link
 for (let i = 0; i < navigationLinks.length; i++) {
   navigationLinks[i].addEventListener("click", function () {
@@ -148,9 +175,6 @@ for (let i = 0; i < navigationLinks.length; i++) {
         pages[i].classList.remove("active");
         navigationLinks[i].classList.remove("active");
       }
-    }
-    for (let i = 0; i < dataDeactive.length; i++) {
-      dataDeactive[i].classList.remove("active");
     }
   });
 }
