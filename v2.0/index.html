@@ -213,7 +213,7 @@
         - #ABOUT
       -->
 
-      <article class="about  active" data-page="about">
+      <article class="about active" data-page="about">
 
         <header>
           <h2 class="h2 article-title">About me</h2>
@@ -643,8 +643,9 @@
           <!-- Project Thumbnail -->
           <ul class="project-list">
 
+
             <li class="project-item  active" data-filter-item data-category="unity">
-              <a href="#">
+              <a href="#" data-detail-category="cryptoquest">
 
                 <figure class="project-img">
                   <div class="project-item-icon-box">
@@ -661,79 +662,6 @@
               </a>
             </li>
 
-            <li class="project-item  active" data-filter-item data-category="unity">
-              <a href="#">
-
-                <figure class="project-img">
-                  <div class="project-item-icon-box">
-                    <ion-icon name="eye-outline"></ion-icon>
-                  </div>
-
-                  <img src="../assets/images/game/cryptoquest.png" alt="cryptoquest" loading="lazy">
-                </figure>
-
-                <h3 class="project-title" data-select-item>Crypto Quest</h3>
-
-                <p class="project-category">Unity2D</p>
-
-              </a>
-            </li>
-
-
-            <li class="project-item  active" data-filter-item data-category="unity">
-              <a href="#">
-
-                <figure class="project-img">
-                  <div class="project-item-icon-box">
-                    <ion-icon name="eye-outline"></ion-icon>
-                  </div>
-
-                  <img src="../assets/images/game/cryptoquest.png" alt="cryptoquest" loading="lazy">
-                </figure>
-
-                <h3 class="project-title" data-select-item>Crypto Quest</h3>
-
-                <p class="project-category">Unity2D</p>
-
-              </a>
-            </li>
-
-            <li class="project-item  active" data-filter-item data-category="unity">
-              <a href="#">
-
-                <figure class="project-img">
-                  <div class="project-item-icon-box">
-                    <ion-icon name="eye-outline"></ion-icon>
-                  </div>
-
-                  <img src="../assets/images/game/cryptoquest.png" alt="cryptoquest" loading="lazy">
-                </figure>
-
-                <h3 class="project-title" data-select-item>Baccarat</h3>
-
-                <p class="project-category">Unity2D</p>
-
-              </a>
-            </li>
-
-            <li class="project-item  active" data-filter-item data-category="unity">
-              <a href="#">
-
-                <figure class="project-img">
-                  <div class="project-item-icon-box">
-                    <ion-icon name="eye-outline"></ion-icon>
-                  </div>
-
-                  <img src="../assets/images/game/cryptoquest.png" alt="cryptoquest" loading="lazy">
-                </figure>
-
-                <h3 class="project-title" data-select-item>GMO</h3>
-
-                <p class="project-category">Unity2D</p>
-
-              </a>
-            </li>
-
           </ul>
 
         </section>
@@ -741,6 +669,15 @@
         <!-- Project Detail -->
         <section class="timeline project-item" data-filter-item data-deactive-item project-detail
           data-detail-category="cryptoquest">
+
+          <div class="project-item active">
+            <a onclick="expandImage(this)">
+              <figure class="project-img">
+                <img src="../assets/images/game/cryptoquest.png" loading="lazy" />
+              </figure>
+            </a>
+          </div>
+
           <div class="title-wrapper">
             <div class="icon-box">
               <ion-icon name="book-outline"></ion-icon>
@@ -832,18 +769,7 @@
             <ul class="service-list">
               <li class="service-item">
                 <div class="service-icon-box">
-                  <img src="./assets/images/icon-design.svg
-                      " alt="design icon" width="40" />
-                </div>
-
-                <div class="service-content-box">
-                  <h4 class="h4 service-item-title">Live Demo</h4>
-                </div>
-              </li>
-
-              <li class="service-item">
-                <div class="service-icon-box">
-                  <img src="./assets/images/icon-dev.svg" alt="Web development icon" width="40" />
+                  <img src="../assets/images/icon-dev.svg" alt="Web development icon" width="40" />
                 </div>
 
                 <div class="service-content-box">

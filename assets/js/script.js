@@ -178,3 +178,41 @@ for (let i = 0; i < navigationLinks.length; i++) {
     }
   });
 }
+
+
+function expandImage(clickedImage) {
+  var imgSrc = clickedImage.querySelector("img").src;
+
+  // Create overlay
+  var overlay = document.createElement("div");
+  overlay.style.position = "fixed";
+  overlay.style.top = "0";
+  overlay.style.left = "0";
+  overlay.style.width = "100%";
+  overlay.style.height = "100%";
+  overlay.style.backgroundColor = "rgba(0, 0, 0, 0.9)";
+  overlay.style.zIndex = "9998";
+  overlay.onclick = function () {
+    document.body.removeChild(overlay);
+    document.body.removeChild(expandedImg);
+  };
+  document.body.appendChild(overlay);
+
+  // Create expanded image
+  var expandedImg = document.createElement("img");
+  expandedImg.src = imgSrc;
+  expandedImg.style.height = "100%";
+  expandedImg.style.position = "fixed";
+  expandedImg.style.top = "50%";
+  expandedImg.style.left = "50%";
+  expandedImg.style.transform = "translate(-50%, -50%)";
+  expandedImg.style.zIndex = "9999";
+  expandedImg.style.backgroundColor = "#fff";
+  expandedImg.style.borderRadius = "10px";
+  expandedImg.style.cursor = "pointer";
+  expandedImg.onclick = function () {
+    document.body.removeChild(overlay);
+    document.body.removeChild(expandedImg);
+  };
+  document.body.appendChild(expandedImg);
+}

@@ -1477,7 +1477,7 @@ textarea.form-input::-webkit-resizer {
 
     .service-list {
         display: grid;
-        grid-template-columns: 0.5fr .5fr;
+        grid-template-columns: 0.5fr 0.5fr;
         gap: 20px 25px;
     }
 }
@@ -1490,7 +1490,7 @@ textarea.form-input::-webkit-resizer {
     .service-list {
         margin-left: 0px;
         display: grid;
-        grid-template-columns: 0.5fr .5fr;
+        grid-template-columns: 0.5fr 0.5fr;
         gap: 20px 25px;
     }
 
@@ -1535,7 +1535,6 @@ textarea.form-input::-webkit-resizer {
         height: auto;
     }
 
-
     .service-item-title {
         font-size: 15px;
     }
@@ -1552,7 +1551,7 @@ textarea.form-input::-webkit-resizer {
 
     .service-list {
         display: grid;
-        grid-template-columns: 0.5fr .5fr;
+        grid-template-columns: 0.5fr 0.5fr;
         gap: 20px 25px;
     }
 
