@@ -1099,6 +1099,55 @@ main {
     background: hsla(0, 0%, 0%, 0.5);
 }
 
+.project-video {
+    position: relative;
+    width: 100%;
+    border-radius: 16px;
+    overflow: hidden;
+    margin-bottom: 15px;
+}
+
+.project-video video {
+    width: 100%;
+    height: auto;
+}
+
+.play-button {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgba(255, 255, 255, 0.7);
+    border: none;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+.play-button::before {
+    content: '';
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 12px 0 12px 20px;
+    border-color: transparent transparent transparent #000;
+}
+
+.project-item>a:hover .project-video::before {
+    background: hsla(0, 0%, 0%, 0.5);
+}
+
+.project-item>a:hover .project-video video {
+    transform: scale(1.1);
+    transition: 0.3s;
+    filter: brightness(0.5);
+}
+
+
 .project-item-icon-box {
     --scale: 0.8;
 
