@@ -869,6 +869,13 @@ main {
     margin-bottom: 7px;
 }
 
+.timeline-item-responsibility {
+    font-size: var(--fs-9);
+    margin-top: 18px;
+    margin-bottom: -4px;
+    color: var(--vegas-gold);
+}
+
 .timeline-list span {
     color: var(--vegas-gold);
     font-weight: var(--fw-400);
