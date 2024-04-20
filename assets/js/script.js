@@ -65,8 +65,6 @@ const projectDetail = document.querySelectorAll("[project-detail]");
 for (let i = 0; i < selectDetailItems.length; i++) {
   selectDetailItems[i].addEventListener("click", function () {
     const selectedType = this.dataset.detailCategory;
-    console.log(selectedType);
-
     filterFunc("");
 
     // find data-detail-category same type in projectDetail class
@@ -179,11 +177,7 @@ for (let i = 0; i < navigationLinks.length; i++) {
   });
 }
 
-
-function expandImage(clickedImage) {
-  var imgSrc = clickedImage.querySelector("img").src;
-
-  // Create overlay
+function createOverlay(elementToRemove) {
   var overlay = document.createElement("div");
   overlay.style.position = "fixed";
   overlay.style.top = "0";
@@ -194,12 +188,21 @@ function expandImage(clickedImage) {
   overlay.style.zIndex = "9998";
   overlay.onclick = function () {
     document.body.removeChild(overlay);
-    document.body.removeChild(expandedImg);
+    document.body.removeChild(elementToRemove);
   };
   document.body.appendChild(overlay);
+  document.body.appendChild(overlay);
+
+  return overlay;
+}
+
+function expandImage(clickedImage) {
+  var imgSrc = clickedImage.querySelector("img").src;
+  var expandedImg = document.createElement("img");
+
+  var overlay = createOverlay(expandedImg);
 
   // Create expanded image
-  var expandedImg = document.createElement("img");
   expandedImg.src = imgSrc;
   expandedImg.style.height = "100%";
   expandedImg.style.position = "fixed";
@@ -215,4 +218,38 @@ function expandImage(clickedImage) {
     document.body.removeChild(expandedImg);
   };
   document.body.appendChild(expandedImg);
+}
+
+
+function expandVideo(clickedVideo) {
+  var videoFiled = clickedVideo.querySelector("video");
+  var videoSrc = videoFiled.querySelector("source").src;
+  var expandedVideo = document.createElement("video");
+
+  var overlay = createOverlay(expandedVideo);
+
+  // Create expanded video
+  expandedVideo.src = videoSrc;
+  expandedVideo.currentTime = 0;
+  expandedVideo.autoplay = true;
+  expandedVideo.controls = true;
+  expandedVideo.style.width = "100%";
+  expandedVideo.style.height = "100%";
+  expandedVideo.style.zIndex = "9999";
+  expandedVideo.style.backgroundColor = "rgba(0, 0, 0, 0.9)";
+  expandedVideo.style.position = "fixed";
+  expandedVideo.style.top = "50%";
+  expandedVideo.style.left = "50%";
+  expandedVideo.style.transform = "translate(-50%, -50%)";
+  expandedVideo.style.borderRadius = "10px";
+  expandedVideo.style.cursor = "pointer";
+
+
+  expandedVideo.onclick = function () {
+    videoFiled.currentTime = 0;
+    videoFiled.pause();
+    document.body.removeChild(overlay);
+    document.body.removeChild(expandedVideo);
+  };
+  overlay.appendChild(expandedVideo);
 }
