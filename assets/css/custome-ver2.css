@@ -1094,6 +1094,7 @@ main {
     border-radius: 20px;
     overflow: hidden;
     margin-bottom: 20px;
+    border: 1px solid #333;
 }
 
 .project-img::before {
