@@ -950,38 +950,44 @@ main {
     margin-bottom: 20px;
 }
 
-.skills-list {
-    padding: 20px;
-}
-
-.skills-item:not(:last-child) {
-    margin-bottom: 15px;
-}
-
-.skill .title-wrapper {
+.skills-categories {
     display: flex;
-    align-items: center;
-    gap: 5px;
-    margin-bottom: 8px;
+    flex-wrap: wrap;
 }
 
-.skill .title-wrapper data {
-    color: var(--light-gray);
-    font-size: var(--fs-7);
-    font-weight: var(--fw-300);
+.skills-category .skills-header {
+    margin-bottom: 20px;
+    font-size: 20px;
+    color: var(--vegas-gold)
 }
 
-.skill-progress-bg {
-    background: var(--jet);
-    width: 100%;
-    height: 8px;
+.skills-category {
+    flex: 1 0 20%;
+    margin: 10px;
+    padding: 15px;
+    border-radius: 5px;
+    text-align: center;
+}
+
+.skills-category h4 {
+    margin-bottom: 10px;
+    font-size: 18px;
+    color: #333;
+}
+
+.skills-list {
+    list-style: none;
+}
+
+.skills-item {
+    margin-bottom: 3px;
+    color: #fff;
+    font-weight: bold;
+    text-decoration: underline;
+    border: 1px solid #333;
     border-radius: 10px;
-}
-
-.skill-progress-fill {
-    background: var(--text-gradient-yellow);
-    height: 100%;
-    border-radius: inherit;
+    padding: 5px;
+    background-color: var(--text-gradient-custom);
 }
 
 /*-----------------------------------*\
