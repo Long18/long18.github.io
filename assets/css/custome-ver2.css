@@ -444,7 +444,7 @@ main {
 
 .sidebar {
     margin-bottom: 15px;
-    max-height: 112px;
+    max-height: 130px;
     overflow: hidden;
     transition: var(--transition-2);
 }
@@ -1097,19 +1097,57 @@ main {
 }
 
 .skills-button {
-    border: 1px solid var(--vegas-gold);
-    border-radius: 10px;
-    padding: 5px;
-    width: 50%;
-    margin-top: 10px;
-    text-align: center;
-    font-weight: bold;
-    background-color: var(--text-gradient-custom);
-    color: #fff;
-    cursor: pointer;
-    display: block;
     margin-left: auto;
     margin-right: auto;
+    position: relative;
+    width: 100%;
+    background: var(--border-gradient-onyx);
+    color: var(--orange-yellow-crayola);
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    padding: 13px 20px;
+    border-radius: 14px;
+    font-size: var(--fs-6);
+    text-transform: capitalize;
+    box-shadow: var(--shadow-3);
+    z-index: 1;
+    transition: var(--transition-1);
+}
+
+.skills-button::before {
+    content: "";
+    position: absolute;
+    inset: 1px;
+    background: var(--bg-gradient-jet);
+    border-radius: inherit;
+    z-index: -1;
+    transition: var(--transition-1);
+}
+
+.skills-button ion-icon {
+    font-size: 16px;
+}
+
+.skills-button:hover {
+    background: var(--bg-gradient-yellow-1);
+}
+
+.skills-button:hover::before {
+    background: var(--bg-gradient-yellow-2);
+}
+
+.skills-button:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+}
+
+.skills-button:disabled:hover {
+    background: var(--border-gradient-onyx);
+}
+
+.skills-button:disabled:hover::before {
+    background: var(--bg-gradient-jet);
 }
 
 /*-----------------------------------*\
@@ -2062,12 +2100,14 @@ textarea.form-input::-webkit-resizer {
         margin-bottom: 30px;
     }
 
-    .form-btn {
+    .form-btn,
+    .skills-button {
         --fs-6: 16px;
         padding: 16px 20px;
     }
 
-    .form-btn ion-icon {
+    .form-btn,
+    .skills-button ion-icon {
         font-size: 18px;
     }
 }
@@ -2165,7 +2205,8 @@ textarea.form-input::-webkit-resizer {
         grid-template-columns: 1fr 1fr;
     }
 
-    .form-btn {
+    .form-btn,
+    .skills-button {
         width: max-content;
         margin-left: auto;
     }
