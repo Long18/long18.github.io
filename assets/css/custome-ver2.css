@@ -378,6 +378,15 @@ main {
     margin-bottom: 10px;
 }
 
+.info-content .realname {
+    color: var(--light-gray);
+    font-size: var(--fs-8);
+    font-weight: var(--fw-300);
+    letter-spacing: 0.5px;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+}
+
 .info-content .title {
     color: var(--white-1);
     background: var(--onyx);
