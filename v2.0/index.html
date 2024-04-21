@@ -1576,17 +1576,21 @@
 
           <h3 class="h3 form-title">Contact Form</h3>
 
-          <form action="#" class="form" data-form>
+          <form action="php/contact.php" method="post" id="contactForm" data-toggle="valiator" class="form contactForm"
+            data-form>
 
             <div class="input-wrapper">
-              <input type="text" name="fullname" class="form-input" placeholder="Full name" required data-form-input>
+              <input type="text" name="name" class="form-input" placeholder="Full name*" required data-form-input>
 
-              <input type="email" name="email" class="form-input" placeholder="Email address" required data-form-input>
+              <input type="email" name="email" class="form-input" placeholder="Email address*" required data-form-input>
+              <input type="text" name="subject" class="form-input" placeholder="Your Subject.." required
+                data-form-input>
             </div>
 
-            <textarea name="message" class="form-input" placeholder="Your Message" required data-form-input></textarea>
+            <textarea name="comments" rows="4" class="form-input" placeholder="Your Message.." required
+              data-form-input></textarea>
 
-            <button class="form-btn" type="submit" disabled data-form-btn>
+            <button class="form-btn submitBnt" type="submit" disabled data-form-btn>
               <ion-icon name="paper-plane"></ion-icon>
               <span>Send Message</span>
             </button>
@@ -1594,16 +1598,11 @@
           </form>
 
         </section>
-
       </article>
 
     </div>
 
   </main>
-
-
-
-
 
 
   <!--
@@ -1616,6 +1615,8 @@
   -->
   <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
   <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+
+  <script src="../assets/js/contact.js"></script>
 
 </body>
 
