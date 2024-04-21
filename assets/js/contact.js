@@ -68,7 +68,6 @@ function sendEmail(name, email, subject, message) {
         Subject: `${subject}`,
         Body: `Name: ${name}, <br/> Email: ${email}, <br/> Message: ${message}`
 
-    }).then($("#contactForm [type=submit]").text("Send")
-    ).then((message) => alert("Your email has been sent."));
+    }).then($("#contactForm [type=submit]").text("Send")).then((message) => alert("Your email has been sent. But I can receive it. Please contect me as my email is not secure."));
 }
 //end form submit handler
