@@ -253,3 +253,18 @@ function expandVideo(clickedVideo) {
   };
   overlay.appendChild(expandedVideo);
 }
+
+var skillsButton = document.getElementById("skills-button");
+// when user click, active pages = "resume"
+skillsButton.addEventListener("click", function () {
+  for (let i = 0; i < pages.length; i++) {
+    if (pages[i].dataset.page === "resume") {
+      pages[i].classList.add("active");
+      navigationLinks[i].classList.add("active");
+      window.scrollTo(0, document.getElementById("skills").offsetTop);
+    } else {
+      pages[i].classList.remove("active");
+      navigationLinks[i].classList.remove("active");
+    }
+  }
+})

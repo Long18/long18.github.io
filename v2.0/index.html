@@ -57,11 +57,12 @@
         </figure>
 
         <div class="info-content">
-          <h1 class="name" title="William">William</h1>
           <h1 class="realname" title="Lê Nguyễn Thành Long">Lê Nguyễn Thành Long</h1>
+          <h1 class="name" title="William">William</h1>
 
           <p class="title">Game Developer</p>
         </div>
+
 
         <button class="info_more-btn" data-sidebar-btn>
           <span>Show Contacts</span>
@@ -265,7 +266,7 @@
               </div>
 
               <div class="service-content-box">
-                <h4 class="h4 service-item-title">Unity Development</h4>
+                <h4 class="h4 service-item-title unity-tag">Unity Development</h4>
               </div>
 
             </li>
@@ -279,7 +280,20 @@
               </div>
 
               <div class="service-content-box">
-                <h4 class="h4 service-item-title">Unreal development</h4>
+                <h4 class="h4 service-item-title unreal-tag">Unreal development</h4>
+              </div>
+
+            </li>
+            <li class="service-item">
+
+              <div class="service-icon-box">
+                <img
+                  src="https://github.com/Long18/long18.github.io/assets/28853225/5bdf960a-bfe1-499e-b4e2-fb9fa0e19af2"
+                  alt="Unreal Developer" width="35">
+              </div>
+
+              <div class="service-content-box">
+                <h4 class="h4 service-item-title application-tag">Application development</h4>
               </div>
 
             </li>
@@ -289,6 +303,49 @@
 
         </section>
 
+        <section class="main-skill">
+          <header>
+            <h2 class="h2 article-title">Main Skill</h2>
+          </header>
+
+          <div class="skills-categories">
+
+            <div class="skills-category">
+              <h4 class="h4 skills-header">Language</h4>
+              <ul class="skills-list">
+                <li class="skills-item">C#</li>
+                <li class="skills-item">...</li>
+              </ul>
+            </div>
+
+            <div class="skills-category">
+              <h4 class="h4 skills-header">Principle</h4>
+              <ul class="skills-list">
+                <li class="skills-item">SOLID</li>
+                <li class="skills-item">...</li>
+              </ul>
+            </div>
+
+            <div class="skills-category">
+              <h4 class="h4 skills-header">DevOps</h4>
+              <ul class="skills-list">
+                <li class="skills-item">Github Action</li>
+                <li class="skills-item">Jenkins</li>
+              </ul>
+            </div>
+
+            <div class="skills-category">
+              <h4 class="h4 skills-header">Tools</h4>
+              <ul class="skills-list">
+                <li class="skills-item">Jira</li>
+                <li class="skills-item">...</li>
+              </ul>
+            </div>
+
+          </div>
+
+          <button class="skills-button" id="skills-button">See more</button>
+        </section>
 
         <!--
           - testimonials
@@ -452,35 +509,6 @@
               <ion-icon name="book-outline"></ion-icon>
             </div>
 
-            <h3 class="h3">Education</h3>
-          </div>
-
-          <ol class="timeline-list">
-
-            <li class="timeline-item">
-
-              <h4 class="h4 timeline-item-title">HO CHI MINH CITY UNIVERSITY OF TECHNOLOGY - HUTECH</h4>
-
-              <span>2018 — 2023</span>
-
-              <p class="timeline-text">
-                Engineer's degree - Infomation Technology
-              </p>
-
-            </li>
-            <li class="timeline-description"></li>
-
-          </ol>
-
-        </section>
-
-        <section class="timeline">
-
-          <div class="title-wrapper">
-            <div class="icon-box">
-              <ion-icon name="book-outline"></ion-icon>
-            </div>
-
             <h3 class="h3">Experience</h3>
           </div>
 
@@ -539,7 +567,35 @@
 
         </section>
 
-        <section class="skill">
+        <section class="timeline">
+
+          <div class="title-wrapper">
+            <div class="icon-box">
+              <ion-icon name="book-outline"></ion-icon>
+            </div>
+
+            <h3 class="h3">Education</h3>
+          </div>
+
+          <ol class="timeline-list">
+
+            <li class="timeline-item">
+
+              <h4 class="h4 timeline-item-title">HO CHI MINH CITY UNIVERSITY OF TECHNOLOGY - HUTECH</h4>
+
+              <span>2018 — 2023</span>
+
+              <p class="timeline-text">
+                Engineer's degree - Infomation Technology
+              </p>
+
+            </li>
+            <li class="timeline-description"></li>
+
+          </ol>
+
+        </section>
+        <section class="skill" id="skills">
 
           <header>
             <h2 class="h2 article-title">My Skills</h2>
@@ -549,12 +605,12 @@
             <div class="skills-category">
               <h4 class="h4 skills-header">Language</h4>
               <ul class="skills-list">
-                <li class="skills-item">Modern C/C++</li>
                 <li class="skills-item">C#</li>
+                <li class="skills-item">Modern C/C++</li>
                 <li class="skills-item">Java</li>
-                <li class="skills-item">Lua</li>
                 <li class="skills-item">PHP</li>
                 <li class="skills-item">JavaScript</li>
+                <li class="skills-item">Lua</li>
                 <li class="skills-item">TypeScript</li>
               </ul>
             </div>
@@ -699,7 +755,9 @@
 
                 <h3 class="project-title" data-detail-category="metameAmusementPark">Metame Amusement Park</h3>
 
-                <p class="project-category">Unreal Engine</p>
+                <div class="unreal-icon">
+                  <p class="project-category tag">Unreal Engine</p>
+                </div>
 
               </a>
             </li>
@@ -718,7 +776,9 @@
 
                 <h3 class="project-title" data-detail-category="cryptoquest">Crypto Quest</h3>
 
-                <p class="project-category">Unity</p>
+                <div class="unity-icon">
+                  <p class="project-category tag">Unity</p>
+                </div>
 
               </a>
             </li>
@@ -737,7 +797,9 @@
 
                 <h3 class="project-title" data-detail-category="fireFireFire">Fire Fire Fire</h3>
 
-                <p class="project-category">Unity</p>
+                <div class="unity-icon">
+                  <p class="project-category tag">Unity</p>
+                </div>
 
               </a>
             </li>
@@ -756,7 +818,9 @@
 
                 <h3 class="project-title" data-detail-category="rpgRun">The Brave</h3>
 
-                <p class="project-category">Unity</p>
+                <div class="unity-icon">
+                  <p class="project-category tag">Unity</p>
+                </div>
 
               </a>
             </li>
@@ -775,7 +839,9 @@
 
                 <h3 class="project-title" data-detail-category="betakuma">Betakuma - Super Avoidance</h3>
 
-                <p class="project-category">Unity</p>
+                <div class="unity-icon">
+                  <p class="project-category tag">Unity</p>
+                </div>
 
               </a>
             </li>
@@ -794,7 +860,9 @@
 
                 <h3 class="project-title" data-detail-category="mugenHorror">Mugen Horror</h3>
 
-                <p class="project-category">Unity</p>
+                <div class="unity-icon">
+                  <p class="project-category tag">Unity</p>
+                </div>
 
               </a>
             </li>
@@ -813,7 +881,9 @@
 
                 <h3 class="project-title" data-detail-category="matchingCasino">Matching Casino - Baccarat</h3>
 
-                <p class="project-category">Unity</p>
+                <div class="unity-icon">
+                  <p class="project-category tag">Unity</p>
+                </div>
 
               </a>
             </li>
@@ -832,7 +902,9 @@
 
                 <h3 class="project-title" data-detail-category="pinoRacing">Pino Racing</h3>
 
-                <p class="project-category">Unity</p>
+                <div class="unity-icon">
+                  <p class="project-category tag">Unity</p>
+                </div>
 
               </a>
             </li>
@@ -851,7 +923,9 @@
 
                 <h3 class="project-title" data-detail-category="batteryManRun">Battery Man Run</h3>
 
-                <p class="project-category">Unreal Engine</p>
+                <div class="unreal-icon">
+                  <p class="project-category tag">Unreal Engine</p>
+                </div>
 
               </a>
             </li>
@@ -870,7 +944,9 @@
 
                 <h3 class="project-title" data-detail-category="boomBang">Boom Bang</h3>
 
-                <p class="project-category">Android Studio</p>
+                <div class="application-icon">
+                  <p class="project-category tag">Android Studio</p>
+                </div>
 
               </a>
             </li>
@@ -889,7 +965,9 @@
 
                 <h3 class="project-title" data-detail-category="hutingAnimal">Huting Animal</h3>
 
-                <p class="project-category">Unity</p>
+                <div class="unity-icon">
+                  <p class="project-category tag">Unity</p>
+                </div>
               </a>
             </li>
             <li class="project-item  active" data-filter-item data-category="unity">
@@ -907,7 +985,9 @@
 
                 <h3 class="project-title" data-detail-category="toiletTapTap">Toilet Tap Tap</h3>
 
-                <p class="project-category">Unity</p>
+                <div class="unity-icon">
+                  <p class="project-category tag">Unity</p>
+                </div>
               </a>
             </li>
             <li class="project-item  active" data-filter-item data-category="unity">
@@ -925,7 +1005,9 @@
 
                 <h3 class="project-title" data-detail-category="doggyMovement">Doggy Movement</h3>
 
-                <p class="project-category">Unity</p>
+                <div class="unity-icon">
+                  <p class="project-category tag">Unity</p>
+                </div>
               </a>
             </li>
             <li class="project-item  active" data-filter-item data-category="unity">
@@ -943,7 +1025,9 @@
 
                 <h3 class="project-title" data-detail-category="homeWithGrandma">Home With Grandma</h3>
 
-                <p class="project-category">Unity</p>
+                <div class="unity-icon">
+                  <p class="project-category tag">Unity</p>
+                </div>
               </a>
             </li>
             <li class="project-item  active" data-filter-item data-category="applications">
@@ -961,7 +1045,9 @@
 
                 <h3 class="project-title" data-detail-category="ffats">FFATS</h3>
 
-                <p class="project-category">Android Studio</p>
+                <div class="application-icon">
+                  <p class="project-category tag">Android Studio</p>
+                </div>
               </a>
             </li>
             <li class="project-item  active" data-filter-item data-category="applications">
@@ -979,7 +1065,9 @@
 
                 <h3 class="project-title" data-detail-category="fitnessCare">Fitness Care</h3>
 
-                <p class="project-category">Android Studio</p>
+                <div class="application-icon">
+                  <p class="project-category tag">Android Studio</p>
+                </div>
               </a>
             </li>
 
