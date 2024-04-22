@@ -105,6 +105,32 @@
 }
 
 /*-----------------------------------*\
+  #BACK VERSION
+\*-----------------------------------*/
+
+.old-version {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    padding: 10px 20px;
+    background: var(--bg-gradient-jet);
+    color: var(--white-2);
+    font-size: var(--fs-4);
+    box-shadow: var(--shadow-3);
+    border: 1px solid var(--jet);
+    border-radius: 14px;
+    gap: 10px;
+    cursor: pointer;
+    z-index: 999;
+    transition: var(--transition-1);
+}
+
+.old-version:hover {
+    background: var(--bg-gradient-onyx);
+    color: var(--orange-yellow-crayola);
+}
+
+/*-----------------------------------*\
   #TAGS
 \*-----------------------------------*/
 
