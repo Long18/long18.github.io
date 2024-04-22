@@ -279,5 +279,5 @@ skillsButton.addEventListener("click", function () {
 
 var backToOldVersion = document.getElementById("old-version-button");
 backToOldVersion.addEventListener("click", function () {
-  window.location.href = "https://long18.github.io/v1.0";
+  window.location.href = "../v1.0";
 })
