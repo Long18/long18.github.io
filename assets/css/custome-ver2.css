@@ -1107,6 +1107,13 @@ main {
     margin-bottom: 30px;
 }
 
+@media screen and (max-width: 765px) and (min-width: 10px) {
+    .main-skills {
+        flex-direction: column;
+        align-items: center;
+    }
+}
+
 .main-skills>.skills-categories {
     flex: 2;
     display: flex;
