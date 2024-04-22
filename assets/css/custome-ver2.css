@@ -109,20 +109,22 @@
 \*-----------------------------------*/
 
 .old-version {
-    position: fixed;
-    top: 20px;
-    right: 20px;
-    padding: 10px 20px;
-    background: var(--bg-gradient-jet);
-    color: var(--white-2);
-    font-size: var(--fs-4);
-    box-shadow: var(--shadow-3);
-    border: 1px solid var(--jet);
-    border-radius: 14px;
+    position: initial;
+    background: var(--border-gradient-onyx);
+    color: var(--orange-yellow-crayola);
+    display: flex;
+    justify-content: center;
+    align-items: center;
     gap: 10px;
-    cursor: pointer;
-    z-index: 999;
+    padding: 13px 20px;
+    border-radius: 14px;
+    font-size: var(--fs-6);
+    text-transform: capitalize;
+    box-shadow: var(--shadow-3);
+    z-index: 1;
     transition: var(--transition-1);
+    margin: 0 auto;
+    cursor: crosshair;
 }
 
 .old-version:hover {
@@ -502,7 +504,7 @@ main {
 }
 
 .sidebar.active {
-    max-height: 405px;
+    max-height: 525px;
 }
 
 .sidebar-info {
@@ -1012,6 +1014,10 @@ main {
     position: relative;
 }
 
+.timeline-item span {
+    white-space: nowrap;
+}
+
 .timeline-item:not(:last-child) {
     margin-bottom: 20px;
 }
@@ -1038,6 +1044,13 @@ main {
     margin-top: 18px;
     margin-bottom: -4px;
     color: var(--vegas-gold);
+}
+
+.timeline-item-responsibility::before {
+    content: "•";
+    color: var(--text-gradient-yellow);
+    padding-right: 6px;
+    margin-left: -12px;
 }
 
 .timeline-list span {
@@ -1978,7 +1991,7 @@ textarea.form-input::-webkit-resizer {
     }
 
     .sidebar.active {
-        max-height: 584px;
+        max-height: 700px;
     }
 
     .sidebar-info {
