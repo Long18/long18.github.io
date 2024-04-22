@@ -60,6 +60,7 @@ const selectValue = document.querySelector("[data-select-value]");
 const filterBtn = document.querySelectorAll("[data-filter-btn]");
 const removeActive = document.querySelectorAll("[data-deactive-item]");
 const projectDetail = document.querySelectorAll("[project-detail]");
+const buttonBack = document.getElementById("portfolio-back-button");
 
 // if data-detail-category clicked, remove active at data-deactive-item contain data-select-item same type
 for (let i = 0; i < selectDetailItems.length; i++) {
@@ -71,6 +72,7 @@ for (let i = 0; i < selectDetailItems.length; i++) {
     for (let j = 0; j < projectDetail.length; j++) {
       if (projectDetail[j].dataset.detailCategory === selectedType) {
         projectDetail[j].classList.add("active");
+        buttonBack.classList.remove("disabled-btn");
       } else {
         projectDetail[j].classList.remove("active");
       }
@@ -78,6 +80,12 @@ for (let i = 0; i < selectDetailItems.length; i++) {
 
   });
 }
+
+buttonBack.addEventListener("click", function () {
+  window.scrollTo(0, 0);
+  filterFunc("all");
+  buttonBack.classList.add("disabled-btn");
+})
 
 let clickEventAdded = false;
 
