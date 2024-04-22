@@ -1,0 +1,29 @@
+{
+  "name": "long18.github.io",
+  "version": "2.0.0",
+  "description": "Website Personal (Portfolio)",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "release": "standard-version"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Long18/long18.github.io.git"
+  },
+  "keywords": [
+    "website",
+    "protfolio",
+    "cv",
+    "resume"
+  ],
+  "author": "Long18",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Long18/long18.github.io/issues"
+  },
+  "homepage": "https://github.com/Long18/long18.github.io#readme",
+  "devDependencies": {
+    "standard-version": "^9.5.0"
+  }
+}
