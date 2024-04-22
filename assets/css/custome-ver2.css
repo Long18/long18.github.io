@@ -1073,6 +1073,46 @@ main {
  * skills 
  */
 
+.main-skills {
+    display: flex;
+    border: 1px solid var(--vegas-gold);
+    border-radius: 20px;
+    padding: 20px;
+    margin-bottom: 30px;
+}
+
+.main-skills>.skills-categories {
+    flex: 2;
+    display: flex;
+    flex-direction: row;
+}
+
+.main-skills>.skills-box-separator {
+    flex: 0.01;
+}
+
+.main-skills>button {
+    flex: 1;
+    align-self: center;
+}
+
+.skills-box-separator {
+    width: 1px;
+    background: var(--vegas-gold);
+    border-radius: 30px;
+    margin: 10px;
+}
+
+.main-skills .skills-item {
+    white-space: nowrap;
+    border: 0px;
+}
+
+.main-skills .skills-list {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+}
+
 .skills-title {
     margin-bottom: 20px;
 }
