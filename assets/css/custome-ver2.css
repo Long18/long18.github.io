@@ -1049,6 +1049,15 @@ main {
     padding-left: 5px;
 }
 
+.timeline-text>li {
+    content: "▹";
+    position: relative;
+}
+
+.description::before {
+    content: "▹";
+}
+
 .timeline-description {
     position: relative;
     color: var(--vegas-gold);
