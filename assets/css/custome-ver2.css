@@ -58,10 +58,12 @@
     --light-gray: hsl(0, 0%, 84%);
     --light-gray-70: hsla(0, 0%, 84%, 0.7);
     --bittersweet-shimmer: hsl(0, 43%, 51%);
+    --green-jade: hsl(159, 82%, 22%);
+    --green-teal: hsl(118, 32%, 60%);
 
-    --unity-tag: #5BC3EB;
-    --unreal-tag: #6cae48;
-    --application-tag: #DB5A42;
+    --unity-tag: hsl(197, 78%, 64%);
+    --unreal-tag: hsl(99, 41%, 48%);
+    --application-tag: hsl(9, 68%, 56%);
 
     /**
    * typography
@@ -1005,6 +1007,12 @@ main {
     margin-bottom: 25px;
 }
 
+.timeline .title-wrapper .h3 {
+    color: var(--green-teal);
+    line-height: 1.2;
+    font-size: var(--fs-1);
+}
+
 .timeline-list {
     font-size: var(--fs-6);
     margin-left: 45px;
@@ -1028,14 +1036,14 @@ main {
 }
 
 .timeline-item-title {
-    font-size: var(--fs-6);
-    line-height: 1.3;
+    color: var(--vegas-gold);
+    line-height: 1.2;
     margin-bottom: 7px;
 }
 
 .timeline-item-position {
+    font-size: var(--fs-6);
     line-height: 1.2;
-    color: var(--vegas-gold);
     margin-bottom: 7px;
 }
 
@@ -1043,7 +1051,7 @@ main {
     font-size: var(--fs-9);
     margin-top: 18px;
     margin-bottom: -4px;
-    color: var(--vegas-gold);
+    color: #F6E9B2;
 }
 
 .timeline-item-responsibility::before {
@@ -1054,7 +1062,7 @@ main {
 }
 
 .timeline-list span {
-    color: var(--vegas-gold);
+    color: #F6E9B2;
     font-weight: var(--fw-400);
     line-height: 1.6;
 }
@@ -1099,7 +1107,7 @@ main {
 
 .timeline-description {
     position: relative;
-    color: var(--vegas-gold);
+    color: var(--green-teal);
     padding-bottom: 5px;
 }
 
