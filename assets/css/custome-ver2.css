@@ -233,6 +233,25 @@
     white-space: nowrap;
 }
 
+.chplay-icon {
+    display: absolute;
+    width: 25px;
+    height: 25px;
+    padding-left: 20px;
+    margin-top: 10px;
+    background-image: url("https://github.com/user-attachments/assets/abd4956b-d1d7-4a0e-be04-e0e8e67f6548");
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: top;
+}
+
+.chplay-icon .tag {
+    color: var(--green-teal);
+    font-size: var(--fs-7);
+    font-weight: var(--fw-600);
+    white-space: nowrap;
+}
+
 .application-icon {
     display: inline-block;
     width: 20px;

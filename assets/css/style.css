@@ -1182,13 +1182,12 @@ main {
 
 .project-download-count {
   position: absolute;
-  bottom: 10px;
-  right: 10px;
+  margin-left: 10px;
   background-color: var(--onyx);
   color: var(--white-2);
   padding: 5px 10px;
-  border-radius: 5px;
-  font-size: 14px;
+  border-radius: 7px;
+  font-size: var(--fs-6);
   z-index: 10;
 }
 
