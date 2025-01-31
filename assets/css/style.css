@@ -1180,9 +1180,17 @@ main {
   font-weight: var(--fw-300);
 }
 
-
-
-
+.project-download-count {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  background-color: var(--onyx);
+  color: var(--white-2);
+  padding: 5px 10px;
+  border-radius: 5px;
+  font-size: 14px;
+  z-index: 10;
+}
 
 /*-----------------------------------*\
   #BLOG
@@ -2043,8 +2051,6 @@ textarea.form-input::-webkit-resizer {
   .project-list {
     grid-template-columns: repeat(3, 1fr);
   }
-
-
 
   /**
    * BLOG
