@@ -20,12 +20,7 @@ async function fetchDownloadCount(projectItem) {
         console.log("apiUrl: ", apiUrl);
 
         const proxyUrl = "https://portfolio.thanhlong-worker.workers.dev/?url=";
-        const response = await fetch(proxyUrl + apiUrl, {
-            headers: {
-                'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.3',
-                'Accept': 'application/json'
-            }
-        });
+        const response = await fetch(proxyUrl + apiUrl);
 
         if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
 
