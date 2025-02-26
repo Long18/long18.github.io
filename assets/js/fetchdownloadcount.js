@@ -6,35 +6,48 @@ function fetchDownloadCounts() {
 }
 
 async function fetchDownloadCount(projectItem) {
-    let downloadCountElement;
+    const downloadCountElementAndroid = projectItem.querySelector('.project-download-count-android');
+    const downloadCountElementIos = projectItem.querySelector('.project-download-count-ios');
+    const apiUrlAndroid = projectItem.getAttribute('data-api-url-android');
+    const apiUrlIos = projectItem.getAttribute('data-api-url-ios');
+
+    if (!apiUrlAndroid && !apiUrlIos) {
+        console.log('No API URLs provided');
+        return;
+    }
 
     try {
-        const apiUrl = projectItem.getAttribute('data-api-url');
-        downloadCountElement = projectItem.querySelector('.project-download-count');
-
-        if (!apiUrl || !downloadCountElement) {
-            console.log('Missing API URL or download count element');
-            return;
+        const proxyUrl = "https://portfolio.thanhlong-worker.workers.dev/?url=";
+        const fetchPromises = [];
+        if (apiUrlAndroid) {
+            fetchPromises.push(fetch(proxyUrl + apiUrlAndroid));
+        }
+        if (apiUrlIos) {
+            fetchPromises.push(fetch(proxyUrl + apiUrlIos));
         }
 
-        console.log("apiUrl: ", apiUrl);
+        const responses = await Promise.all(fetchPromises);
 
-        const proxyUrl = "https://portfolio.thanhlong-worker.workers.dev/?url=";
-        const response = await fetch(proxyUrl + apiUrl);
+        responses.forEach(async (response, index) => {
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
 
-        if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
-
-
-        const data = await response.json();
-        console.log('API Response:', data);
-
-        const installs = data.installs ? data.installs : 'N/A';
-        downloadCountElement.textContent = `${installs} downloads`;
+            const data = await response.json();
+            if (index === 0 && apiUrlAndroid) {
+                downloadCountElementAndroid.textContent = `${data.installs || 'N/A'} downloads`;
+            } else if (index === 1 && apiUrlIos) {
+                downloadCountElementIos.textContent = `${data.installs || 'N/A'} downloads`;
+            }
+        });
 
     } catch (error) {
         console.error("Error while fetching download count:", error);
-        if (downloadCountElement) {
-            downloadCountElement.textContent = "...";
+        if (apiUrlAndroid) {
+            downloadCountElementAndroid.textContent = "...";
+        }
+        if (apiUrlIos) {
+            downloadCountElementIos.textContent = "...";
         }
     }
 }
