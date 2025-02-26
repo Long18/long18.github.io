@@ -1180,7 +1180,18 @@ main {
   font-weight: var(--fw-300);
 }
 
-.project-download-count {
+.project-download-count-android {
+  position: absolute;
+  margin-left: 10px;
+  background-color: var(--onyx);
+  color: var(--white-2);
+  padding: 5px 10px;
+  border-radius: 7px;
+  font-size: var(--fs-6);
+  z-index: 10;
+}
+
+.project-download-count-ios {
   position: absolute;
   margin-left: 10px;
   background-color: var(--onyx);
