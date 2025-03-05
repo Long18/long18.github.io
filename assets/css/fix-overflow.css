@@ -1,0 +1,87 @@
+/* Fix for container overflow issues */
+
+/* General overflow fixes */
+* {
+  box-sizing: border-box;
+  max-width: 100%;
+}
+
+img, video, iframe {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Fix service section overflow */
+.service {
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 90%;
+}
+
+@media (max-width: 580px) {
+  .service {
+    margin-left: 10px;
+    margin-right: 10px;
+  }
+  
+  .service-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 15px;
+  }
+  
+  .service-item {
+    width: 100%;
+    max-width: 280px;
+  }
+}
+
+/* Project detail fixes */
+.project-list {
+  overflow: hidden;
+}
+
+.project-item {
+  overflow: hidden;
+}
+
+.timeline-list {
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+}
+
+/* Fix title wrapper in project details */
+.title-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  flex-wrap: wrap;
+}
+
+.title-wrapper h3 {
+  width: calc(100% - 50px);
+  word-break: break-word;
+}
+
+/* Fix for nested containers */
+.timeline.project-item {
+  overflow: visible;
+}
+
+/* Contact form responsiveness */
+.input-wrapper {
+  width: 100%;
+}
+
+@media (max-width: 767px) {
+  .input-wrapper {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Fix for modal content overflow */
+.testimonials-modal {
+  max-height: 80vh;
+  overflow-y: auto;
+}
