@@ -5,9 +5,9 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Lê Nguyễn Thành Long</title>
-  <meta name="description" content="Lê Nguyễn Thành Long" />
+  <meta name="description" content="Game Developer specializing in Unity and Unreal Engine development. Portfolio of Lê Nguyễn Thành Long (William)" />
   <meta name="keywords"
-    content="blog,creative,cv theme, online resume, personal,professional cv,resume, resume theme" />
+    content="game developer, unity, unreal engine, portfolio, resume, game programming, software engineer" />
   <meta name="theme-color" content="#000">
   <meta property="og:title" content="Lê Nguyễn Thành Long || William - Introduce" />
   <meta property="og:type" content="website">
@@ -37,8 +37,15 @@
 </head>
 
 <body>
+  <!-- Add loading overlay for better UX -->
+  <div class="loading-overlay" id="loading-overlay">
+    <div class="loading-spinner"></div>
+  </div>
+  
+  <!-- Add accessibility skip link -->
+  <a href="#main-content" class="skip-link">Skip to main content</a>
   <button class="portfolio-back disabled-btn" id="portfolio-back-button" title="Click here to go back">
-    <ion-icon name="arrow-up" title="Click here to go back"></ion-icon>
+    <ion-icon name="arrow-up" aria-label="Go back"></ion-icon>
   </button>
   <!--
     - #MAIN
@@ -192,7 +199,7 @@
       - #main-content
     -->
 
-    <div class="main-content">
+    <div class="main-content" id="main-content">
 
       <!--
         - #NAVBAR
@@ -1517,7 +1524,7 @@
                 </div>
 
               </a>
-              <a class="service-item" href="https://apps.apple.com/vn/app/heroic-defense/id6742034673">
+              <a class="service-item" href="https://apps.apple.com/app/heroic-defense/id6742034673">
                 <div class="service-icon-box">
                   <img src="assets/images/AppStore-Icons.svg" alt="Playing Heroic Defense" width="40" />
                 </div>
@@ -2244,7 +2251,8 @@
                   <p class="timeline-text description">
                     Successfully delivered the CryptoQuest project to the client, meeting all requirements and
                     milestones
-                    within the specified timeline.</p>
+                    within the specified timeline.
+                  </p>
                 </li>
                 <li class="timeline-description">
                   <p class="timeline-text description">
@@ -4958,30 +4966,21 @@
         </section>
 
         <section class="contact-form">
-
           <h3 class="h3 form-title">Contact Form</h3>
-
-          <form action="php/contact.php" method="post" id="contactForm" data-toggle="valiator" class="form contactForm"
-            data-form>
-
+          <form action="php/contact.php" method="post" id="contactForm" data-toggle="valiator" class="form contactForm" data-form>
             <div class="input-wrapper">
-              <input type="text" name="name" class="form-input" placeholder="Full name*" required data-form-input>
-
-              <input type="email" name="email" class="form-input" placeholder="Email address*" required data-form-input>
-              <input type="text" name="subject" class="form-input" placeholder="Your Subject.." required
-                data-form-input>
+              <!-- Add more form fields if needed -->
+              <input type="text" name="name" class="form-input" placeholder="Full name" required data-form-input>
+              <input type="email" name="email" class="form-input" placeholder="Email address" required data-form-input>
             </div>
-
-            <textarea name="comments" rows="4" class="form-input" placeholder="Your Message.." required
-              data-form-input></textarea>
-
+            
+            <textarea name="comments" rows="4" class="form-input" placeholder="Your Message.." required data-form-input></textarea>
+            
             <button class="form-btn submitBnt" type="submit" disabled data-form-btn>
               <ion-icon name="paper-plane"></ion-icon>
               <span>Send Message</span>
             </button>
-
           </form>
-
         </section>
       </article>
 
