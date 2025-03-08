@@ -1,0 +1,593 @@
+/*-----------------------------------*\
+  #MODERN-ENHANCEMENTS.CSS
+  Created for UI/UX improvements while respecting the original design
+\*-----------------------------------*/
+
+/* Smooth scrolling for better navigation experience */
+html {
+  scroll-behavior: smooth;
+}
+
+/* CSS Variables for contrast control */
+:root {
+  --button-gradient-dark: linear-gradient(135deg, var(--orange-yellow-crayola), var(--vegas-gold));
+  --button-gradient-light: linear-gradient(135deg, hsl(35, 100%, 60%), hsl(30, 100%, 55%));
+  --button-text-color-dark: var(--orange-yellow-crayola);
+  --button-text-color-light: var(--orange-yellow-crayola);
+  --text-shadow-dark: 0 1px 2px rgba(0, 0, 0, 0.5);
+  --text-shadow-light: 0 1px 2px rgba(0, 0, 0, 0.2);
+  --button-contrast-outline: rgba(255, 255, 255, 0.25);
+}
+
+/* Improved focus states for accessibility with rounded outlines */
+a:focus, button:focus, input:focus, textarea:focus, [tabindex]:focus {
+  outline: 3px solid var(--orange-yellow-crayola);
+  outline-offset: 2px;
+  border-radius: 8px;
+}
+
+/* Modern button styling with subtle hover effects and improved contrast */
+.btn, button:not(.info_more-btn):not(.filter-item button) {
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, border 0.3s ease;
+  color: var(--button-text-color-dark);
+  text-shadow: var(--text-shadow-dark);
+  font-weight: 500;
+}
+
+.btn:hover, button:not(.info_more-btn):not(.filter-item button):hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-2);
+}
+
+.btn:active, button:not(.info_more-btn):not(.filter-item button):active {
+  transform: translateY(0);
+}
+
+/* Gradient buttons with improved contrast */
+.btn-primary, .form-btn {
+  background: var(--button-gradient-dark);
+  color: var(--button-text-color-dark);
+  text-shadow: var(--text-shadow-dark);
+}
+
+/* Ensure readability of text on gradient backgrounds */
+.has-before[data-nav-link], .timeline-text {
+  font-weight: 500; /* Slightly bolder text for better contrast */
+}
+
+/* Add a subtle hover effect for links */
+a:not(.btn):not(.service-item):not(.project-img) {
+  transition: color 0.3s ease;
+}
+
+a:not(.btn):not(.service-item):not(.project-img):hover {
+  color: var(--orange-yellow-crayola);
+}
+
+/* Improved card hover effects */
+.service-item, .timeline-item, .project-item {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.service-item:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--shadow-3);
+}
+
+/* Image hover effects */
+.project-img {
+  transition: transform 0.3s ease;
+  overflow: hidden;
+}
+
+.project-img img {
+  transition: transform 0.5s ease;
+}
+
+.project-img:hover img {
+  transform: scale(1.05);
+}
+
+/* Improved icon animations */
+.icon-box {
+  transition: transform 0.3s ease, background 0.3s ease;
+}
+
+.icon-box:hover {
+  transform: scale(1.1);
+}
+
+/* Add subtle transitions to sidebar elements */
+.sidebar-info, .contacts-list, .social-list {
+  transition: opacity 0.3s ease;
+}
+
+/* Add borders to navbar buttons */
+.navbar-link {
+  padding: 15px 18px;
+  transition: all 0.3s ease-in-out;
+  overflow: hidden;
+  position: relative;
+}
+
+.navbar-link:hover,
+.navbar-link.active {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-2);
+}
+
+/* Floating button styles */
+.button-floating {
+  position: fixed;
+  z-index: 9999; /* Ensure buttons are always on top */
+  padding: 10px;
+  border-radius: 50%;
+  box-shadow: var(--shadow-3);
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Theme toggle button - positioned at top-right corner */
+.theme-toggle {
+  top: 15px;
+  right: 15px;
+  width: 40px;
+  height: 40px;
+  background: var(--bg-gradient-jet);
+  color: var(--orange-yellow-crayola);
+  z-index: 10000; /* Higher z-index to stay on top */
+  box-shadow: var(--shadow-2);
+  transition: transform 0.3s ease, background 0.3s ease, box-shadow 0.3s ease;
+}
+
+.theme-toggle:hover {
+  transform: scale(1.1);
+  box-shadow: var(--shadow-5);
+}
+
+/* Back button styles - only visible when viewing project details */
+#portfolio-back-button {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background: var(--bg-gradient-onyx);
+  color: var(--orange-yellow-crayola);
+  width: 45px;
+  height: 45px;
+  z-index: 9999;
+  opacity: 0;
+  visibility: hidden; /* Hidden by default */
+  transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out, transform 0.3s, box-shadow 0.3s;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: var(--shadow-2);
+  border: 2px solid var(--orange-yellow-crayola);
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+#portfolio-back-button.hidden {
+  opacity: 0;
+  visibility: hidden;
+}
+
+#portfolio-back-button:not(.hidden) {
+  opacity: 1;
+  visibility: visible;
+}
+
+#portfolio-back-button:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-3);
+}
+
+#portfolio-back-button:active {
+  transform: translateY(0);
+  box-shadow: var(--shadow-1);
+}
+
+/* Light mode styles */
+.light-mode {
+  /**
+   * colors
+   */
+
+  /* gradient */
+  --bg-gradient-onyx: linear-gradient(to bottom right,
+          hsl(0, 0%, 100%) 3%,
+          hsl(0, 0%, 94%) 97%);
+  --bg-gradient-jet: linear-gradient(to bottom right,
+          hsla(0, 0%, 90%, 0.251) 0%,
+          hsla(0, 0%, 85%, 0) 100%),
+      hsl(0, 0%, 95%);
+  --bg-gradient-yellow-1: linear-gradient(to bottom right,
+          hsl(45, 100%, 65%) 0%,
+          hsla(36, 100%, 60%, 0) 50%);
+  --bg-gradient-yellow-2: linear-gradient(135deg,
+          hsla(45, 100%, 65%, 0.251) 0%,
+          hsla(35, 100%, 58%, 0) 59.86%),
+      hsl(0, 0%, 95%);
+  --border-gradient-onyx: linear-gradient(to bottom right,
+          hsl(0, 0%, 80%) 0%,
+          hsla(0, 0%, 75%, 0) 50%);
+  --text-gradient-yellow: linear-gradient(to right,
+          hsl(45, 100%, 55%),
+          hsl(35, 100%, 50%));
+  --text-gradient-custom: linear-gradient(to right,
+          hsl(45, 100%, 55%),
+          hsl(35, 100%, 50%));
+
+  /* solid */
+  --jet: hsl(0, 0%, 85%);
+  --onyx: hsl(0, 0%, 90%);
+  --eerie-black-1: hsl(0, 0%, 98%);
+  --eerie-black-2: hsl(0, 0%, 99%);
+  --smoky-black: hsl(0, 0%, 100%);
+  --white-1: hsl(0, 0%, 10%);
+  --white-2: hsl(0, 0%, 15%);
+  --orange-yellow-crayola: hsl(45, 100%, 55%);
+  --vegas-gold: hsl(45, 54%, 50%);
+  --light-gray: hsl(0, 0%, 20%);
+  --light-gray-70: hsla(0, 0%, 20%, 0.7);
+  --bittersweet-shimmer: hsl(0, 43%, 40%);
+  --green-jade: hsl(159, 82%, 25%);
+  --green-teal: hsl(118, 32%, 50%);
+
+  /* Tag Colors */
+  --unity-tag: hsl(197, 78%, 44%);
+  --unreal-tag: hsl(99, 41%, 38%);
+  --application-tag: hsl(9, 68%, 46%);
+}
+
+/* Fix for filter select dropdown in light mode */
+.light-mode .filter-select-box {
+ 
+  color: var(--white-1);
+}
+
+.light-mode .filter-select-box .select-item {
+ 
+  color: var(--white-1);
+}
+
+.light-mode .filter-select-box .select-item:hover {
+  
+  color: var(--eerie-black-1);
+}
+
+/* Theme toggle button styles */
+#theme-toggle, .theme-toggle {
+  position: fixed;
+  bottom: 20px;
+  z-index: 10000;
+  width: 45px;
+  height: 45px;
+  border-radius: 50%; /* Keep this circular */
+  background: var(--bg-gradient-onyx);
+  color: var(--orange-yellow-crayola);
+  border: 2px solid var(--orange-yellow-crayola);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer !important;
+  box-shadow: var(--shadow-2);
+  transition: transform 0.3s, box-shadow 0.3s;
+  pointer-events: auto !important;
+  opacity: 1 !important;
+  /* Ensure the button is clickable */
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+#theme-toggle:hover, .theme-toggle:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-3);
+}
+
+#theme-toggle:active, .theme-toggle:active {
+  transform: translateY(0);
+  box-shadow: var(--shadow-1);
+}
+
+/* Ensure our theme toggle is always visible and interactive */
+#theme-toggle ion-icon, .theme-toggle ion-icon {
+  font-size: 1.5rem;
+  pointer-events: none; /* Make sure clicks go through to the button */
+}
+
+/* Light mode shadows */
+.light-mode {
+  /* Shadows */
+  --shadow-1: -4px 8px 24px hsla(0, 0%, 0%, 0.15);
+  --shadow-2: 0 16px 30px hsla(0, 0%, 0%, 0.15);
+  --shadow-3: 0 16px 40px hsla(0, 0%, 0%, 0.15);
+  --shadow-4: 0 25px 50px hsla(0, 0%, 0%, 0.10);
+  --shadow-5: 0 24px 80px hsla(0, 0%, 0%, 0.15);
+  
+  /* Adjust button variables for light mode */
+  --button-text-color-dark: var(--button-text-color-light);
+  --text-shadow-dark: var(--text-shadow-light);
+  --button-gradient-dark: var(--button-gradient-light);
+}
+
+/* Fix skills text visibility in light mode - same structure as dark theme */
+/* Only adjusting colors for readability in light mode */
+.light-mode .skills-header {
+  color: var(--white-1);
+}
+
+.light-mode .skills-item {
+  color: var(--white-1);
+  background: var(--eerie-black-1); /* Subtle background to help with visibility */
+}
+
+.light-mode .skill .title-wrapper data {
+  color: var(--light-gray);
+}
+
+.light-mode .skills-button {
+  color: var(--orange-yellow-crayola);
+}
+
+.light-mode .skills-button:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-3);
+}
+
+/* Ensure button text has proper contrast in light mode */
+.light-mode .btn-primary, 
+.light-mode .form-btn {
+  background: var(--button-gradient-light);
+  color: var(--button-text-color-light);
+  text-shadow: none;
+  font-weight: 600;
+}
+
+/* Improve loading for images with lazy loading */
+img.lazy-load {
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+
+img.lazy-load.loaded {
+  opacity: 1;
+}
+
+/* Mobile Responsive Enhancements */
+@media (max-width: 768px) {
+  /* Ensure text doesn't overlap */
+  body {
+    font-size: 95%; /* Slightly reduce text size for better fit */
+  }
+  
+  /* Improve navbar layout on mobile */
+  .navbar {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 12px 0;
+  }
+  
+  /* Ensure buttons have adequate touch targets */
+  .btn, button, [role="button"], .filter-item, .navbar-link, .contact-link {
+    min-height: 44px;
+    min-width: 44px;
+    padding: 10px 15px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  /* Fix portfolio section layout */
+  .project-list {
+    gap: 15px; /* Reduce gap for tighter layout */
+  }
+  
+  .project-item {
+    width: 100%;
+    margin-bottom: 15px;
+  }
+  
+  /* Fix sidebar on mobile */
+  .sidebar {
+    margin-bottom: 30px;
+    position: relative;
+    width: 100%;
+    height: auto;
+  }
+  
+  /* Floating button adjustments for mobile */
+  .button-floating, .theme-toggle, #portfolio-back-button {
+    width: 50px;
+    height: 50px;
+    font-size: 14px;
+  }
+  
+  /* Main content padding adjustments */
+  .main-content {
+    padding: 20px 15px;
+  }
+  
+  /* Fix any potential text overlaps in cards */
+  .timeline-text, .project-title, .service-title {
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    hyphens: auto;
+  }
+  
+  /* Make sure images don't overflow their containers */
+  img {
+    max-width: 100%;
+    height: auto;
+  }
+  
+  /* Light mode specific adjustments for mobile */
+  .light-mode .navbar {
+    background: var(--bg-gradient-jet);
+  }
+
+  .light-mode .sidebar {
+    background: var(--bg-gradient-onyx);
+  }
+
+  .light-mode .portfolio .project-item {
+    background: var(--bg-gradient-yellow-1);
+    color: var(--white-1);
+  }
+}
+
+/* Additional fine-tuning for very small screens */
+@media (max-width: 480px) {
+  /* Further reduce padding and margins */
+  .article-title {
+    padding-top: 15px;
+    margin-bottom: 15px;
+  }
+  
+  /* Simplify layout for very small screens */
+  .sidebar-info {
+    flex-direction: column;
+    padding: 15px;
+  }
+  
+  /* Make form elements more touch-friendly */
+  input, textarea, select {
+    padding: 12px 15px;
+    font-size: 16px; /* Prevent iOS zoom on focus */
+  }
+  
+  /* Fix filter buttons on mobile */
+  .filter-item {
+    margin-bottom: 5px;
+    width: 100%;
+  }
+  
+  /* Adjust modal size for mobile */
+  .modal-content {
+    width: 90%;
+    padding: 15px;
+  }
+  
+  /* Further reduce floating button size on very small screens */
+  .button-floating, .theme-toggle, #portfolio-back-button {
+    width: 45px;
+    height: 45px;
+    font-size: 12px;
+  }
+}
+
+/* Responsive improvements */
+@media (max-width: 580px) {
+  .project-item, .service-item {
+    padding: 15px;
+  }
+  
+  .timeline-text {
+    font-size: 14px;
+    line-height: 1.5;
+  }
+
+  .contacts-list, .social-list {
+    gap: 10px;
+  }
+}
+
+/* Touch-friendly improvements for mobile */
+@media (max-width: 768px) {
+  .btn, button, .service-item, .project-item a, .social-link {
+    padding: 12px;
+    min-height: 44px; /* Minimum touch target size */
+  }
+  
+  .social-link {
+    width: 44px;
+    height: 44px;
+  }
+  
+  /* Increase spacing between touch targets */
+  .contacts-list > li, 
+  .social-list > li
+  {
+    margin-bottom: 12px;
+  }
+}
+
+/* Animations for page elements */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.article-title,
+.service-title,
+.timeline-title,
+.filter-list,
+.project-list {
+  animation: fadeIn 0.8s ease forwards;
+}
+
+/* Stagger animation delays for list items */
+.project-item:nth-child(1),
+.service-item:nth-child(1),
+.timeline-item:nth-child(1) {
+  animation-delay: 0.1s;
+}
+
+.project-item:nth-child(2),
+.service-item:nth-child(2),
+.timeline-item:nth-child(2) {
+  animation-delay: 0.2s;
+}
+
+.project-item:nth-child(3),
+.service-item:nth-child(3),
+.timeline-item:nth-child(3) {
+  animation-delay: 0.3s;
+}
+
+/* Improve scrollbar styling for modern browsers */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--eerie-black-2);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--jet);
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--orange-yellow-crayola);
+}
+
+/* Print styles for better resume printing */
+@media print {
+  body {
+    background: white;
+    color: black;
+  }
+  
+  .sidebar, .main-content {
+    box-shadow: none;
+    border: none;
+  }
+  
+  .portfolio-back, .theme-toggle, .info_more-btn {
+    display: none;
+  }
+  
+  article {
+    page-break-inside: avoid;
+  }
+}
