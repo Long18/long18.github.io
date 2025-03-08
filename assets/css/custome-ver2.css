@@ -2798,3 +2798,153 @@ textarea.form-input::-webkit-resizer {
         height: 40px;
     }
 }
+
+/*-----------------------------------*\
+  #IMPROVED CTA BUTTONS
+\*-----------------------------------*/
+
+/* Base improvements for all interactive elements */
+.navbar-link,
+.form-btn,
+.skills-button,
+.portfolio-back,
+.old-version,
+.project-item > a,
+.social-link,
+.contact-link {
+    transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease, color 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Consistent hover effects */
+.navbar-link:hover,
+.social-link:hover,
+.contact-link:hover {
+    transform: translateY(-3px);
+}
+
+/* Primary buttons with more pronounced effects */
+.form-btn,
+.skills-button,
+.portfolio-back,
+.old-version {
+    /* Base state with slight shadow */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.form-btn:hover,
+.skills-button:hover,
+.portfolio-back:hover,
+.old-version:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+/* Active state for buttons with visual feedback */
+.form-btn:active,
+.skills-button:active,
+.portfolio-back:active,
+.old-version:active,
+.social-link:active {
+    transform: translateY(1px);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
+    transition: transform 0.1s ease, box-shadow 0.1s ease;
+}
+
+/* Focus states for accessibility */
+.navbar-link:focus-visible,
+.form-btn:focus-visible,
+.skills-button:focus-visible,
+.portfolio-back:focus-visible,
+.old-version:focus-visible,
+.social-link:focus-visible,
+.contact-link:focus-visible {
+    outline: 2px solid var (--orange-yellow-crayola);
+    outline-offset: 4px;
+}
+
+/* Add subtle pulse effect for primary CTA */
+@keyframes subtle-pulse {
+    0% { box-shadow: 0 0 0 0 rgba(248, 182, 79, 0.4); }
+    70% { box-shadow: 0 0 0 10px rgba(248, 182, 79, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(248, 182, 79, 0); }
+}
+
+.skills-button:hover {
+    animation: subtle-pulse 2s infinite;
+}
+
+/* Improved tap area for mobile */
+@media (max-width: 768px) {
+    .navbar-link,
+    .social-link,
+    .form-btn,
+    .skills-button,
+    .portfolio-back,
+    .old-version {
+        padding: 12px 20px;  /* Larger tap targets on mobile */
+    }
+    
+    .service-item {
+        padding: 16px;       /* More padding for larger touch targets */
+    }
+}
+
+/* Remove existing animations that might conflict with new ones */
+.portfolio-back:hover,
+.skills-button:hover,
+.form-btn:hover,
+.old-version:hover {
+    transform: translateY(-3px);   /* Override the existing translateY(-2px) */
+}
+
+.portfolio-back:active,
+.skills-button:active,
+.form-btn:active,
+.old-version:active {
+    transform: translateY(1px);    /* Consistent active state */
+}
+
+/* Enhanced button styles with modern shadow effects */
+.form-btn,
+.skills-button {
+    border-radius: 14px;
+    position: relative;
+    overflow: hidden;
+}
+
+.form-btn:after,
+.skills-button:after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 5px;
+    height: 5px;
+    background: rgba(255, 255, 255, 0.5);
+    opacity: 0;
+    border-radius: 100%;
+    transform: scale(1, 1) translate(-50%, -50%);
+    transform-origin: 50% 50%;
+}
+
+.form-btn:focus:not(:active)::after,
+.skills-button:focus:not(:active)::after {
+    animation: ripple 1s ease-out;
+}
+
+@keyframes ripple {
+    0% {
+        transform: scale(0, 0);
+        opacity: 0.5;
+    }
+    20% {
+        transform: scale(25, 25);
+        opacity: 0.3;
+    }
+    100% {
+        opacity: 0;
+        transform: scale(40, 40);
+    }
+}
