@@ -3,7 +3,10 @@
 
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1">  
+  <!-- Additional meta tags for SEO and performance -->  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">  
+  <meta name="color-scheme" content="dark light">
   <title>Lê Nguyễn Thành Long</title>
   <meta name="description" content="Game Developer specializing in Unity and Unreal Engine development. Portfolio of Lê Nguyễn Thành Long (William)" />
   <meta name="keywords"
@@ -26,27 +29,56 @@
   <!--
     - custom css link
   -->
-  <link rel="stylesheet" href="assets/css/style.css">
-  <link rel="stylesheet" href="assets/css/custome-ver2.css">
-  <!--
-    - google font link
-  -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+  
+  <!-- Preload critical resources -->
+  <link rel="preload" href="assets/css/style.css" as="style">
+  <link rel="preload" href="assets/css/animations.css" as="style">
+  <link rel="preload" href="assets/images/avatar.png" as="image">
+  
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="assets/css/style.css">
+  <link rel="stylesheet" href="assets/css/custome-ver2.css">
+  <link rel="stylesheet" href="assets/css/modern-enhancements.css">
+  <link rel="stylesheet" href="assets/css/animations.css">
 </head>
 
 <body>
-  <!-- Add loading overlay for better UX -->
-  <div class="loading-overlay" id="loading-overlay">
-    <div class="loading-spinner"></div>
+  <!-- Loading Overlay -->
+  <div id="loading-overlay" class="loading-overlay">
+    <div class="loading-content">
+      <div class="loading-spinner"></div>
+      <h2 class="loading-text">Loading...</h2>
+    </div>
   </div>
   
   <!-- Add accessibility skip link -->
   <a href="#main-content" class="skip-link">Skip to main content</a>
-  <button class="portfolio-back disabled-btn" id="portfolio-back-button" title="Click here to go back">
-    <ion-icon name="arrow-up" aria-label="Go back"></ion-icon>
+  
+  <!-- Back button - only visible when viewing a project -->
+  <button class="button-floating hidden" id="portfolio-back-button" title="Go back to portfolio">
+    <ion-icon name="home-outline" aria-label="Go back to portfolio"></ion-icon>
   </button>
+  
+  <!-- Theme toggle button positioned at top-right -->
+  <button 
+    class="theme-toggle button-floating" 
+    id="theme-toggle" 
+    aria-label="Toggle dark/light mode" 
+    title="Toggle dark/light mode" 
+    onclick="toggleTheme()">
+    <ion-icon name="contrast-outline"></ion-icon>
+  </button>
+
+  <script>
+    function toggleTheme() {
+      document.documentElement.classList.toggle('light-mode');
+      const currentTheme = document.documentElement.classList.contains('light-mode') ? 'light' : 'dark';
+      localStorage.setItem('theme', currentTheme);
+    }
+  </script>
   <!--
     - #MAIN
   -->
@@ -4992,6 +5024,8 @@
   <!--
     - custom js link
   -->
+  <script src="assets/js/modern-enhancements.js"></script>
+  <script src="assets/js/image-optimizer.js"></script>
   <script src="assets/js/script.js"></script>
 
   <!--

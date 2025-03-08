@@ -2,17 +2,62 @@
 
 // Wait for DOM to be fully loaded
 document.addEventListener('DOMContentLoaded', function() {
-  // Hide loading overlay once page is loaded
+  // Performance optimization - track page load metrics
+  if (window.performance) {
+    const pageLoadTime = window.performance.timing.domContentLoadedEventEnd - window.performance.timing.navigationStart;
+    console.log('Page load time:', pageLoadTime + 'ms');
+  }
+  
+  // Hide loading overlay once page is loaded with a smooth transition
   const loadingOverlay = document.getElementById('loading-overlay');
   if (loadingOverlay) {
-    loadingOverlay.classList.add('hidden');
-    setTimeout(() => loadingOverlay.style.display = 'none', 500); // After transition completes
+    // Give a slight delay to ensure resources are properly loaded
+    setTimeout(() => {
+      loadingOverlay.style.opacity = "0";
+      loadingOverlay.style.transition = "opacity 0.5s ease, visibility 0.5s ease";
+      loadingOverlay.style.visibility = "hidden";
+      setTimeout(() => {
+        loadingOverlay.style.display = "none";
+      }, 500); // Allow fade-out effect before hiding
+    }, 300);
   }
+  
+  // Apply saved theme on page load for consistent experience
+  const savedTheme = localStorage.getItem('theme');
+  if (savedTheme === 'light') {
+    document.documentElement.classList.add('light-mode');
+  }
+  
+  // Direct implementation of theme toggle functionality
+  // This is now handled by the toggleTheme() function directly in the HTML
+  // to avoid multiple event handlers competing with each other
+  // Set theme on page load
+  window.addEventListener('DOMContentLoaded', (event) => {
+    console.log('DOM fully loaded - initializing theme');
+    // If toggleTheme is not defined in global scope, define a backup here
+    if (typeof window.toggleTheme !== 'function') {
+      window.toggleTheme = function() {
+        console.log('Toggling theme from script.js function');
+        document.documentElement.classList.toggle('light-mode');
+        const currentTheme = document.documentElement.classList.contains('light-mode') ? 'light' : 'dark';
+        localStorage.setItem('theme', currentTheme);
+      };
+    }
+  });
+  
+  // Add entrance animations to main sections
+  animateEntrances();
 
-  // element toggle function - more efficient implementation
+  // element toggle function - more efficient implementation with animation support
   const elementToggleFunc = function (elem) {
     if (!elem) return;
-    elem.classList.toggle("active");
+    
+    // Add transition class before toggling active state
+    elem.classList.add('with-transition');
+    elem.classList.toggle('active');
+    
+    // Trigger reflow to ensure transition applies
+    void elem.offsetWidth;
   };
 
   // sidebar variables
@@ -94,7 +139,8 @@ document.addEventListener('DOMContentLoaded', function() {
           projectDetail.forEach(project => {
             if (project.dataset.detailCategory === selectedType) {
               project.classList.add("active");
-              if (buttonBack) buttonBack.classList.remove("disabled-btn");
+              // Show back button when viewing a project detail
+              toggleBackButton(true);
             } else {
               project.classList.remove("active");
             }
@@ -104,16 +150,30 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   }
 
-  // Back button functionality with smooth scrolling
+  // Back button functionality with smooth scrolling and improved visual feedback
   if (buttonBack) {
+    // Ensure back button has proper styling for floating button
+    buttonBack.classList.add('button-floating');
+    
+    // Hide back button initially when page loads
+    toggleBackButton(false);
+    
     buttonBack.addEventListener("click", function () {
+      // Add click animation
+      this.classList.add('button-clicked');
+      setTimeout(() => this.classList.remove('button-clicked'), 300);
+      
+      // Smooth scroll with callback
       window.scrollTo({
         top: 0,
         behavior: 'smooth'
       });
       
-      filterFunc("all");
-      buttonBack.classList.add("disabled-btn");
+      // After scrolling complete, apply filter and hide back button
+      setTimeout(() => {
+        filterFunc("all");
+        toggleBackButton(false);
+      }, 500); // Allow time for scroll to complete
     });
   }
 
@@ -147,17 +207,71 @@ document.addEventListener('DOMContentLoaded', function() {
   // filter variables
   const filterItems = document.querySelectorAll("[data-filter-item]");
 
-  const filterFunc = function (selectedValue) {
+  // Function to toggle back button visibility
+  function toggleBackButton(visible) {
+    if (buttonBack) {
+      if (visible) {
+        buttonBack.classList.remove("hidden");
+        buttonBack.style.visibility = "visible";
+        buttonBack.style.opacity = "1";
+      } else {
+        buttonBack.classList.add("hidden");
+        buttonBack.style.opacity = "0";
+        setTimeout(() => {
+          buttonBack.style.visibility = "hidden";
+        }, 300); // Allow time for fade out
+      }
+    }
+  }
+
+  const filterFunc = function (selectedValue, animate = false) {
+    // Show the back button if not viewing "all" items (means we're viewing a project)
+    toggleBackButton(selectedValue !== "all");
+    
     if (filterItems && filterItems.length > 0) {
+      // Create array of visible and hidden items for animation
+      const toShow = [];
+      const toHide = [];
+      
+      // If we're showing "all" items, we should hide the back button
+      if (selectedValue === "all") {
+        toggleBackButton(false);
+      }
+      
       filterItems.forEach(item => {
-        if (selectedValue === "all") {
-          item.classList.add("active");
-        } else if (selectedValue === item.dataset.category) {
-          item.classList.add("active");
+        if (selectedValue === "all" || selectedValue === item.dataset.category) {
+          toShow.push(item);
         } else {
-          item.classList.remove("active");
+          toHide.push(item);
         }
       });
+      
+      // Apply transitions if animation requested
+      if (animate) {
+        // First hide items with transition
+        toHide.forEach(item => {
+          item.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
+          item.style.opacity = '0';
+          item.style.transform = 'translateY(10px)';
+          setTimeout(() => {
+            item.classList.remove("active");
+          }, 300);
+        });
+        
+        // Then show items with staggered delay
+        toShow.forEach((item, index) => {
+          setTimeout(() => {
+            item.classList.add("active");
+            item.style.transition = 'opacity 0.4s ease, transform 0.4s ease';
+            item.style.opacity = '1';
+            item.style.transform = 'translateY(0)';
+          }, 50 * index);
+        });
+      } else {
+        // Simple toggle without animation
+        toShow.forEach(item => item.classList.add("active"));
+        toHide.forEach(item => item.classList.remove("active"));
+      }
     }
 
     if (removeActive && removeActive.length > 0) {
@@ -173,10 +287,15 @@ document.addEventListener('DOMContentLoaded', function() {
   if (filterBtn && filterBtn.length > 0) {
     filterBtn.forEach(btn => {
       btn.addEventListener("click", function () {
+        // Add tactile feedback with subtle scale animation
+        this.style.transform = 'scale(0.95)';
+        setTimeout(() => { this.style.transform = 'scale(1)'; }, 150);
+        
         let selectedValue = this.innerText.toLowerCase();
         if (selectValue) selectValue.innerText = this.innerText;
         
-        filterFunc(selectedValue);
+        // Apply filter with staggered animation
+        filterFunc(selectedValue, true);
 
         if (lastClickedBtn) lastClickedBtn.classList.remove("active");
         this.classList.add("active");
@@ -234,13 +353,52 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   }
 
-  // Improved image expansion function with better overlay
+  // Improved image expansion function with better overlay and performance optimization
+
+// Helper function to animate entrances of main elements
+function animateEntrances() {
+  const animateElements = [
+    { selector: '.sidebar-info', delay: 100 },
+    { selector: '.article-title', delay: 200 },
+    { selector: '.service-list', delay: 400 },
+    { selector: '.filter-list', delay: 300 },
+    { selector: '.contact-list', delay: 500 }
+  ];
+  
+  animateElements.forEach(({ selector, delay }) => {
+    const elements = document.querySelectorAll(selector);
+    elements.forEach(el => {
+      setTimeout(() => {
+        el.style.opacity = '0';
+        el.style.transform = 'translateY(20px)';
+        el.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+        
+        // Trigger reflow
+        void el.offsetWidth;
+        
+        el.style.opacity = '1';
+        el.style.transform = 'translateY(0)';
+      }, delay);
+    });
+  });
+}
   window.expandImage = function(clickedImage) {
     if (!clickedImage || !clickedImage.querySelector("img")) return;
     
-    const imgSrc = clickedImage.querySelector("img").src;
+    // Add tactile feedback with subtle scale animation on click
+    const imgElement = clickedImage.querySelector("img");
+    imgElement.style.transform = 'scale(0.95)';
+    setTimeout(() => { imgElement.style.transform = 'scale(1)'; }, 150);
+    
+    const imgSrc = imgElement.src;
+    const imgAlt = imgElement.alt || 'Portfolio image';
     const expandedImg = document.createElement("img");
     const overlay = createOverlay(expandedImg);
+    
+    // Add loading indicator while image loads
+    const loadingSpinner = document.createElement('div');
+    loadingSpinner.className = 'loading-spinner';
+    overlay.appendChild(loadingSpinner);
 
     // Create expanded image with improved styling
     expandedImg.src = imgSrc;
