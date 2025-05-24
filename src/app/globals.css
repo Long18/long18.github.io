@@ -1,0 +1,298 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Global styles for smooth scrolling and accessibility */
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: #111827; /* gray-900 */
+  overflow-x: hidden;
+}
+
+/* Focus styles for accessibility */
+*:focus {
+  outline: 2px solid #fb923c; /* orange-400 */
+  outline-offset: 2px;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #1f2937; /* gray-800 */
+}
+
+::-webkit-scrollbar-thumb {
+  background: #374151; /* gray-700 */
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #4b5563; /* gray-600 */
+}
+
+:root {
+  /* CSS Variables for theme colors - these will be set by ThemeProvider */
+  --primary: 221.2 83.2% 53.3%;
+  --primary-foreground: 210 40% 98%;
+  --secondary: 210 40% 96%;
+  --secondary-foreground: 222.2 84% 4.9%;
+  --accent: 210 40% 94%;
+  --accent-foreground: 222.2 84% 4.9%;
+  --destructive: 0 84.2% 60.2%;
+  --destructive-foreground: 210 40% 98%;
+  --muted: 210 40% 96%;
+  --muted-foreground: 215.4 16.3% 46.9%;
+  --card: 0 0% 100%;
+  --card-foreground: 222.2 84% 4.9%;
+  --popover: 0 0% 100%;
+  --popover-foreground: 222.2 84% 4.9%;
+  --border: 214.3 31.8% 91.4%;
+  --input: 214.3 31.8% 91.4%;
+  --ring: 221.2 83.2% 53.3%;
+  --background: 0 0% 100%;
+  --foreground: 222.2 84% 4.9%;
+}
+
+.dark {
+  --primary: 217.2 91.2% 59.8%;
+  --primary-foreground: 222.2 84% 4.9%;
+  --secondary: 217.2 32.6% 17.5%;
+  --secondary-foreground: 210 40% 98%;
+  --accent: 217.2 32.6% 17.5%;
+  --accent-foreground: 210 40% 98%;
+  --destructive: 0 62.8% 30.6%;
+  --destructive-foreground: 210 40% 98%;
+  --muted: 217.2 32.6% 17.5%;
+  --muted-foreground: 215 20.2% 65.1%;
+  --card: 222.2 84% 4.9%;
+  --card-foreground: 210 40% 98%;
+  --popover: 222.2 84% 4.9%;
+  --popover-foreground: 210 40% 98%;
+  --border: 217.2 32.6% 17.5%;
+  --input: 217.2 32.6% 17.5%;
+  --ring: 224.3 76.3% 94.1%;
+  --background: 222.2 84% 4.9%;
+  --foreground: 210 40% 98%;
+}
+
+* {
+  border-color: hsl(var(--border));
+}
+
+body {
+  color: hsl(var(--foreground));
+  background: hsl(var(--background));
+  font-feature-settings: "rlig" 1, "calt" 1;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: hsl(var(--muted));
+}
+
+::-webkit-scrollbar-thumb {
+  background: hsl(var(--border));
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: hsl(var(--muted-foreground));
+}
+
+/* Smooth scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Selection */
+::selection {
+  background: hsl(var(--primary) / 0.2);
+  color: hsl(var(--primary-foreground));
+}
+
+/* Focus styles */
+.focus-visible:focus-visible {
+  outline: 2px solid hsl(var(--ring));
+  outline-offset: 2px;
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.6s ease-out;
+}
+
+.animate-slide-in-right {
+  animation: slideInRight 0.6s ease-out;
+}
+
+.animate-slide-in-left {
+  animation: slideInLeft 0.6s ease-out;
+}
+
+.animate-scale-in {
+  animation: scaleIn 0.6s ease-out;
+}
+
+/* Gradient text */
+.gradient-text {
+  background: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--accent)));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Glass morphism */
+.glass {
+  backdrop-filter: blur(12px);
+  background: hsl(var(--background) / 0.8);
+  border: 1px solid hsl(var(--border) / 0.2);
+}
+
+/* Hover effects */
+.hover-lift {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.hover-lift:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 25px hsl(var(--primary) / 0.15);
+}
+
+/* Custom utilities */
+.container {
+  @apply mx-auto max-w-7xl px-4 sm:px-6 lg:px-8;
+}
+
+.section-padding {
+  @apply py-16 sm:py-20 lg:py-24;
+}
+
+.text-gradient {
+  @apply bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent;
+}
+
+/* Loading spinner */
+.spinner {
+  border: 2px solid hsl(var(--muted));
+  border-top: 2px solid hsl(var(--primary));
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Button variants */
+.btn-primary {
+  @apply bg-primary text-primary-foreground hover:bg-primary/90 focus-visible:ring-primary;
+}
+
+.btn-secondary {
+  @apply bg-secondary text-secondary-foreground hover:bg-secondary/80 focus-visible:ring-secondary;
+}
+
+.btn-outline {
+  @apply border border-primary text-primary hover:bg-primary hover:text-primary-foreground focus-visible:ring-primary;
+}
+
+.btn-ghost {
+  @apply text-foreground hover:bg-accent hover:text-accent-foreground focus-visible:ring-accent;
+}
+
+/* Card styles */
+.card {
+  @apply bg-card text-card-foreground border border-border rounded-lg;
+}
+
+/* Input styles */
+.input {
+  @apply flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50;
+}
+
+/* Typography */
+.prose {
+  @apply text-foreground;
+}
+
+.prose h1,
+.prose h2,
+.prose h3,
+.prose h4,
+.prose h5,
+.prose h6 {
+  @apply text-foreground;
+}
+
+.prose a {
+  @apply text-primary hover:text-primary/80;
+}
+
+.prose code {
+  @apply bg-muted text-foreground px-1 py-0.5 rounded;
+}
+
+.prose pre {
+  @apply bg-muted border border-border rounded-lg p-4;
+}
+
+.prose blockquote {
+  @apply border-l-4 border-primary pl-4 italic text-muted-foreground;
+}
