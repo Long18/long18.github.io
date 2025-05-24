@@ -1,0 +1,145 @@
+{
+  "nav": {
+    "home": "Trang chủ",
+    "about": "Giới thiệu",
+    "projects": "Dự án",
+    "blog": "Blog",
+    "contact": "Liên hệ"
+  },
+  "hero": {
+    "greeting": "Xin chào, tôi là",
+    "name": "Long Nguyễn",
+    "title": "Nhà phát triển Full Stack & Game Developer",
+    "subtitle": "Tôi tạo ra những trải nghiệm số tuyệt vời với công nghệ hiện đại",
+    "cta_projects": "Xem công việc của tôi",
+    "cta_contact": "Liên hệ",
+    "scroll_down": "Cuộn xuống"
+  },
+  "about": {
+    "title": "Giới thiệu về tôi",
+    "subtitle": "Tìm hiểu thêm về tôi",
+    "description": "Tôi là một nhà phát triển full-stack và game developer đầy đam mê với chuyên môn về các công nghệ web hiện đại và frameworks phát triển game. Tôi yêu thích việc tạo ra những giải pháp sáng tạo và biến ý tưởng thành hiện thực thông qua code.",
+    "experience_years": "Năm kinh nghiệm",
+    "projects_completed": "Dự án hoàn thành",
+    "technologies": "Công nghệ",
+    "coffee_cups": "Tách cà phê",
+    "skills_title": "Kỹ năng & Công nghệ",
+    "download_resume": "Tải CV",
+    "hire_me": "Thuê tôi"
+  },
+  "projects": {
+    "title": "Dự án của tôi",
+    "subtitle": "Khám phá những công việc mới nhất",
+    "filter_all": "Tất cả",
+    "filter_web_game": "Game Web",
+    "filter_mobile_game": "Game Mobile",
+    "filter_application": "Ứng dụng",
+    "filter_web_development": "Phát triển Web",
+    "view_project": "Xem dự án",
+    "view_demo": "Xem Demo",
+    "view_source": "Mã nguồn",
+    "download": "Tải xuống",
+    "technologies_used": "Công nghệ sử dụng",
+    "project_details": "Chi tiết dự án",
+    "load_more": "Tải thêm"
+  },
+  "blog": {
+    "title": "Blog",
+    "subtitle": "Suy nghĩ, hướng dẫn và hiểu biết",
+    "read_more": "Đọc thêm",
+    "read_time": "phút đọc",
+    "published_on": "Xuất bản vào",
+    "tags": "Thẻ",
+    "recent_posts": "Bài viết gần đây",
+    "all_posts": "Tất cả bài viết",
+    "search_placeholder": "Tìm kiếm bài viết...",
+    "no_posts": "Không tìm thấy bài viết",
+    "back_to_blog": "Quay lại Blog"
+  },
+  "contact": {
+    "title": "Liên hệ",
+    "subtitle": "Hãy cùng làm việc",
+    "description": "Có một dự án trong đầu? Tôi rất muốn nghe về nó. Gửi tin nhắn cho tôi và hãy thảo luận về cách chúng ta có thể biến ý tưởng của bạn thành hiện thực.",
+    "form": {
+      "name": "Tên",
+      "email": "Email",
+      "subject": "Chủ đề",
+      "message": "Tin nhắn",
+      "send": "Gửi tin nhắn",
+      "sending": "Đang gửi...",
+      "success": "Tin nhắn đã được gửi thành công!",
+      "error": "Không thể gửi tin nhắn. Vui lòng thử lại."
+    },
+    "info": {
+      "email": "Email",
+      "phone": "Điện thoại",
+      "location": "Địa điểm",
+      "social": "Mạng xã hội"
+    }
+  },
+  "footer": {
+    "description": "Một nhà phát triển đầy đam mê tạo ra những trải nghiệm số tuyệt vời với công nghệ hiện đại.",
+    "quick_links": "Liên kết nhanh",
+    "projects": "Dự án",
+    "connect": "Kết nối",
+    "about": "Giới thiệu",
+    "blog": "Blog",
+    "contact": "Liên hệ",
+    "web_games": "Game Web",
+    "mobile_games": "Game Mobile",
+    "applications": "Ứng dụng",
+    "web_development": "Phát triển Web",
+    "download_resume": "Tải CV",
+    "newsletter_text": "Đăng ký để nhận cập nhật về dự án mới và bài viết blog.",
+    "email_placeholder": "Nhập email của bạn",
+    "subscribe": "Đăng ký",
+    "rights_reserved": "Tất cả quyền được bảo lưu.",
+    "made_with": "Được tạo với",
+    "in_vietnam": "tại Việt Nam",
+    "privacy_policy": "Chính sách bảo mật",
+    "terms_of_service": "Điều khoản dịch vụ",
+    "source_code": "Mã nguồn"
+  },
+  "common": {
+    "loading": "Đang tải...",
+    "error": "Đã có lỗi xảy ra",
+    "try_again": "Thử lại",
+    "coming_soon": "Sắp ra mắt",
+    "back_to_top": "Về đầu trang",
+    "close": "Đóng",
+    "open": "Mở",
+    "menu": "Menu",
+    "search": "Tìm kiếm",
+    "filters": "Bộ lọc",
+    "sort": "Sắp xếp",
+    "date": "Ngày",
+    "name": "Tên",
+    "category": "Danh mục",
+    "status": "Trạng thái",
+    "featured": "Nổi bật",
+    "latest": "Mới nhất",
+    "popular": "Phổ biến"
+  },
+  "meta": {
+    "home": {
+      "title": "Long Nguyễn - Nhà phát triển Full Stack & Game Developer",
+      "description": "Nhà phát triển full stack và game developer chuyên về các công nghệ web hiện đại và frameworks phát triển game."
+    },
+    "about": {
+      "title": "Giới thiệu - Long Nguyễn",
+      "description": "Tìm hiểu thêm về Long Nguyễn, một nhà phát triển full stack và game developer đầy đam mê với chuyên môn về công nghệ hiện đại."
+    },
+    "projects": {
+      "title": "Dự án - Long Nguyễn",
+      "description": "Khám phá các dự án mới nhất của tôi bao gồm game web, game mobile, ứng dụng và công việc phát triển web."
+    },
+    "blog": {
+      "title": "Blog - Long Nguyễn",
+      "description": "Đọc suy nghĩ, hướng dẫn và hiểu biết của tôi về phát triển web, phát triển game và công nghệ hiện đại."
+    },
+    "contact": {
+      "title": "Liên hệ - Long Nguyễn",
+      "description": "Liên hệ với Long Nguyễn cho dự án tiếp theo hoặc cơ hội hợp tác của bạn."
+    }
+  }
+}

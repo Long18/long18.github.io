@@ -1,0 +1,1679 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- =================================HEAD================================= -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Lê Nguyễn Thành Long</title>
+    <meta name="description" content="Lê Nguyễn Thành Long" />
+    <meta name="keywords"
+        content="blog,creative,cv theme, online resume, personal,professional cv,resume, resume theme" />
+    <meta name="theme-color" content="#000">
+    <meta property="og:title" content="Lê Nguyễn Thành Long || William - Introduce" />
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="https://long18.github.io//assets/images/thumbnail.png">
+    <meta property="og:description" content="My name is Le Nguyen Thanh Long, game programmer. This is my portfolio." />
+    <meta property="og:url" content="https://long18.github.io" />
+    <meta name="author" content="Lê Nguyễn Thành Long - William">
+    <meta property="og:locale" content="vi_VN">
+    <link rel="icon" href="/assets/logo.ico">
+    </link>
+
+
+    <!-- Vendor Css-->
+    <link rel="stylesheet" href="/assets/css/vendor.css" />
+    <link rel="stylesheet" href="/assets/css/LineIcons.min.css" />
+    <link rel="stylesheet" type="text/css" href="/assets/css/photoswipe.min.css" />
+    <link rel="stylesheet" type="text/css" href="/assets/css/default-skin.min.css" />
+
+    <!-- Settings style Css -->
+    <link href="/assets/css/settings.css" rel="stylesheet">
+
+    <!-- Template style Css -->
+    <link href="/assets/css/theme-blue.css" rel="stylesheet">
+
+    <!-- Custom style Css -->
+    <link href="/assets/css/custom.css" rel="stylesheet">
+    <!-- =================================HEAD================================= -->
+
+
+
+    <script type='text/javascript'>
+        var isCtrl = false;
+        document.onkeyup = function (e) {
+            if (e.which == 17)
+                isCtrl = false;
+        }
+        document.onkeydown = function (e) {
+            if (e.which == 123)
+                isCtrl = true;
+            if (((e.which == 85) || (e.which == 65) || (e.which == 88) || (e.which == 67) || (e.which == 86) || (e
+                    .which == 2) || (e.which == 3) || (e.which == 123) || (e.which == 83)) && isCtrl == true) {
+                alert('You Do Not Have Permission To Do That!!');
+                return false;
+            }
+        }
+        // right click code
+        var isNS = (navigator.appName == "Netscape") ? 1 : 0;
+        if (navigator.appName == "Netscape") document.captureEvents(Event.MOUSEDOWN || Event.MOUSEUP);
+
+        function mischandler() {
+            alert('You Do Not Have Permission To Do That!!');
+            return false;
+        }
+
+        function mousehandler(e) {
+            var myevent = (isNS) ? e : event;
+            var eventbutton = (isNS) ? myevent.which : myevent.button;
+            if ((eventbutton == 2) || (eventbutton == 3)) return false;
+        }
+        document.oncontextmenu = mischandler;
+        document.onmousedown = mousehandler;
+        document.onmouseup = mousehandler;
+        //select content code disable  
+        function killCopy(e) {
+            return false
+        }
+
+        function reEnable() {
+            return true
+        }
+        document.onselectstart = new Function("return false")
+        if (window.sidebar) {
+            document.onmousedown = killCopy
+            document.onclick = reEnable
+        }
+    </script>
+
+</head>
+
+<body data-spy="scroll" data-target=".navbar-collapse">
+    <!-- Setting Panel -->
+    <div class="settings_panel" style="border-radius: 5px;">
+        <div class="toggle_bts" style="border-radius: 20px;">
+            <a class="toggle-theme-panel active" href="#" style="border-radius: 20px;">
+                <i class='lni lni-cog'></i>
+            </a>
+        </div>
+        <div class="settings-content">
+            <h5>Color Switcher</h5>
+            <ul class="colors-switch">
+                <li><a href="#" title="theme-blue" class="theme-blue"></a></li>
+                <li><a href="#" title="theme-green" class="theme-green"></a></li>
+                <li><a href="#" title="theme-red" class="theme-red"></a></li>
+                <li><a href="#" title="theme-yellow" class="theme-yellow"></a></li>
+                <li><a href="#" title="theme-purple" class="theme-purple"></a></li>
+                <li><a href="#" title="theme-pink" class="theme-pink"></a></li>
+                <li><a href="#" title="theme-darkblue" class="theme-darkblue"></a></li>
+                <li><a href="#" title="theme-grey" class="theme-grey"></a></li>
+            </ul>
+            <h5>Background</h5>
+            <ul class="bg-demo">
+                <li><a title="Background Image" href="index.html">Version 1</a></li>
+                <li><a title="Background Image with particles" href="index-2.html">Version 2</a></li>
+            </ul>
+
+            <h5>Theme</h5>
+            <ul class="bg-demo">
+                <li><a title="Background Image" href="">Light Theme</a></li>
+                <li><a title="Background Image with particles" href="">Dark Theme</a></li>
+            </ul>
+        </div>
+    </div>
+    <!-- Setting Panel -->
+
+    <!-- START: Preloader ========================================================= -->
+    <div id="preloader" class="preloader">
+        <div class="spinner">
+            <div class="spinner-grow" role="status">
+            </div>
+            <span class="sr-only">Loading...</span>
+        </div>
+        <div class="preloader-screens">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </div>
+    <!-- END: Preloader =========================================================== -->
+
+    <!-- START: Aside ========================================================= -->
+    <aside class="aside">
+        <!-- START: NAVBAR =========================================================-->
+
+        <div class="nav-wrapper">
+
+            <div class="navbar-toggler">
+                <svg class="ham hamRotate ham1" viewBox="0 0 100 100" width="45">
+                    <path class="line top"
+                        d="m 30,33 h 40 c 0,0 9.044436,-0.654587 9.044436,-8.508902 0,-7.854315 -8.024349,-11.958003 -14.89975,-10.85914 -6.875401,1.098863 -13.637059,4.171617 -13.637059,16.368042 v 40" />
+                    <path class="line middle" d="m 30,50 h 40" />
+                    <path class="line bottom"
+                        d="m 30,67 h 40 c 12.796276,0 15.357889,-11.717785 15.357889,-26.851538 0,-15.133752 -4.786586,-27.274118 -16.667516,-27.274118 -11.88093,0 -18.499247,6.994427 -18.435284,17.125656 l 0.252538,40" />
+                </svg>
+            </div>
+
+            <nav class="navbar text-center align-items-center justify-content-center">
+
+                <div class="collapse navbar-collapse show" id="navbarCollapse">
+
+                    <div class="about-avatar mb-5">
+                        <a href="index.html">
+                            <img src="/assets/images/avatar.png" alt=""
+                                class="img-fluid mx-auto d-block shadow-sm rounded-full">
+                        </a>
+
+                        <div class="about-avatar-details mt-3">
+                            <p class="badge">LE NGUYEN THANH LONG</p>
+                        </div>
+                    </div>
+
+                    <ul class="navbar-nav mx-auto">
+                        <li class="nav-item">
+                            <a class="nav-link ripple active" href="#home">
+                                <i class="lni-home"></i>
+                                <span>Home</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link ripple" href="#portfolio">
+                                <i class="lni-graduation"></i>
+                                <span>Portfolio</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link ripple" href="#resume">
+                                <i class="lni-briefcase"></i>
+                                <span>resume</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link ripple" href="#contact">
+                                <i class="lni-phone-handset"></i>
+                                <span>Contact</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+
+
+                <div class="aside-footer">
+                    <ul class="list-unstyled list-inline">
+                        <li class="list-inline-item"><a href="https://www.facebook.com/William.2418/"><i
+                                    class="lni-facebook"></i></a></li>
+                        <li class="list-inline-item"><a href="https://github.com/Long18"><i class="lni-github"></i></a>
+                        </li>
+                        <li class="list-inline-item"><a href="https://www.linkedin.com/in/william186/"><i
+                                    class="lni-linkedin"></i></a></li>
+                        <li class="list-inline-item"><a href="https://twitter.com/willlee186"><i
+                                    class="lni-twitter"></i></i></a></li>
+                        <li class="list-inline-item"><a href="https://join.skype.com/invite/xJY5pgHzba5y"><i
+                                    class="lni-skype"></i></i></a></li>
+                        <li class="list-inline-item"><a
+                                href="https://www.youtube.com/channel/UCXptkVJhpWBAdQP_jIYflFw"><i
+                                    class="lni-youtube"></i></a></li>
+                        <li class="list-inline-item"><a href="https://www.instagram.com/willlee.18/"><i
+                                    class="lni-instagram-filled"></i></a></li>
+                    </ul>
+                </div>
+            </nav>
+        </div>
+        <!-- END: NAVBAR =========================================================-->
+    </aside>
+    <!-- START: Aside =========================================================-->
+
+    <div class="page-wrapper section-dark">
+
+        <!-- START: HOME -->
+        <section class="section section-home section-home " id="home">
+
+            <div id="scene">
+                <img data-depth="0.1" class="shape1" src="/assets/images/item1.png" alt="Scene Images1">
+                <img data-depth="0.1" class="shape4" src="/assets/images/item2.png" alt="Scene Images1">
+                <img data-depth="0.1" class="shape5" src="/assets/images/item3.png" alt="Scene Images1">
+                <img data-depth="0.1" class="shape6" src="/assets/images/item4.png" alt="Scene Images1">
+                <img data-depth="0.2" class="shape2" src="/assets/images/item5.svg" alt="Scene Images2">
+                <img data-depth="0.4" class="shape3" src="/assets/images/item6.svg" alt="Scene Images3">
+                <img data-depth="0.2" class="shape7" src="/assets/images/item7.svg" alt="Scene Images3">
+                <img data-depth="0.1" class="shape8" src="/assets/images/item8.svg" alt="Scene Images3">
+            </div>
+
+            <div class="container vh-100">
+                <div class="row justify-content-center align-items-center section-home-in h-100vh">
+                    <img class="hero-img img-fluid" src="/assets/images/myself6.jpg" alt="About Picture">
+                    <h1 class="my-4">
+                        <span id="autoplay" data-elements=",,">
+                            <span>Game Developer.</span>
+                            <span>Unity Developer.</span>
+                            <span>William</span>
+                        </span>
+                    </h1>
+                </div>
+            </div>
+            <div id="scroll-down"></div>
+        </section>
+        <!-- END: HOME -->
+
+        <!-- START: ABOUT -->
+        <section class="section section-about " id="home">
+            <div class="container">
+                <div class="row justify-content-center align-items-center">
+                    <div class="col-md-7">
+                        <div class="hero-right mt-5 mt-md-0 text-center" data-wow-delay="300ms">
+                            <h5>HELLO EVERYONE!</h5>
+                            <h2 class="my-4">
+                                <span><a class="badge-base__link LI-simple-link"
+                                        href="https://vn.linkedin.com/in/william186?trk=profile-badge">I'M Lê Nguyễn
+                                        Thành Long</a></span>
+                            </h2>
+                            <p>People who know how to make games need to start focusing on the task of making real life
+                                better for as many people as possible.</p>
+
+                            <div class="hero-right--btns my-4">
+                                <a href="#contact" class="btn ripple">Contact Me</a>
+                                <!-- <a target="_blank" href="https://www.linkedin.com/in/william186/"
+                                    class="btn btn-link">Learn More</a> -->
+                                <a target="_blank" href="/assets/LeNguyenThanhLong_my_cv.pdf"
+                                    class="btn btn-link">Download CV</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- END: ABOUT -->
+
+        <!-- START: SHOW CASE -->
+        <section class="section section-dark " id="services">
+            <div class="container">
+                <div class="section-head">
+                    <span>WHAT I HAVE</span>
+                    <h2>Show Case</h2>
+                </div>
+                <div class="section-inner">
+                    <div class="row">
+                        <div class="blog-slider">
+                            <div class="blog-slider__wrp swiper-wrapper"
+                                content="width=device-width, initial-scale=1.0">
+
+                                <div class="blog-slider__item swiper-slide">
+                                    <div class="blog-slider__img">
+
+                                        <img src="/assets/images/game/cryptoquest.png" alt="">
+                                    </div>
+                                    <div class="blog-slider__content">
+                                        <span class="blog-slider__code">Jul 2023 - Feb 2024</span>
+                                        <div class="blog-slider__title">Crypto Quest</div>
+                                        <div class="blog-slider__text">In this project, I was entrusted with
+                                            implementing core gameplay mechanics, which encompassed a wide range of
+                                            systems, including the ability system, quest system, audio system, inventory
+                                            system, dialog system, cheat system, inn system, settings system timeline,
+                                            and cutscene system.
+                                        </div>
+                                        <a href="https://www.youtube.com/watch?v=DLbbKSdFZEw"
+                                            class="blog-slider__button" style="margin:5px">Trailer</a><br>
+                                        <a href="https://crypto-quest.org/" class="blog-slider__button"
+                                            style="margin:5px">Main Website</a><br>
+                                    </div>
+                                </div>
+
+                                <div class="blog-slider__item swiper-slide">
+                                    <div class="blog-slider__img">
+
+                                        <img src="/assets/images/game/mugenhorror.jpeg" alt="">
+                                    </div>
+                                    <div class="blog-slider__content">
+                                        <span class="blog-slider__code">Jun 2022 - Nov 2022</span>
+                                        <div class="blog-slider__title">Mugen Horror</div>
+                                        <div class="blog-slider__title">The platform has been shut down</div>
+                                        <div class="blog-slider__text"> A live multi-genre game in which player explores
+                                            haunted places to uncover the stories behind and defeat the main ghosts. For
+                                            each level, player starts by searching & solving puzzles to find the key to
+                                            the room where the main ghost stays. Once entering that room, player is in
+                                            combat mode with the ghost.
+                                        </div>
+                                        <a href="https://www.youtube.com/watch?v=zg3qNVPQPYg&ab_channel=LamNgo"
+                                            class="blog-slider__button" style="margin:5px">Trailer</a><br>
+                                    </div>
+                                </div>
+
+                                <div class="blog-slider__item swiper-slide">
+                                    <div class="blog-slider__img">
+
+                                        <img src="/assets/videos/machingbaccarat.jpg" alt="">
+                                    </div>
+                                    <div class="blog-slider__content">
+                                        <span class="blog-slider__code">Jul 2022 - Jan 2023</span>
+                                        <div class="blog-slider__title">Matching Casino - Baccarat </div>
+                                        <div class="blog-slider__title">The platform has been shut down</div>
+                                        <div class="blog-slider__text"> This is a game for interaction between streamer
+                                            and viewer. Random questions will be given to the streamer and the viewer
+                                            will answer.
+                                        </div>
+                                        <a href="https://www.youtube.com/watch?v=qddxMmCo81U"
+                                            class="blog-slider__button" style="margin:5px">Trailer</a><br>
+                                    </div>
+                                </div>
+
+                                <div class="blog-slider__item swiper-slide">
+                                    <div class="blog-slider__img">
+
+                                        <img src="/assets/videos/pinoracing.jpg" alt="">
+                                    </div>
+                                    <div class="blog-slider__content">
+                                        <span class="blog-slider__code">May 2022 - Sep 2022</span>
+                                        <div class="blog-slider__title">Pino Racing</div>
+                                        <div class="blog-slider__text"> Pino Racing is a promotion game. Which is
+                                            developed with Unity like AR Game.
+                                        </div>
+                                        <a href="https://long18.github.io/StrippedPino-Racing/"
+                                            class="blog-slider__button" style="margin:5px">WebGL</a><br>
+
+                                    </div>
+                                </div>
+
+                                <div class="blog-slider__item swiper-slide">
+                                    <div class="blog-slider__img">
+
+                                        <img src="/assets/images/game/BatteryManRun.png" alt="">
+                                    </div>
+                                    <div class="blog-slider__content">
+                                        <span class="blog-slider__code">15 Febuary 2022</span>
+                                        <div class="blog-slider__title">Battery Man Run.</div>
+                                        <div class="blog-slider__text">Eat point to live as long as possible.
+                                        </div>
+                                        <a href="https://drive.google.com/file/d/15Z8Xwado10npMPNQ9pkGnuyMLj4RB7cA/view?usp=sharing"
+                                            class="blog-slider__button" style="margin:5px">EXE</a><br>
+                                        <a href="https://youtu.be/YkJbXDPT-lo" class="blog-slider__button"
+                                            style="margin:5px">Demo</a><br>
+
+                                    </div>
+                                </div>
+
+                                <div class="blog-slider__item swiper-slide">
+                                    <div class="blog-slider__img">
+
+                                        <img src="/assets/images/game/boombang.png" alt="">
+                                    </div>
+                                    <div class="blog-slider__content">
+                                        <span class="blog-slider__code">09 January 2022</span>
+                                        <div class="blog-slider__title">Boom Bang.</div>
+                                        <div class="blog-slider__text">Throw boom with enemies.
+                                        </div>
+                                        <a href="/assets/apk/Boombang.apk" class="blog-slider__button"
+                                            style="margin:5px">APK</a><br>
+                                        <a href="https://youtu.be/QeQVxlDerwI" class="blog-slider__button"
+                                            style="margin:5px">Demo</a><br>
+                                    </div>
+                                </div>
+
+                                <div class="blog-slider__item swiper-slide">
+                                    <div class="blog-slider__img">
+
+                                        <img src="/assets/images/game/animal_huting.png" alt="">
+                                    </div>
+                                    <div class="blog-slider__content">
+                                        <span class="blog-slider__code">24 July 2021</span>
+                                        <div class="blog-slider__title">Huting Animal.</div>
+                                        <div class="blog-slider__text">Huting Animal with servers socket.
+                                        </div>
+                                        <a href="/assets/apk/banca/Game_Server_1.0.rar" class="blog-slider__button"
+                                            style="margin:5px">Server Download</a><br>
+                                        <a href="Games/HutingAnimal/index.html" class="blog-slider__button"
+                                            style="margin:5px">Html</a>
+                                        <a href="/assets/apk/HuntingAnimal.apk" class="blog-slider__button"
+                                            style="margin:5px">APK</a><br>
+                                        <a href="/assets/apk/banca/BanCa_Pc.rar" class="blog-slider__button"
+                                            style="margin:5px">PC Version</a><br>
+                                    </div>
+                                </div>
+
+
+                                <div class="blog-slider__item swiper-slide">
+                                    <div class="blog-slider__img">
+
+                                        <img src="/assets/images/game/FlappyBird.png" alt="">
+                                    </div>
+                                    <div class="blog-slider__content">
+                                        <span class="blog-slider__code">18 June 2020</span>
+                                        <div class="blog-slider__title">Flappy Bird</div>
+                                        <div class="blog-slider__text">Mục tiêu của trò chơi là điều khiển một chú chim
+                                            bay
+                                            thông qua các đường ống. Nếu chú chim chạm vào chướng ngại vật, trò chơi kết
+                                            thúc. Mỗi lần
+                                            chú chim này vượt qua một cặp ống, người chơi nhận được một điểm. Hãy thử
+                                            sức mình với một
+                                            hệ thống điều khiển cực kỳ đơn giản.
+                                        </div>
+                                        <a href="Games/FlappyBird/index.html" class="blog-slider__button"
+                                            style="margin:5px">Html</a>
+                                        <a href="#" class="blog-slider__button" style="margin:5px">APK</a><br>
+                                    </div>
+                                </div>
+
+                                <div class="blog-slider__item swiper-slide">
+                                    <div class="blog-slider__img">
+                                        <img src="/assets/images/game/DoggyMovement.png" alt="">
+                                    </div>
+                                    <div class="blog-slider__content">
+                                        <span class="blog-slider__code">24 March 2020</span>
+                                        <div class="blog-slider__title">Doggy Movement</div>
+                                        <div class="blog-slider__text">
+                                            Một chú cừu bị lạc khỏi bầy đàn vào nhà của những chú chó sói, và chú cừu
+                                            này phải tìm cách để né những trái boom. Hãy thử sức mình bằng cách né những
+                                            quả boom này nhé!
+                                        </div>
+                                        <a href="Games/DoggyMovement/index.html" class="blog-slider__button"
+                                            style="margin:5px">Html</a>
+                                        <a href="/assets/apk/DoggyMovement.apk" class="blog-slider__button"
+                                            style="margin:5px">APK</a><br>
+                                        <a href="/assets/zip/DoggyMovement.zip" class="blog-slider__button"
+                                            style="margin:5px">EXE</a><br>
+                                    </div>
+                                </div>
+
+                                <div class="blog-slider__item swiper-slide">
+                                    <div class="blog-slider__img">
+                                        <img src="/assets/images/game/Homewithgrandma.png" alt="">
+                                    </div>
+                                    <div class="blog-slider__content">
+                                        <span class="blog-slider__code">10 January 2021</span>
+                                        <div class="blog-slider__title">Home With Grandma</div>
+                                        <div class="blog-slider__text">
+                                            Bản thân là một người cháu ở cùng bà, chăm sóc cho bà khi bố mẹ đi công tác
+                                            xa giữa tâm dịch. Trong trò chơi này, người chơi sẽ nhập vai vào người cháu
+                                            và phải dự trữ đủ lượng đồ ăn cũng như các nhu yếu phẩm để bảo vệ chính
+                                            người bà thân yêu của mình.
+                                        </div>
+                                        <a href="Games/HomeWithGrandma/" class="blog-slider__button"
+                                            style="margin:5px">Html</a>
+                                        <a href="/assets/apk/HomeWithGrandma.apk" class="blog-slider__button"
+                                            style="margin:5px">APK</a><br>
+                                    </div>
+                                </div>
+
+                                <div class="blog-slider__item swiper-slide">
+                                    <div class="blog-slider__img">
+                                        <img src="/assets/images/application/ffats/logo.png" alt="">
+                                    </div>
+                                    <div class="blog-slider__content">
+                                        <span class="blog-slider__code">December 2021</span>
+                                        <div class="blog-slider__title">FFATS (Android Version)</div>
+                                        <div class="blog-slider__text">Food delivery.
+                                        </div>
+                                        <a href="/assets/apk/FFATS_Client.apk" class="blog-slider__button"
+                                            style="margin:5px">APK</a><br>
+                                        <a href="https://youtu.be/11WW_Wy_VqY" class="blog-slider__button"
+                                            style="margin:5px">Demo</a><br>
+                                    </div>
+                                </div>
+
+                                <div class="blog-slider__item swiper-slide">
+                                    <div class="blog-slider__img">
+                                        <img src="/assets/images/application/icon_application.png" alt="">
+                                    </div>
+                                    <div class="blog-slider__content">
+                                        <span class="blog-slider__code">July 2021</span>
+                                        <div class="blog-slider__title">Fitness Care (Android Version)</div>
+                                        <div class="blog-slider__text">The goal of the app is to help users
+                                            exercise and improve body quality.
+                                        </div>
+                                        <a href="/assets/apk/Fitnesscare.apk" class="blog-slider__button"
+                                            style="margin:5px">APK</a><br>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="blog-slider__pagination"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- END: SHOW CASE -->
+
+        <!-- START: PORTFOLIO -->
+        <section class="section" id="portfolio">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12 col-md-4">
+                        <div class="section-head">
+                            <span>TAKE A LOOK AT</span>
+                            <h2>My Works</h2>
+                        </div>
+                    </div>
+                    <div class="col-md-8">
+                        <ul id="filter" class="filter mt-4">
+                            <li class="active" data-group="video">Video</li>
+                            <li class="" data-group="slideshow">Slideshow</li>
+                            <li class="" data-group="image">Image</li>
+                            <li class="" data-group="all">All</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="section-inner">
+                    <div class="list-items-container row my-gallery">
+
+                        <!-- ======================================================BatteryManRun====================================================== -->
+                        <figure class="col-sm-6 col-md-4 list-item" itemprop="associatedMedia"
+                            data-groups="all slideshow">
+                            <a href="/assets/images/game/BatteryManRun.png" itemprop="contentUrl"
+                                data-size="1920x1080">
+                                <img src="/assets/images/game/BatteryManRun.png" itemprop="thumbnail"
+                                    alt="Image description" />
+                            </a>
+                            <figcaption itemprop="caption description">
+                                <div class="caption-inner">
+                                    <h3 class="portfolio-item-title">BatteryManRun</h3>
+                                    <div class="portfolio-item-desc">Slideshow</div>
+                                </div>
+                            </figcaption>
+                        </figure>
+
+                        <!-- ======================================================BatteryManRun====================================================== -->
+
+                        <!-- ======================================================Boombang====================================================== -->
+                        <figure class="col-sm-6 col-md-4 list-item" itemprop="associatedMedia"
+                            data-groups="all slideshow">
+                            <a href="/assets/images/game/boombang.png" itemprop="contentUrl" data-size="1920x1080">
+                                <img src="/assets/images/game/boombang.png" itemprop="thumbnail"
+                                    alt="Image description" />
+                            </a>
+                            <figcaption itemprop="caption description">
+                                <div class="caption-inner">
+                                    <h3 class="portfolio-item-title">Boombang</h3>
+                                    <div class="portfolio-item-desc">Slideshow</div>
+                                </div>
+                            </figcaption>
+                        </figure>
+
+                        <figure class="col-sm-6 col-md-4 list-item" itemprop="associatedMedia"
+                            data-groups="all slideshow">
+                            <a href="/assets/images/game/menu_boombang.png" itemprop="contentUrl"
+                                data-size="1920x1080">
+                                <img src="/assets/images/game/menu_boombang.png" itemprop="thumbnail"
+                                    alt="Image description" />
+                            </a>
+                            <figcaption itemprop="caption description">
+                                <div class="caption-inner">
+                                    <h3 class="portfolio-item-title">Boombang</h3>
+                                    <div class="portfolio-item-desc">Slideshow</div>
+                                </div>
+                            </figcaption>
+                        </figure>
+
+                        <!-- ======================================================Boombang====================================================== -->
+
+                        <!-- ======================================================HuntingAnimal====================================================== -->
+                        <figure class="col-sm-6 col-md-4 list-item" itemprop="associatedMedia"
+                            data-groups="all slideshow">
+                            <a href="/assets/images/game/animal_huting.png" itemprop="contentUrl"
+                                data-size="1920x1080">
+                                <img src="/assets/images/game/animal_huting.png" itemprop="thumbnail"
+                                    alt="Image description" />
+                            </a>
+                            <figcaption itemprop="caption description">
+                                <div class="caption-inner">
+                                    <h3 class="portfolio-item-title">HuntingAnimal</h3>
+                                    <div class="portfolio-item-desc">Slideshow</div>
+                                </div>
+                            </figcaption>
+                        </figure>
+
+                        <!-- ======================================================HuntingAnimal====================================================== -->
+
+                        <!-- ======================================================ToiletTapTap====================================================== -->
+                        <figure class="col-sm-6 col-md-4 list-item" itemprop="associatedMedia"
+                            data-groups="all slideshow">
+                            <a href="/assets/images/game/ToiletTapTap.png" itemprop="contentUrl"
+                                data-size="1920x1080">
+                                <img src="/assets/images/game/ToiletTapTap.png" itemprop="thumbnail"
+                                    alt="Image description" />
+                            </a>
+                            <figcaption itemprop="caption description">
+                                <div class="caption-inner">
+                                    <h3 class="portfolio-item-title">ToiletTapTap</h3>
+                                    <div class="portfolio-item-desc">Slideshow</div>
+                                </div>
+                            </figcaption>
+                        </figure>
+
+                        <!-- ======================================================ToiletTapTap====================================================== -->
+
+                        <!-- ======================================================Homewithgrandma====================================================== -->
+
+                        <figure class="col-sm-6 col-md-4 list-item" itemprop="associatedMedia"
+                            data-groups="all slideshow">
+                            <a href="/assets/images/game/Homewithgrandma.png" itemprop="contentUrl"
+                                data-size="1920x1080">
+                                <img src="/assets/images/game/Homewithgrandma.png" itemprop="thumbnail"
+                                    alt="Image description" />
+                            </a>
+                            <figcaption itemprop="caption description">
+                                <div class="caption-inner">
+                                    <h3 class="portfolio-item-title">Home With Grandma</h3>
+                                    <div class="portfolio-item-desc">slideshow</div>
+                                </div>
+                            </figcaption>
+                        </figure>
+
+                        <figure class="col-sm-6 col-md-4 list-item" itemprop="associatedMedia"
+                            data-groups="all slideshow">
+                            <a href="/assets/images/game/HWG.png" itemprop="contentUrl" data-size="1920x1080">
+                                <img src="/assets/images/game/HWG.png" itemprop="thumbnail" alt="Image description" />
+                            </a>
+                            <figcaption itemprop="caption description">
+                                <div class="caption-inner">
+                                    <h3 class="portfolio-item-title">Home With Grandma</h3>
+                                    <div class="portfolio-item-desc">slideshow</div>
+                                </div>
+                            </figcaption>
+                        </figure>
+
+                        <figure class="col-sm-6 col-md-4 list-item" itemprop="associatedMedia"
+                            data-groups="all slideshow">
+                            <a href="/assets/images/game/BG_HWG.png" itemprop="contentUrl" data-size="1920x1080">
+                                <img src="/assets/images/game/BG_HWG.png" itemprop="thumbnail"
+                                    alt="Image description" />
+                            </a>
+                            <figcaption itemprop="caption description">
+                                <div class="caption-inner">
+                                    <h3 class="portfolio-item-title">Home With Grandma</h3>
+                                    <div class="portfolio-item-desc">slideshow</div>
+                                </div>
+                            </figcaption>
+                        </figure>
+
+                        <figure class="col-sm-6 col-md-4 list-item" itemprop="associatedMedia"
+                            data-groups="all slideshow">
+                            <a href="/assets/images/game/play.png" itemprop="contentUrl" data-size="1920x1080">
+                                <img src="/assets/images/game/play.png" itemprop="thumbnail"
+                                    alt="Image description" />
+                            </a>
+                            <figcaption itemprop="caption description">
+                                <div class="caption-inner">
+                                    <h3 class="portfolio-item-title">Home With Grandma</h3>
+                                    <div class="portfolio-item-desc">slideshow</div>
+                                </div>
+                            </figcaption>
+                        </figure>
+                        <!-- ======================================================Homewithgrandma====================================================== -->
+
+
+                        <!-- ======================================================DoggyMovement====================================================== -->
+                        <figure class="col-sm-6 col-md-4 list-item" itemprop="associatedMedia"
+                            data-groups="all slideshow">
+                            <a href="/assets/images/game/DoggyMovement.png" itemprop="contentUrl"
+                                data-size="1920x1080">
+                                <img src="/assets/images/game/DoggyMovement.png" itemprop="thumbnail"
+                                    alt="Image description" />
+                            </a>
+                            <figcaption itemprop="caption description">
+                                <div class="caption-inner">
+                                    <h3 class="portfolio-item-title">DoggyMovement</h3>
+                                    <div class="portfolio-item-desc">slideshow</div>
+                                </div>
+                            </figcaption>
+                        </figure>
+
+
+                        <!-- ======================================================DoggyMovement====================================================== -->
+
+                        <!-- ======================================================FitnessCare====================================================== -->
+                        <figure class="col-sm-6 col-md-4 list-item" itemprop="associatedMedia"
+                            data-groups="all slideshow">
+                            <a href="/assets/images/application/fn_home.png" itemprop="contentUrl"
+                                data-size="1920x1080">
+                                <img src="/assets/images/application/fn_home.png" itemprop="thumbnail"
+                                    alt="Image description" />
+                            </a>
+                            <figcaption itemprop="caption description">
+                                <div class="caption-inner">
+                                    <h3 class="portfolio-item-title">Fitnesscare</h3>
+                                    <div class="portfolio-item-desc">slideshow</div>
+                                </div>
+                            </figcaption>
+                        </figure>
+
+                        <figure class="col-sm-6 col-md-4 list-item" itemprop="associatedMedia"
+                            data-groups="all slideshow">
+                            <a href="/assets/images/application/fn_recent.png" itemprop="contentUrl"
+                                data-size="1920x1080">
+                                <img src="/assets/images/application/fn_recent.png" itemprop="thumbnail"
+                                    alt="Image description" />
+                            </a>
+                            <figcaption itemprop="caption description">
+                                <div class="caption-inner">
+                                    <h3 class="portfolio-item-title">Fitnesscare</h3>
+                                    <div class="portfolio-item-desc">slideshow</div>
+                                </div>
+                            </figcaption>
+                        </figure>
+
+                        <!-- ======================================================FitnessCare====================================================== -->
+
+                        <!-- ======================================================FFATS====================================================== -->
+
+                        <figure class="col-sm-6 col-md-4 list-item" itemprop="associatedMedia"
+                            data-groups="all slideshow">
+                            <a href="/assets/images/application/ffats/client.png" itemprop="contentUrl"
+                                data-size="1920x1080">
+                                <img src="/assets/images/application/ffats/client.png" itemprop="thumbnail"
+                                    alt="Image description" />
+                            </a>
+                            <figcaption itemprop="caption description">
+                                <div class="caption-inner">
+                                    <h3 class="portfolio-item-title">FFATS</h3>
+                                    <div class="portfolio-item-desc">slideshow</div>
+                                </div>
+                            </figcaption>
+                        </figure>
+
+                        <figure class="col-sm-6 col-md-4 list-item" itemprop="associatedMedia"
+                            data-groups="all slideshow">
+                            <a href="/assets/images/application/ffats/server.png" itemprop="contentUrl"
+                                data-size="1920x1080">
+                                <img src="/assets/images/application/ffats/server.png" itemprop="thumbnail"
+                                    alt="Image description" />
+                            </a>
+                            <figcaption itemprop="caption description">
+                                <div class="caption-inner">
+                                    <h3 class="portfolio-item-title">FFATS</h3>
+                                    <div class="portfolio-item-desc">slideshow</div>
+                                </div>
+                            </figcaption>
+                        </figure>
+
+
+                        <figure class="col-sm-6 col-md-4 list-item" itemprop="associatedMedia"
+                            data-groups="all slideshow">
+                            <a href="/assets/images/application/ffats/shipper.png" itemprop="contentUrl"
+                                data-size="1920x1080">
+                                <img src="/assets/images/application/ffats/shipper.png" itemprop="thumbnail"
+                                    alt="Image description" />
+                            </a>
+                            <figcaption itemprop="caption description">
+                                <div class="caption-inner">
+                                    <h3 class="portfolio-item-title">FFATS</h3>
+                                    <div class="portfolio-item-desc">slideshow</div>
+                                </div>
+                            </figcaption>
+                        </figure>
+
+
+                        <figure class="col-sm-6 col-md-4 list-item" itemprop="associatedMedia"
+                            data-groups="all slideshow">
+                            <a href="/assets/images/application/ffats/home.png" itemprop="contentUrl"
+                                data-size="1920x1080">
+                                <img src="/assets/images/application/ffats/home.png" itemprop="thumbnail"
+                                    alt="Image description" />
+                            </a>
+                            <figcaption itemprop="caption description">
+                                <div class="caption-inner">
+                                    <h3 class="portfolio-item-title">FFATS</h3>
+                                    <div class="portfolio-item-desc">slideshow</div>
+                                </div>
+                            </figcaption>
+                        </figure>
+
+                        <figure class="col-sm-6 col-md-4 list-item" itemprop="associatedMedia"
+                            data-groups="all slideshow">
+                            <a href="/assets/images/application/ffats/map.png" itemprop="contentUrl"
+                                data-size="1920x1080">
+                                <img src="/assets/images/application/ffats/map.png" itemprop="thumbnail"
+                                    alt="Image description" />
+                            </a>
+                            <figcaption itemprop="caption description">
+                                <div class="caption-inner">
+                                    <h3 class="portfolio-item-title">FFATS</h3>
+                                    <div class="portfolio-item-desc">slideshow</div>
+                                </div>
+                            </figcaption>
+                        </figure>
+                        <!-- ======================================================FFATS====================================================== -->
+
+                        <!-- ======================================================All Image====================================================== -->
+
+                        <figure class="col-sm-6 col-md-4 list-item" itemprop="associatedMedia" data-groups="all image">
+                            <a href="/assets/images/blog/Cerfitication.jpg" itemprop="contentUrl"
+                                data-size="1920x1080">
+                                <img src="/assets/images/blog/Cerfitication.jpg" itemprop="thumbnail"
+                                    alt="Image description" />
+                            </a>
+                            <figcaption itemprop="caption description">
+                                <div class="caption-inner">
+                                    <h3 class="portfolio-item-title">CERTIFICATE OF PARTICIPATION IN GAME JAM 2020.</h3>
+                                    <div class="portfolio-item-desc">image</div>
+                                </div>
+                            </figcaption>
+                        </figure>
+
+                        <figure class="col-sm-6 col-md-4 list-item" itemprop="associatedMedia" data-groups="all image">
+                            <a href="/assets/images/blog/Trí Thức Khoa Học Trẻ.jpg" itemprop="contentUrl"
+                                data-size="1920x1080">
+                                <img src="/assets/images/blog/Trí Thức Khoa Học Trẻ.jpg" itemprop="thumbnail"
+                                    alt="Image description" />
+                            </a>
+                            <figcaption itemprop="caption description">
+                                <div class="caption-inner">
+                                    <h3 class="portfolio-item-title">CERTIFICATE OF GRADUATION TRÍ THỨC KHOA HỌC TRẺ
+                                        TÌNH NGUYỆN
+                                        NĂM 2020.</h3>
+                                    <div class="portfolio-item-desc">image</div>
+                                </div>
+                            </figcaption>
+                        </figure>
+                        <!-- ======================================================All Image====================================================== -->
+
+                        <!-- ======================================================Video====================================================== -->
+
+                        <figure class="col-sm-6 col-md-4 list-item" itemprop="associatedMedia" data-groups="all video">
+                            <a href="/assets/videos/CryptoQuest.mp4" itemprop="contentUrl" data-size="1920x1080">
+                                <img src="/assets/images/game/cryptoquest.png" itemprop="thumbnail"
+                                    alt="CryptoQuest" />
+                            </a>
+                            <figcaption itemprop="caption description">
+                                <div class="caption-inner">
+                                    <h3 class="portfolio-item-title">Crypto Quest</h3>
+                                    <div class="portfolio-item-desc">video</div>
+                                </div>
+                                <div class="portfolio-item-desc">
+                                </div>
+                            </figcaption>
+                        </figure>
+
+                        <figure class="col-sm-6 col-md-4 list-item" itemprop="associatedMedia" data-groups="all video">
+                            <a href="/assets/videos/mugenhorror.mp4" itemprop="contentUrl" data-size="1920x1080">
+                                <img src="/assets/images/game/mugenhorror.jpeg" itemprop="thumbnail"
+                                    alt="CryptoQuest" />
+                            </a>
+                            <figcaption itemprop="caption description">
+                                <div class="caption-inner">
+                                    <h3 class="portfolio-item-title">Mugen Horror</h3>
+                                    <div class="portfolio-item-desc">video</div>
+                                </div>
+                                <div class="portfolio-item-desc">
+                                </div>
+                            </figcaption>
+                        </figure>
+
+                        <figure class="col-sm-6 col-md-4 list-item" itemprop="associatedMedia" data-groups="all video">
+                            <a href="/assets/videos/machingbaccarat.mp4" itemprop="contentUrl" data-size="1920x1080">
+                                <img src="/assets/videos/machingbaccarat.jpg" itemprop="thumbnail"
+                                    alt="Maching Baccarat" />
+                            </a>
+                            <figcaption itemprop="caption description">
+                                <div class="caption-inner">
+                                    <h3 class="portfolio-item-title">Maching Baccarat</h3>
+                                    <div class="portfolio-item-desc">video</div>
+                                </div>
+                                <div class="portfolio-item-desc">
+                                </div>
+                            </figcaption>
+                        </figure>
+
+                        <figure class="col-sm-6 col-md-4 list-item" itemprop="associatedMedia" data-groups="all video">
+                            <a href="/assets/videos/pinoracing.mp4" itemprop="contentUrl" data-size="1920x1080">
+                                <img src="/assets/videos/pinoracing.jpg" itemprop="thumbnail" alt="Pino Racing" />
+                            </a>
+                            <figcaption itemprop="caption description">
+                                <div class="caption-inner">
+                                    <h3 class="portfolio-item-title">Pino Racing</h3>
+                                    <div class="portfolio-item-desc">video</div>
+                                </div>
+                                <div class="portfolio-item-desc">
+                                </div>
+                            </figcaption>
+                        </figure>
+
+                        <!-- ======================================================Video====================================================== -->
+
+                    </div><!-- .projects-container -->
+                </div>
+            </div>
+        </section>
+        <!-- END: PORTFOLIO -->
+
+        <!-- START: TESTIMONY -->
+        <section class="section section-dark section-testimony" id="testimony">
+            <div class="container">
+                <div class="section-head text-center">
+                    <span>Kind Words</span>
+                    <h2>testimonial</h2>
+                </div>
+                <div class="section-inner section-testimony--content">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="swiper-container swiper-testimony ">
+                                <div class="swiper-wrapper">
+
+                                    <div class="swiper-slide single-testimonials ">
+                                        <div class="single-testimonials-in mx-auto text-center">
+                                            <div class="single-testimonials-head pt-4 pb-5">
+                                                <p>"We come to love not by finding a perfect person, but by learning to
+                                                    see an imperfect person perfectly."</p>
+                                            </div>
+                                            <div class="single-testimonials-foot mx-auto">
+                                                <img src="/assets/images/myself3.jpg" alt="" class="mx-auto b-box">
+                                                <h4 class="mt-3 font-weight-bold">William</h4>
+                                                <span class="mt-1 d-block">Game Developer</span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="swiper-slide single-testimonials ">
+                                        <div class="single-testimonials-in mx-auto text-center">
+                                            <div class="single-testimonials-head pt-4 pb-5">
+                                                <p>"I'm Loooooooooooooooooooooooooooooooooooong.</p>
+                                            </div>
+                                            <div class="single-testimonials-foot mx-auto">
+                                                <img src="/assets/images/friends/tienlong.png" alt=""
+                                                    class="mx-auto b-box">
+                                                <h4 class="mt-3 font-weight-bold">NGUYEN TIEN LONG</h4>
+                                                <span class="mt-1 d-block">Game Developer</span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="swiper-slide single-testimonials ">
+                                        <div class="single-testimonials-in mx-auto text-center">
+                                            <div class="single-testimonials-head pt-4 pb-5">
+                                                <p>"On the way to success, there is no trace of lazy men."</p>
+                                            </div>
+                                            <div class="single-testimonials-foot mx-auto">
+                                                <img src="/assets/images/friends/huytruong.jpg" alt=""
+                                                    class="mx-auto b-box">
+                                                <h4 class="mt-3 font-weight-bold">VU HUY TRUONG</h4>
+                                                <span class="mt-1 d-block">Game Programmer - GameLoft</span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="swiper-slide single-testimonials ">
+                                        <div class="single-testimonials-in mx-auto text-center">
+                                            <div class="single-testimonials-head pt-4 pb-5">
+                                                <p>"There are more men who have missed opportunities than there are who
+                                                    have lacked opportunities."</p>
+                                            </div>
+                                            <div class="single-testimonials-foot mx-auto">
+                                                <img src="/assets/images/friends/thang.jpg" alt=""
+                                                    class="mx-auto b-box">
+                                                <h4 class="mt-3 font-weight-bold">DO DUC THANG</h4>
+                                                <span class="mt-1 d-block">Game Developer</span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="swiper-slide single-testimonials ">
+                                        <div class="single-testimonials-in mx-auto text-center">
+                                            <div class="single-testimonials-head pt-4 pb-5">
+                                                <p>"Brief is life but love is long."</p>
+                                            </div>
+                                            <div class="single-testimonials-foot mx-auto">
+                                                <img src="/assets/images/gif.gif" alt="" class="mx-auto b-box">
+                                                <h4 class="mt-3 font-weight-bold">William</h4>
+                                                <span class="mt-1 d-block">Game Developer</span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div class="swiper-pagination"></div>
+                            </div>
+
+                            <div class="testimony-nav">
+                                <a href="#" class="swiper-button-next"></a>
+                                <a href="#" class="swiper-button-prev"></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- END: TESTIMONY -->
+
+        <!-- START: RESUME -->
+        <section class="section section-resume" id="resume">
+            <div class="container">
+
+                <div class="section-head">
+                    <span>My Resume</span>
+                    <h2>My Expertises</h2>
+                </div>
+
+                <div class="section-education">
+                    <div class="row">
+                        <div class="col-lg-3">
+                            <h5 class="section-subHead mb-4">Work Experience</h5>
+                        </div>
+                        <div class="col-lg-9 ">
+                            <div class="EducationList">
+                                <div class="row">
+
+                                    <div class="col-md-6 ">
+                                        <div class="resume-list b-box p-4 mb-4 ">
+                                            <div>
+                                                <img src="https://static.topcv.vn/company_logos/e3XBeH7v4A669xHzCRU72WdsdKDOHPuy_1654846216____cd529f5e4eb44c70bb2a9f74162e1723.png"
+                                                    alt="" style=" width:120px;height:120px;">
+                                                <h5>EG TECH GROUP.</h5>
+                                                <h6 class="badge badge-danger d-inline-block my-3">
+                                                    03/05/2021 - 04/08/2021
+                                                </h6>
+                                                <p>Game Developer - Fresher.</p>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <div class="resume-list b-box p-4 mb-4 ">
+                                            <div>
+                                                <img src="https://static.topcv.vn/company_logos/1LFVOJ1GaxzYfQSXiIAzd3DrMMJnlBvk_1633934436____aa1bee609b4247790644212ba393ced0.png"
+                                                    alt="" style=" width:120px;height:120px;">
+                                                <h5>Indigames Inc.</h5>
+                                                <h6 class="badge badge-success d-inline-block my-3">
+                                                    18/04/2022 - Current
+                                                </h6>
+                                                <p>Game Developer - Junior.</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+                <div class="section-inner">
+                    <div class="section-resume-wrap">
+                        <div class="section-experience mb-5">
+                            <div class="row">
+
+                                <div class="col-lg-3">
+                                    <h5 class="section-subHead mb-4 "> My Experience</h5>
+                                </div>
+
+                                <div class="col-lg-9">
+                                    <div class="ExperienceList pb-3">
+
+
+                                        <div class="resume-list b-box p-4 ">
+                                            <div class="row align-items-center">
+                                                <div class="col-3 col-md-3 pb-3 pb-md-0" style="font-weight: bold">
+                                                    UNITY DEVELOPER.
+                                                </div>
+                                                <div class="col-md-5 pb-2 pb-md-0">
+                                                    <h5 class="mb-3">Role: Self-Education</h5>
+
+                                                    <p>
+                                                        <span style="font-weight: bold">Projects: </span>
+                                                        <ul style="list-style-type:circle">
+                                                            <li><a href="https://github.com/Long18/FlappyBird">Flappy
+                                                                    Bird.</a> (Click to see more)</li>
+                                                            <li><a href="https://github.com/Long18/Doggy-Movement">Doggy
+                                                                    Movement.</a>(Click to see more)</li>
+                                                            <li><a href="https://github.com/Long18/Save_Grandmother">Save
+                                                                    Grandmother.</a>(Click to see more)</li>
+                                                        </ul>
+                                                    </p>
+
+                                                    <p style="font-weight: bold">Acquired knowledge:</p>
+                                                    <ul style="list-style-type:circle">
+                                                        <li>The fundamentals of OOP.</li>
+                                                        <li>Use available packages and plugins.</li>
+                                                        <li>Programmable ability, logical thought.</li>
+                                                        <li>Read and comprehend English, basic and advanced.</li>
+                                                    </ul>
+
+                                                </div>
+                                                <div class="col-md-4 text-md-right">
+                                                    <h6 class="badge badge-experience">12/2019 - NOW</h6>
+                                                </div>
+
+                                            </div>
+                                        </div>
+
+                                        <div class="resume-list b-box p-4 ">
+                                            <div class="row align-items-center">
+                                                <div class="col-3 col-md-3 pb-3 pb-md-0" style="font-weight: bold">
+                                                    ANDROID APPLICATION (JAVA).
+                                                </div>
+                                                <div class="col-md-5 pb-2 pb-md-0">
+                                                    <h5 class="mb-3">Role: Team Leader</h5>
+
+                                                    <p>
+                                                        <span style="font-weight: bold">Description: </span>
+                                                        Boom bang.
+                                                    </p>
+
+                                                    <p style="font-weight: bold">Relevant technical:</p>
+                                                    <ul style="list-style-type:circle">
+                                                        <li>Character movement with joystick.</li>
+                                                        <li>Enemies follow the character.</li>
+                                                        <li>Design UX/UI.</li>
+                                                    </ul>
+
+                                                    <p style="font-weight: bold">Acquired knowledge:</p>
+                                                    <ul style="list-style-type:circle">
+                                                        <li>Understand Repository Pattern.</li>
+                                                        <li>Have knowledge of multi-thread.</li>
+                                                        <li>Self-study improvement.</li>
+                                                        <li>Design UX/UI.</li>
+                                                    </ul>
+
+
+                                                    <h5 class="mb-3">
+                                                        <a style="text-decoration:underline"
+                                                            href="https://github.com/Long18/BoomBang">See more</a>
+                                                    </h5>
+
+                                                </div>
+                                                <div class="col-md-4 text-md-right">
+                                                    <h6 class="badge badge-success">11/2021 - 01/2022</h6>
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+                                        <div class="resume-list b-box p-4 ">
+                                            <div class="row align-items-center">
+                                                <div class="col-3 col-md-3 pb-3 pb-md-0" style="font-weight: bold">
+                                                    ANDROID APPLICATION (JAVA).
+                                                </div>
+                                                <div class="col-md-5 pb-2 pb-md-0">
+                                                    <h5 class="mb-3">Role: Team Leader</h5>
+
+                                                    <p>
+                                                        <span style="font-weight: bold">Description: </span>
+                                                        FFATS quick booking food app.
+                                                    </p>
+
+                                                    <p style="font-weight: bold">Relevant technical:</p>
+                                                    <ul style="list-style-type:circle">
+                                                        <li>Data system design and building.</li>
+                                                        <li>Design of functions and data processing.</li>
+                                                        <li>Dijkstra's algorithm.</li>
+                                                        <li>Priority queue.</li>
+                                                        <li>Map direction.</li>
+                                                        <li>Design UX/UI.</li>
+                                                    </ul>
+
+                                                    <p style="font-weight: bold">Acquired knowledge:</p>
+                                                    <ul style="list-style-type:circle">
+                                                        <li>Research and use map data retrieved from OpenStreetMap.</li>
+                                                        <li>Understand how to use google map API.</li>
+                                                        <li>Understand Dijkstra's algorithm.</li>
+                                                        <li>Self-study improvement.</li>
+                                                        <li>Design UX/UI.</li>
+                                                    </ul>
+
+                                                    <h5 class="mb-3">
+                                                        <a style="text-decoration:underline"
+                                                            href="https://github.com/Long18/FFATS_Food_Delivering">See
+                                                            more</a>
+                                                    </h5>
+
+                                                </div>
+
+                                                <div class="col-md-4 text-md-right">
+                                                    <h6 class="badge badge-primary">09/2021 - 12/2021</h6>
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+                                        <div class="resume-list b-box p-4 ">
+                                            <div class="row align-items-center">
+                                                <div class="col-3 col-md-3 pb-3 pb-md-0" style="font-weight: bold">
+                                                    ANDROID APPLICATION (JAVA).
+                                                </div>
+                                                <div class="col-md-5 pb-2 pb-md-0">
+                                                    <h5 class="mb-3">Role: Team Leader</h5>
+
+                                                    <p>
+                                                        <span style="font-weight: bold">Description: </span>
+                                                        Fitness Scheduler & Time Management App.
+                                                    </p>
+
+                                                    <p style="font-weight: bold">Relevant technical:</p>
+                                                    <ul style="list-style-type:circle">
+                                                        <li>Data system design and building.</li>
+                                                        <li>Design of functions and data processing.</li>
+                                                        <li>Design UX/UI.</li>
+                                                    </ul>
+
+                                                    <p style="font-weight: bold">Acquired knowledge:</p>
+                                                    <ul style="list-style-type:circle">
+                                                        <li>Programmable in Java and Android Studio.</li>
+                                                        <li>The fundamentals of XML.</li>
+                                                        <li>Master the key Android SDK principles.</li>
+                                                        <li>Enhance abilities in teamwork.</li>
+                                                        <li>Self-study improvement.</li>
+                                                        <li>Design UX/UI.</li>
+                                                    </ul>
+
+                                                    <h5 class="mb-3">
+                                                        <a style="text-decoration:underline"
+                                                            href="https://github.com/Long18/FitnessCare">See more</a>
+                                                    </h5>
+
+                                                </div>
+                                                <div class="col-md-4 text-md-right">
+                                                    <h6 class="badge badge-danger">03/2021 - 07/2021</h6>
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+                                        <div class="resume-list b-box p-4 ">
+                                            <div class="row align-items-center">
+                                                <div class="col-3 col-md-3 pb-3 pb-md-0" style="font-weight: bold">
+                                                    WEB APPLICATION (C#).
+                                                </div>
+                                                <div class="col-md-5 pb-2 pb-md-0">
+                                                    <h5 class="mb-3">Role: Team Leader</h5>
+
+                                                    <p>
+                                                        <span style="font-weight: bold">Description: </span>
+                                                        Wedding fruits.
+                                                    </p>
+
+                                                    <p style="font-weight: bold">Relevant technical:</p>
+                                                    <ul style="list-style-type:circle">
+                                                        <li>Data system design and building.</li>
+                                                        <li>Design UX/UI.</li>
+                                                    </ul>
+
+                                                    <p style="font-weight: bold">Acquired knowledge:</p>
+                                                    <ul style="list-style-type:circle">
+                                                        <li>ASP.NET MVC Pattern.</li>
+                                                        <li>Self-study improvement.</li>
+                                                        <li>Design UX/UI.</li>
+                                                    </ul>
+
+                                                    <h5 class="mb-3">
+                                                        <a style="text-decoration:underline"
+                                                            href="https://github.com/Long18/mamqua">See more</a>
+                                                    </h5>
+
+                                                </div>
+                                                <div class="col-md-4 text-md-right">
+                                                    <h6 class="badge badge-tritanopia">05/2021 - 07/2021</h6>
+                                                </div>
+
+                                            </div>
+                                        </div>
+
+                                        <div class="resume-list b-box p-4 ">
+                                            <div class="row align-items-center">
+                                                <div class="col-3 col-md-3 pb-3 pb-md-0" style="font-weight: bold">
+                                                    ARTIFICIAL INTELLIGENCE.
+                                                </div>
+                                                <div class="col-md-5 pb-2 pb-md-0">
+                                                    <h5 class="mb-3">Role: Team Leader</h5>
+                                                    <p>
+
+                                                        <span style="font-weight: bold">Description: </span>
+                                                        Research on Game Theory & Algorithms A*.
+                                                    </p>
+
+                                                    <p style="font-weight: bold">Relevant technical:</p>
+                                                    <ul style="list-style-type:circle">
+                                                        <li>Study Game Theory and A* Analysis Algorithms.</li>
+                                                    </ul>
+
+                                                    <p style="font-weight: bold">Acquired knowledge:</p>
+                                                    <ul style="list-style-type:circle">
+                                                        <li>Understand how to calculate Object's shortest path.</li>
+                                                    </ul>
+
+                                                </div>
+                                                <div class="col-md-4 text-md-right">
+                                                    <h6 class="badge badge-success">09/2020 - 11/2020</h6>
+                                                </div>
+
+                                            </div>
+                                        </div>
+
+
+                                        <div class="resume-list b-box p-4 ">
+                                            <div class="row align-items-center">
+                                                <div class="col-3 col-md-3 pb-3 pb-md-0" style="font-weight: bold">
+                                                    WINDOWS FORM APPLICATION (C#).
+                                                </div>
+                                                <div class="col-md-5 pb-2 pb-md-0">
+                                                    <h5 class="mb-3">Role: Team Leader</h5>
+
+                                                    <p>
+                                                        <span style="font-weight: bold">Description: </span>
+                                                        Offline car
+                                                        rental & management software.
+                                                    </p>
+
+                                                    <p style="font-weight: bold">Relevant technical:</p>
+                                                    <ul style="list-style-type:circle">
+                                                        <li>Data system design and building.</li>
+                                                        <li>Design of functions and data processing.</li>
+                                                        <li>Design UX/UI.</li>
+                                                    </ul>
+
+                                                    <p style="font-weight: bold">Acquired knowledge:</p>
+                                                    <ul style="list-style-type:circle">
+                                                        <li>The fundamentals of MVC and Entity Framework.</li>
+                                                        <li>OOP's foundations.</li>
+                                                        <li>Enhance abilities in teamwork</li>
+                                                        <li>Self-study improvement.</li>
+                                                        <li>Design UX/UI.</li>
+                                                    </ul>
+
+                                                    <h5 class="mb-3">
+                                                        <a style="text-decoration:underline"
+                                                            href="hhttps://github.com/Long18/Quanlythuexe">See more</a>
+                                                    </h5>
+
+                                                </div>
+                                                <div class="col-md-4 text-md-right">
+                                                    <h6 class="badge badge-primary">09/2020 - 11/2020</h6>
+                                                </div>
+
+                                            </div>
+                                        </div>
+
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="section-education">
+                            <div class="row">
+                                <div class="col-lg-3">
+                                    <h5 class="section-subHead mb-4"> My Education</h5>
+                                </div>
+
+                                <div class="col-lg-9">
+                                    <div class="EducationList">
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="resume-list b-box p-4 mb-4 ">
+                                                    <div>
+                                                        <img src="https://www.hutech.edu.vn/images/logo/logo.png" alt=""
+                                                            style=" width:100px;height:100px;">
+                                                        <h5>HO CHI MINH CITY UNIVERSITY OF TECHNOLOGY - HUTECH</h5>
+                                                        <h6 class="badge badge-danger d-inline-block my-3">05/2018 -
+                                                            08/2023</h6>
+                                                        <p>Engineer's degree - Infomation Technology</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="section-education">
+                            <div class="row">
+                                <div class="col-lg-3">
+                                    <h5 class="section-subHead mb-4"> My Certifications</h5>
+                                </div>
+
+                                <div class="col-lg-9">
+                                    <div class="EducationList">
+                                        <div class="row">
+
+                                            <div class="col-md-6">
+                                                <div class="resume-list b-box p-4 mb-4 ">
+                                                    <div>
+                                                        <h5>CERTIFICATE OF PARTICIPATION IN GAME JAM 2020</h5>
+                                                        <h6 class="badge badge-danger d-inline-block my-3">01/2021
+                                                        </h6>
+                                                        <figure class="list-item" itemprop="associatedMedia">
+                                                            <a href="/assets/images/blog/Cerfitication.jpg"
+                                                                itemprop="contentUrl" data-size="1920x1080">
+                                                                <img src="/assets/images/blog/Cerfitication.jpg"
+                                                                    itemprop="thumbnail" alt="Image description" />
+                                                            </a>
+                                                            <figcaption itemprop="caption description">
+                                                                <div class="caption-inner">
+                                                                    <h3 class="portfolio-item-title">CERTIFICATE OF
+                                                                        PARTICIPATION IN GAME JAM 2020</h3>
+                                                                    <div class="portfolio-item-desc">48 hour game
+                                                                        creation challenge at GameLoft Game Jam 2020.
+                                                                    </div>
+                                                                </div>
+                                                            </figcaption>
+                                                        </figure>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-6">
+                                                <div class="resume-list b-box p-4 mb-4 ">
+                                                    <div>
+                                                        <h5>CERTIFICATE OF GRADUATION TRÍ THỨC KHOA HỌC TRẺ TÌNH NGUYỆN
+                                                            NĂM 2020</h5>
+                                                        <h6 class="badge badge-primary d-inline-block my-3">15/10/2020
+                                                        </h6>
+                                                        <figure class="list-item" itemprop="associatedMedia">
+                                                            <a href="/assets/images/blog/Trí Thức Khoa Học Trẻ.jpg"
+                                                                itemprop="contentUrl" data-size="1920x1080">
+                                                                <img src="/assets/images/blog/Trí Thức Khoa Học Trẻ.jpg"
+                                                                    itemprop="thumbnail" alt="Image description" />
+                                                            </a>
+                                                            <figcaption itemprop="caption description">
+                                                                <div class="caption-inner">
+                                                                    <h3 class="portfolio-item-title">CERTIFICATE OF
+                                                                        GRADUATION TRÍ THỨC KHOA HỌC TRẺ TÌNH NGUYỆN NĂM
+                                                                        2020</h3>
+                                                                    <div class="portfolio-item-desc">
+                                                                        Giấy chứng nhận đã tham gia chương trình TRÍ
+                                                                        THỨC KHOA HỌC TRẺ TÌNH NGUYỆN NĂM 2020
+                                                                    </div>
+                                                                </div>
+                                                            </figcaption>
+                                                        </figure>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+        <!-- END: RESUME -->
+
+
+        <!-- START: CONTACT -->
+        <section class="section section-contact" id="contact">
+            <div class="container">
+                <div class="section-head">
+                    <span>say Hello</span>
+                    <h2>Contact </h2>
+                </div>
+
+                <div class="section-inner">
+                    <div class="contact-Otherdetails ">
+                        <div class="contact-details">
+                            <h5 class="section-subHead mb-4"> Get in Touch</h5>
+                            <div class="row justify-content-center align-items-center">
+                                <div class="col-sm-6 col-lg-4">
+                                    <div class="contact-details--panel p-4 b-box text-center  ">
+                                        <div class="mb-3 list-icon list-icon-1">
+                                            <i class="lni-mobile"></i>
+                                        </div>
+                                        <div class="mt-2">
+                                            <a href="tel:84918399443" class="">(+84) 918 399 xxx</a>
+                                            <p class="mt-2">Call Me</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6 col-lg-4">
+                                    <div class="contact-details--panel p-4 b-box text-center  ">
+                                        <div class="mb-3 list-icon list-icon-5">
+                                            <i class="lni-envelope"></i>
+                                        </div>
+                                        <div class="mt-2">
+                                            <a href="mailto:us.thanhlong18@gmail.com">us.thanhlong18@gmail.com</a>
+                                            <p class="mt-2">Email Me</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6 col-lg-4">
+                                    <div class="contact-details--panel p-4 b-box text-center  ">
+                                        <div class="mb-3 list-icon list-icon-5">
+                                            <i class="lni-pointer"></i>
+                                        </div>
+                                        <div class="mt-2">
+                                            <a>Ho Chi Minh City</a>
+                                            <p class="mt-2">Address</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="contact-form mt-5">
+                            <form method="post" action="php/contact.php" id="contactForm" data-toggle="validator">
+                                <h5 class="section-subHead mb-4"> Contact Form</h5>
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <div class="form-group mb-3">
+                                            <input name="name" id="name" type="text" class="form-control b-box"
+                                                placeholder="Your Name *" required>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="form-group mb-3">
+                                            <input name="email" id="email" type="email" class="form-control b-box"
+                                                placeholder="Your Email *" required>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <div class="form-group mb-3">
+                                            <input name="subject" type="text" class="form-control b-box" id="subject"
+                                                placeholder="Your Subject.." required>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <div class="form-group mb-3">
+                                            <textarea name="comments" id="comments" rows="4" class="form-control b-box"
+                                                placeholder="Your message..."></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-12 mt-4 mb-5 text-center">
+                                        <button type="submit" class="submitBnt btn text-uppercase">Send</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- END: CONTACT -->
+
+        <!--START: FOOTER-->
+        <footer class="footer section section-light">
+            <div class="container">
+                <p class="copyright text-center mb-0">&copy; William 2021</p>
+            </div>
+        </footer>
+        <!--END: FOOTER-->
+    </div>
+
+    <!-- Root element. Must have class pswp. -->
+    <div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+        <!-- Background. 
+         It's animating opacity is faster than rgba(). -->
+        <div class="pswp__bg"></div>
+
+        <!-- Slides wrapper with overflow:hidden. -->
+        <div class="pswp__scroll-wrap">
+
+            <!-- Container that holds slides. Keeps only 3 slides in DOM to save memory. -->
+            <!-- don't modify these 3 pswp__item elements, data is added later on. -->
+            <div class="pswp__container">
+                <div class="pswp__item"></div>
+                <div class="pswp__item"></div>
+                <div class="pswp__item"></div>
+            </div>
+
+            <!-- Default interface on top of sliding area. Can be changed. -->
+            <div class="pswp__ui pswp__ui--hidden">
+                <div class="pswp__top-bar">
+                    <!--  Controls are self-explanatory. Order can be changed. -->
+                    <div class="pswp__counter"></div>
+                    <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                    <button class="pswp__button pswp__button--share" title="Share"></button>
+                    <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                    <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+
+                    <!-- element will get class pswp __preloader--active when preloader is running -->
+                    <div class="pswp__preloader">
+                        <div class="pswp__preloader__icn">
+                            <div class="pswp__preloader__cut">
+                                <div class="pswp__preloader__donut"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                    <div class="pswp__share-tooltip"></div>
+                </div>
+
+                <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+                </button>
+
+                <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+                </button>
+
+                <div class="pswp__caption">
+                    <div class="pswp__caption__center"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Java Script -->
+    <script src="https://smtpjs.com/v3/smtp.js"></script>
+
+    <script src="/assets/js/vendor.js"></script>
+
+    <script src="/assets/js/parallax.min.js"></script>
+    <script src="/assets/js/photoswipe.min.js"></script>
+    <script src="/assets/js/photoswipe-ui-default.min.js"></script>
+
+
+    <!-- Custom Js -->
+    <script src="/assets/js/imagesloaded.pkgd.js"></script>
+    <script src="/assets/js/jquery.shuffle.min.js"></script>
+    <script src="/assets/js/custom-shuffle-init.js"></script>
+    <script src="/assets/js/pswp.js"></script>
+    <script src="/assets/js/textition.min.js"></script>
+
+    <!-- Contact Js -->
+    <script src="/assets/js/contact.js"></script>
+
+    <script src="/assets/js/custom.js"></script>
+</body>
+
+</html>

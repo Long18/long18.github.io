@@ -1,0 +1,145 @@
+{
+  "nav": {
+    "home": "Home",
+    "about": "About",
+    "projects": "Projects",
+    "blog": "Blog",
+    "contact": "Contact"
+  },
+  "hero": {
+    "greeting": "Hi, I'm",
+    "name": "Long Nguyen",
+    "title": "Full Stack Developer & Game Developer",
+    "subtitle": "I create amazing digital experiences with modern technologies",
+    "cta_projects": "View My Work",
+    "cta_contact": "Get In Touch",
+    "scroll_down": "Scroll Down"
+  },
+  "about": {
+    "title": "About Me",
+    "subtitle": "Get to know me better",
+    "description": "I'm a passionate full-stack developer and game developer with expertise in modern web technologies and game development frameworks. I love creating innovative solutions and bringing ideas to life through code.",
+    "experience_years": "Years Experience",
+    "projects_completed": "Projects Completed",
+    "technologies": "Technologies",
+    "coffee_cups": "Coffee Cups",
+    "skills_title": "Skills & Technologies",
+    "download_resume": "Download Resume",
+    "hire_me": "Hire Me"
+  },
+  "projects": {
+    "title": "My Projects",
+    "subtitle": "Explore my latest work",
+    "filter_all": "All",
+    "filter_web_game": "Web Games",
+    "filter_mobile_game": "Mobile Games",
+    "filter_application": "Applications",
+    "filter_web_development": "Web Development",
+    "view_project": "View Project",
+    "view_demo": "View Demo",
+    "view_source": "Source Code",
+    "download": "Download",
+    "technologies_used": "Technologies Used",
+    "project_details": "Project Details",
+    "load_more": "Load More"
+  },
+  "blog": {
+    "title": "Blog",
+    "subtitle": "Thoughts, tutorials, and insights",
+    "read_more": "Read More",
+    "read_time": "min read",
+    "published_on": "Published on",
+    "tags": "Tags",
+    "recent_posts": "Recent Posts",
+    "all_posts": "All Posts",
+    "search_placeholder": "Search articles...",
+    "no_posts": "No articles found",
+    "back_to_blog": "Back to Blog"
+  },
+  "contact": {
+    "title": "Get In Touch",
+    "subtitle": "Let's work together",
+    "description": "Have a project in mind? I'd love to hear about it. Send me a message and let's discuss how we can bring your ideas to life.",
+    "form": {
+      "name": "Name",
+      "email": "Email",
+      "subject": "Subject",
+      "message": "Message",
+      "send": "Send Message",
+      "sending": "Sending...",
+      "success": "Message sent successfully!",
+      "error": "Failed to send message. Please try again."
+    },
+    "info": {
+      "email": "Email",
+      "phone": "Phone",
+      "location": "Location",
+      "social": "Social Media"
+    }
+  },
+  "footer": {
+    "description": "A passionate developer creating amazing digital experiences with modern technologies.",
+    "quick_links": "Quick Links",
+    "projects": "Projects",
+    "connect": "Connect",
+    "about": "About",
+    "blog": "Blog",
+    "contact": "Contact",
+    "web_games": "Web Games",
+    "mobile_games": "Mobile Games",
+    "applications": "Applications",
+    "web_development": "Web Development",
+    "download_resume": "Download Resume",
+    "newsletter_text": "Subscribe to get updates on new projects and blog posts.",
+    "email_placeholder": "Enter your email",
+    "subscribe": "Subscribe",
+    "rights_reserved": "All rights reserved.",
+    "made_with": "Made with",
+    "in_vietnam": "in Vietnam",
+    "privacy_policy": "Privacy Policy",
+    "terms_of_service": "Terms of Service",
+    "source_code": "Source Code"
+  },
+  "common": {
+    "loading": "Loading...",
+    "error": "Something went wrong",
+    "try_again": "Try Again",
+    "coming_soon": "Coming Soon",
+    "back_to_top": "Back to Top",
+    "close": "Close",
+    "open": "Open",
+    "menu": "Menu",
+    "search": "Search",
+    "filters": "Filters",
+    "sort": "Sort",
+    "date": "Date",
+    "name": "Name",
+    "category": "Category",
+    "status": "Status",
+    "featured": "Featured",
+    "latest": "Latest",
+    "popular": "Popular"
+  },
+  "meta": {
+    "home": {
+      "title": "Long Nguyen - Full Stack Developer & Game Developer",
+      "description": "Full stack developer and game developer specializing in modern web technologies and game development frameworks."
+    },
+    "about": {
+      "title": "About - Long Nguyen",
+      "description": "Learn more about Long Nguyen, a passionate full stack developer and game developer with expertise in modern technologies."
+    },
+    "projects": {
+      "title": "Projects - Long Nguyen",
+      "description": "Explore my latest projects including web games, mobile games, applications, and web development work."
+    },
+    "blog": {
+      "title": "Blog - Long Nguyen",
+      "description": "Read my thoughts, tutorials, and insights about web development, game development, and modern technologies."
+    },
+    "contact": {
+      "title": "Contact - Long Nguyen",
+      "description": "Get in touch with Long Nguyen for your next project or collaboration opportunity."
+    }
+  }
+}

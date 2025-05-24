@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script>
+      // Extract the locale from the URL
+      const path = window.location.pathname;
+      const match = path.match(/\/v\d+\.\d+\/([^\/]+)/);
+      const locale = match ? match[1] : 'en';
+
+      // Set the meta refresh tag dynamically
+      document.write(
+        `<meta http-equiv="refresh" content="0;url=/${locale}" />`
+      );
+
+      // Redirect to the new URL
+      window.location.href = `/${locale}`;
+    </script>
+  </head>
+  <body>
+    <script>
+      // Extract the locale from the URL again (in case the above script fails)
+      const bodyPath = window.location.pathname;
+      const bodyMatch = bodyPath.match(/\/v\d+\.\d+\/([^\/]+)/);
+      const bodyLocale = bodyMatch ? bodyMatch[1] : 'en';
+
+      // Write the redirect message with the correct locale
+      document.write(
+        `<p>Redirecting to <a href="/${bodyLocale}">${bodyLocale}</a>...</p>`
+      );
+    </script>
+    <noscript>
+      <p>
+        Please enable JavaScript to be redirected, or
+        <a href="/">click here</a> to go to the homepage.
+      </p>
+    </noscript>
+  </body>
+</html>
