@@ -248,7 +248,7 @@ function SocialIcon({ icon }: SocialIconProps) {
 }
 
 // Legacy Version Selector Component
-function LegacyVersionSelector({ locale = 'en' }: { locale?: string }) {
+function LegacyVersionSelector({ }: { locale?: string }) {
   const [isOpen, setIsOpen] = useState(false);
 
   // Get the base URL for legacy versions
