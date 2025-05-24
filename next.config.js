@@ -10,31 +10,15 @@ const withMDX = require('@next/mdx')({
 const nextConfig = {
   output: 'export',
   trailingSlash: true,
+  distDir: 'out',
   images: {
     unoptimized: true,
   },
+  // GitHub Pages specific configuration
+  assetPrefix: process.env.NODE_ENV === 'production' ? '' : '',
   pageExtensions: ['js', 'jsx', 'ts', 'tsx', 'md', 'mdx'],
-  async rewrites() {
-    return [
-      {
-        source: '/assets/:path*',
-        destination: '/assets/:path*',
-      },
-      {
-        source: '/v1.0',
-        destination: '/v1.0/index.html',
-      },
-      {
-        source: '/v2.0',
-        destination: '/v2.0/index.html',
-      },
-    ];
-  },
-  async redirects() {
-    return [
-      // No redirects for legacy versions to allow direct access
-    ];
-  },
+  // Note: rewrites and redirects don't work with static export
+  // Legacy version access will be handled by direct folder structure
 };
 
 module.exports = withMDX(nextConfig);
