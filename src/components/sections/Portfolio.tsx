@@ -3,8 +3,16 @@
 
 import React, { useState, useMemo, useRef, useEffect, useCallback } from 'react';
 import Image from 'next/image';
-import { projects, projectCategories } from '@/data/projects';
-import { Project } from '@/types';
+import { allProjects } from '@/data/assetPaths';
+
+// Project categories for the new portfolio structure
+const projectCategories = [
+  { id: 'all', label: 'All Projects' },
+  { id: 'unity', label: 'Unity Games' },
+  { id: 'unreal', label: 'Unreal Games' }, 
+  { id: 'applications', label: 'Applications' }
+];
+import { Project } from '@/types/portfolio';
 import ProjectDetail from '../ProjectDetail';
 import { useGSAP } from '@/hooks/useGSAP';
 import gsap from 'gsap';
@@ -132,7 +140,7 @@ export default function Portfolio({ onProjectSelect }: PortfolioProps) {
   }, [isSelectOpen]);
 
   const filteredProjects = useMemo(() => {
-    let filtered = projects;
+    let filtered = allProjects;
 
     // Filter by category
     if (selectedCategory !== 'all') {
@@ -145,7 +153,7 @@ export default function Portfolio({ onProjectSelect }: PortfolioProps) {
       filtered = filtered.filter(p => 
         p.title.toLowerCase().includes(query) ||
         p.description.toLowerCase().includes(query) ||
-        p.technologies.some(tech => tech.toLowerCase().includes(query))
+        p.tags.some(tag => tag.label.toLowerCase().includes(query))
       );
     }
 
@@ -153,8 +161,11 @@ export default function Portfolio({ onProjectSelect }: PortfolioProps) {
     switch (sortBy) {
       case 'featured':
         filtered = [...filtered].sort((a, b) => {
-          if (a.featured && !b.featured) return -1;
-          if (!a.featured && b.featured) return 1;
+          // Consider projects with store links as featured
+          const aFeatured = a.storeLinks && (a.storeLinks.android || a.storeLinks.ios);
+          const bFeatured = b.storeLinks && (b.storeLinks.android || b.storeLinks.ios);
+          if (aFeatured && !bFeatured) return -1;
+          if (!aFeatured && bFeatured) return 1;
           return 0;
         });
         break;
@@ -163,8 +174,8 @@ export default function Portfolio({ onProjectSelect }: PortfolioProps) {
         break;
       case 'newest':
         filtered = [...filtered].sort((a, b) => {
-          const aDate = a.details?.period || '';
-          const bDate = b.details?.period || '';
+          const aDate = a.timeline || '';
+          const bDate = b.timeline || '';
           return bDate.localeCompare(aDate);
         });
         break;
@@ -513,16 +524,16 @@ const ProjectCard = React.memo<ProjectCardProps>(function ProjectCard({ project,
   const allImages = useMemo(() => {
     const images = [];
     if (project.image) images.push(project.image);
-    if (project.details?.images) {
+    if (project.gallery) {
       // Add images that aren't already included as the main image
-      project.details.images.forEach(img => {
+      project.gallery.forEach((img: string) => {
         if (img !== project.image) {
           images.push(img);
         }
       });
     }
     return images;
-  }, [project.image, project.details?.images]);
+  }, [project.image, project.gallery]);
   
   const hasMultipleImages = allImages.length > 1;
   
@@ -835,7 +846,7 @@ const ProjectCard = React.memo<ProjectCardProps>(function ProjectCard({ project,
         </div>
 
         {/* Enhanced Featured Badge */}
-        {project.featured && (
+        {(project.storeLinks && (project.storeLinks.android || project.storeLinks.ios)) && (
           <div className="absolute top-3 right-3">
             <span className="px-2.5 py-1.5 bg-vegas-gold/90 text-smoky-black text-xs font-semibold rounded-full backdrop-blur-sm border border-vegas-gold/20 shadow-lg flex items-center gap-1">
               <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
@@ -857,17 +868,17 @@ const ProjectCard = React.memo<ProjectCardProps>(function ProjectCard({ project,
 
         {/* Enhanced Technology Tags */}
         <div className="flex flex-wrap gap-2 min-h-[1.5rem]">
-          {project.technologies.slice(0, 3).map((tech, index) => (
+          {project.tags.slice(0, 3).map((tag, index) => (
             <span
               key={index}
-              className={`px-2.5 py-1.5 text-xs font-medium rounded-lg border transition-all duration-300 hover:scale-105 ${getTechColor(tech)}`}
+              className={`px-2.5 py-1.5 text-xs font-medium rounded-lg border transition-all duration-300 hover:scale-105 ${getTechColor(tag.label)}`}
             >
-              {tech}
+              {tag.label}
             </span>
           ))}
-          {project.technologies.length > 3 && (
+          {project.tags.length > 3 && (
             <span className="px-2.5 py-1.5 text-xs font-medium rounded-lg bg-eerie-black-1/50 text-white-2 border border-jet/30 hover:bg-jet/30 transition-all duration-300">
-              +{project.technologies.length - 3}
+              +{project.tags.length - 3}
             </span>
           )}
         </div>
@@ -875,41 +886,25 @@ const ProjectCard = React.memo<ProjectCardProps>(function ProjectCard({ project,
         {/* Enhanced Action Buttons */}
         <div className="flex items-center justify-between pt-2">
           <div className="flex items-center space-x-2">
-            {project.links?.demo && (
+            {project.website && (
               <a
-                href={project.links.demo}
+                href={project.website}
                 target="_blank"
                 rel="noopener noreferrer"
                 onClick={(e) => e.stopPropagation()}
                 className="group/btn flex items-center gap-1 px-3 py-1.5 bg-orange-500/20 text-orange-400 hover:bg-orange-500/30 hover:text-orange-300 transition-all duration-300 rounded-lg border border-orange-500/30 hover:border-orange-400/50"
-                title="View Live Demo"
+                title="View Website"
               >
                 <svg className="w-3.5 h-3.5 transition-transform duration-300 group-hover/btn:translate-x-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
                 </svg>
-                <span className="text-xs font-medium">Demo</span>
-              </a>
-            )}
-            
-            {project.links?.github && (
-              <a
-                href={project.links.github}
-                target="_blank"
-                rel="noopener noreferrer"
-                onClick={(e) => e.stopPropagation()}
-                className="group/btn flex items-center gap-1 px-3 py-1.5 bg-gray-700/50 text-gray-400 hover:bg-gray-600/50 hover:text-white transition-all duration-300 rounded-lg border border-gray-600/30 hover:border-gray-500/50"
-                title="View Source Code"
-              >
-                <svg className="w-3.5 h-3.5 transition-transform duration-300 group-hover/btn:scale-110" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
-                </svg>
-                <span className="text-xs font-medium">Code</span>
+                <span className="text-xs font-medium">View</span>
               </a>
             )}
 
-            {project.links?.playStore && (
+            {project.storeLinks?.android && (
               <a
-                href={project.links.playStore}
+                href={project.storeLinks.android}
                 target="_blank"
                 rel="noopener noreferrer"
                 onClick={(e) => e.stopPropagation()}
@@ -923,9 +918,9 @@ const ProjectCard = React.memo<ProjectCardProps>(function ProjectCard({ project,
               </a>
             )}
 
-            {project.links?.appStore && (
+            {project.storeLinks?.ios && (
               <a
-                href={project.links.appStore}
+                href={project.storeLinks.ios}
                 target="_blank"
                 rel="noopener noreferrer"
                 onClick={(e) => e.stopPropagation()}
@@ -935,19 +930,20 @@ const ProjectCard = React.memo<ProjectCardProps>(function ProjectCard({ project,
                 <svg className="w-3.5 h-3.5 transition-transform duration-300 group-hover/btn:scale-110" fill="currentColor" viewBox="0 0 24 24">
                   <path d="M18.71,19.5C17.88,20.74 17,21.95 15.66,21.97C14.32,22 13.89,21.18 12.37,21.18C10.84,21.18 10.37,21.95 9.1,22C7.79,22.05 6.8,20.68 5.96,19.47C4.25,17 2.94,12.45 4.7,9.39C5.57,7.87 7.13,6.91 8.82,6.88C10.1,6.86 11.32,7.75 12.11,7.75C12.89,7.75 14.37,6.68 15.92,6.84C16.57,6.87 18.39,7.1 19.56,8.82C19.47,8.88 17.39,10.1 17.41,12.63C17.44,15.65 20.06,16.66 20.09,16.67C20.06,16.74 19.67,18.11 18.71,19.5M13,3.5C13.73,2.67 14.94,2.04 15.94,2C16.07,3.17 15.6,4.35 14.9,5.19C14.21,6.04 13.07,6.7 11.95,6.61C11.8,5.46 12.36,4.26 13,3.5Z"/>
                 </svg>
+                <span className="text-xs font-medium">iOS</span>
               </a>
             )}
           </div>
           
           <div className="flex flex-col items-end">
             <span className="text-gray-500 text-xs">
-              {project.details?.period || 'Recent'}
+              {project.timeline || 'Recent'}
             </span>
-            {project.technologies.length > 0 && (
+            {project.tags.length > 0 && (
               <div className="flex items-center mt-1">
                 <span className="text-gray-600 text-xs">
-                  {project.technologies.slice(0, 2).join(', ')}
-                  {project.technologies.length > 2 && '...'}
+                  {project.tags.slice(0, 2).map(tag => tag.label).join(', ')}
+                  {project.tags.length > 2 && '...'}
                 </span>
               </div>
             )}

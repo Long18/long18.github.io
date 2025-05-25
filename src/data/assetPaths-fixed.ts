@@ -22,31 +22,7 @@ export const sidebarInfo: SidebarInfo = portfolioData.sidebar;
 // All projects from portfolio data
 export const allProjects: Project[] = portfolioData.projects;
 
-// Utility functions for portfolio data
-// Note: getProjectDataById is defined later with legacy support
-
-export const getProjectsByCategory = (category: 'unity' | 'unreal' | 'applications'): Project[] => {
-  return allProjects.filter(project => project.category === category);
-};
-
-export const getFeaturedProjects = (): Project[] => {
-  return allProjects.filter(project => project.storeLinks);
-};
-
-export const getProjectsWithDownloadStats = (): Project[] => {
-  return allProjects.filter(project => 
-    project.achievements.some(achievement => 
-      achievement.toLowerCase().includes('downloads') || 
-      achievement.toLowerCase().includes('50k+') ||
-      achievement.toLowerCase().includes('200k+') ||
-      achievement.toLowerCase().includes('250k+')
-    )
-  );
-};
-
-/**
- * Legacy compatibility function - maps old project IDs to new portfolio structure
- */
+// Legacy compatibility function - maps old project IDs to new portfolio structure
 const legacyIdMapping: Record<string, string> = {
   'heroic-defense': 'heroicDefense',
   'ice-breaking-battle': 'iceBreakingBattle',
@@ -78,6 +54,27 @@ export const getProjectDataById = (projectId: string): Project | undefined => {
   }
   
   return project;
+};
+
+// Now we can safely define functions that use getProjectDataById
+
+export const getProjectsByCategory = (category: 'unity' | 'unreal' | 'applications'): Project[] => {
+  return allProjects.filter(project => project.category === category);
+};
+
+export const getFeaturedProjects = (): Project[] => {
+  return allProjects.filter(project => project.storeLinks);
+};
+
+export const getProjectsWithDownloadStats = (): Project[] => {
+  return allProjects.filter(project => 
+    project.achievements.some(achievement => 
+      achievement.toLowerCase().includes('downloads') || 
+      achievement.toLowerCase().includes('50k+') ||
+      achievement.toLowerCase().includes('200k+') ||
+      achievement.toLowerCase().includes('250k+')
+    )
+  );
 };
 
 /**
@@ -144,7 +141,7 @@ export const getProjectDownloadStats = (projectId: string) => {
 /**
  * Portfolio statistics based on portfolio data
  */
-export const getPortfolioStats = () => ({
+export const portfolioStats = {
   totalProjects: allProjects.length,
   categories: {
     unity: getProjectsByCategory('unity').length,
@@ -159,7 +156,7 @@ export const getPortfolioStats = () => ({
     const stats = getProjectDownloadStats(project.id);
     return sum + (stats?.total || 0);
   }, 0)
-});
+};
 
 // Main project thumbnails (already correct GitHub URLs in projects.ts)
 export const projectThumbnails = {
@@ -178,7 +175,9 @@ export const projectThumbnails = {
   homeWithGrandma: 'https://github.com/Long18/long18.github.io/assets/28853225/c71efedd-274a-4b56-8611-8e09f30e4846',
   fitnessCare: 'https://github.com/Long18/long18.github.io/assets/28853225/9a3f3803-80ce-4dc5-9e8b-111ef7ea7084',
   ffats: 'https://github.com/Long18/long18.github.io/assets/28853225/9a3f3803-80ce-4dc5-9e8b-111ef7ea7084'
-};  // Local asset paths (from assets/images directory)
+};
+
+// Local asset paths (from assets/images directory)
 export const localAssets = {
   // Core UI assets
   avatar: '/assets/images/avatar.png',
@@ -513,7 +512,7 @@ export const getEnhancedProjectData = (projectId: string) => {
       ...project?.storeLinks,
       googlePlay: storeLinks.googlePlay,
       appStore: storeLinks.appStore,
-          website: storeLinks.website,
+      website: storeLinks.website,
       social: storeLinks.social
     }
   };
@@ -581,8 +580,8 @@ export const getProjectsWithAchievements = (achievementKeyword: string): Project
  * Get projects with videos
  */
 export const getProjectsWithVideos = (): Project[] => {
-  return allProjects.filter(projectId => {
-    const video = getProjectVideo(projectId.id);
+  return allProjects.filter(project => {
+    const video = getProjectVideo(project.id);
     return video.video !== undefined;
   });
 };
@@ -602,7 +601,7 @@ const defaultExport = {
   portfolioData,
   sidebarInfo,
   allProjects,
-  getPortfolioStats,
+  portfolioStats,
   
   // Legacy asset mappings
   projectThumbnails,

@@ -11,7 +11,11 @@
     "type-check": "tsc --noEmit",
     "test": "jest",
     "test:watch": "jest --watch",
-    "release": "standard-version"
+    "release": "standard-version",
+    "extract-portfolio": "node utils/portfolio-extraction/extract-portfolio-data.js",
+    "validate-portfolio": "node utils/portfolio-extraction/validate-portfolio-data.js",
+    "portfolio:check": "npm run validate-portfolio",
+    "portfolio:extract": "npm run extract-portfolio && npm run validate-portfolio"
   },
   "repository": {
     "type": "git",
