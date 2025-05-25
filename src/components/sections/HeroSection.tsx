@@ -132,13 +132,18 @@ const HeroSection: React.FC = () => {
             {/* Greeting */}
             <div ref={greetingRef} className="space-y-2">
               <p className="text-lg text-gray-400 font-medium">
-                Hello, I&apos;m
+              Hello, I&apos;m
               </p>
               <h1 ref={nameRef} className="text-4xl sm:text-5xl lg:text-6xl font-bold">
-                <span className="bg-gradient-to-r from-orange-400 to-purple-500 bg-clip-text text-transparent">
-                  {personalInfo.displayName}
-                </span>
+              <span className="bg-gradient-to-r from-orange-400 to-purple-500 bg-clip-text text-transparent">
+                {personalInfo.displayName}
+              </span>
               </h1>
+              <p ref={nameRef} className="text-xl text-gray-300 font-medium">
+                <span className="bg-gradient-to-r from-orange-400 to-purple-500 bg-clip-text text-transparent">
+                  {personalInfo.fullName}
+                </span>
+              </p>
             </div>
 
             {/* Title */}
