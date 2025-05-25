@@ -6,17 +6,17 @@ import { personalInfo, socialLinks } from '@/data/personal';
 import LanguageSwitcher from '@/components/LanguageSwitcher';
 import { useGSAP } from '@/hooks/useGSAP';
 import gsap from 'gsap';
+import ContactToggle from './ContactToggle';
 
 interface SidebarProps {
   locale: string;
 }
 
 export default function Sidebar({ locale }: SidebarProps) {
-  const [isContactsOpen, setIsContactsOpen] = useState(false);
+  const [isContactsOpen, setIsContactsOpen] = useState(true);
   
   // Refs for GSAP animations
   const sidebarRef = useRef<HTMLElement>(null);
-  const contactsRef = useRef<HTMLDivElement>(null);
   const arrowRef = useRef<SVGSVGElement>(null);
 
   // GSAP entrance animation
@@ -44,139 +44,220 @@ export default function Sidebar({ locale }: SidebarProps) {
         ease: 'power2.out'
       });
     }
-
-    // Animate contacts panel
-    if (contactsRef.current) {
-      if (!isContactsOpen) {
-        gsap.fromTo(contactsRef.current,
-          { height: 0, opacity: 0 },
-          { 
-            height: 'auto', 
-            opacity: 1, 
-            duration: 0.4,
-            ease: 'power2.out'
-          }
-        );
-      } else {
-        gsap.to(contactsRef.current, {
-          height: 0,
-          opacity: 0,
-          duration: 0.3,
-          ease: 'power2.out'
-        });
-      }
-    }
   };
 
+  // Responsive: show sidebar on md+, use ContactToggle on mobile
   return (
-    <aside
-      ref={sidebarRef}
-      className="fixed top-0 left-0 h-full w-80 bg-gray-900 text-white z-40 shadow-2xl lg:static lg:w-80"
-    >
-      <div className="p-6 h-full overflow-y-auto">
-        {/* Avatar and Info */}
-        <div className="text-center mb-6">
-          <div className="relative w-24 h-24 mx-auto mb-4 overflow-hidden rounded-2xl">
-            <Image
-              src={personalInfo.avatar}
-              alt={personalInfo.fullName}
-              fill
-              className="object-cover"
-              priority
-            />
+    <>
+      {/* Desktop Sidebar - Enhanced with responsive design */}
+      <aside
+        ref={sidebarRef}
+        className="hidden md:block fixed top-0 left-0 h-full w-72 lg:w-80 xl:w-96 
+                  bg-gray-900 text-white z-40 
+                  shadow-2xl shadow-black/20 
+                  border-r border-gray-800/50
+                  lg:static
+                  rounded-r-3xl"
+      >
+        <div className="p-4 md:p-5 lg:p-6 h-full overflow-y-auto overscroll-contain">
+          {/* Avatar and Info - Responsive sizing */}
+          <div className="text-center mb-5 md:mb-6">
+            <div className="relative w-20 h-20 md:w-22 lg:w-24 md:h-22 lg:h-24 mx-auto mb-3 md:mb-4 overflow-hidden rounded-xl md:rounded-2xl">
+              <Image
+                src={personalInfo.avatar}
+                alt={personalInfo.fullName}
+                fill
+                className="object-cover"
+                priority
+                sizes="(max-width: 768px) 0px, (max-width: 1024px) 5rem, (max-width: 1280px) 6rem, 6rem"
+              />
+            </div>
+            
+            <h1 className="text-base md:text-lg font-medium text-gray-300 mb-0.5 md:mb-1">
+              {personalInfo.fullName}
+            </h1>
+            <h2 className="text-lg md:text-xl font-bold text-white mb-1.5 md:mb-2">
+              {personalInfo.displayName}
+            </h2>
+            <p className="text-orange-400 text-xs md:text-sm px-3 md:px-4 py-1.5 md:py-2 bg-gray-800 rounded-lg inline-block">
+              {personalInfo.title}
+            </p>
           </div>
-          
-          <h1 className="text-lg font-medium text-gray-300 mb-1">
-            {personalInfo.fullName}
-          </h1>
-          <h2 className="text-xl font-bold text-white mb-2">
-            {personalInfo.displayName}
-          </h2>
-          <p className="text-orange-400 text-sm px-4 py-2 bg-gray-800 rounded-lg inline-block">
-            {personalInfo.title}
-          </p>
-        </div>
 
-        {/* Show Contacts Button */}
-        <button
-          className="w-full flex items-center justify-between p-3 bg-gray-800 rounded-lg hover:bg-gray-700 transition-colors group mb-4"
-          onClick={toggleContacts}
-        >
-          <span className="text-white">Show Contacts</span>
-          <svg
-            ref={arrowRef}
-            className="w-5 h-5 text-orange-400"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
+          {/* Hide Contacts Button - Only shows when contacts are open */}
+          {isContactsOpen && (
+            <button
+              className="w-full flex items-center justify-between p-2.5 md:p-3 
+                        bg-gray-800 hover:bg-gray-700 
+                        rounded-lg 
+                        border border-transparent hover:border-gray-600
+                        transition-all duration-300 
+                        group mb-4 
+                        focus:outline-none focus:ring-2 focus:ring-orange-400/30"
+              onClick={toggleContacts}
+            >
+              <span className="text-white group-hover:text-orange-400 transition-colors duration-300 text-sm md:text-base">
+                Hide Contacts
+              </span>
+              <svg
+                ref={arrowRef}
+                className="w-4 h-4 md:w-5 md:h-5 text-orange-400 transition-transform duration-300"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+                style={{ transform: 'rotate(180deg)' }}
+              >
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+              </svg>
+            </button>
+          )}
+
+          {/* Show Contacts Button - Only shows when contacts are hidden */}
+          {!isContactsOpen && (
+            <button
+              className="w-full flex items-center justify-center p-2.5 md:p-3 
+                        bg-orange-500 hover:bg-orange-600 
+                        rounded-lg 
+                        border border-transparent hover:border-orange-400
+                        transition-all duration-300 
+                        group mb-4 
+                        focus:outline-none focus:ring-2 focus:ring-orange-400/30"
+              onClick={toggleContacts}
+            >
+              <span className="text-white font-medium text-sm md:text-base">
+                Show Contacts
+              </span>
+            </button>
+          )}
+
+          {/* Contacts Panel - Animated with GSAP */}
+          <div
+            className="overflow-hidden transition-all duration-500"
+            style={{ 
+              height: isContactsOpen ? 'auto' : 0, 
+              opacity: isContactsOpen ? 1 : 0,
+              transform: `translateY(${isContactsOpen ? '0' : '-10px'})` 
+            }}
           >
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-          </svg>
-        </button>
+            <div className="h-px bg-gray-700 mb-4 md:mb-5 lg:mb-6" />
 
-        {/* Contacts Panel */}
-        <div
-          ref={contactsRef}
-          className="overflow-hidden"
-          style={{ height: isContactsOpen ? 'auto' : 0, opacity: isContactsOpen ? 1 : 0 }}
-        >
-          <div className="h-px bg-gray-700 mb-6" />
+            {/* Contact Information */}
+            <div className="space-y-2 md:space-y-3 lg:space-y-4 mb-4 md:mb-5 lg:mb-6">
+              <ContactItem
+                icon={<EmailIcon />}
+                label="Email"
+                value="us.thanhlong18@gmail.com"
+                href="mailto:us.thanhlong18@gmail.com"
+              />
+              
+              <ContactItem
+                icon={<PhoneIcon />}
+                label="Phone"
+                value="+84 918 399 443"
+                href="tel:+84918399443"
+              />
+              
+              <ContactItem
+                icon={<CalendarIcon />}
+                label="Birthday"
+                value={personalInfo.birthday}
+              />
+              
+              <ContactItem
+                icon={<LocationIcon />}
+                label="Location"
+                value="Ho Chi Minh City"
+              />
+            </div>
 
-          {/* Contact Information */}
-          <div className="space-y-4 mb-6">
-            <ContactItem
-              icon={<EmailIcon />}
-              label="Email"
-              value="us.thanhlong18@gmail.com"
-              href="mailto:us.thanhlong18@gmail.com"
+            <div className="h-px bg-gray-700 mb-4 md:mb-5 lg:mb-6" />
+
+            {/* Social Links - Responsive grid */}
+            <div className="flex flex-wrap gap-2 md:gap-3 mb-4 md:mb-5 lg:mb-6 justify-center">
+              {socialLinks.map((social) => (
+                <SocialLink key={social.platform} social={social} />
+              ))}
+            </div>
+
+            <div className="h-px bg-gray-700 mb-4 md:mb-5 lg:mb-6" />
+
+            {/* Legacy Versions Section */}
+            <div className="w-full block mb-4 md:mb-5 lg:mb-6">
+              <LegacyVersionSelector />
+            </div>
+
+            <div className="h-px bg-gray-700 mb-4 md:mb-5 lg:mb-6" />
+
+            {/* Language Switcher Section */}
+            <div className="mb-4 md:mb-5 lg:mb-6">
+              <h3 className="text-gray-400 text-xs md:text-sm font-medium mb-2 md:mb-3 tracking-wider uppercase">
+                Language
+              </h3>
+              <LanguageSwitcher currentLocale={locale} />
+            </div>
+          </div>
+        </div>
+      </aside>
+
+      {/* Mobile Contact Toggle - Enhanced with animations */}
+      <ContactToggle isOpen={isContactsOpen} onToggle={toggleContacts}>
+        <div className="p-1 sm:p-2">
+          {/* Avatar and Info (mobile) - Responsive sizing */}
+          <div className="text-center mb-3 sm:mb-4">
+            <div className="relative w-14 h-14 sm:w-16 sm:h-16 mx-auto mb-1.5 sm:mb-2 overflow-hidden rounded-xl">
+              <Image
+                src={personalInfo.avatar}
+                alt={personalInfo.fullName}
+                fill
+                className="object-cover"
+                priority
+                sizes="(max-width: 640px) 3.5rem, 4rem"
+              />
+            </div>
+            <h2 className="text-base sm:text-lg font-bold text-white mb-0.5 sm:mb-1">{personalInfo.displayName}</h2>
+            <p className="text-orange-400 text-xs px-2 sm:px-3 py-0.5 sm:py-1 bg-gray-800 rounded-lg inline-block">{personalInfo.title}</p>
+          </div>
+
+          {/* Contacts and Socials - Responsive layout */}
+          <div className="space-y-1.5 sm:space-y-2 mb-3 sm:mb-4">
+            <ContactItem 
+              icon={<EmailIcon />} 
+              label="Email" 
+              value="us.thanhlong18@gmail.com" 
+              href="mailto:us.thanhlong18@gmail.com" 
             />
-            
-            <ContactItem
-              icon={<PhoneIcon />}
-              label="Phone"
-              value="+84 918 399 443"
-              href="tel:+84918399443"
+            <ContactItem 
+              icon={<PhoneIcon />} 
+              label="Phone" 
+              value="+84 918 399 443" 
+              href="tel:+84918399443" 
             />
-            
-            <ContactItem
-              icon={<CalendarIcon />}
-              label="Birthday"
-              value={personalInfo.birthday}
+            <ContactItem 
+              icon={<CalendarIcon />} 
+              label="Birthday" 
+              value={personalInfo.birthday} 
             />
-            
-            <ContactItem
-              icon={<LocationIcon />}
-              label="Location"
-              value="Ho Chi Minh City"
+            <ContactItem 
+              icon={<LocationIcon />} 
+              label="Location" 
+              value="Ho Chi Minh City" 
             />
           </div>
 
-          <div className="h-px bg-gray-700 mb-6" />
-
-          {/* Social Links */}
-          <div className="flex flex-wrap gap-3 mb-6">
+          {/* Social links - Responsive grid */}
+          <div className="flex flex-wrap gap-1.5 sm:gap-2 mb-3 sm:mb-4 justify-center">
             {socialLinks.map((social) => (
               <SocialLink key={social.platform} social={social} />
             ))}
           </div>
 
-          <div className="h-px bg-gray-700 mb-6" />
-
-          {/* Legacy Versions Section */}
-          <LegacyVersionSelector locale={locale} />
-
-          <div className="h-px bg-gray-700 mb-6" />
-
-          {/* Language Switcher Section */}
-          <div className="mb-6">
-            <h3 className="text-gray-400 text-sm font-medium mb-3 tracking-wider uppercase">
-              Language
-            </h3>
+          {/* Language switcher */}
+          <div className="mb-1 sm:mb-2">
             <LanguageSwitcher currentLocale={locale} />
           </div>
         </div>
-      </div>
-    </aside>
+      </ContactToggle>
+    </>
   );
 }
 
@@ -221,17 +302,32 @@ function ContactItem({ icon, label, value, href }: ContactItemProps) {
   }, []);
 
   const content = (
-    <div ref={itemRef} className="flex items-center space-x-3 p-3 rounded-lg hover:bg-gray-800 transition-colors">
-      {icon}
-      <div>
-        <p className="text-gray-400 text-xs">{label}</p>
-        <p className="text-white text-sm">{value}</p>
+    <div 
+      ref={itemRef} 
+      className="flex items-center space-x-2 sm:space-x-3 
+                p-2 sm:p-2.5 md:p-3 
+                rounded-lg 
+                hover:bg-gray-800 
+                transition-all duration-300
+                border border-transparent hover:border-gray-700"
+    >
+      <div className="text-orange-400 flex-shrink-0">
+        {icon}
+      </div>
+      <div className="min-w-0 flex-1">
+        <p className="text-gray-400 text-[10px] sm:text-xs">{label}</p>
+        <p className="text-white text-xs sm:text-sm truncate">{value}</p>
       </div>
     </div>
   );
 
   return href ? (
-    <a href={href} target="_blank" rel="noopener noreferrer">
+    <a 
+      href={href} 
+      target="_blank" 
+      rel="noopener noreferrer"
+      className="block focus:outline-none focus:ring-2 focus:ring-orange-400/30 rounded-lg"
+    >
       {content}
     </a>
   ) : (
@@ -282,10 +378,20 @@ function SocialLink({ social }: SocialLinkProps) {
       href={social.url}
       target="_blank"
       rel="noopener noreferrer"
-      className="w-12 h-12 bg-gray-800 rounded-lg flex items-center justify-center hover:bg-orange-400 transition-colors duration-300"
+      className="w-10 h-10 sm:w-11 sm:h-11 md:w-12 md:h-12 
+                bg-gray-800 hover:bg-orange-400 
+                rounded-lg 
+                flex items-center justify-center 
+                transition-all duration-300 
+                border border-transparent hover:border-orange-300
+                shadow-sm hover:shadow-md hover:shadow-orange-400/10
+                focus:outline-none focus:ring-2 focus:ring-orange-400/30"
       title={social.platform}
+      aria-label={`Visit ${social.platform}`}
     >
-      <SocialIcon icon={social.icon} />
+      <div className="text-white group-hover:text-white transition-colors duration-300">
+        <SocialIcon icon={social.icon} />
+      </div>
     </a>
   );
 }
@@ -362,7 +468,7 @@ function SocialIcon({ icon }: SocialIconProps) {
 }
 
 // Legacy Version Selector Component
-function LegacyVersionSelector({ locale }: { locale?: string }) {
+function LegacyVersionSelector() {
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
   const arrowRef = useRef<SVGSVGElement>(null);
@@ -437,11 +543,11 @@ function LegacyVersionSelector({ locale }: { locale?: string }) {
   };
 
   return (
-    <div className="relative z-50">
+    <div className="relative z-[9999]">
       {/* Main Button */}
       <button
         onClick={toggleDropdown}
-        className="w-full flex items-center justify-between p-4 bg-gradient-to-r from-gray-800 to-gray-700 rounded-xl hover:from-gray-700 hover:to-gray-600 transition-all duration-300 group shadow-lg border border-gray-600"
+        className="w-full flex items-center justify-between p-4 bg-gradient-to-r from-gray-800 to-gray-700 rounded-xl hover:from-gray-700 hover:to-gray-600 transition-all duration-300 group shadow-lg border border-gray-600 z-[9999]"
       >
         <div className="flex items-center space-x-3">
           <div className="w-8 h-8 bg-orange-400 rounded-lg flex items-center justify-center text-white">
@@ -451,7 +557,7 @@ function LegacyVersionSelector({ locale }: { locale?: string }) {
           </div>
           <div className="text-left">
             <span className="text-white text-sm font-semibold block">Legacy Versions</span>
-            <span className="text-gray-300 text-xs">Explore previous designs</span>
+            <span className="text-gray-300 text-xs mt-1">Explore previous designs</span>
           </div>
         </div>
         <div className="flex items-center space-x-2">
@@ -470,7 +576,7 @@ function LegacyVersionSelector({ locale }: { locale?: string }) {
       {/* Dropdown Menu */}
       <div
         ref={dropdownRef}
-        className="absolute top-full left-0 right-0 mt-2 bg-gray-800 rounded-xl shadow-2xl border border-gray-600 overflow-hidden"
+        className="absolute top-full left-0 right-0 mt-2 bg-gray-800 rounded-xl shadow-2xl border border-gray-600 overflow-hidden z-[9999]"
         style={{ display: 'none' }}
       >
         {/* Header */}

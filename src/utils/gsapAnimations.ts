@@ -595,7 +595,7 @@ export const heroEntranceAnimation = (elements: {
   return tl;
 };
 
-export default {
+const animations = {
   // Entrance animations
   fadeInUp,
   fadeInLeft,
@@ -632,3 +632,5 @@ export default {
   killScrollTriggers,
   refreshScrollTrigger,
 };
+
+export default animations;

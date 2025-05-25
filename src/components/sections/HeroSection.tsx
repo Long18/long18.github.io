@@ -1,10 +1,10 @@
 'use client';
 
 import React, { useRef } from 'react';
-import { ArrowDown, Download, Mail, Github, Linkedin } from 'lucide-react';
-import { useTranslation } from 'react-i18next';
+import Image from 'next/image';
+import { Download } from 'lucide-react';
 import { cn } from '../../utils';
-import { personalInfo, contactInfo } from '../../data/personal';
+import { personalInfo } from '../../data/personal';
 import { useGSAP } from '../../hooks/useGSAP';
 import { heroEntranceAnimation } from '../../utils/gsapAnimations';
 import gsap from 'gsap';
@@ -14,8 +14,6 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 gsap.registerPlugin(ScrollTrigger);
 
 const HeroSection: React.FC = () => {
-  const { t } = useTranslation();
-  
   // Section container ref
   const sectionRef = useRef<HTMLElement>(null);
   // Ref for rotating border ring
@@ -26,7 +24,6 @@ const HeroSection: React.FC = () => {
   const titleRef = useRef<HTMLHeadingElement>(null);
   const subtitleRef = useRef<HTMLParagraphElement>(null);
   const buttonsRef = useRef<HTMLDivElement>(null);
-  const socialRef = useRef<HTMLDivElement>(null);
   const avatarRef = useRef<HTMLDivElement>(null);
   const bgDotsRef = useRef<HTMLDivElement>(null);
 
@@ -39,7 +36,6 @@ const HeroSection: React.FC = () => {
       title: titleRef.current || undefined,
       subtitle: subtitleRef.current || undefined,
       buttons: buttonsRef.current ? Array.from(buttonsRef.current.children) as HTMLElement[] : undefined,
-      social: socialRef.current ? Array.from(socialRef.current.children) as HTMLElement[] : undefined,
       avatar: avatarRef.current || undefined,
     });
 
@@ -108,18 +104,7 @@ const HeroSection: React.FC = () => {
     }
   }, []);
 
-  const scrollToAbout = () => {
-    const aboutSection = document.getElementById('about');
-    if (aboutSection) {
-      aboutSection.scrollIntoView({ behavior: 'smooth' });
-    }
-  };
 
-  const socialLinks = [
-    { icon: Github, href: contactInfo.social.github, label: 'GitHub', color: 'hover:text-gray-900 dark:hover:text-gray-100' },
-    { icon: Linkedin, href: contactInfo.social.linkedin, label: 'LinkedIn', color: 'hover:text-blue-600' },
-    { icon: Mail, href: `mailto:${contactInfo.email}`, label: 'Email', color: 'hover:text-red-500' },
-  ];
 
   return (
     <section ref={sectionRef} className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gray-900">
@@ -147,7 +132,7 @@ const HeroSection: React.FC = () => {
             {/* Greeting */}
             <div ref={greetingRef} className="space-y-2">
               <p className="text-lg text-gray-400 font-medium">
-                Hello, I'm
+                Hello, I&apos;m
               </p>
               <h1 ref={nameRef} className="text-4xl sm:text-5xl lg:text-6xl font-bold">
                 <span className="bg-gradient-to-r from-orange-400 to-purple-500 bg-clip-text text-transparent">
@@ -168,14 +153,6 @@ const HeroSection: React.FC = () => {
 
             {/* CTAs */}
             <div ref={buttonsRef} className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
-              <button
-                onClick={scrollToAbout}
-                className="group inline-flex items-center justify-center px-8 py-3 text-base font-medium text-white bg-orange-500 rounded-lg hover:bg-orange-600 transition-all duration-300 transform hover:scale-105 hover:shadow-lg"
-              >
-                View My Work
-                <ArrowDown className="ml-2 h-4 w-4 group-hover:translate-y-1 transition-transform" />
-              </button>
-              
               <a
                 href="/assets/resume.pdf"
                 download
@@ -186,27 +163,10 @@ const HeroSection: React.FC = () => {
               </a>
             </div>
 
-            {/* Social Links */}
-            <div ref={socialRef} className="flex items-center justify-center lg:justify-start space-x-6">
-              {socialLinks.map((social, index) => {
-                const Icon = social.icon;
-                return (
-                  <a
-                    key={social.label}
-                    href={social.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className={cn(
-                      'p-3 rounded-lg bg-gray-800 text-gray-400 transition-all duration-300 hover:scale-110 hover:shadow-lg',
-                      social.color
-                    )}
-                  >
-                    <Icon className="h-5 w-5" />
-                    <span className="sr-only">{social.label}</span>
-                  </a>
-                );
-              })}
-            </div>
+            {/* Animated scroll-down hint */}
+            {/* <div className="flex flex-col items-center mt-8">
+              <span className="text-gray-400 text-sm md:text-base animate-bounce">↓ Explore My Work</span>
+            </div> */}
           </div>
 
           {/* Right content - Avatar */}
@@ -219,9 +179,11 @@ const HeroSection: React.FC = () => {
                 style={{ padding: '4px' }}
               />
               <div className="relative bg-gray-900 rounded-full p-1">
-                <img
-                  src={personalInfo.avatar}
+                <Image
+                  src={personalInfo.portrait}
                   alt={personalInfo.fullName}
+                  width={384}
+                  height={384}
                   className="w-64 h-64 sm:w-80 sm:h-80 lg:w-96 lg:h-96 rounded-full object-cover"
                 />
               </div>
