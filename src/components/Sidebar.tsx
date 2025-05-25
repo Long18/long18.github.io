@@ -1,12 +1,13 @@
 'use client';
 
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect, useLayoutEffect } from 'react';
 import Image from 'next/image';
 import { personalInfo, socialLinks } from '@/data/personal';
 import LanguageSwitcher from '@/components/LanguageSwitcher';
 import { useGSAP } from '@/hooks/useGSAP';
 import gsap from 'gsap';
 import ContactToggle from './ContactToggle';
+import ReactDOM from 'react-dom';
 
 interface SidebarProps {
   locale: string;
@@ -472,6 +473,8 @@ function LegacyVersionSelector() {
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
   const arrowRef = useRef<SVGSVGElement>(null);
+  const buttonRef = useRef<HTMLButtonElement>(null);
+  const [dropdownStyle, setDropdownStyle] = useState<React.CSSProperties>({});
 
   const getBaseUrl = () => {
     if (typeof window !== 'undefined') {
@@ -542,10 +545,102 @@ function LegacyVersionSelector() {
     }
   };
 
+  // Calculate dropdown position relative to button
+  useLayoutEffect(() => {
+    if (isOpen && buttonRef.current && dropdownRef.current) {
+      const buttonRect = buttonRef.current.getBoundingClientRect();
+      setDropdownStyle({
+        position: 'absolute',
+        top: buttonRect.bottom + window.scrollY + 8, // 8px margin
+        left: buttonRect.left + window.scrollX,
+        width: buttonRect.width,
+        zIndex: 11000,
+      });
+    }
+  }, [isOpen]);
+
+  // Close dropdown on outside click
+  useEffect(() => {
+    if (!isOpen) return;
+    const handleClick = (e: MouseEvent) => {
+      if (
+        dropdownRef.current &&
+        !dropdownRef.current.contains(e.target as Node) &&
+        buttonRef.current &&
+        !buttonRef.current.contains(e.target as Node)
+      ) {
+        setIsOpen(false);
+      }
+    };
+    document.addEventListener('mousedown', handleClick);
+    return () => document.removeEventListener('mousedown', handleClick);
+  }, [isOpen]);
+
+  // Dropdown content
+  const dropdownMenu = (
+    <div
+      ref={dropdownRef}
+      className="bg-gray-800 rounded-xl shadow-2xl border border-gray-600 overflow-hidden"
+      style={dropdownStyle}
+    >
+      {/* Header */}
+      <div className="px-4 py-3 bg-gray-700 border-b border-gray-600">
+        <h4 className="text-white text-sm font-semibold">Previous Portfolio Versions</h4>
+        <p className="text-gray-300 text-xs mt-1">Showcase of design evolution</p>
+      </div>
+      {/* Version List */}
+      <div className="p-2">
+        {versions.map((version) => (
+          <a
+            key={version.id}
+            href={version.href}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center p-3 rounded-lg hover:bg-gray-700 transition-all duration-200 group"
+          >
+            <div className="w-10 h-10 bg-gradient-to-br from-orange-400 to-orange-500 rounded-lg flex items-center justify-center text-white shadow-lg group-hover:scale-110 transition-transform duration-200">
+              {version.icon}
+            </div>
+            <div className="flex-1 ml-3">
+              <div className="flex items-center space-x-2">
+                <h4 className="text-white text-sm font-semibold group-hover:text-orange-400 transition-colors">
+                  {version.name}
+                </h4>
+                <span className="text-xs bg-gray-700 text-gray-300 px-2 py-1 rounded-full">
+                  {version.year}
+                </span>
+              </div>
+              <p className="text-gray-400 text-xs mt-1">
+                {version.description}
+              </p>
+            </div>
+            <div className="text-gray-400 group-hover:text-orange-400 transition-colors">
+              <svg 
+                className="w-5 h-5" 
+                fill="none" 
+                stroke="currentColor" 
+                viewBox="0 0 24 24"
+              >
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+              </svg>
+            </div>
+          </a>
+        ))}
+      </div>
+      {/* Footer */}
+      <div className="px-4 py-3 bg-gray-900/50 border-t border-gray-700">
+        <p className="text-xs text-gray-400 text-center">
+          Each version showcases different design approaches and technologies
+        </p>
+      </div>
+    </div>
+  );
+
   return (
     <div className="relative z-[9999]">
       {/* Main Button */}
       <button
+        ref={buttonRef}
         onClick={toggleDropdown}
         className="w-full flex items-center justify-between p-4 bg-gradient-to-r from-gray-800 to-gray-700 rounded-xl hover:from-gray-700 hover:to-gray-600 transition-all duration-300 group shadow-lg border border-gray-600 z-[9999]"
       >
@@ -572,66 +667,8 @@ function LegacyVersionSelector() {
           </svg>
         </div>
       </button>
-
-      {/* Dropdown Menu */}
-      <div
-        ref={dropdownRef}
-        className="absolute top-full left-0 right-0 mt-2 bg-gray-800 rounded-xl shadow-2xl border border-gray-600 overflow-hidden z-[9999]"
-        style={{ display: 'none' }}
-      >
-        {/* Header */}
-        <div className="px-4 py-3 bg-gray-700 border-b border-gray-600">
-          <h4 className="text-white text-sm font-semibold">Previous Portfolio Versions</h4>
-          <p className="text-gray-300 text-xs mt-1">Showcase of design evolution</p>
-        </div>
-        
-        {/* Version List */}
-        <div className="p-2">
-          {versions.map((version) => (
-            <a
-              key={version.id}
-              href={version.href}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center p-3 rounded-lg hover:bg-gray-700 transition-all duration-200 group"
-            >
-              <div className="w-10 h-10 bg-gradient-to-br from-orange-400 to-orange-500 rounded-lg flex items-center justify-center text-white shadow-lg group-hover:scale-110 transition-transform duration-200">
-                {version.icon}
-              </div>
-              <div className="flex-1 ml-3">
-                <div className="flex items-center space-x-2">
-                  <h4 className="text-white text-sm font-semibold group-hover:text-orange-400 transition-colors">
-                    {version.name}
-                  </h4>
-                  <span className="text-xs bg-gray-700 text-gray-300 px-2 py-1 rounded-full">
-                    {version.year}
-                  </span>
-                </div>
-                <p className="text-gray-400 text-xs mt-1">
-                  {version.description}
-                </p>
-              </div>
-              <div className="text-gray-400 group-hover:text-orange-400 transition-colors">
-                <svg 
-                  className="w-5 h-5" 
-                  fill="none" 
-                  stroke="currentColor" 
-                  viewBox="0 0 24 24"
-                >
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-                </svg>
-              </div>
-            </a>
-          ))}
-        </div>
-        
-        {/* Footer */}
-        <div className="px-4 py-3 bg-gray-900/50 border-t border-gray-700">
-          <p className="text-xs text-gray-400 text-center">
-            Each version showcases different design approaches and technologies
-          </p>
-        </div>
-      </div>
+      {/* Dropdown Menu (Portal) */}
+      {isOpen && typeof window !== 'undefined' && ReactDOM.createPortal(dropdownMenu, document.body)}
     </div>
   );
 }
