@@ -1,0 +1,125 @@
+{
+  "sidebar": {
+    "name": "Lê Nguyễn Thành Long",
+    "alias": "William",
+    "avatar": "/assets/images/avatar.png",
+    "email": "us.thanhlong18@gmail.com",
+    "phone": "+84918399443",
+    "birthday": "2000-06-18",
+    "location": "Ho Chi Minh City",
+    "socials": {
+      "github": "https://github.com/long18",
+      "facebook": "https://www.facebook.com/William.2418/",
+      "twitter": "https://twitter.com/Willlee186",
+      "linkedin": "https://www.linkedin.com/in/william186/",
+      "skype": "https://join.skype.com/invite/xJY5pgHzba5y"
+    }
+  },
+  "projects": [
+    {
+      "id": "heroicDefense",
+      "title": "Heroic Defense",
+      "category": "unity",
+      "image": "https://github.com/user-attachment/assets/80ad6adb-8497-4416-8a0e-cdd0bda4c0e2",
+      "tags": [
+        {
+          "label": "Unity",
+          "colorClass": "bg-gray-800 text-white"
+        }
+      ],
+      "sensorTowerLinks": {
+        "android": "https://app.sensortower.com/api/android/apps/com.hd.heroic.defense",
+        "ios": "https://app.sensortower.com/api/ios/apps?app_ids=6742034673"
+      },
+      "timeline": "Sep/2024 — Jan/2025",
+      "description": "Team composition includes 4 members: 2 game developers, 1 game designer, and 1 artist.",
+      "gallery": [
+        "https://github.com/user-attachment/assets/80ad6adb-8497-4416-8a0e-cdd0bda4c0e2",
+        "https://github.com/user-attachment/assets/79237991-15d5-4d12-a230-2ef02e009513",
+        "https://github.com/user-attachment/assets/7b2b48f7-54eb-4711-9d0e-1a177bc84286",
+        "https://github.com/user-attachment/assets/07967261-9e41-426b-97a9-68d19752861a",
+        "https://github.com/user-attachment/assets/790edaa2-a8e6-4ab6-a6ec-b15acbe70caf",
+        "https://github.com/user-attachment/assets/1ff2f712-b1d8-4f1b-9712-345a1a571b53",
+        "https://github.com/user-attachment/assets/2f369a89-192e-4bc9-9356-12b65273672c",
+        "https://github.com/user-attachment/assets/60dc8f0e-9f30-4453-9b61-7491cebbfd10",
+        "https://github.com/user-attachment/assets/e684b198-ecb5-4dc4-b6ad-522cbb8880cf",
+        "https://github.com/user-attachment/assets/1c79da14-c16a-455c-8143-b31fd2b32f24",
+        "https://github.com/user-attachment/assets/910ae1db-a140-44c6-bc9e-56ddcf380681",
+        "https://github.com/user-attachment/assets/27c6435d-3ec5-48a5-a49d-ac4ec84f645f",
+        "https://github.com/user-attachment/assets/15cab860-1208-47bf-928c-5ba763383877",
+        "https://github.com/user-attachment/assets/be7e519b-1a2f-4fb6-80e7-743945762611",
+        "https://github.com/user-attachment/assets/fe3d3b92-07c3-405d-9a7e-8b0e375e262c",
+        "/assets/images/GooglePlay-Icon.svg",
+        "/assets/images/AppStore-Icons.svg"
+      ],
+      "responsibilities": [
+        "Implemented unique enemy behaviors and new enemy types across multiple maps.",
+        "Designed and optimized special weapon mechanics, including saw, rocket, machine gun, and flamethrower.",
+        "Developed robust reward systems with material drops and currency management.",
+        "Created and fine-tuned passive and active skill systems for dynamic gameplay.",
+        "Enhanced combat with refined damage calculation and energy regeneration mechanics.",
+        "Integrated SDK, ads, and in-app purchases (IAP).",
+        "Took full responsibility for the core game development."
+      ],
+      "achievements": [
+        "Task Management: Successfully divided tasks clearly among the team members, ensuring efficiency and accountability.",
+        "Agile Process: Followed Agile/Scrum methodologies to ensure smooth project development and delivery.",
+        "Gameplay Enhancements: Delivered innovative enemy behaviors and combat systems, providing a more engaging experience.",
+        "Performance Optimization: Optimized game mechanics, ensuring high performance and stability during gameplay.",
+        "Global Success: Achieved 10K - 50K downloads : A significant milestone as of January 2025.",
+        "Global Success: Achieved over 200K downloads : A significant milestone after one month of release. Check newest achievement on Android Check newest achievement on iOS"
+      ],
+      "technologies": [],
+      "storeLinks": {
+        "android": "https://play.google.com/store/apps/details?id=com.hd.heroic.defense",
+        "ios": "https://apps.apple.com/app/heroic-defense/id6742034673"
+      },
+      "website": null
+    },
+    {
+      "id": "iceBreakingBattle",
+      "title": "Ice Breaking Battle",
+      "category": "unity",
+      "image": "https://github.com/user-attachment/assets/b45f3c89-d0ca-4e6a-a540-85f2ac8cc764",
+      "tags": [
+        {
+          "label": "Unity",
+          "colorClass": "bg-gray-800 text-white"
+        }
+      ],
+      "sensorTowerLinks": {
+        "android": "https://app.sensortower.com/api/android/apps/com.ibb.ice.breaking.battle"
+      },
+      "timeline": "Jul/2024 — Sep/2024",
+      "description": "Team composition includes a total of 2 members: 1 game developer and 1 game designer.",
+      "gallery": [
+        "https://github.com/user-attachment/assets/f9591bca-b07b-4cb4-8d18-542a88b860ad",
+        "https://github.com/user-attachment/assets/06e03ac3-5971-45df-89e1-320ce2bd4e19",
+        "https://github.com/user-attachment/assets/a2932be6-554f-44a4-a589-8dd1012ded7a",
+        "https://github.com/user-attachment/assets/a63817de-05b6-4136-87e2-1279d451ad90",
+        "https://github.com/user-attachment/assets/a48908a5-9d6a-4a02-a78d-06935485e47f",
+        "https://github.com/user-attachment/assets/3be46ce5-f57e-4443-a398-62da81754aa0",
+        "/assets/images/GooglePlay-Icon.svg"
+      ],
+      "responsibilities": [
+        "Developed complex enemy behaviors, including intelligent movement and attack strategies.",
+        "Implemented power-up systems like bombs, special discs, and enhanced player abilities.",
+        "Designed and balanced multiple levels with distinct challenges and environments.",
+        "Built dynamic reward systems, including currency synchronization and gem-to-coin conversion.",
+        "Enhanced gameplay mechanics with physics-based collision handling and power disc effects."
+      ],
+      "achievements": [
+        "Enhanced Gameplay Experience: Introduced complex enemy behaviors: Making the game more challenging and engaging. Implemented various power-ups: Including bombs, special discs, and enhanced player abilities to improve strategy and dynamics.",
+        "Level Design Excellence: Designed and balanced multiple levels: Offering diverse challenges and maintaining player interest through unique environments.",
+        "Reward System Optimization: Built dynamic reward systems: Including currency synchronization and gem-to-coin conversion, encouraging replayability.",
+        "Improved Game Physics: Refined collision handling: Making gameplay smoother and more realistic with physics-based mechanics.",
+        "Global Success: Achieved 50K+ downloads : A significant milestone as of January 2025. Check newest achievement"
+      ],
+      "technologies": [],
+      "storeLinks": {
+        "android": "https://play.google.com/store/apps/details?id=com.ibb.ice.breaking.battle"
+      },
+      "website": null
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "sidebar": {
+    "name": "Lê Nguyễn Thành Long",
+    "alias": "William",
+    "avatar": "/assets/images/avatar.png",
+    "email": "us.thanhlong18@gmail.com",
+    "phone": "+84918399443",
+    "birthday": "2000-06-18",
+    "location": "Ho Chi Minh City",
+    "socials": {
+      "github": "https://github.com/long18",
+      "facebook": "https://www.facebook.com/William.2418/",
+      "twitter": "https://twitter.com/Willlee186",
+      "linkedin": "https://www.linkedin.com/in/william186/",
+      "skype": "https://join.skype.com/invite/xJY5pgHzba5y"
+    }
+  },
+  "projects": []
+}

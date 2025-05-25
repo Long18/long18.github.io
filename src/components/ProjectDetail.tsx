@@ -2,10 +2,12 @@
 
 import React, { useState, useEffect, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Project } from '@/types';
-import { IoCloseOutline, IoChevronBackOutline, IoChevronForwardOutline, IoOpenOutline, IoDownloadOutline, IoLogoGithub, IoLogoApple, IoLogoGooglePlaystore } from 'react-icons/io5';
+import { Project } from '@/types/portfolio';
+import { IoCloseOutline, IoChevronBackOutline, IoChevronForwardOutline, IoOpenOutline, IoLogoGithub, IoLogoApple, IoLogoGooglePlaystore } from 'react-icons/io5';
 import Image from 'next/image';
 import { cn } from '@/utils';
+import DownloadStatsDisplay from './DownloadStatsDisplay';
+import { getProjectDownloadStats } from '@/data/assetPaths';
 
 interface ProjectDetailProps {
   project: Project | null;
@@ -16,6 +18,9 @@ interface ProjectDetailProps {
 const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, isOpen, onClose }) => {
   const [selectedImageIndex, setSelectedImageIndex] = useState(0);
   const [imageGalleryOpen, setImageGalleryOpen] = useState(false);
+
+  // Get download stats for the project
+  const downloadStats = project ? getProjectDownloadStats(project.id) : null;
 
   // Enhanced body scroll management with proper cleanup
   useEffect(() => {
@@ -45,17 +50,17 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, isOpen, onClose 
   };
 
   const nextImage = useCallback(() => {
-    if (project?.details?.images) {
+    if (project?.gallery) {
       setSelectedImageIndex((prev) => 
-        prev === project.details!.images.length - 1 ? 0 : prev + 1
+        prev === project.gallery!.length - 1 ? 0 : prev + 1
       );
     }
   }, [project]);
 
   const prevImage = useCallback(() => {
-    if (project?.details?.images) {
+    if (project?.gallery) {
       setSelectedImageIndex((prev) => 
-        prev === 0 ? project.details!.images.length - 1 : prev - 1
+        prev === 0 ? project.gallery!.length - 1 : prev - 1
       );
     }
   }, [project]);
@@ -77,7 +82,7 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, isOpen, onClose 
       }
       
       // Enhanced keyboard navigation for gallery
-      if (imageGalleryOpen && project?.details?.images) {
+      if (imageGalleryOpen && project?.gallery) {
         if (e.key === 'ArrowLeft') {
           e.preventDefault();
           prevImage();
@@ -116,7 +121,7 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, isOpen, onClose 
     };
 
     const handleTouchEnd = (e: TouchEvent) => {
-      if (imageGalleryOpen && project?.details?.images) {
+      if (imageGalleryOpen && project?.gallery) {
         const touchEndX = e.changedTouches[0].clientX;
         const touchEndY = e.changedTouches[0].clientY;
         const deltaX = touchEndX - touchStartX;
@@ -170,9 +175,9 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, isOpen, onClose 
   const getLinkIcon = (type: string) => {
     switch (type) {
       case 'github': return <IoLogoGithub className="text-xl" />;
-      case 'playStore': return <IoLogoGooglePlaystore className="text-xl" />;
-      case 'appStore': return <IoLogoApple className="text-xl" />;
-      case 'download': return <IoDownloadOutline className="text-xl" />;
+      case 'android': return <IoLogoGooglePlaystore className="text-xl" />;
+      case 'ios': return <IoLogoApple className="text-xl" />;
+      case 'website': return <IoOpenOutline className="text-xl" />;
       default: return <IoOpenOutline className="text-xl" />;
     }
   };
@@ -180,52 +185,15 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, isOpen, onClose 
   const getLinkLabel = (type: string) => {
     switch (type) {
       case 'github': return 'GitHub Repository';
-      case 'playStore': return 'Google Play Store';
-      case 'appStore': return 'App Store';
-      case 'download': return 'Download';
-      case 'demo': return 'Live Demo';
+      case 'android': return 'Google Play Store';
+      case 'ios': return 'App Store';
+      case 'website': return 'Visit Website';
       default: return 'Visit Link';
     }
   };
 
   if (!project) return null;
-  
-  const getTechColor = (tech: string): string => {
-    const techColors: Record<string, string> = {
-      // Framework/Engine tags
-      'Unity': 'bg-[hsl(var(--muted))/20] text-unity-tag border-unity-tag/30',
-      'Unreal Engine': 'bg-[hsl(var(--muted))/20] text-unreal-tag border-unreal-tag/30',
-      
-      // Programming languages
-      'C#': 'bg-[hsl(var(--primary))/15] text-[hsl(var(--primary))] border-[hsl(var(--primary))/30]',
-      'C++': 'bg-[hsl(var(--primary))/15] text-[hsl(var(--primary))] border-[hsl(var(--primary))/30]',
-      'JavaScript': 'bg-orange-400/15 text-orange-400 border-orange-400/30',
-      'TypeScript': 'bg-[hsl(var(--primary))/15] text-[hsl(var(--primary))] border-[hsl(var(--primary))/30]',
-      'Python': 'bg-[hsl(var(--accent))/15] text-[hsl(var(--accent-foreground))] border-[hsl(var(--accent))/30]',
-      'Java': 'bg-orange-400/15 text-orange-400 border-orange-400/30',
-      
-      // Web technologies
-      'React': 'bg-[hsl(var(--primary))/15] text-[hsl(var(--primary))] border-[hsl(var(--primary))/30]',
-      'Next.js': 'bg-gray-800/50 text-gray-400 border-gray-700/30',
-      'Node.js': 'bg-[hsl(var(--accent))/15] text-[hsl(var(--accent-foreground))] border-[hsl(var(--accent))/30]',
-      
-      // Mobile/AR/VR
-      'Android Studio': 'bg-[hsl(var(--accent))/15] text-application-tag border-application-tag/30',
-      'AR': 'bg-[hsl(var(--primary))/15] text-[hsl(var(--primary))] border-[hsl(var(--primary))/30]',
-      'VR': 'bg-[hsl(var(--primary))/15] text-[hsl(var(--primary))] border-[hsl(var(--primary))/30]',
-      
-      // AI/ML
-      'AI': 'bg-[hsl(var(--accent))/15] text-[hsl(var(--accent-foreground))] border-[hsl(var(--accent))/30]',
-      'Machine Learning': 'bg-[hsl(var(--accent))/15] text-[hsl(var(--accent-foreground))] border-[hsl(var(--accent))/30]',
-      'Blueprint': 'bg-[hsl(var(--primary))/15] text-[hsl(var(--primary))] border-[hsl(var(--primary))/30]',
-      
-      // APIs
-      'Google Maps API': 'bg-[hsl(var(--destructive))/15] text-[hsl(var(--destructive))] border-[hsl(var(--destructive))/30]'
-    };
-    
-    // Default fallback using the muted color from the theme
-    return techColors[tech] || 'bg-[hsl(var(--muted))/15] text-[hsl(var(--muted-foreground))] border-[hsl(var(--muted))/30]';
-  };
+
   return (
     <AnimatePresence>
       {isOpen && (
@@ -268,8 +236,7 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, isOpen, onClose 
                     {project.title}
                   </h2>
                   <p id="modal-description" className="text-gray-400 text-xs sm:text-sm">
-                    {project.category.charAt(0).toUpperCase() + project.category.slice(1)} Project
-                    {project.details?.teamSize && ` • Team of ${project.details.teamSize}`}
+                    {project.timeline} • {project.category.charAt(0).toUpperCase() + project.category.slice(1)} Project
                   </p>
                 </div>
                 <button
@@ -281,192 +248,208 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, isOpen, onClose 
                 </button>
               </div>
 
-            {/* Content - Improved responsive layout */}
-            <div className="flex-1 overflow-y-auto overscroll-contain">
-              <div className="p-3 sm:p-4 md:p-5 lg:p-6 space-y-4 sm:space-y-5 md:space-y-6 lg:space-y-8">
-                {/* Project Info - Responsive grid layout */}
-                <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 sm:gap-5 md:gap-6 lg:gap-8">
-                  {/* Main Info */}
-                  <div className="lg:col-span-2 space-y-3 sm:space-y-4 md:space-y-5 lg:space-y-6">
-                    <div>
-                      <h3 className="text-base sm:text-lg md:text-xl font-semibold text-white mb-1.5 sm:mb-2 md:mb-3">Description</h3>
-                      <p className="text-gray-400 leading-relaxed text-xs sm:text-sm md:text-base">{project.description}</p>
+              {/* Content - Improved responsive layout */}
+              <div className="flex-1 overflow-y-auto overscroll-contain">
+                <div className="p-3 sm:p-4 md:p-5 lg:p-6 space-y-4 sm:space-y-5 md:space-y-6 lg:space-y-8">
+                  {/* Project Info - Responsive grid layout */}
+                  <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 sm:gap-5 md:gap-6 lg:gap-8">
+                    {/* Main Info */}
+                    <div className="lg:col-span-2 space-y-3 sm:space-y-4 md:space-y-5 lg:space-y-6">
+                      <div>
+                        <h3 className="text-base sm:text-lg md:text-xl font-semibold text-white mb-1.5 sm:mb-2 md:mb-3">Description</h3>
+                        <p className="text-gray-400 leading-relaxed text-xs sm:text-sm md:text-base">{project.description}</p>
+                      </div>
+
+                      {project.achievements && project.achievements.length > 0 && (
+                        <div>
+                          <h3 className="text-base sm:text-lg md:text-xl font-semibold text-white mb-1.5 sm:mb-2 md:mb-3">Key Achievements</h3>
+                          <ul className="space-y-1.5 sm:space-y-2">
+                            {project.achievements.map((achievement: string, index: number) => (
+                              <li key={index} className="text-gray-400 flex items-start gap-2 sm:gap-3 text-xs sm:text-sm md:text-base">
+                                <span className="text-orange-400 mt-1 sm:mt-1.5 text-xs shrink-0">●</span>
+                                {achievement}
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+                      )}
+
+                      {project.responsibilities && project.responsibilities.length > 0 && (
+                        <div>
+                          <h3 className="text-base sm:text-lg md:text-xl font-semibold text-white mb-1.5 sm:mb-2 md:mb-3">Responsibilities</h3>
+                          <ul className="space-y-1.5 sm:space-y-2">
+                            {project.responsibilities.map((responsibility: string, index: number) => (
+                              <li key={index} className="text-gray-400 flex items-start gap-2 sm:gap-3 text-xs sm:text-sm md:text-base">
+                                <span className="text-orange-400 mt-1 sm:mt-1.5 text-xs shrink-0">●</span>
+                                {responsibility}
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+                      )}
                     </div>
 
-                    {project.details?.achievements && project.details.achievements.length > 0 && (
-                      <div>
-                        <h3 className="text-base sm:text-lg md:text-xl font-semibold text-white mb-1.5 sm:mb-2 md:mb-3">Key Achievements</h3>
-                        <ul className="space-y-1.5 sm:space-y-2">
-                          {project.details.achievements.map((achievement: string, index: number) => (
-                            <li key={index} className="text-gray-400 flex items-start gap-2 sm:gap-3 text-xs sm:text-sm md:text-base">
-                              <span className="text-orange-400 mt-1 sm:mt-1.5 text-xs shrink-0">●</span>
-                              {achievement}
-                            </li>
-                          ))}
-                        </ul>
-                      </div>
-                    )}
-
-                    {project.details?.responsibilities && project.details.responsibilities.length > 0 && (
-                      <div>
-                        <h3 className="text-base sm:text-lg md:text-xl font-semibold text-white mb-1.5 sm:mb-2 md:mb-3">Responsibilities</h3>
-                        <ul className="space-y-1.5 sm:space-y-2">
-                          {project.details.responsibilities.map((responsibility: string, index: number) => (
-                            <li key={index} className="text-gray-400 flex items-start gap-2 sm:gap-3 text-xs sm:text-sm md:text-base">
-                              <span className="text-orange-400 mt-1 sm:mt-1.5 text-xs shrink-0">●</span>
-                              {responsibility}
-                            </li>
-                          ))}
-                        </ul>
-                      </div>
-                    )}
-
-                    {project.details?.description && (
-                      <div>
-                        <h3 className="text-base sm:text-lg md:text-xl font-semibold text-white mb-1.5 sm:mb-2 md:mb-3">Project Details</h3>
-                        <p className="text-gray-400 leading-relaxed text-xs sm:text-sm md:text-base">{project.details.description}</p>
-                      </div>
-                    )}
-                  </div>
-
-                  {/* Project Meta - Responsive sidebar that moves to top on mobile */}
-                  <div className="space-y-3 sm:space-y-4 md:space-y-5 order-first lg:order-last">
-                    <div className="bg-gray-900 border border-gray-700 rounded-lg sm:rounded-xl md:rounded-2xl p-3 sm:p-4 md:p-5">
-                      <h3 className="text-sm sm:text-base md:text-lg font-semibold text-white mb-2 sm:mb-3 md:mb-4">Project Info</h3>
-                      <div className="space-y-2 sm:space-y-3">
-                        {project.details?.status && (
+                    {/* Project Meta - Responsive sidebar that moves to top on mobile */}
+                    <div className="space-y-3 sm:space-y-4 md:space-y-5 order-first lg:order-last">
+                      <div className="bg-gray-900 border border-gray-700 rounded-lg sm:rounded-xl md:rounded-2xl p-3 sm:p-4 md:p-5">
+                        <h3 className="text-sm sm:text-base md:text-lg font-semibold text-white mb-2 sm:mb-3 md:mb-4">Project Info</h3>
+                        <div className="space-y-2 sm:space-y-3">
                           <div>
-                            <span className="text-gray-400 text-xs sm:text-sm">Status:</span>
-                            <div className="mt-1">
-                              <span className={`px-1.5 sm:px-2 py-0.5 sm:py-1 rounded-full text-[10px] sm:text-xs font-medium ${
-                                project.details.status === 'completed' 
-                                  ? 'bg-[hsl(var(--accent))/15] text-[hsl(var(--accent-foreground))]' 
-                                  : project.details.status === 'in-progress'
-                                  ? 'bg-orange-400/15 text-orange-400'
-                                  : 'bg-[hsl(var(--primary))/15] text-[hsl(var(--primary))]'
-                              }`}>
-                                {project.details.status.charAt(0).toUpperCase() + project.details.status.slice(1).replace('-', ' ')}
-                              </span>
-                            </div>
-                          </div>
-                        )}
-                        {project.details?.period && (
-                          <div>
-                            <span className="text-gray-400 text-xs sm:text-sm">Duration:</span>
+                            <span className="text-gray-400 text-xs sm:text-sm">Timeline:</span>
                             <p className="text-white text-xs sm:text-sm font-medium">
-                              {project.details.period}
+                              {project.timeline}
                             </p>
                           </div>
-                        )}
-                        <div>
-                          <span className="text-gray-400 text-xs sm:text-sm">Technologies:</span>
-                          <div className="flex flex-wrap gap-1 sm:gap-1.5 md:gap-2 mt-1.5 sm:mt-2">
-                            {project.technologies.map((tech, index) => (
-                              <span
-                                key={index}
-                                className={cn(
-                                  'px-1.5 sm:px-2 py-0.5 sm:py-1 rounded-full text-[10px] sm:text-xs font-medium border',
-                                  getTechColor(tech),
-                                  'whitespace-nowrap inline-flex items-center justify-center'
-                                )}
-                              >
-                                {tech}
-                              </span>
-                            ))}
+                          <div>
+                            <span className="text-gray-400 text-xs sm:text-sm">Technologies:</span>
+                            <div className="flex flex-wrap gap-1 sm:gap-1.5 md:gap-2 mt-1.5 sm:mt-2">
+                              {project.tags.map((tag, index) => (
+                                <span
+                                  key={index}
+                                  className={cn(
+                                    'px-1.5 sm:px-2 py-0.5 sm:py-1 rounded-full text-[10px] sm:text-xs font-medium border',
+                                    tag.colorClass,
+                                    'whitespace-nowrap inline-flex items-center justify-center'
+                                  )}
+                                >
+                                  {tag.label}
+                                </span>
+                              ))}
+                            </div>
                           </div>
                         </div>
                       </div>
-                    </div>
 
-                    {/* Action Links */}
-                    {project.links && Object.keys(project.links).filter(key => project.links![key as keyof typeof project.links]).length > 0 && (
-                      <div className="bg-gray-900 border border-gray-700 rounded-lg sm:rounded-xl md:rounded-2xl p-3 sm:p-4 md:p-5">
-                        <h3 className="text-sm sm:text-base md:text-lg font-semibold text-white mb-2 sm:mb-3 md:mb-4">Links & Downloads</h3>
-                        <div className="space-y-1.5 sm:space-y-2 md:space-y-3">
-                          {Object.entries(project.links).map(([key, url]) => {
-                            if (!url) return null;
-                            return (
+                      {/* Download Stats Display moved here */}
+                      {downloadStats && downloadStats.total > 0 && (
+                        <div>
+                          <h3 className="text-sm sm:text-base md:text-lg font-semibold text-white mb-2 sm:mb-3 md:mb-4">Download Statistics</h3>
+                          <DownloadStatsDisplay 
+                            stats={downloadStats} 
+                            variant="detailed" 
+                          />
+                        </div>
+                      )}
+
+                      {/* Action Links */}
+                      {((project.storeLinks && (project.storeLinks.android || project.storeLinks.ios)) || project.website) && (
+                        <div className="bg-gray-900 border border-gray-700 rounded-lg sm:rounded-xl md:rounded-2xl p-3 sm:p-4 md:p-5">
+                          <h3 className="text-sm sm:text-base md:text-lg font-semibold text-white mb-2 sm:mb-3 md:mb-4">Links & Downloads</h3>
+                          <div className="space-y-1.5 sm:space-y-2 md:space-y-3">
+                            {project.storeLinks?.android && (
                               <a
-                                key={key}
-                                href={url}
+                                href={project.storeLinks.android}
                                 target="_blank"
                                 rel="noopener noreferrer"
                                 className="flex items-center gap-2 sm:gap-3 p-2 sm:p-2.5 md:p-3 bg-gray-800 hover:bg-orange-400/10 border border-transparent hover:border-orange-400 rounded-lg sm:rounded-xl transition-all duration-300 group focus:outline-none focus:ring-2 focus:ring-orange-400/50"
                               >
                                 <div className="text-orange-400 group-hover:scale-110 transition-transform duration-300 shrink-0">
-                                  {getLinkIcon(key)}
+                                  {getLinkIcon('android')}
                                 </div>
                                 <span className="text-white group-hover:text-orange-400 transition-colors duration-300 text-[10px] sm:text-xs md:text-sm font-medium truncate">
-                                  {getLinkLabel(key)}
+                                  {getLinkLabel('android')}
                                 </span>
                               </a>
-                            );
-                          })}
-                        </div>
-                      </div>
-                    )}
-                  </div>
-                </div>
-
-                {/* Image Gallery - Responsive grid */}
-                {project.details?.images && project.details.images.length > 0 && (
-                  <div>
-                    <h3 className="text-base sm:text-lg md:text-xl font-semibold text-white mb-2 sm:mb-3 md:mb-4 lg:mb-6">Gallery</h3>
-                    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2 sm:gap-3 md:gap-4">
-                      {project.details.images.map((image: string, index: number) => (
-                        <motion.div
-                          key={index}
-                          whileHover={{ scale: 1.05 }}
-                          whileTap={{ scale: 0.95 }}
-                          className="relative aspect-video bg-gray-900 rounded-lg sm:rounded-xl overflow-hidden cursor-pointer group border border-gray-700 hover:border-orange-400/50 transition-colors duration-300"
-                          onClick={() => openImageGallery(index)}
-                        >
-                          <Image
-                            src={image}
-                            alt={`${project.title} screenshot ${index + 1}`}
-                            fill
-                            className="object-cover transition-transform duration-300 group-hover:scale-110"
-                            sizes="(max-width: 640px) 100vw, (max-width: 768px) 50vw, (max-width: 1024px) 33vw, 25vw"
-                            loading="lazy"
-                          />
-                          <div className="absolute inset-0 bg-gray-900/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-                            <IoOpenOutline className="text-white text-xl sm:text-2xl" />
+                            )}
+                            {project.storeLinks?.ios && (
+                              <a
+                                href={project.storeLinks.ios}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="flex items-center gap-2 sm:gap-3 p-2 sm:p-2.5 md:p-3 bg-gray-800 hover:bg-orange-400/10 border border-transparent hover:border-orange-400 rounded-lg sm:rounded-xl transition-all duration-300 group focus:outline-none focus:ring-2 focus:ring-orange-400/50"
+                              >
+                                <div className="text-orange-400 group-hover:scale-110 transition-transform duration-300 shrink-0">
+                                  {getLinkIcon('ios')}
+                                </div>
+                                <span className="text-white group-hover:text-orange-400 transition-colors duration-300 text-[10px] sm:text-xs md:text-sm font-medium truncate">
+                                  {getLinkLabel('ios')}
+                                </span>
+                              </a>
+                            )}
+                            {project.website && (
+                              <a
+                                href={project.website}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="flex items-center gap-2 sm:gap-3 p-2 sm:p-2.5 md:p-3 bg-gray-800 hover:bg-orange-400/10 border border-transparent hover:border-orange-400 rounded-lg sm:rounded-xl transition-all duration-300 group focus:outline-none focus:ring-2 focus:ring-orange-400/50"
+                              >
+                                <div className="text-orange-400 group-hover:scale-110 transition-transform duration-300 shrink-0">
+                                  {getLinkIcon('website')}
+                                </div>
+                                <span className="text-white group-hover:text-orange-400 transition-colors duration-300 text-[10px] sm:text-xs md:text-sm font-medium truncate">
+                                  {getLinkLabel('website')}
+                                </span>
+                              </a>
+                            )}
                           </div>
-                        </motion.div>
-                      ))}
-                    </div>
-                  </div>
-                )}
-
-                {/* Videos - Responsive grid */}
-                {project.details?.videos && project.details.videos.length > 0 && (
-                  <div>
-                    <h3 className="text-base sm:text-lg md:text-xl font-semibold text-white-1 mb-2 sm:mb-3 md:mb-4 lg:mb-6">Videos</h3>
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4 md:gap-5 lg:gap-6">
-                      {project.details.videos.map((video: { poster: string; src: string }, index: number) => (
-                        <div key={index} className="relative aspect-video bg-eerie-black-1 rounded-lg sm:rounded-xl overflow-hidden">
-                          <video
-                            controls
-                            className="w-full h-full object-cover"
-                            poster={video.poster}
-                            preload="metadata"
-                          >
-                            <source src={video.src} type="video/mp4" />
-                            Your browser does not support the video tag.
-                          </video>
                         </div>
-                      ))}
+                      )}
                     </div>
                   </div>
-                )}
+
+                  {/* Image Gallery - Responsive grid */}
+                  {project.gallery && project.gallery.length > 0 && (
+                    <div>
+                      <h3 className="text-base sm:text-lg md:text-xl font-semibold text-white mb-2 sm:mb-3 md:mb-4 lg:mb-6">Gallery</h3>
+                      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2 sm:gap-3 md:gap-4">
+                        {project.gallery.map((image: string, index: number) => (
+                          <motion.div
+                            key={index}
+                            whileHover={{ scale: 1.05 }}
+                            whileTap={{ scale: 0.95 }}
+                            className="relative aspect-video bg-gray-900 rounded-lg sm:rounded-xl overflow-hidden cursor-pointer group border border-gray-700 hover:border-orange-400/50 transition-colors duration-300"
+                            onClick={() => openImageGallery(index)}
+                          >
+                            <Image
+                              src={image}
+                              alt={`${project.title} screenshot ${index + 1}`}
+                              fill
+                              className="object-cover transition-transform duration-300 group-hover:scale-110"
+                              sizes="(max-width: 640px) 100vw, (max-width: 768px) 50vw, (max-width: 1024px) 33vw, 25vw"
+                              loading="lazy"
+                            />
+                            <div className="absolute inset-0 bg-gray-900/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                              <IoOpenOutline className="text-white text-xl sm:text-2xl" />
+                            </div>
+                          </motion.div>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+
+                  {/* Video Gallery */}
+                  {project.videos && project.videos.length > 0 && (
+                    <div>
+                      <h3 className="text-base sm:text-lg md:text-xl font-semibold text-white mb-2 sm:mb-3 md:mb-4 lg:mb-6">Videos</h3>
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
+                        {project.videos.map((video, index) => (
+                          <motion.div
+                            key={index}
+                            whileHover={{ scale: 1.02 }}
+                            className="relative aspect-video bg-gray-900 rounded-lg sm:rounded-xl overflow-hidden border border-gray-700 hover:border-orange-400/50 transition-colors duration-300"
+                          >
+                            <video
+                              controls
+                              poster={video.poster}
+                              className="w-full h-full object-cover"
+                              preload="metadata"
+                            >
+                              <source src={video.src} type="video/mp4" />
+                              Your browser does not support the video tag.
+                            </video>
+                          </motion.div>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+                </div>
               </div>
-            </div>
             </div>
           </motion.div>
 
           {/* Enhanced Image Gallery Modal - Fully responsive */}
           <AnimatePresence>
-            {imageGalleryOpen && project.details?.images && (
+            {imageGalleryOpen && project.gallery && (
               <>
                 <motion.div
                   initial={{ opacity: 0 }}
@@ -486,7 +469,7 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, isOpen, onClose 
                 >
                   <div className="relative max-w-full max-h-full w-full h-full flex items-center justify-center">
                     <Image
-                      src={project.details.images[selectedImageIndex]}
+                      src={project.gallery[selectedImageIndex]}
                       alt={`${project.title} screenshot ${selectedImageIndex + 1}`}
                       width={1200}
                       height={800}
@@ -511,7 +494,7 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, isOpen, onClose 
                     </button>
 
                     {/* Enhanced Navigation - Responsive sizing */}
-                    {project.details.images.length > 1 && (
+                    {project.gallery.length > 1 && (
                       <>
                         <button
                           onClick={prevImage}
@@ -553,7 +536,7 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, isOpen, onClose 
                                   rounded-full 
                                   text-[10px] sm:text-xs md:text-sm 
                                   font-medium">
-                      {selectedImageIndex + 1} / {project.details.images.length}
+                      {selectedImageIndex + 1} / {project.gallery.length}
                     </div>
                   </div>
                 </motion.div>

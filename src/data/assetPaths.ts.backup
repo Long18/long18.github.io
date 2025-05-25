@@ -144,7 +144,7 @@ export const getProjectDownloadStats = (projectId: string) => {
 /**
  * Portfolio statistics based on portfolio data
  */
-export const getPortfolioStats = () => ({
+export const portfolioStats = {
   totalProjects: allProjects.length,
   categories: {
     unity: getProjectsByCategory('unity').length,
@@ -159,7 +159,7 @@ export const getPortfolioStats = () => ({
     const stats = getProjectDownloadStats(project.id);
     return sum + (stats?.total || 0);
   }, 0)
-});
+};
 
 // Main project thumbnails (already correct GitHub URLs in projects.ts)
 export const projectThumbnails = {
@@ -602,7 +602,7 @@ const defaultExport = {
   portfolioData,
   sidebarInfo,
   allProjects,
-  getPortfolioStats,
+  portfolioStats,
   
   // Legacy asset mappings
   projectThumbnails,
