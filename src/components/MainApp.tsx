@@ -5,12 +5,14 @@ import { ThemeProvider } from '@/context/ThemeContext';
 import LoadingOverlay from '@/components/LoadingOverlay';
 import Sidebar from '@/components/Sidebar';
 import Navigation from '@/components/Navigation';
+import HeroSection from '@/components/sections/HeroSection';
 import About from '@/components/sections/About';
 import Resume from '@/components/sections/Resume';
 import Portfolio from '@/components/sections/Portfolio';
 import Contact from '@/components/sections/Contact';
 
 const sections = [
+  { id: 'hero', label: 'Home', component: HeroSection },
   { id: 'about', label: 'About', component: About },
   { id: 'resume', label: 'Resume', component: Resume },
   { id: 'portfolio', label: 'Portfolio', component: Portfolio },
@@ -24,7 +26,7 @@ interface MainAppProps {
 export default function MainApp({ locale }: MainAppProps) {
   // Use locale for internationalization and language switching
   
-  const [activeSection, setActiveSection] = useState('about');
+  const [activeSection, setActiveSection] = useState('hero');
   const [isLoading, setIsLoading] = useState(true);
 
   React.useEffect(() => {

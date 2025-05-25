@@ -9,6 +9,7 @@ module.exports = {
   theme: {
     extend: {
       colors: {
+        // Original Shadcn colors
         background: 'hsl(var(--background))',
         foreground: 'hsl(var(--foreground))',
         card: 'hsl(var(--card))',
@@ -33,6 +34,26 @@ module.exports = {
         'chart-3': 'hsl(var(--chart-3))',
         'chart-4': 'hsl(var(--chart-4))',
         'chart-5': 'hsl(var(--chart-5))',
+        
+        // Portfolio Design System Colors (from your CSS files)
+        'smoky-black': 'hsl(0, 0%, 7%)',
+        'eerie-black-1': 'hsl(240, 2%, 13%)',
+        'eerie-black-2': 'hsl(240, 2%, 12%)',
+        'jet': 'hsl(0, 0%, 22%)',
+        'onyx': 'hsl(240, 1%, 17%)',
+        'white-1': 'hsl(0, 0%, 100%)',
+        'white-2': 'hsl(0, 0%, 98%)',
+        'orange-yellow-crayola': 'hsl(45, 100%, 72%)',
+        'vegas-gold': 'hsl(45, 54%, 58%)',
+        'light-gray': 'hsl(0, 0%, 84%)',
+        'light-gray-70': 'hsla(0, 0%, 84%, 0.7)',
+        'bittersweet-shimmer': 'hsl(0, 43%, 51%)',
+        
+        // Technology tag colors
+        'unity-tag': 'hsl(270, 100%, 65%)',
+        'unreal-tag': 'hsl(240, 100%, 65%)',
+        'application-tag': 'hsl(120, 60%, 50%)',
+        'green-teal': 'hsl(180, 60%, 50%)',
       },
       fontFamily: {
         sans: ['Inter', 'Poppins', 'sans-serif'],
@@ -69,5 +90,10 @@ module.exports = {
       },
     },
   },
-  plugins: [],
+  plugins: [
+    // Add custom variants for touch devices
+    function({ addVariant }) {
+      addVariant('touch', '@media (pointer: coarse)');
+    }
+  ],
 }
