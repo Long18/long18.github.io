@@ -1,10 +1,11 @@
 'use client';
 
-import { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { useState, useRef } from 'react';
 import Image from 'next/image';
 import { personalInfo, socialLinks } from '@/data/personal';
 import LanguageSwitcher from '@/components/LanguageSwitcher';
+import { useGSAP } from '@/hooks/useGSAP';
+import gsap from 'gsap';
 
 interface SidebarProps {
   locale: string;
@@ -12,17 +13,65 @@ interface SidebarProps {
 
 export default function Sidebar({ locale }: SidebarProps) {
   const [isContactsOpen, setIsContactsOpen] = useState(false);
+  
+  // Refs for GSAP animations
+  const sidebarRef = useRef<HTMLElement>(null);
+  const contactsRef = useRef<HTMLDivElement>(null);
+  const arrowRef = useRef<SVGSVGElement>(null);
+
+  // GSAP entrance animation
+  useGSAP(() => {
+    if (sidebarRef.current) {
+      gsap.fromTo(sidebarRef.current,
+        { x: -320 },
+        { 
+          x: 0, 
+          duration: 0.8,
+          ease: 'power2.out'
+        }
+      );
+    }
+  }, []);
 
   const toggleContacts = () => {
     setIsContactsOpen(!isContactsOpen);
+    
+    // Animate arrow rotation
+    if (arrowRef.current) {
+      gsap.to(arrowRef.current, {
+        rotation: !isContactsOpen ? 180 : 0,
+        duration: 0.3,
+        ease: 'power2.out'
+      });
+    }
+
+    // Animate contacts panel
+    if (contactsRef.current) {
+      if (!isContactsOpen) {
+        gsap.fromTo(contactsRef.current,
+          { height: 0, opacity: 0 },
+          { 
+            height: 'auto', 
+            opacity: 1, 
+            duration: 0.4,
+            ease: 'power2.out'
+          }
+        );
+      } else {
+        gsap.to(contactsRef.current, {
+          height: 0,
+          opacity: 0,
+          duration: 0.3,
+          ease: 'power2.out'
+        });
+      }
+    }
   };
 
   return (
-    <motion.aside
+    <aside
+      ref={sidebarRef}
       className="fixed top-0 left-0 h-full w-80 bg-gray-900 text-white z-40 shadow-2xl lg:static lg:w-80"
-      initial={{ x: -320 }}
-      animate={{ x: 0 }}
-      transition={{ type: 'spring', stiffness: 300, damping: 30 }}
     >
       <div className="p-6 h-full overflow-y-auto">
         {/* Avatar and Info */}
@@ -54,95 +103,80 @@ export default function Sidebar({ locale }: SidebarProps) {
           onClick={toggleContacts}
         >
           <span className="text-white">Show Contacts</span>
-          <motion.svg
+          <svg
+            ref={arrowRef}
             className="w-5 h-5 text-orange-400"
             fill="none"
             stroke="currentColor"
             viewBox="0 0 24 24"
-            animate={{ rotate: isContactsOpen ? 180 : 0 }}
-            transition={{ duration: 0.3 }}
           >
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-          </motion.svg>
+          </svg>
         </button>
 
-        <AnimatePresence>
-          {isContactsOpen && (
-            <motion.div
-              initial={{ opacity: 0, height: 0 }}
-              animate={{ opacity: 1, height: 'auto' }}
-              exit={{ opacity: 0, height: 0 }}
-              transition={{ duration: 0.3 }}
-              className="overflow-visible relative z-10"
-            >
-              <div className="h-px bg-gray-700 mb-6" />
+        {/* Contacts Panel */}
+        <div
+          ref={contactsRef}
+          className="overflow-hidden"
+          style={{ height: isContactsOpen ? 'auto' : 0, opacity: isContactsOpen ? 1 : 0 }}
+        >
+          <div className="h-px bg-gray-700 mb-6" />
 
-              {/* Contact Information */}
-              <div className="space-y-4 mb-6">
-                <ContactItem
-                  icon={<EmailIcon />}
-                  label="Email"
-                  value="us.thanhlong18@gmail.com"
-                  href="mailto:us.thanhlong18@gmail.com"
-                />
-                
-                <ContactItem
-                  icon={<PhoneIcon />}
-                  label="Phone"
-                  value="+84 918 399 443"
-                  href="tel:+84918399443"
-                />
-                
-                <ContactItem
-                  icon={<CalendarIcon />}
-                  label="Birthday"
-                  value={personalInfo.birthday}
-                />
-                
-                <ContactItem
-                  icon={<LocationIcon />}
-                  label="Location"
-                  value="Ho Chi Minh City"
-                />
-              </div>
+          {/* Contact Information */}
+          <div className="space-y-4 mb-6">
+            <ContactItem
+              icon={<EmailIcon />}
+              label="Email"
+              value="us.thanhlong18@gmail.com"
+              href="mailto:us.thanhlong18@gmail.com"
+            />
+            
+            <ContactItem
+              icon={<PhoneIcon />}
+              label="Phone"
+              value="+84 918 399 443"
+              href="tel:+84918399443"
+            />
+            
+            <ContactItem
+              icon={<CalendarIcon />}
+              label="Birthday"
+              value={personalInfo.birthday}
+            />
+            
+            <ContactItem
+              icon={<LocationIcon />}
+              label="Location"
+              value="Ho Chi Minh City"
+            />
+          </div>
 
-              <div className="h-px bg-gray-700 mb-6" />
+          <div className="h-px bg-gray-700 mb-6" />
 
-              {/* Social Links */}
-              <div className="flex flex-wrap gap-3 mb-6">
-                {socialLinks.map((social) => (
-                  <a
-                    key={social.platform}
-                    href={social.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="w-12 h-12 bg-gray-800 rounded-lg flex items-center justify-center hover:bg-orange-400 transition-all duration-300 hover:scale-110"
-                    title={social.platform}
-                  >
-                    <SocialIcon icon={social.icon} />
-                  </a>
-                ))}
-              </div>
+          {/* Social Links */}
+          <div className="flex flex-wrap gap-3 mb-6">
+            {socialLinks.map((social) => (
+              <SocialLink key={social.platform} social={social} />
+            ))}
+          </div>
 
-              <div className="h-px bg-gray-700 mb-6" />
+          <div className="h-px bg-gray-700 mb-6" />
 
-              {/* Legacy Versions Section */}
-              <LegacyVersionSelector locale={locale} />
+          {/* Legacy Versions Section */}
+          <LegacyVersionSelector locale={locale} />
 
-              <div className="h-px bg-gray-700 mb-6" />
+          <div className="h-px bg-gray-700 mb-6" />
 
-              {/* Language Switcher Section */}
-              <div className="mb-6">
-                <h3 className="text-gray-400 text-sm font-medium mb-3 tracking-wider uppercase">
-                  Language
-                </h3>
-                <LanguageSwitcher currentLocale={locale} />
-              </div>
-            </motion.div>
-          )}
-        </AnimatePresence>
+          {/* Language Switcher Section */}
+          <div className="mb-6">
+            <h3 className="text-gray-400 text-sm font-medium mb-3 tracking-wider uppercase">
+              Language
+            </h3>
+            <LanguageSwitcher currentLocale={locale} />
+          </div>
+        </div>
       </div>
-    </motion.aside>
+    </aside>
   );
 }
 
@@ -155,25 +189,105 @@ interface ContactItemProps {
 }
 
 function ContactItem({ icon, label, value, href }: ContactItemProps) {
+  const itemRef = useRef<HTMLDivElement>(null);
+
+  useGSAP(() => {
+    if (itemRef.current) {
+      const handleMouseEnter = () => {
+        gsap.to(itemRef.current, {
+          scale: 1.02,
+          duration: 0.2,
+          ease: 'power2.out'
+        });
+      };
+
+      const handleMouseLeave = () => {
+        gsap.to(itemRef.current, {
+          scale: 1,
+          duration: 0.2,
+          ease: 'power2.out'
+        });
+      };
+
+      const item = itemRef.current;
+      item.addEventListener('mouseenter', handleMouseEnter);
+      item.addEventListener('mouseleave', handleMouseLeave);
+
+      return () => {
+        item.removeEventListener('mouseenter', handleMouseEnter);
+        item.removeEventListener('mouseleave', handleMouseLeave);
+      };
+    }
+  }, []);
+
   const content = (
-    <div className="flex items-center space-x-3">
-      <div className="w-10 h-10 bg-gray-800 rounded-lg flex items-center justify-center">
-        {icon}
-      </div>
+    <div ref={itemRef} className="flex items-center space-x-3 p-3 rounded-lg hover:bg-gray-800 transition-colors">
+      {icon}
       <div>
-        <p className="text-gray-400 text-sm">{label}</p>
-        <p className="text-white text-sm hover:text-orange-400 transition-colors">
-          {value}
-        </p>
+        <p className="text-gray-400 text-xs">{label}</p>
+        <p className="text-white text-sm">{value}</p>
       </div>
     </div>
   );
 
-  if (href) {
-    return <a href={href} className="block">{content}</a>;
-  }
+  return href ? (
+    <a href={href} target="_blank" rel="noopener noreferrer">
+      {content}
+    </a>
+  ) : (
+    content
+  );
+}
 
-  return content;
+// Social Link Component
+interface SocialLinkProps {
+  social: typeof socialLinks[0];
+}
+
+function SocialLink({ social }: SocialLinkProps) {
+  const linkRef = useRef<HTMLAnchorElement>(null);
+
+  useGSAP(() => {
+    if (linkRef.current) {
+      const handleMouseEnter = () => {
+        gsap.to(linkRef.current, {
+          scale: 1.1,
+          duration: 0.2,
+          ease: 'power2.out'
+        });
+      };
+
+      const handleMouseLeave = () => {
+        gsap.to(linkRef.current, {
+          scale: 1,
+          duration: 0.2,
+          ease: 'power2.out'
+        });
+      };
+
+      const link = linkRef.current;
+      link.addEventListener('mouseenter', handleMouseEnter);
+      link.addEventListener('mouseleave', handleMouseLeave);
+
+      return () => {
+        link.removeEventListener('mouseenter', handleMouseEnter);
+        link.removeEventListener('mouseleave', handleMouseLeave);
+      };
+    }
+  }, []);
+
+  return (
+    <a
+      ref={linkRef}
+      href={social.url}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="w-12 h-12 bg-gray-800 rounded-lg flex items-center justify-center hover:bg-orange-400 transition-colors duration-300"
+      title={social.platform}
+    >
+      <SocialIcon icon={social.icon} />
+    </a>
+  );
 }
 
 // Icon Components
@@ -239,7 +353,7 @@ function SocialIcon({ icon }: SocialIconProps) {
     ),
     'logo-skype': (
       <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-        <path d="M12.069 18.874c-4.023 0-5.82-1.979-5.82-3.464 0-.765.561-1.296 1.333-1.296 1.723 0 1.273 2.477 4.487 2.477 1.641 0 2.55-.895 2.55-1.811 0-.551-.269-1.16-1.354-1.429l-3.576-.895c-2.88-.724-3.403-2.286-3.403-3.751 0-3.047 2.861-4.191 5.549-4.191 2.471 0 5.393 1.373 5.393 3.199 0 .784-.602 1.24-1.387 1.24-1.505 0-1.097-2.066-3.954-2.066-1.387 0-2.204.657-2.204 1.567 0 .784.717 1.24 1.425 1.414l3.11.724c2.939.687 3.821 2.191 3.821 4.041 0 2.677-2.087 4.241-5.97 4.241z"/>
+        <path d="M12.069 18.874c-4.023 0-5.82-1.979-5.82-3.464 0-.765.561-1.296 1.333-1.296 1.723 0 1.273 2.477 4.487 2.477 1.641 0 2.55-.895 2.55-1.811 0-.551-.269-1.16-1.354-1.429l-3.576-.895c-2.88-.724-3.403-2.286-3.403-3.751 0-3.047 2.861-4.191 5.549-4.191 2.471 0 5.393 1.373 5.393 3.199 0 .784-.602 1.24-1.387 1.24-1.505 0-1.313-2.036-4.248-2.036-1.399 0-2.296.669-2.296 1.613 0 .54.332 1.007 1.335 1.252l3.83.935c2.88.717 3.457 2.341 3.457 3.888-.001 3.157-2.978 4.291-5.859 4.291M24 12.204c0 6.627-5.373 12-12 12s-12-5.373-12-12 5.373-12 12-12 12 5.373 12 12"/>
       </svg>
     )
   };
@@ -248,12 +362,15 @@ function SocialIcon({ icon }: SocialIconProps) {
 }
 
 // Legacy Version Selector Component
-function LegacyVersionSelector({ }: { locale?: string }) {
+function LegacyVersionSelector({ locale }: { locale?: string }) {
   const [isOpen, setIsOpen] = useState(false);
+  const dropdownRef = useRef<HTMLDivElement>(null);
+  const arrowRef = useRef<SVGSVGElement>(null);
 
-  // Get the base URL for legacy versions
   const getBaseUrl = () => {
-    // Always return empty string for relative paths which is more reliable
+    if (typeof window !== 'undefined') {
+      return window.location.origin;
+    }
     return '';
   };
 
@@ -261,7 +378,7 @@ function LegacyVersionSelector({ }: { locale?: string }) {
     { 
       id: 'v2.0', 
       name: 'Legacy v2.0', 
-      description: 'Classic Portfolio',
+      description: 'Enhanced Design',
       href: `${getBaseUrl()}/v2.0`,
       year: '2024',
       icon: (
@@ -284,14 +401,47 @@ function LegacyVersionSelector({ }: { locale?: string }) {
     }
   ];
 
+  const toggleDropdown = () => {
+    setIsOpen(!isOpen);
+    
+    // Animate arrow rotation
+    if (arrowRef.current) {
+      gsap.to(arrowRef.current, {
+        rotation: !isOpen ? 180 : 0,
+        duration: 0.3,
+        ease: 'power2.out'
+      });
+    }
+
+    // Animate dropdown
+    if (dropdownRef.current) {
+      if (!isOpen) {
+        gsap.set(dropdownRef.current, { display: 'block' });
+        gsap.fromTo(dropdownRef.current,
+          { opacity: 0, y: -10, scale: 0.95 },
+          { opacity: 1, y: 0, scale: 1, duration: 0.3, ease: 'power2.out' }
+        );
+      } else {
+        gsap.to(dropdownRef.current, {
+          opacity: 0,
+          y: -10,
+          scale: 0.95,
+          duration: 0.2,
+          ease: 'power2.out',
+          onComplete: () => {
+            gsap.set(dropdownRef.current, { display: 'none' });
+          }
+        });
+      }
+    }
+  };
+
   return (
     <div className="relative z-50">
       {/* Main Button */}
-      <motion.button
-        onClick={() => setIsOpen(!isOpen)}
+      <button
+        onClick={toggleDropdown}
         className="w-full flex items-center justify-between p-4 bg-gradient-to-r from-gray-800 to-gray-700 rounded-xl hover:from-gray-700 hover:to-gray-600 transition-all duration-300 group shadow-lg border border-gray-600"
-        whileHover={{ scale: 1.02 }}
-        whileTap={{ scale: 0.98 }}
       >
         <div className="flex items-center space-x-3">
           <div className="w-8 h-8 bg-orange-400 rounded-lg flex items-center justify-center text-white">
@@ -304,12 +454,9 @@ function LegacyVersionSelector({ }: { locale?: string }) {
             <span className="text-gray-300 text-xs">Explore previous designs</span>
           </div>
         </div>
-        <motion.div
-          className="flex items-center space-x-2"
-          animate={{ rotate: isOpen ? 180 : 0 }}
-          transition={{ duration: 0.3, ease: "easeInOut" }}
-        >
+        <div className="flex items-center space-x-2">
           <svg
+            ref={arrowRef}
             className="w-5 h-5 text-orange-400"
             fill="none"
             stroke="currentColor"
@@ -317,90 +464,68 @@ function LegacyVersionSelector({ }: { locale?: string }) {
           >
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
           </svg>
-        </motion.div>
-      </motion.button>
+        </div>
+      </button>
 
       {/* Dropdown Menu */}
-      <AnimatePresence>
-        {isOpen && (
-          <>
-            {/* Background overlay for closing dropdown */}
-            <div 
-              className="fixed inset-0 z-40" 
-              onClick={() => setIsOpen(false)}
-            />
-            
-            <motion.div
-              initial={{ opacity: 0, y: -10, scale: 0.95 }}
-              animate={{ opacity: 1, y: 0, scale: 1 }}
-              exit={{ opacity: 0, y: -10, scale: 0.95 }}
-              transition={{ duration: 0.2, ease: "easeOut" }}
-              className="absolute top-full left-0 right-0 mt-3 bg-gradient-to-b from-gray-800 to-gray-900 rounded-xl shadow-2xl border border-gray-600 overflow-hidden z-50 backdrop-blur-sm"
-              style={{ 
-                maxHeight: 'calc(100vh - 100px)',
-                overflowY: 'auto'
-              }}
+      <div
+        ref={dropdownRef}
+        className="absolute top-full left-0 right-0 mt-2 bg-gray-800 rounded-xl shadow-2xl border border-gray-600 overflow-hidden"
+        style={{ display: 'none' }}
+      >
+        {/* Header */}
+        <div className="px-4 py-3 bg-gray-700 border-b border-gray-600">
+          <h4 className="text-white text-sm font-semibold">Previous Portfolio Versions</h4>
+          <p className="text-gray-300 text-xs mt-1">Showcase of design evolution</p>
+        </div>
+        
+        {/* Version List */}
+        <div className="p-2">
+          {versions.map((version) => (
+            <a
+              key={version.id}
+              href={version.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center p-3 rounded-lg hover:bg-gray-700 transition-all duration-200 group"
             >
-              <div className="p-2">
-                {versions.map((version, index) => (                <motion.button
-                  key={version.id}
-                  onClick={() => {
-                    // Use window.location.href to navigate directly instead of opening in new tab
-                    window.location.href = version.href;
-                    setIsOpen(false);
-                  }}
-                  className="w-full flex items-center space-x-4 p-4 hover:bg-gray-700/50 rounded-lg transition-all duration-200 group mb-1 last:mb-0 text-left"
-                  initial={{ opacity: 0, x: -20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: index * 0.1, ease: "easeOut" }}
-                  whileHover={{ 
-                    x: 8,
-                    transition: { duration: 0.2 }
-                  }}
-                >
-                  <div className="w-10 h-10 bg-gradient-to-br from-orange-400 to-orange-500 rounded-lg flex items-center justify-center text-white shadow-lg group-hover:scale-110 transition-transform duration-200">
-                    {version.icon}
-                  </div>
-                  <div className="flex-1">
-                    <div className="flex items-center space-x-2">
-                      <h4 className="text-white text-sm font-semibold group-hover:text-orange-400 transition-colors">
-                        {version.name}
-                      </h4>
-                      <span className="text-xs bg-gray-700 text-gray-300 px-2 py-1 rounded-full">
-                        {version.year}
-                      </span>
-                    </div>
-                    <p className="text-gray-400 text-xs mt-1">
-                      {version.description}
-                    </p>
-                  </div>
-                  <motion.div
-                    className="text-gray-400 group-hover:text-orange-400 transition-colors"
-                    whileHover={{ scale: 1.2 }}
-                  >
-                    <svg 
-                      className="w-5 h-5" 
-                      fill="none" 
-                      stroke="currentColor" 
-                      viewBox="0 0 24 24"
-                    >
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-                    </svg>
-                  </motion.div>
-                </motion.button>
-                ))}
+              <div className="w-10 h-10 bg-gradient-to-br from-orange-400 to-orange-500 rounded-lg flex items-center justify-center text-white shadow-lg group-hover:scale-110 transition-transform duration-200">
+                {version.icon}
               </div>
-              
-              {/* Footer */}
-              <div className="px-4 py-3 bg-gray-900/50 border-t border-gray-700">
-                <p className="text-xs text-gray-400 text-center">
-                  Each version showcases different design approaches and technologies
+              <div className="flex-1 ml-3">
+                <div className="flex items-center space-x-2">
+                  <h4 className="text-white text-sm font-semibold group-hover:text-orange-400 transition-colors">
+                    {version.name}
+                  </h4>
+                  <span className="text-xs bg-gray-700 text-gray-300 px-2 py-1 rounded-full">
+                    {version.year}
+                  </span>
+                </div>
+                <p className="text-gray-400 text-xs mt-1">
+                  {version.description}
                 </p>
               </div>
-            </motion.div>
-          </>
-        )}
-      </AnimatePresence>
+              <div className="text-gray-400 group-hover:text-orange-400 transition-colors">
+                <svg 
+                  className="w-5 h-5" 
+                  fill="none" 
+                  stroke="currentColor" 
+                  viewBox="0 0 24 24"
+                >
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                </svg>
+              </div>
+            </a>
+          ))}
+        </div>
+        
+        {/* Footer */}
+        <div className="px-4 py-3 bg-gray-900/50 border-t border-gray-700">
+          <p className="text-xs text-gray-400 text-center">
+            Each version showcases different design approaches and technologies
+          </p>
+        </div>
+      </div>
     </div>
   );
 }
