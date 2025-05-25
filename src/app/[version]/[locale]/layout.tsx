@@ -26,7 +26,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   
   return {
     title: {
-      default: 'William - Game Developer & Software Engineer',
+      default: 'Lê Nguyễn Thành Long - William - Portfolio',
       template: '%s | William'
     },
     description: 'Passionate Game Developer with solid background of using Unreal Engine and Unity Engine in game development. Expertise in creating and customizing game logic, utilizing SOLID principles for scalable codebases.',
@@ -37,7 +37,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       type: 'website',
       locale: locale,
       url: 'https://long18.github.io',
-      title: 'William - Game Developer & Software Engineer',
+      title: 'Lê Nguyễn Thành Long - William - Portfolio',
       description: 'Passionate Game Developer with solid background of using Unreal Engine and Unity Engine in game development.',
       siteName: 'William Portfolio',
     },

@@ -3,7 +3,7 @@ import MainApp from '../components/MainApp';
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
-    title: 'William - Game Developer & Software Engineer',
+    title: 'Lê Nguyễn Thành Long - William - Portfolio',
     description: 'Passionate Game Developer with solid background of using Unreal Engine and Unity Engine in game development.',
     metadataBase: new URL('https://long18.github.io'),
   };

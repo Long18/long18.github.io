@@ -18,7 +18,7 @@ export function generateStaticParams() {
 export async function generateMetadata(): Promise<Metadata> {
   return {
     title: {
-      default: 'William - Game Developer & Software Engineer',
+      default: 'Lê Nguyễn Thành Long - William - Portfolio',
       template: '%s | William'
     },
     description: 'Passionate Game Developer with solid background of using Unreal Engine and Unity Engine in game development.',
