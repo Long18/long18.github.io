@@ -5,6 +5,7 @@ export const personalInfo = {
   displayName: 'William',
   title: 'Game Developer',
   avatar: '/assets/images/avatar.png',
+  portrait: '/assets/images/avatar-portrait.png',
   birthday: 'June 18, 2000',
   aboutText: [
     'Passionate Game Developer with solid background of using Unreal Engine and Unity Engine in game development.',

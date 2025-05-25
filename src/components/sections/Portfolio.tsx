@@ -371,10 +371,10 @@ export default function Portfolio({ onProjectSelect }: PortfolioProps) {
         {/* Filters Row */}
         <div className="flex flex-col sm:flex-row gap-4">
           {/* Enhanced Category Filter Dropdown */}
-          <div ref={filterRef} className="relative z-[10001]">
+          <div ref={filterRef} className="relative z-[1000]">
             <button
               onClick={toggleDropdown}
-              className="flex items-center justify-between w-full sm:w-64 p-4 bg-eerie-black-2 border border-jet/50 rounded-xl text-white-1 hover:bg-eerie-black-1 focus:bg-eerie-black-1 focus:outline-none focus:ring-2 focus:ring-orange-yellow-crayola/20 focus:border-orange-yellow-crayola transition-all duration-300 backdrop-blur-sm relative z-[10001]"
+              className="flex items-center justify-between w-full sm:w-64 p-4 bg-eerie-black-2 border border-jet/50 rounded-xl text-white-1 hover:bg-eerie-black-1 focus:bg-eerie-black-1 focus:outline-none focus:ring-2 focus:ring-orange-yellow-crayola/20 focus:border-orange-yellow-crayola transition-all duration-300 backdrop-blur-sm relative z-[1001]"
               aria-expanded={isSelectOpen}
               aria-haspopup="listbox"
               aria-label="Select project category"
@@ -395,7 +395,7 @@ export default function Portfolio({ onProjectSelect }: PortfolioProps) {
 
             <div
               ref={dropdownRef}
-              className={`absolute top-full left-0 right-0 mt-2 bg-eerie-black-2 border border-jet/50 rounded-xl shadow-2xl z-[10002] overflow-hidden backdrop-blur-sm transition-all duration-300 ${
+              className={`absolute top-full left-0 right-0 mt-2 bg-eerie-black-2 border border-jet/50 rounded-xl shadow-2xl z-[1010] overflow-hidden backdrop-blur-sm transition-all duration-300 ${
                 isSelectOpen ? 'opacity-100 visible translate-y-0 pointer-events-auto' : 'opacity-0 invisible -translate-y-2 pointer-events-none'
               }`}
               role="listbox"
@@ -407,7 +407,7 @@ export default function Portfolio({ onProjectSelect }: PortfolioProps) {
                   key={category.id}
                   onClick={() => handleCategorySelect(category.id)}
                   className={`
-                    w-full text-left p-4 hover:bg-eerie-black-1 transition-colors duration-300 border-b border-jet/30 last:border-0 relative z-[10003]
+                    w-full text-left p-4 hover:bg-eerie-black-1 transition-colors duration-300 border-b border-jet/30 last:border-0 relative z-[1011]
                     ${selectedCategory === category.id ? 'text-orange-yellow-crayola bg-orange-yellow-crayola/5' : 'text-white-1'}
                   `}
                 >
@@ -495,7 +495,7 @@ export default function Portfolio({ onProjectSelect }: PortfolioProps) {
 }
 
 // Memoized project card component for better performance
-const ProjectCard = React.memo<ProjectCardProps>(function ProjectCard({ project, onClick, index }) {
+const ProjectCard = React.memo<ProjectCardProps>(function ProjectCard({ project, onClick }) {
   const cardRef = useRef<HTMLDivElement>(null);
   const overlayRef = useRef<HTMLDivElement>(null);
   const iconRef = useRef<HTMLDivElement>(null);

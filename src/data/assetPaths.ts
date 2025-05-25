@@ -15,7 +15,7 @@ export const projectThumbnails = {
   hutingAnimal: 'https://github.com/Long18/long18.github.io/assets/28853225/6d597614-b8a8-4737-b31f-4045c3cab5e4',
   toiletTapTap: 'https://github.com/Long18/long18.github.io/assets/28853225/87ee7fc3-3de9-4894-b71e-abbac380eefc',
   doggyMovement: 'https://github.com/Long18/long18.github.io/assets/28853225/f1b7915f-de09-4b10-b4ea-dc0f5bf6408d',
-  mugenHorror: 'https://github.com/Long18/long18.github.io/assets/28853225/mugenhorror.jpeg',
+  mugenHorror: 'https://github.com/Long18/long18.github.io/assets/28853225/5da79431-819d-43a5-99d8-45fa79777cc3',
   matchingCasino: 'https://github.com/Long18/long18.github.io/assets/28853225/c6f83fa4-06bd-4b57-ac77-cac9e75fcd07',
   homeWithGrandma: 'https://github.com/Long18/long18.github.io/assets/28853225/c71efedd-274a-4b56-8611-8e09f30e4846',
   fitnessCare: 'https://github.com/Long18/long18.github.io/assets/28853225/9a3f3803-80ce-4dc5-9e8b-111ef7ea7084',
@@ -220,11 +220,13 @@ export const externalLinks = {
 export const getAssetPath = (assetKey: string, fallback?: string): string => {
   // Split the key by dots to access nested objects
   const keys = assetKey.split('.');
-  let current: any = localAssets;
+  let current: Record<string, unknown> = localAssets;
   
   for (const key of keys) {
-    if (current[key] !== undefined) {
-      current = current[key];
+    if (current[key] !== undefined && typeof current[key] === 'object') {
+      current = current[key] as Record<string, unknown>;
+    } else if (typeof current[key] === 'string') {
+      return current[key] as string;
     } else {
       return fallback || '/assets/images/placeholder.png';
     }
@@ -241,11 +243,13 @@ export const getProjectGallery = (projectId: string): string[] => {
 // Utility function to check if an asset exists
 export const assetExists = (assetKey: string): boolean => {
   const keys = assetKey.split('.');
-  let current: any = localAssets;
+  let current: Record<string, unknown> = localAssets;
   
   for (const key of keys) {
-    if (current[key] !== undefined) {
-      current = current[key];
+    if (current[key] !== undefined && typeof current[key] === 'object') {
+      current = current[key] as Record<string, unknown>;
+    } else if (typeof current[key] === 'string') {
+      return true;
     } else {
       return false;
     }
@@ -254,7 +258,7 @@ export const assetExists = (assetKey: string): boolean => {
   return typeof current === 'string';
 };
 
-export default {
+const defaultExport = {
   projectThumbnails,
   localAssets,
   projectGalleries,
@@ -263,3 +267,5 @@ export default {
   getProjectGallery,
   assetExists
 };
+
+export default defaultExport;
