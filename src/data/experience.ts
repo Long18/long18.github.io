@@ -8,9 +8,25 @@ export const experiences: Experience[] = [
     startDate: '2025-01',
     endDate: undefined,
     current: true,
-    description: 'Amanotes is a Vietnamese mobile game developer that combines music and technology to make engaging games for people worldwide. They were identified by the Google Play team at Indie Game Developer Day in Vietnam in early 2017 as a high-potential indie, and now they have over 100 million installs on the Play Store.',
-    achievements: [],
-    technologies: ['Unity', 'C#'],
+    description: 'Amanotes excels in the creation and distribution of accessible Simple Music Games, designed for ease of interaction and focused on delivering engaging musical experiences to a global audience. Guided by the motto “Everyone Can Music,” Amanotes is committed to making music accessible to all.',
+    achievements: [
+      'Developed and maintained core gameplay systems to ensure smooth and scalable game logic.',
+      'Implemented features using clean, modular, and scalable architecture, adhering to SOLID principles.',
+      'Built and optimized in-game UI systems and supporting editor tools to streamline testing and content setup.',
+      'Contributed to the integration of A/B testing hooks for multiple features, enabling product and data teams to run controlled experiments.',
+      'Collaborated closely with Game Designers and Artists to ensure correct behavior and seamless integration of new features.',
+      'Applied Agile methodologies to manage workflow and deliver high-quality software iteratively.'
+    ],
+    technologies: [
+      'Unity',
+      'C#',
+      'Artificial Intelligence (AI)',
+      'AI Prompting',
+      'Agile',
+      'GitHub Copilot',
+      'ChatGPT',
+      'JetBrains Rider'
+    ],
     location: 'Ho Chi Minh City'
   },
   {
