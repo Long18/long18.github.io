@@ -6,34 +6,34 @@ const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
   title: {
-    default: 'Long Nguyen - Full Stack Developer & Game Developer',
-    template: '%s | Long Nguyen'
+    default: 'Lê Nguyễn Thành Long - Game Engineer',
+    template: '%s | Lê Nguyễn Thành Long'
   },
-  description: 'Full stack developer and game developer specializing in modern web technologies and game development frameworks.',
-  keywords: ['Full Stack Developer', 'Game Developer', 'React', 'Next.js', 'Unity', 'TypeScript', 'Web Development'],
-  authors: [{ name: 'Long Nguyen' }],
-  creator: 'Long Nguyen',
-  publisher: 'Long Nguyen',
+  description: 'Game developer specializing in modern web technologies and game development frameworks.',
+  keywords: ['Game Developer', 'React', 'Next.js', 'Unity', 'TypeScript', 'Web Development'],
+  authors: [{ name: 'Lê Nguyễn Thành Long' }],
+  creator: 'Lê Nguyễn Thành Long',
+  publisher: 'Lê Nguyễn Thành Long',
   openGraph: {
     type: 'website',
     locale: 'en_US',
     url: 'https://long18.github.io',
-    title: 'Long Nguyen - Full Stack Developer & Game Developer',
-    description: 'Full stack developer and game developer specializing in modern web technologies and game development frameworks.',
-    siteName: 'Long Nguyen Portfolio',
+    title: 'Lê Nguyễn Thành Long - Game Engineer',
+    description: 'Game developer specializing in modern web technologies and game development frameworks.',
+    siteName: 'Lê Nguyễn Thành Long Portfolio',
     images: [
       {
         url: '/assets/images/og-image.jpg',
         width: 1200,
         height: 630,
-        alt: 'Long Nguyen Portfolio',
+        alt: 'Lê Nguyễn Thành Long Portfolio',
       },
     ],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Long Nguyen - Full Stack Developer & Game Developer',
-    description: 'Full stack developer and game developer specializing in modern web technologies and game development frameworks.',
+    title: 'Lê Nguyễn Thành Long - Game Engineer',
+    description: 'Game developer specializing in modern web technologies and game development frameworks.',
     creator: '@long18dev',
     images: ['/assets/images/og-image.jpg'],
   },

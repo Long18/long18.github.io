@@ -8,8 +8,8 @@
   },
   "hero": {
     "greeting": "Hi, I'm",
-    "name": "Long Nguyen",
-    "title": "Full Stack Developer & Game Developer",
+    "name": "Lê Nguyễn Thành Long",
+    "title": "Game Engineer",
     "subtitle": "I create amazing digital experiences with modern technologies",
     "cta_projects": "View My Work",
     "cta_contact": "Get In Touch",
@@ -122,24 +122,24 @@
   },
   "meta": {
     "home": {
-      "title": "Long Nguyen - Full Stack Developer & Game Developer",
-      "description": "Full stack developer and game developer specializing in modern web technologies and game development frameworks."
+      "title": "Lê Nguyễn Thành Long - Game Engineer",
+      "description": "Game developer specializing in modern web technologies and game development frameworks."
     },
     "about": {
-      "title": "About - Long Nguyen",
-      "description": "Learn more about Long Nguyen, a passionate full stack developer and game developer with expertise in modern technologies."
+      "title": "About - Lê Nguyễn Thành Long",
+      "description": "Learn more about Lê Nguyễn Thành Long, a passionate game developer with expertise in modern technologies."
     },
     "projects": {
-      "title": "Projects - Long Nguyen",
+      "title": "Projects - Lê Nguyễn Thành Long",
       "description": "Explore my latest projects including web games, mobile games, applications, and web development work."
     },
     "blog": {
-      "title": "Blog - Long Nguyen",
+      "title": "Blog - Lê Nguyễn Thành Long",
       "description": "Read my thoughts, tutorials, and insights about web development, game development, and modern technologies."
     },
     "contact": {
-      "title": "Contact - Long Nguyen",
-      "description": "Get in touch with Long Nguyen for your next project or collaboration opportunity."
+      "title": "Contact - Lê Nguyễn Thành Long",
+      "description": "Get in touch with Lê Nguyễn Thành Long for your next project or collaboration opportunity."
     }
   }
 }
