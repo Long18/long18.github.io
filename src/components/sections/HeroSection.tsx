@@ -3,8 +3,11 @@
 import React, { useRef } from 'react';
 import Image from 'next/image';
 import { Download } from 'lucide-react';
+import { motion } from 'framer-motion';
 import { cn } from '../../utils';
 import { personalInfo } from '../../data/personal';
+import { mainSkills } from '../../data/skills';
+import SkillIcon from '../ui/SkillIcon';
 import { useGSAP } from '../../hooks/useGSAP';
 import { heroEntranceAnimation } from '../../utils/gsapAnimations';
 import gsap from 'gsap';
@@ -26,6 +29,7 @@ const HeroSection: React.FC = () => {
   const buttonsRef = useRef<HTMLDivElement>(null);
   const avatarRef = useRef<HTMLDivElement>(null);
   const bgDotsRef = useRef<HTMLDivElement>(null);
+  const skillsRef = useRef<HTMLDivElement>(null);
 
   // GSAP animations
   useGSAP(() => {
@@ -102,12 +106,39 @@ const HeroSection: React.FC = () => {
         },
       });
     }
+
+    // Skills section animations
+    if (skillsRef.current) {
+      const skillItems = skillsRef.current.querySelectorAll('.skill-item');
+      skillItems.forEach((item, index) => {
+        gsap.fromTo(item, 
+          { 
+            opacity: 0, 
+            y: 30,
+            scale: 0.95
+          },
+          {
+            opacity: 1,
+            y: 0,
+            scale: 1,
+            duration: 0.6,
+            delay: 2.5 + index * 0.1,
+            ease: 'power2.out',
+            scrollTrigger: {
+              trigger: item,
+              start: 'top 80%',
+              toggleActions: 'play none none reverse'
+            }
+          }
+        );
+      });
+    }
   }, []);
 
 
 
   return (
-    <section ref={sectionRef} className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gray-900">
+    <section ref={sectionRef} className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden bg-gray-900 py-16 lg:py-20">
       {/* Background gradient */}
       <div className="absolute inset-0 bg-gradient-to-br from-orange-500/5 via-gray-900 to-purple-500/5" />
       
@@ -125,7 +156,8 @@ const HeroSection: React.FC = () => {
         ))}
       </div>
 
-      <div className="container relative z-10 px-4 lg:px-8">
+      <div className="container relative z-10 px-4 lg:px-8 space-y-16 lg:space-y-20">
+        {/* Hero Content */}
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           {/* Left content */}
           <div className="text-center lg:text-left space-y-8">
@@ -167,11 +199,6 @@ const HeroSection: React.FC = () => {
                 Download Resume
               </a>
             </div>
-
-            {/* Animated scroll-down hint */}
-            {/* <div className="flex flex-col items-center mt-8">
-              <span className="text-gray-400 text-sm md:text-base animate-bounce">↓ Explore My Work</span>
-            </div> */}
           </div>
 
           {/* Right content - Avatar */}
@@ -214,6 +241,58 @@ const HeroSection: React.FC = () => {
             </div>
           </div>
         </div>
+
+        {/* Main Skills Section */}
+        <motion.section 
+          ref={skillsRef}
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 2.0 }}
+          className="space-y-8"
+        >
+          <motion.h2 
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ delay: 2.2 }}
+            className="text-3xl sm:text-4xl font-bold text-white text-center"
+          >
+            Main Skills
+          </motion.h2>
+          
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8">
+            {mainSkills.map((category, categoryIndex) => (
+              <motion.div
+                key={category.title}
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 2.4 + categoryIndex * 0.2 }}
+                className="skill-item bg-gray-800/50 rounded-xl p-6 lg:p-8 border border-gray-700/50 hover:border-orange-500/50 transition-all duration-300 group"
+              >
+                <h4 className="text-xl font-semibold text-orange-400 mb-6 text-center group-hover:text-orange-300 transition-colors duration-300">
+                  {category.title}
+                </h4>
+                <div className="flex flex-wrap gap-3 justify-center">
+                  {category.skills.map((skill, skillIndex) => (
+                    <motion.div
+                      key={skill.id}
+                      initial={{ opacity: 0, scale: 0.8 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      transition={{ delay: 2.6 + categoryIndex * 0.2 + skillIndex * 0.1 }}
+                      className="flex items-center gap-3 px-4 py-3 bg-gray-700/50 rounded-lg border border-gray-600/30 hover:border-orange-500/50 hover:bg-orange-500/10 transition-all duration-300 group/skill"
+                    >
+                      <div className="group-hover/skill:scale-125 transition-transform duration-300">
+                        <SkillIcon skillId={skill.id} className="w-6 h-6 text-orange-400" />
+                      </div>
+                      <span className="text-base font-medium text-gray-300 group-hover/skill:text-white transition-colors duration-300">
+                        {skill.name}
+                      </span>
+                    </motion.div>
+                  ))}
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        </motion.section>
       </div>
     </section>
   );
