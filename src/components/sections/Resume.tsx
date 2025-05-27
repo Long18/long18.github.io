@@ -40,18 +40,18 @@ function TimelineItem({
         initial={{ scale: 0 }}
         animate={{ scale: 1 }}
         transition={{ delay: index * 0.2 + 0.1, type: "spring" }}
-        className="absolute left-0 top-2 w-6 h-6 bg-orange-500 rounded-full border-4 border-gray-900 z-10"
+        className="absolute left-0 top-2 w-6 h-6 bg-orange-500 rounded-2xl border-4 border-gray-900 z-10 shadow-lg shadow-orange-500/20"
       />
       
       {/* Content */}
-      <div className="bg-gray-800/50 rounded-xl p-6 border border-gray-700/50 hover:border-orange-500/30 transition-all duration-300">
+      <div className="bg-gray-800/50 backdrop-blur-sm rounded-3xl p-6 border border-gray-700/50 hover:border-orange-500/30 hover:shadow-xl hover:shadow-orange-500/10 transition-all duration-500">
         <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-2 mb-4">
           <div className="flex-1">
             <h3 className="text-lg font-semibold text-white mb-1">{title}</h3>
             <h4 className="text-orange-400 font-medium mb-2">{subtitle}</h4>
           </div>
           <div className="flex flex-col items-start md:items-end text-sm text-gray-400">
-            <span className="bg-orange-500/20 text-orange-300 px-3 py-1 rounded-full whitespace-nowrap">
+            <span className="bg-orange-500/20 backdrop-blur-sm text-orange-300 px-3 py-1 rounded-2xl whitespace-nowrap shadow-lg shadow-orange-500/10">
               {period}
             </span>
             {location && (
@@ -96,7 +96,7 @@ function TimelineItem({
                   initial={{ opacity: 0, scale: 0.8 }}
                   animate={{ opacity: 1, scale: 1 }}
                   transition={{ delay: index * 0.2 + 0.5 + idx * 0.05 }}
-                  className="text-xs bg-gray-700/50 text-gray-300 px-2 py-1 rounded-md"
+                  className="text-xs bg-gray-700/50 backdrop-blur-sm text-gray-300 px-2 py-1 rounded-2xl hover:bg-orange-500/10 hover:border-orange-500/30 hover:shadow-lg hover:shadow-orange-500/20 transition-all duration-500"
                 >
                   {tech}
                 </motion.span>
@@ -180,7 +180,7 @@ export default function Resume({ className = '' }: ResumeProps) {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.8 }}
-        className="bg-gradient-to-r from-orange-500/10 to-purple-500/10 rounded-xl p-6 border border-orange-500/20"
+        className="bg-gradient-to-r from-orange-500/10 to-purple-500/10 backdrop-blur-sm rounded-3xl p-6 border border-orange-500/20 hover:border-orange-500/30 hover:shadow-xl hover:shadow-orange-500/10 transition-all duration-500"
       >
         <h3 className="text-lg font-semibold text-white mb-3">Professional Summary</h3>
         <p className="text-gray-300 text-sm leading-relaxed">

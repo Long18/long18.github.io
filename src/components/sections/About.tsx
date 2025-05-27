@@ -87,16 +87,16 @@ export default function About({ className = '' }: AboutProps) {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.4 + index * 0.1 }}
-              className="flex items-start gap-4 p-4 md:p-6 bg-gray-800/50 rounded-xl border border-gray-700/50 hover:border-orange-500/30 transition-all duration-300 group"
+              className="flex items-start gap-4 p-4 md:p-6 bg-gray-800/50 backdrop-blur-sm rounded-3xl border border-gray-700/50 hover:border-orange-500/30 hover:shadow-xl hover:shadow-orange-500/10 transition-all duration-500 group"
             >
               <div className="flex-shrink-0">
-                <div className="w-12 h-12 md:w-16 md:h-16 flex items-center justify-center bg-gray-700/50 rounded-xl group-hover:bg-orange-500/10 transition-colors duration-300">
+                <div className="w-12 h-12 md:w-16 md:h-16 flex items-center justify-center bg-gray-700/50 backdrop-blur-sm rounded-2xl group-hover:bg-orange-500/10 group-hover:shadow-lg group-hover:shadow-orange-500/20 transition-all duration-500">
                   <Image
                     src={service.icon}
                     alt={service.title}
                     width={40}
                     height={40}
-                    className="filter brightness-0 invert opacity-70 group-hover:opacity-100 transition-opacity duration-300"
+                    className="filter brightness-0 invert opacity-70 group-hover:opacity-100 transition-all duration-500"
                   />
                 </div>
               </div>
@@ -134,7 +134,7 @@ export default function About({ className = '' }: AboutProps) {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.8 + categoryIndex * 0.1 }}
-              className="bg-gray-800/30 rounded-xl p-4 md:p-6 border border-gray-700/30"
+              className="bg-gray-800/30 backdrop-blur-sm rounded-3xl p-4 md:p-6 border border-gray-700/30 hover:border-orange-500/30 hover:shadow-xl hover:shadow-orange-500/10 transition-all duration-500"
             >
               <h4 className="text-lg font-semibold text-orange-400 mb-4">
                 {category.title}
@@ -146,12 +146,12 @@ export default function About({ className = '' }: AboutProps) {
                     initial={{ opacity: 0, scale: 0.9 }}
                     animate={{ opacity: 1, scale: 1 }}
                     transition={{ delay: 0.9 + categoryIndex * 0.1 + skillIndex * 0.05 }}
-                    className="flex items-center gap-2 px-3 py-2 bg-gray-700/50 rounded-lg border border-gray-600/30 hover:border-orange-500/50 hover:bg-orange-500/10 transition-all duration-300 group"
+                    className="flex items-center gap-2 px-3 py-2 bg-gray-700/50 backdrop-blur-sm rounded-2xl border border-gray-600/30 hover:border-orange-500/50 hover:bg-orange-500/10 hover:shadow-lg hover:shadow-orange-500/20 transition-all duration-500 group"
                   >
-                    <div className="group-hover:scale-110 transition-transform duration-300">
+                    <div className="group-hover:scale-110 transition-transform duration-500">
                       <SkillIcon skillId={skill.id} className="w-5 h-5 text-orange-400" />
                     </div>
-                    <span className="text-sm text-gray-300 group-hover:text-white transition-colors duration-300">
+                    <span className="text-sm text-gray-300 group-hover:text-white transition-colors duration-500">
                       {skill.name}
                     </span>
                   </motion.div>
