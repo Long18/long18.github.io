@@ -69,14 +69,24 @@ export const skillCategories = [
 export const mainSkills = [
   {
     title: 'Language',
-    skills: ['C#', 'Modern C/C++']
+    skills: [
+      { id: 'csharp', name: 'C#' },
+      { id: 'cpp', name: 'Modern C/C++' }
+    ]
   },
   {
     title: 'Engine', 
-    skills: ['Unity', 'Unreal']
+    skills: [
+      { id: 'unity', name: 'Unity' },
+      { id: 'unreal', name: 'Unreal' }
+    ]
   },
   {
     title: 'Principle',
-    skills: ['OOP', 'SOLID', 'TDD']
+    skills: [
+      { id: 'oop', name: 'OOP' },
+      { id: 'solid', name: 'SOLID' },
+      { id: 'tdd', name: 'TDD' }
+    ]
   }
 ];
