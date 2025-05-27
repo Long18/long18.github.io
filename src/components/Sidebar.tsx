@@ -14,11 +14,37 @@ interface SidebarProps {
 }
 
 export default function Sidebar({ locale }: SidebarProps) {
-  const [isContactsOpen, setIsContactsOpen] = useState(true);
+  // Set initial state based on device type
+  const [isContactsOpen, setIsContactsOpen] = useState(() => {
+    // Check if we're on client side
+    if (typeof window === 'undefined') return false;
+
+    // Check if device is mobile
+    const isMobile =
+      /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
+        navigator.userAgent
+      ) || window.innerWidth < 768;
+
+    // Mobile: closed by default, Desktop: open by default
+    return !isMobile;
+  });
 
   // Refs for GSAP animations
   const sidebarRef = useRef<HTMLElement>(null);
   const arrowRef = useRef<SVGSVGElement>(null);
+
+  // Handle responsive behavior on window resize
+  useEffect(() => {
+    const handleResize = () => {
+      const isMobile = window.innerWidth < 768;
+
+      // On mobile: close contacts, on desktop: open contacts
+      setIsContactsOpen(!isMobile);
+    };
+
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   // GSAP entrance animation
   useGSAP(() => {
@@ -41,7 +67,7 @@ export default function Sidebar({ locale }: SidebarProps) {
     // Animate arrow rotation
     if (arrowRef.current) {
       gsap.to(arrowRef.current, {
-        rotation: !isContactsOpen ? 180 : 0,
+        rotation: !isContactsOpen ? 0 : 180,
         duration: 0.3,
         ease: 'power2.out',
       });
@@ -107,7 +133,7 @@ export default function Sidebar({ locale }: SidebarProps) {
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
-                style={{ transform: 'rotate(180deg)' }}
+                style={{ transform: 'rotate(0deg)' }}
               >
                 <path
                   strokeLinecap="round"
