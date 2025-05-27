@@ -178,15 +178,15 @@ const Contact: React.FC = () => {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.5 + index * 0.1 }}
-                className="bg-eerie-black-2 rounded-2xl p-6 text-center border border-jet hover:border-orange-yellow-crayola transition-all duration-300 group"
+                className="bg-eerie-black-2 backdrop-blur-sm rounded-3xl p-6 text-center border border-jet hover:border-orange-yellow-crayola hover:shadow-xl hover:shadow-orange-yellow-crayola/10 transition-all duration-500 group"
               >
-                <div className="text-orange-yellow-crayola text-3xl mb-4 flex justify-center group-hover:scale-110 transition-transform duration-300">
+                <div className="text-orange-yellow-crayola text-3xl mb-4 flex justify-center group-hover:scale-110 transition-transform duration-500">
                   {detail.icon}
                 </div>
                 {detail.href ? (
                   <a
                     href={detail.href}
-                    className="text-white-1 font-medium hover:text-orange-yellow-crayola transition-colors duration-300"
+                    className="text-white-1 font-medium hover:text-orange-yellow-crayola transition-colors duration-500"
                   >
                     {detail.value}
                   </a>
@@ -217,7 +217,7 @@ const Contact: React.FC = () => {
                   value={formData.name}
                   onChange={handleInputChange}
                   placeholder="Your Name *"
-                  className={`w-full px-5 py-4 bg-eerie-black-2 border rounded-2xl text-white-1 placeholder-white-2 focus:outline-none focus:border-orange-yellow-crayola transition-colors duration-300 ${
+                  className={`w-full px-5 py-4 bg-eerie-black-2 backdrop-blur-sm border rounded-3xl text-white-1 placeholder-white-2 focus:outline-none focus:border-orange-yellow-crayola focus:shadow-lg focus:shadow-orange-yellow-crayola/20 transition-all duration-500 ${
                     errors.name ? 'border-red-500' : 'border-jet'
                   }`}
                   required
@@ -233,7 +233,7 @@ const Contact: React.FC = () => {
                   value={formData.email}
                   onChange={handleInputChange}
                   placeholder="Your Email *"
-                  className={`w-full px-5 py-4 bg-eerie-black-2 border rounded-2xl text-white-1 placeholder-white-2 focus:outline-none focus:border-orange-yellow-crayola transition-colors duration-300 ${
+                  className={`w-full px-5 py-4 bg-eerie-black-2 backdrop-blur-sm border rounded-3xl text-white-1 placeholder-white-2 focus:outline-none focus:border-orange-yellow-crayola focus:shadow-lg focus:shadow-orange-yellow-crayola/20 transition-all duration-500 ${
                     errors.email ? 'border-red-500' : 'border-jet'
                   }`}
                   required
@@ -252,7 +252,7 @@ const Contact: React.FC = () => {
                 value={formData.subject}
                 onChange={handleInputChange}
                 placeholder="Your Subject *"
-                className={`w-full px-5 py-4 bg-eerie-black-2 border rounded-2xl text-white-1 placeholder-white-2 focus:outline-none focus:border-orange-yellow-crayola transition-colors duration-300 ${
+                className={`w-full px-5 py-4 bg-eerie-black-2 backdrop-blur-sm border rounded-3xl text-white-1 placeholder-white-2 focus:outline-none focus:border-orange-yellow-crayola focus:shadow-lg focus:shadow-orange-yellow-crayola/20 transition-all duration-500 ${
                   errors.subject ? 'border-red-500' : 'border-jet'
                 }`}
                 required
@@ -270,7 +270,7 @@ const Contact: React.FC = () => {
                 onChange={handleInputChange}
                 placeholder="Your Message *"
                 rows={6}
-                className={`w-full px-5 py-4 bg-eerie-black-2 border rounded-2xl text-white-1 placeholder-white-2 focus:outline-none focus:border-orange-yellow-crayola transition-colors duration-300 resize-vertical min-h-[120px] max-h-[200px] ${
+                className={`w-full px-5 py-4 bg-eerie-black-2 backdrop-blur-sm border rounded-3xl text-white-1 placeholder-white-2 focus:outline-none focus:border-orange-yellow-crayola focus:shadow-lg focus:shadow-orange-yellow-crayola/20 transition-all duration-500 resize-vertical min-h-[120px] max-h-[200px] ${
                   errors.message ? 'border-red-500' : 'border-jet'
                 }`}
                 required
@@ -287,7 +287,7 @@ const Contact: React.FC = () => {
                 disabled={isSubmitting}
                 whileHover={{ scale: isSubmitting ? 1 : 1.05 }}
                 whileTap={{ scale: isSubmitting ? 1 : 0.95 }}
-                className={`px-8 py-4 bg-gradient-to-r from-orange-yellow-crayola to-orange-yellow-crayola/80 text-smoky-black font-semibold rounded-2xl flex items-center gap-3 mx-auto transition-all duration-300 hover:shadow-lg hover:shadow-orange-yellow-crayola/25 disabled:opacity-50 disabled:cursor-not-allowed ${
+                className={`px-8 py-4 bg-gradient-to-r from-orange-yellow-crayola to-orange-yellow-crayola/80 backdrop-blur-sm text-smoky-black font-semibold rounded-3xl flex items-center gap-3 mx-auto transition-all duration-500 hover:shadow-xl hover:shadow-orange-yellow-crayola/30 disabled:opacity-50 disabled:cursor-not-allowed ${
                   isSubmitting ? 'animate-pulse' : ''
                 }`}
               >
