@@ -284,7 +284,9 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
       `;
       container.appendChild(explosionContainer);
       // Store reference for later use
-      (explosionParticlesRef as React.MutableRefObject<HTMLDivElement | null>).current = explosionContainer;
+      (
+        explosionParticlesRef as React.MutableRefObject<HTMLDivElement | null>
+      ).current = explosionContainer;
     }
 
     // Create ripple container if it doesn't exist
@@ -304,7 +306,9 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
       `;
       container.appendChild(rippleContainer);
       // Store reference for later use
-      (rippleEffectsRef as React.MutableRefObject<HTMLDivElement | null>).current = rippleContainer;
+      (
+        rippleEffectsRef as React.MutableRefObject<HTMLDivElement | null>
+      ).current = rippleContainer;
     }
 
     // Touch start handler
