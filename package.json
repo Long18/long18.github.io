@@ -42,6 +42,7 @@
   },
   "homepage": "https://github.com/Long18/long18.github.io#readme",
   "dependencies": {
+    "@emailjs/browser": "^4.4.1",
     "@hookform/resolvers": "^3.6.0",
     "@mdx-js/loader": "^3.0.1",
     "@mdx-js/react": "^3.0.1",
