@@ -430,9 +430,9 @@ const Contact: React.FC = () => {
               }}
               className="relative group"
             >
-              <div className="bg-gradient-to-br from-gray-800/80 to-gray-900/80 backdrop-blur-xl rounded-3xl p-8 border border-gray-700/50 hover:border-orange-500/50 transition-all duration-500 text-center overflow-hidden">
+              <div className="bg-gradient-to-br from-gray-800/90 to-gray-900/90 backdrop-blur-xl rounded-3xl p-6 border border-gray-600/50 hover:border-orange-500/50 transition-all duration-500 text-center overflow-hidden min-h-[280px] flex flex-col justify-between shadow-lg">
                 {/* Holographic overlay */}
-                <div className="absolute inset-0 bg-gradient-to-r from-orange-400/5 via-purple-500/5 to-cyan-400/5 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                <div className="absolute inset-0 bg-gradient-to-r from-orange-400/10 via-purple-500/10 to-cyan-400/10 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
 
                 {/* Floating particles around card */}
                 <div className="absolute inset-0 overflow-hidden">
@@ -461,35 +461,37 @@ const Contact: React.FC = () => {
                 <motion.div
                   whileHover={{ rotate: 360, scale: 1.2 }}
                   transition={{ duration: 0.6 }}
-                  className={`inline-flex items-center justify-center w-20 h-20 bg-gradient-to-r from-${detail.color}-500/20 to-${detail.color}-600/20 rounded-3xl mb-6 relative z-10 group-hover:shadow-lg group-hover:shadow-${detail.color}-500/30`}
+                  className={`inline-flex items-center justify-center w-16 h-16 bg-gradient-to-r from-${detail.color}-500/20 to-${detail.color}-600/20 rounded-2xl mb-4 relative z-10 group-hover:shadow-lg group-hover:shadow-${detail.color}-500/30`}
                 >
-                  <detail.icon
-                    className={`w-10 h-10 text-${detail.color}-400`}
-                  />
+                  <detail.icon className={`w-8 h-8 text-${detail.color}-400`} />
                 </motion.div>
 
-                <h3 className="text-xl font-bold text-white mb-3 relative z-10 group-hover:text-orange-300 transition-colors duration-300">
-                  {detail.title}
-                </h3>
+                <div className="flex-1 flex flex-col justify-center">
+                  <h3 className="text-lg font-bold text-white mb-2 relative z-10 group-hover:text-orange-300 transition-colors duration-300">
+                    {detail.title}
+                  </h3>
 
-                <p className="text-gray-400 text-sm mb-4 relative z-10">
-                  {detail.description}
-                </p>
+                  <p className="text-gray-400 text-xs mb-3 relative z-10">
+                    {detail.description}
+                  </p>
 
-                {detail.href ? (
-                  <motion.a
-                    href={detail.href}
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
-                    className={`inline-block text-${detail.color}-400 font-semibold hover:text-white transition-colors duration-300 relative z-10 bg-${detail.color}-500/10 px-4 py-2 rounded-xl hover:bg-${detail.color}-500/20`}
-                  >
-                    {detail.value}
-                  </motion.a>
-                ) : (
-                  <span className="text-gray-300 font-medium relative z-10 block bg-gray-700/30 px-4 py-2 rounded-xl">
-                    {detail.value}
-                  </span>
-                )}
+                  <div className="mt-auto">
+                    {detail.href ? (
+                      <motion.a
+                        href={detail.href}
+                        whileHover={{ scale: 1.05 }}
+                        whileTap={{ scale: 0.95 }}
+                        className={`inline-block text-${detail.color}-300 font-semibold hover:text-white transition-colors duration-300 relative z-10 bg-${detail.color}-500/25 border border-${detail.color}-400/20 px-4 py-3 rounded-2xl hover:bg-${detail.color}-500/40 hover:border-${detail.color}-400/40 text-center text-sm max-w-full break-words leading-tight shadow-sm`}
+                      >
+                        {detail.value}
+                      </motion.a>
+                    ) : (
+                      <span className="text-gray-200 font-medium relative z-10 block bg-gray-700/50 border border-gray-600/30 px-4 py-3 rounded-2xl text-center text-sm max-w-full break-words leading-tight shadow-sm">
+                        {detail.value}
+                      </span>
+                    )}
+                  </div>
+                </div>
               </div>
             </motion.div>
           ))}
