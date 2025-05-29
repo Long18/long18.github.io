@@ -143,7 +143,6 @@ export default function About({ className = '' }: AboutProps) {
 
   // Typing animation for about text
   const [typedText, setTypedText] = useState('');
-  const [currentParagraph, setCurrentParagraph] = useState(0);
   const fullText = personalInfo.aboutText.join(' ');
 
   useEffect(() => {
@@ -446,7 +445,7 @@ export default function About({ className = '' }: AboutProps) {
           >
             <Briefcase className="w-6 h-6 text-white" />
           </motion.div>
-          <h2 className="text-3xl font-bold text-white">What I'm Doing</h2>
+          <h2 className="text-3xl font-bold text-white">What I&apos;m Doing</h2>
         </div>
 
         <div className="grid gap-6">
