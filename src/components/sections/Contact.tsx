@@ -29,23 +29,7 @@ import {
   Diamond,
 } from 'lucide-react';
 import { contactInfo } from '@/data/personal';
-
-// Declare global Email object for SMTP.js
-declare global {
-  interface Window {
-    Email: {
-      send: (config: {
-        Host: string;
-        Username: string;
-        Password: string;
-        To: string;
-        From: string;
-        Subject: string;
-        Body: string;
-      }) => Promise<string>;
-    };
-  }
-}
+import { sendContactEmail, type EmailData } from '@/services/emailService';
 
 interface FormData {
   name: string;
@@ -108,43 +92,10 @@ const Contact: React.FC = () => {
     return () => clearInterval(timer);
   }, []);
 
-  // Load SMTP.js library
-  useEffect(() => {
-    // Check if script is already loaded
-    if (window.Email) {
-      return;
-    }
-
-    // Check if script already exists in DOM
-    const existingScript = document.querySelector(
-      'script[src="https://smtpjs.com/v3/smtp.js"]'
-    );
-    if (existingScript) {
-      return;
-    }
-
-    // Create and load new script
-    const script = document.createElement('script');
-    script.src = 'https://smtpjs.com/v3/smtp.js';
-    script.async = true;
-
-    script.onload = () => {
-      console.log('SMTP.js loaded successfully');
-    };
-
-    script.onerror = () => {
-      console.error('Failed to load SMTP.js');
-    };
-
-    document.head.appendChild(script);
-
-    return () => {
-      // Don't remove script on cleanup to allow reuse
-      // if (document.head.contains(script)) {
-      //   document.head.removeChild(script);
-      // }
-    };
-  }, []);
+  // No need to load SMTP.js anymore - using reliable alternatives
+  // useEffect(() => {
+  //   // SMTP.js loading code removed for better reliability
+  // }, []);
 
   // Contact stats
   const contactStats = [
@@ -212,71 +163,26 @@ const Contact: React.FC = () => {
     setFocusedField(null);
   };
 
-  const sendEmail = async (
-    name: string,
-    email: string,
-    subject: string,
-    message: string
-  ): Promise<string> => {
-    // Try SMTP.js with timeout, but fallback quickly if it fails
-    console.log('Attempting to send email via SMTP.js...');
-    
-    if (!window.Email) {
-      console.log('SMTP.js not loaded, using fallback method...');
-      return await sendEmailFallback(name, email, subject, message);
-    }
-
+  const sendEmail = async (data: EmailData): Promise<string> => {
     try {
-      // Add timeout to SMTP.js call (max 5 seconds)
-      const smtpPromise = window.Email.send({
-        Host: "smtp.gmail.com",
-        Username: "us.thanhlong18@gmail.com",
-        Password: "kblsmjnkxceczpxv",
-        To: "us.thanhlong18@gmail.com",
-        From: email,
-        Subject: subject,
-        Body: `Name: ${name}<br/>Email: ${email}<br/>Message: ${message}`
-      });
-
-      const timeoutPromise = new Promise((_, reject) => 
-        setTimeout(() => reject(new Error('SMTP timeout')), 5000)
-      );
-
-      const result = await Promise.race([smtpPromise, timeoutPromise]);
-
-      console.log('Email sent result:', result);
-      
-      // Check if result indicates success
-      if (result && (result === 'OK' || result.toString().toLowerCase().includes('ok') || result.toString().toLowerCase().includes('success'))) {
-        return result.toString();
-      } else {
-        throw new Error(`SMTP send failed: ${result}`);
-      }
+      // Use EmailJS to send real emails
+      console.log('🚀 Attempting to send email via EmailJS...', data);
+      const result = await sendContactEmail(data);
+      return result;
     } catch (error) {
-      console.error('SMTP.js error:', error);
-      console.log('SMTP.js failed, using fallback method...');
+      console.error('❌ Failed to send email via EmailJS:', error);
       
-      // Always fallback to mailto when SMTP fails
-      return await sendEmailFallback(name, email, subject, message);
+      // Show setup message if EmailJS not configured
+      if (error instanceof Error && error.message.includes('not configured')) {
+        console.log('📖 EmailJS not configured, using mailto fallback');
+        alert('⚙️ EmailJS chưa được cấu hình. Sẽ mở email client để gửi email thủ công.\n\n📖 Xem docs/EMAILJS_SETUP.md để setup EmailJS');
+      }
+      
+      // Fallback to mailto if EmailJS fails
+      const mailtoLink = `mailto:us.thanhlong18@gmail.com?subject=${encodeURIComponent(data.subject)}&body=${encodeURIComponent(`Tên: ${data.name}\nEmail: ${data.email}\nTin nhắn: ${data.message}`)}`;
+      window.open(mailtoLink, '_blank');
+      return 'Fallback: Email client opened';
     }
-  };
-
-  const sendEmailFallback = async (
-    name: string,
-    email: string,
-    subject: string,
-    message: string
-  ): Promise<string> => {
-    // Alternative method: Use mailto link or a simple notification
-    console.log('Using fallback email method...');
-    
-    // Create mailto link as fallback
-    const mailtoLink = `mailto:us.thanhlong18@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(`Name: ${name}\nEmail: ${email}\nMessage: ${message}`)}`;
-    
-    // Open mailto link (will open user's default email client)
-    window.open(mailtoLink, '_blank');
-    
-    return 'Opened default email client';
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -292,13 +198,13 @@ const Contact: React.FC = () => {
     try {
       console.log('Form data being sent:', formData);
 
-      // Send email using improved method with fallback
-      const result = await sendEmail(
-        formData.name,
-        formData.email,
-        formData.subject,
-        formData.message
-      );
+      // Send email using EmailJS
+      const result = await sendEmail({
+        name: formData.name,
+        email: formData.email,
+        subject: formData.subject,
+        message: formData.message,
+      });
 
       console.log('Contact form submitted successfully:', formData);
       console.log('Email send result:', result);
@@ -311,23 +217,23 @@ const Contact: React.FC = () => {
         message: '',
       });
 
-      // Show success message based on the method used
-      if (result === 'Opened default email client') {
+      // Show success message based on result
+      if (result.includes('Fallback')) {
         alert(
-          "Your default email client has been opened with the message pre-filled. Please send it from there!"
+          "Đã mở ứng dụng email của bạn với nội dung được điền sẵn. Vui lòng gửi từ đó để hoàn tất!"
         );
       } else {
         alert(
-          "Your email has been sent successfully! I'll get back to you soon."
+          "Email đã được gửi thành công! Tôi sẽ phản hồi bạn sớm nhất có thể. 🚀"
         );
       }
     } catch (error) {
-      console.error('Error sending email:', error);
+      console.error('Error opening email client:', error);
       setSubmitStatus('error');
 
-      // Show error message
+      // Show error message with manual contact info
       alert(
-        'Sorry, there was an error sending your message. Please contact me directly at us.thanhlong18@gmail.com or try the fallback method.'
+        'Sorry, there was an error opening your email client. Please contact me directly at us.thanhlong18@gmail.com'
       );
     } finally {
       setIsSubmitting(false);
