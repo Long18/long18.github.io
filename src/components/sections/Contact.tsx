@@ -30,6 +30,23 @@ import {
 } from 'lucide-react';
 import { contactInfo } from '@/data/personal';
 
+// Declare global Email object for SMTP.js
+declare global {
+  interface Window {
+    Email: {
+      send: (config: {
+        Host: string;
+        Username: string;
+        Password: string;
+        To: string;
+        From: string;
+        Subject: string;
+        Body: string;
+      }) => Promise<string>;
+    };
+  }
+}
+
 interface FormData {
   name: string;
   email: string;
@@ -89,6 +106,44 @@ const Contact: React.FC = () => {
     }, 50);
 
     return () => clearInterval(timer);
+  }, []);
+
+  // Load SMTP.js library
+  useEffect(() => {
+    // Check if script is already loaded
+    if (window.Email) {
+      return;
+    }
+
+    // Check if script already exists in DOM
+    const existingScript = document.querySelector(
+      'script[src="https://smtpjs.com/v3/smtp.js"]'
+    );
+    if (existingScript) {
+      return;
+    }
+
+    // Create and load new script
+    const script = document.createElement('script');
+    script.src = 'https://smtpjs.com/v3/smtp.js';
+    script.async = true;
+
+    script.onload = () => {
+      console.log('SMTP.js loaded successfully');
+    };
+
+    script.onerror = () => {
+      console.error('Failed to load SMTP.js');
+    };
+
+    document.head.appendChild(script);
+
+    return () => {
+      // Don't remove script on cleanup to allow reuse
+      // if (document.head.contains(script)) {
+      //   document.head.removeChild(script);
+      // }
+    };
   }, []);
 
   // Contact stats
@@ -157,6 +212,73 @@ const Contact: React.FC = () => {
     setFocusedField(null);
   };
 
+  const sendEmail = async (
+    name: string,
+    email: string,
+    subject: string,
+    message: string
+  ): Promise<string> => {
+    // Try SMTP.js with timeout, but fallback quickly if it fails
+    console.log('Attempting to send email via SMTP.js...');
+    
+    if (!window.Email) {
+      console.log('SMTP.js not loaded, using fallback method...');
+      return await sendEmailFallback(name, email, subject, message);
+    }
+
+    try {
+      // Add timeout to SMTP.js call (max 5 seconds)
+      const smtpPromise = window.Email.send({
+        Host: "smtp.gmail.com",
+        Username: "us.thanhlong18@gmail.com",
+        Password: "kblsmjnkxceczpxv",
+        To: "us.thanhlong18@gmail.com",
+        From: email,
+        Subject: subject,
+        Body: `Name: ${name}<br/>Email: ${email}<br/>Message: ${message}`
+      });
+
+      const timeoutPromise = new Promise((_, reject) => 
+        setTimeout(() => reject(new Error('SMTP timeout')), 5000)
+      );
+
+      const result = await Promise.race([smtpPromise, timeoutPromise]);
+
+      console.log('Email sent result:', result);
+      
+      // Check if result indicates success
+      if (result && (result === 'OK' || result.toString().toLowerCase().includes('ok') || result.toString().toLowerCase().includes('success'))) {
+        return result.toString();
+      } else {
+        throw new Error(`SMTP send failed: ${result}`);
+      }
+    } catch (error) {
+      console.error('SMTP.js error:', error);
+      console.log('SMTP.js failed, using fallback method...');
+      
+      // Always fallback to mailto when SMTP fails
+      return await sendEmailFallback(name, email, subject, message);
+    }
+  };
+
+  const sendEmailFallback = async (
+    name: string,
+    email: string,
+    subject: string,
+    message: string
+  ): Promise<string> => {
+    // Alternative method: Use mailto link or a simple notification
+    console.log('Using fallback email method...');
+    
+    // Create mailto link as fallback
+    const mailtoLink = `mailto:us.thanhlong18@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(`Name: ${name}\nEmail: ${email}\nMessage: ${message}`)}`;
+    
+    // Open mailto link (will open user's default email client)
+    window.open(mailtoLink, '_blank');
+    
+    return 'Opened default email client';
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
@@ -168,11 +290,18 @@ const Contact: React.FC = () => {
     setSubmitStatus('idle');
 
     try {
-      // Simulate email sending (replace with actual email service)
-      await new Promise((resolve) => setTimeout(resolve, 2000));
+      console.log('Form data being sent:', formData);
 
-      // In a real application, you would send the email here
-      console.log('Contact form submitted:', formData);
+      // Send email using improved method with fallback
+      const result = await sendEmail(
+        formData.name,
+        formData.email,
+        formData.subject,
+        formData.message
+      );
+
+      console.log('Contact form submitted successfully:', formData);
+      console.log('Email send result:', result);
 
       setSubmitStatus('success');
       setFormData({
@@ -181,13 +310,29 @@ const Contact: React.FC = () => {
         subject: '',
         message: '',
       });
+
+      // Show success message based on the method used
+      if (result === 'Opened default email client') {
+        alert(
+          "Your default email client has been opened with the message pre-filled. Please send it from there!"
+        );
+      } else {
+        alert(
+          "Your email has been sent successfully! I'll get back to you soon."
+        );
+      }
     } catch (error) {
       console.error('Error sending email:', error);
       setSubmitStatus('error');
+
+      // Show error message
+      alert(
+        'Sorry, there was an error sending your message. Please contact me directly at us.thanhlong18@gmail.com or try the fallback method.'
+      );
     } finally {
       setIsSubmitting(false);
 
-      // Reset status after 4 seconds
+      // Reset status after 4 seconds (same as original)
       setTimeout(() => {
         setSubmitStatus('idle');
       }, 4000);
@@ -813,7 +958,7 @@ const Contact: React.FC = () => {
 
                       <span>
                         {isSubmitting
-                          ? 'Sending Message...'
+                          ? 'Sending...'
                           : submitStatus === 'success'
                           ? 'Message Sent!'
                           : submitStatus === 'error'
