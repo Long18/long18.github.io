@@ -44,7 +44,7 @@ const services = [
     description:
       'Building high-quality 3D games and virtual experiences with Unreal Engine using C++ and Blueprints.',
     className: 'unreal-tag',
-    stats: '8+ Projects',
+    stats: '2+ Projects',
     gradient: 'from-purple-400 to-indigo-400',
     color: '#8b5cf6',
     achievements: ['AAA Quality', 'C++ Programming', 'Blueprint Visual'],
@@ -57,7 +57,7 @@ const services = [
     description:
       'Developing cross-platform applications using modern frameworks and technologies for various business needs.',
     className: 'application-tag',
-    stats: '20+ Projects',
+    stats: '3+ Projects',
     gradient: 'from-green-400 to-emerald-400',
     color: '#22c55e',
     achievements: ['Cross-Platform', 'Modern UI/UX', 'Scalable Architecture'],
