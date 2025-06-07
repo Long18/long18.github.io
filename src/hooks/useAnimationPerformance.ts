@@ -10,8 +10,8 @@ interface AnimationPerformanceHook {
   deviceCapabilities: {
     hasWebGL: boolean;
     hardwareConcurrency: number;
-    deviceMemory?: number;
-    connectionType?: string;
+    deviceMemory: number | undefined;
+    connectionType: string | undefined;
   };
 }
 
@@ -23,8 +23,8 @@ export const useAnimationPerformance = (): AnimationPerformanceHook => {
   const [deviceCapabilities, setDeviceCapabilities] = useState({
     hasWebGL: false,
     hardwareConcurrency: 4,
-    deviceMemory: undefined,
-    connectionType: undefined,
+    deviceMemory: undefined as number | undefined,
+    connectionType: undefined as string | undefined,
   });
 
   const frameCountRef = useRef(0);
@@ -54,10 +54,10 @@ export const useAnimationPerformance = (): AnimationPerformanceHook => {
       const hardwareConcurrency = navigator.hardwareConcurrency || 4;
       
       // Device memory (if available)
-      const deviceMemory = (navigator as any).deviceMemory;
+      const deviceMemory = (navigator as Navigator & { deviceMemory?: number }).deviceMemory;
       
       // Connection type (if available)
-      const connection = (navigator as any).connection;
+      const connection = (navigator as Navigator & { connection?: { effectiveType?: string } }).connection;
       const connectionType = connection?.effectiveType;
 
       setDeviceCapabilities({

@@ -770,10 +770,10 @@ function LegacyVersionSelector() {
             </svg>
           </div>
           <div className="text-left">
-            <span className="text-white text-sm font-semibold block">
+            <span className="text-white-1 text-sm font-semibold block">
               Legacy Versions
             </span>
-            <span className="text-gray-300 text-xs mt-1">
+            <span className="text-white-2 text-xs mt-1">
               Explore previous designs
             </span>
           </div>

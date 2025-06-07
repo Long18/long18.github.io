@@ -22,7 +22,6 @@ import {
   ChevronRight,
   Users,
   Download,
-  Zap,
 } from 'lucide-react';
 
 interface TimelineItemProps {
@@ -46,11 +45,10 @@ function TimelineItem({
   location,
   index,
 }: TimelineItemProps) {
-  const [isHovered, setIsHovered] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
   const itemRef = useRef<HTMLDivElement>(null);
 
-  const { performanceMode, isMobile } = useAnimationPerformance();
+  const { performanceMode } = useAnimationPerformance();
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -78,8 +76,6 @@ function TimelineItem({
         delay: index * 0.1,
         duration: performanceMode === 'low' ? 0.3 : 0.8,
       }}
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
       className="relative pl-8 pb-8 last:pb-0 group animate-slide-in-left"
       style={{ animationDelay: `${index * 0.1}s` }}
     >
@@ -119,7 +115,7 @@ function TimelineItem({
           )}
 
           {/* Main dot */}
-          <div className="relative w-6 h-6 bg-gradient-to-r from-orange-500 to-purple-600 rounded-full border-4 border-gray-900 shadow-lg shadow-orange-500/30 group-hover:shadow-orange-500/50 transition-all duration-300">
+          <div className="relative w-6 h-6 bg-gradient-to-r from-orange-500 to-purple-600 rounded-full border-4 border-eerie-black-1 shadow-lg shadow-orange-500/30 group-hover:shadow-orange-500/50 transition-all duration-300">
             {performanceMode === 'high' && (
               <motion.div
                 animate={{ rotate: 360 }}
@@ -135,7 +131,7 @@ function TimelineItem({
       <motion.div
         whileHover={performanceMode !== 'low' ? { y: -5, scale: 1.02 } : {}}
         transition={{ type: 'spring', stiffness: 300, damping: 30 }}
-        className="relative bg-gradient-to-br from-gray-800/80 to-gray-900/80 backdrop-blur-xl rounded-3xl p-6 border border-gray-700/50 hover:border-orange-500/30 hover:shadow-2xl hover:shadow-orange-500/20 transition-all duration-500 overflow-hidden group/card"
+        className="relative bg-gradient-to-br from-eerie-black-1/80 to-eerie-black-2/80 backdrop-blur-xl rounded-3xl p-6 border border-jet/50 hover:border-orange-500/30 hover:shadow-2xl hover:shadow-orange-500/20 transition-all duration-500 overflow-hidden group/card"
       >
         {/* Holographic overlay */}
         <div className="absolute inset-0 bg-gradient-to-r from-orange-400/5 via-purple-500/5 to-cyan-400/5 rounded-3xl opacity-0 group-hover/card:opacity-100 transition-opacity duration-500" />
@@ -161,7 +157,7 @@ function TimelineItem({
               <span className="font-medium whitespace-nowrap">{period}</span>
             </div>
             {location && (
-              <div className="flex items-center gap-2 text-sm text-gray-400">
+              <div className="flex items-center gap-2 text-sm text-white-2/80">
                 <MapPin className="w-3 h-3" />
                 <span>{location}</span>
               </div>
@@ -171,7 +167,7 @@ function TimelineItem({
 
         {/* Description */}
         {description && (
-          <p className="relative z-10 text-gray-300 leading-relaxed mb-6 text-base animate-fade-in">
+          <p className="relative z-10 text-white-2 leading-relaxed mb-6 text-base animate-fade-in">
             {description}
           </p>
         )}
@@ -184,13 +180,13 @@ function TimelineItem({
           >
             <div className="flex items-center gap-2 mb-4">
               <Trophy className="w-5 h-5 text-orange-400" />
-              <h5 className="font-semibold text-gray-200">Key Achievements</h5>
+              <h5 className="font-semibold text-white-1">Key Achievements</h5>
             </div>
             <div className="grid gap-3">
               {achievements.map((achievement, idx) => (
                 <div
                   key={idx}
-                  className="flex items-start gap-3 p-3 bg-gray-700/30 backdrop-blur-sm rounded-2xl border border-gray-600/30 hover:border-orange-500/50 hover:bg-orange-500/10 transition-all duration-300 group/achievement animate-scale-in"
+                  className="flex items-start gap-3 p-3 bg-jet/30 backdrop-blur-sm rounded-2xl border border-jet/50 hover:border-orange-500/50 hover:bg-orange-500/10 transition-all duration-300 group/achievement animate-scale-in"
                   style={{ animationDelay: `${0.3 + idx * 0.1}s` }}
                 >
                   <motion.div
@@ -202,7 +198,7 @@ function TimelineItem({
                     transition={{ duration: 0.3 }}
                     className="w-2 h-2 bg-gradient-to-r from-orange-500 to-purple-500 rounded-full mt-2 flex-shrink-0 group-hover/achievement:shadow-lg group-hover/achievement:shadow-orange-500/50"
                   />
-                  <span className="text-sm text-gray-300 group-hover/achievement:text-white transition-colors duration-300">
+                  <span className="text-sm text-white-2 group-hover/achievement:text-white-1 transition-colors duration-300">
                     {achievement}
                   </span>
                 </div>
@@ -219,7 +215,7 @@ function TimelineItem({
           >
             <div className="flex items-center gap-2 mb-4">
               <Code2 className="w-5 h-5 text-orange-400" />
-              <h5 className="font-semibold text-gray-200">Technologies</h5>
+              <h5 className="font-semibold text-white-1">Technologies</h5>
             </div>
             <div className="flex flex-wrap gap-2">
               {technologies.map((tech, idx) => (
@@ -228,7 +224,7 @@ function TimelineItem({
                   whileHover={
                     performanceMode !== 'low' ? { scale: 1.1, y: -2 } : {}
                   }
-                  className="px-3 py-2 bg-gradient-to-r from-gray-700/50 to-gray-600/50 backdrop-blur-sm text-gray-300 rounded-xl border border-gray-600/30 hover:border-orange-500/50 hover:bg-orange-500/10 hover:text-white hover:shadow-lg hover:shadow-orange-500/20 transition-all duration-300 cursor-pointer text-sm font-medium animate-scale-in"
+                  className="px-3 py-2 bg-gradient-to-r from-jet/50 to-eerie-black-1/50 backdrop-blur-sm text-white-2 rounded-xl border border-jet/50 hover:border-orange-500/50 hover:bg-orange-500/10 hover:text-white-1 hover:shadow-lg hover:shadow-orange-500/20 transition-all duration-300 cursor-pointer text-sm font-medium animate-scale-in"
                   style={{ animationDelay: `${0.5 + idx * 0.05}s` }}
                 >
                   {tech}
@@ -253,7 +249,7 @@ export default function Resume({ className = '' }: ResumeProps) {
     'experience'
   );
 
-  const { performanceMode, isMobile, isClient } = useAnimationPerformance();
+  const { performanceMode, isClient } = useAnimationPerformance();
 
   // Stats data with animations
   const stats = [
@@ -368,7 +364,7 @@ export default function Resume({ className = '' }: ResumeProps) {
           </h1>
 
           <p
-            className="text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed animate-fade-in"
+            className="text-xl text-white-2 max-w-3xl mx-auto leading-relaxed animate-fade-in"
             style={{ animationDelay: '0.3s' }}
           >
             A journey through my professional growth, showcasing the experiences
@@ -383,7 +379,7 @@ export default function Resume({ className = '' }: ResumeProps) {
             <motion.button
               whileHover={performanceMode !== 'low' ? { scale: 1.05 } : {}}
               whileTap={{ scale: 0.95 }}
-              className="inline-flex items-center gap-3 bg-gradient-to-r from-orange-500 to-purple-600 hover:from-orange-600 hover:to-purple-700 text-white px-8 py-4 rounded-2xl font-semibold transition-all duration-300 shadow-xl shadow-orange-500/25 hover:shadow-orange-500/40 group"
+              className="inline-flex items-center gap-3 bg-gradient-to-r from-orange-500 to-purple-600 hover:from-orange-600 hover:to-purple-700 text-white-1 px-8 py-4 rounded-2xl font-semibold transition-all duration-300 shadow-xl shadow-orange-500/25 hover:shadow-orange-500/40 group"
             >
               <Download className="w-5 h-5 group-hover:animate-bounce" />
               Download Resume
@@ -409,7 +405,7 @@ export default function Resume({ className = '' }: ResumeProps) {
               className="relative group animate-scale-in"
               style={{ animationDelay: `${0.5 + index * 0.1}s` }}
             >
-              <div className="bg-gradient-to-br from-gray-800/80 to-gray-900/80 backdrop-blur-xl rounded-3xl p-6 border border-gray-700/50 hover:border-orange-500/50 transition-all duration-500 text-center overflow-hidden">
+              <div className="bg-gradient-to-br from-eerie-black-1/80 to-eerie-black-2/80 backdrop-blur-xl rounded-3xl p-6 border border-jet/50 hover:border-orange-500/50 transition-all duration-500 text-center overflow-hidden">
                 {/* Animated background */}
                 <div className="absolute inset-0 bg-gradient-to-r from-orange-400/5 to-purple-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
 
@@ -424,13 +420,13 @@ export default function Resume({ className = '' }: ResumeProps) {
                 </motion.div>
 
                 <h3
-                  className="text-3xl font-bold text-white mb-2 relative z-10 animate-count-up"
+                  className="text-3xl font-bold text-white-1 mb-2 relative z-10 animate-count-up"
                   style={{ animationDelay: `${0.6 + index * 0.1}s` }}
                 >
                   {stat.value}
                 </h3>
 
-                <p className="text-gray-300 text-sm font-medium relative z-10">
+                <p className="text-white-2 text-sm font-medium relative z-10">
                   {stat.label}
                 </p>
               </div>
@@ -443,7 +439,7 @@ export default function Resume({ className = '' }: ResumeProps) {
           className="flex justify-center mb-12 animate-slide-in-up"
           style={{ animationDelay: '0.8s' }}
         >
-          <div className="bg-gray-800/50 backdrop-blur-xl rounded-2xl p-2 border border-gray-700/50">
+          <div className="bg-eerie-black-2/50 backdrop-blur-xl rounded-2xl p-2 border border-jet/50">
             {tabs.map((tab) => (
               <motion.button
                 key={tab.id}
@@ -454,15 +450,15 @@ export default function Resume({ className = '' }: ResumeProps) {
                 whileTap={{ scale: 0.98 }}
                 className={`relative px-8 py-4 rounded-xl font-semibold transition-all duration-300 flex items-center gap-3 ${
                   activeTab === tab.id
-                    ? 'bg-gradient-to-r from-orange-500 to-purple-600 text-white shadow-lg shadow-orange-500/25'
-                    : 'text-gray-400 hover:text-white hover:bg-gray-700/50'
+                    ? 'bg-gradient-to-r from-orange-500 to-purple-600 text-white-1 shadow-lg shadow-orange-500/25'
+                    : 'text-white-2 hover:text-white-1 hover:bg-eerie-black-1/50'
                 }`}
               >
                 <tab.icon className="w-5 h-5" />
                 {tab.label}
                 <span
                   className={`px-2 py-1 rounded-full text-xs ${
-                    activeTab === tab.id ? 'bg-white/20' : 'bg-gray-600/50'
+                    activeTab === tab.id ? 'bg-white-1/20' : 'bg-jet/50'
                   }`}
                 >
                   {tab.count}
@@ -508,10 +504,10 @@ export default function Resume({ className = '' }: ResumeProps) {
                   <Briefcase className="w-8 h-8 text-orange-400" />
                 </motion.div>
                 <div>
-                  <h2 className="text-3xl font-bold text-white">
+                  <h2 className="text-3xl font-bold text-white-1">
                     Professional Experience
                   </h2>
-                  <p className="text-gray-400">
+                  <p className="text-white-2">
                     Building amazing digital experiences
                   </p>
                 </div>
@@ -563,8 +559,8 @@ export default function Resume({ className = '' }: ResumeProps) {
                   <GraduationCap className="w-8 h-8 text-cyan-400" />
                 </motion.div>
                 <div>
-                  <h2 className="text-3xl font-bold text-white">Education</h2>
-                  <p className="text-gray-400">
+                  <h2 className="text-3xl font-bold text-white-1">Education</h2>
+                  <p className="text-white-2">
                     Academic foundation and learning journey
                   </p>
                 </div>
@@ -610,10 +606,10 @@ export default function Resume({ className = '' }: ResumeProps) {
                     <Brain className="w-8 h-8 text-orange-400" />
                   </motion.div>
                   <div>
-                    <h3 className="text-2xl font-bold text-white">
+                    <h3 className="text-2xl font-bold text-white-1">
                       Core Expertise
                     </h3>
-                    <p className="text-gray-400">
+                    <p className="text-white-2">
                       Technologies I&apos;m passionate about
                     </p>
                   </div>
@@ -661,7 +657,7 @@ export default function Resume({ className = '' }: ResumeProps) {
                     whileHover={
                       performanceMode !== 'low' ? { scale: 1.05, y: -5 } : {}
                     }
-                    className="bg-gray-800/50 backdrop-blur-sm rounded-2xl p-6 border border-gray-700/30 hover:border-orange-500/50 transition-all duration-300 group animate-scale-in"
+                    className="bg-eerie-black-2/50 backdrop-blur-sm rounded-2xl p-6 border border-jet/30 hover:border-orange-500/50 transition-all duration-300 group animate-scale-in"
                     style={{ animationDelay: `${1.1 + index * 0.1}s` }}
                   >
                     <div className="flex items-center gap-3 mb-4">
@@ -676,7 +672,7 @@ export default function Resume({ className = '' }: ResumeProps) {
                           className={`w-6 h-6 text-${category.color}-400`}
                         />
                       </motion.div>
-                      <h4 className="font-semibold text-white group-hover:text-orange-300 transition-colors duration-300">
+                      <h4 className="font-semibold text-white-1 group-hover:text-orange-300 transition-colors duration-300">
                         {category.title}
                       </h4>
                     </div>
@@ -685,7 +681,7 @@ export default function Resume({ className = '' }: ResumeProps) {
                       {category.skills.map((skill, idx) => (
                         <div
                           key={skill}
-                          className="flex items-center gap-2 text-sm text-gray-300 group-hover:text-white transition-colors duration-300 animate-fade-in"
+                          className="flex items-center gap-2 text-sm text-white-2 group-hover:text-white-1 transition-colors duration-300 animate-fade-in"
                           style={{
                             animationDelay: `${
                               1.2 + index * 0.1 + idx * 0.05

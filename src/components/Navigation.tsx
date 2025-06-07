@@ -1,8 +1,8 @@
 'use client';
 
-import { useRef, useCallback, useState, useEffect } from 'react';
-import { useGSAP } from '@/hooks/useGSAP';
-import gsap from 'gsap';
+import { useRef, useState, useEffect } from 'react';
+import { motion } from 'framer-motion';
+import { useAnimationPerformance } from '@/hooks/useAnimationPerformance';
 
 interface NavigationProps {
   activeSection: string;
@@ -25,25 +25,65 @@ export default function Navigation({
   const navItemsRef = useRef<Record<string, HTMLButtonElement | null>>({});
   const navContainerRef = useRef<HTMLDivElement>(null);
   const mobileMenuRef = useRef<HTMLDivElement>(null);
-  const debounceTimer = useRef<NodeJS.Timeout | null>(null);
+
+  // Performance hook integration
+  const { performanceMode } = useAnimationPerformance();
 
   // Mobile menu state
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [isMobile, setIsMobile] = useState(false);
 
-  // Check if mobile on mount and resize
-  useEffect(() => {
-    const checkMobile = () => {
-      setIsMobile(window.innerWidth < 768);
-      if (window.innerWidth >= 768) {
-        setIsMobileMenuOpen(false);
-      }
-    };
+  // Performance-aware animation variants
+  const containerVariants = {
+    hidden: { opacity: 0, y: -20 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration:
+          performanceMode === 'low'
+            ? 0.2
+            : performanceMode === 'medium'
+            ? 0.3
+            : 0.4,
+        ease: 'easeOut',
+        when: 'beforeChildren',
+        staggerChildren: performanceMode === 'low' ? 0 : 0.1,
+      },
+    },
+  };
 
-    checkMobile();
-    window.addEventListener('resize', checkMobile);
-    return () => window.removeEventListener('resize', checkMobile);
-  }, []);
+  const itemVariants = {
+    hidden: { opacity: 0, scale: 0.95 },
+    visible: {
+      opacity: 1,
+      scale: 1,
+      transition: {
+        duration: performanceMode === 'low' ? 0.2 : 0.3,
+        ease: 'easeOut',
+      },
+    },
+  };
+
+  const mobileMenuVariants = {
+    hidden: {
+      opacity: 0,
+      y: -10,
+      transition: {
+        duration: performanceMode === 'low' ? 0.15 : 0.3,
+        ease: 'easeIn',
+      },
+    },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: performanceMode === 'low' ? 0.2 : 0.3,
+        ease: 'easeOut',
+        when: 'beforeChildren',
+        staggerChildren: performanceMode === 'low' ? 0 : 0.05,
+      },
+    },
+  };
 
   // Close mobile menu when clicking outside
   useEffect(() => {
@@ -65,87 +105,25 @@ export default function Navigation({
     };
   }, [isMobileMenuOpen]);
 
-  const debounce = useCallback((fn: () => void, delay: number = 40) => {
-    if (debounceTimer.current) clearTimeout(debounceTimer.current);
-    debounceTimer.current = setTimeout(fn, delay);
+  // Close mobile menu on window resize
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth >= 768) {
+        setIsMobileMenuOpen(false);
+      }
+    };
+
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
   }, []);
 
-  useGSAP(() => {
-    const updateActiveIndicator = () => {
-      // Only update indicator for desktop
-      if (isMobile) return;
-
-      const activeButton = navItemsRef.current[activeSection];
-      if (
-        activeButton &&
-        activeIndicatorRef.current &&
-        navContainerRef.current
-      ) {
-        try {
-          const buttonRect = activeButton.getBoundingClientRect();
-          const navRect = navContainerRef.current.getBoundingClientRect();
-          if (navRect && buttonRect.width > 0 && navRect.width > 0) {
-            const leftPosition = buttonRect.left - navRect.left;
-            gsap.to(activeIndicatorRef.current, {
-              x: leftPosition,
-              width: buttonRect.width,
-              duration: 0.3,
-              ease: 'power2.out',
-            });
-          }
-        } catch (error) {
-          console.warn('Navigation indicator animation error:', error);
-        }
-      }
-    };
-
-    updateActiveIndicator();
-
-    const cleanupFunctions: (() => void)[] = [];
-    Object.values(navItemsRef.current).forEach((btn) => {
-      if (btn) {
-        const handleMouseEnter = () => {
-          if (!isMobile) {
-            gsap.killTweensOf(btn);
-            gsap.to(btn, { scale: 1.05, duration: 0.2, ease: 'power2.out' });
-          }
-        };
-        const handleMouseLeave = () => {
-          if (!isMobile) {
-            gsap.killTweensOf(btn);
-            gsap.to(btn, { scale: 1, duration: 0.2, ease: 'power2.out' });
-          }
-        };
-        btn.addEventListener('mouseenter', handleMouseEnter);
-        btn.addEventListener('mouseleave', handleMouseLeave);
-        cleanupFunctions.push(() => {
-          btn.removeEventListener('mouseenter', handleMouseEnter);
-          btn.removeEventListener('mouseleave', handleMouseLeave);
-        });
-      }
-    });
-
-    const handleResize = () => debounce(updateActiveIndicator, 0);
-    window.addEventListener('resize', handleResize);
-
-    let observer: ResizeObserver | null = null;
-    if (navContainerRef.current) {
-      observer = new ResizeObserver(() => debounce(updateActiveIndicator, 0));
-      observer.observe(navContainerRef.current);
-    }
-
-    return () => {
-      cleanupFunctions.forEach((cleanup) => cleanup());
-      window.removeEventListener('resize', handleResize);
-      if (observer) observer.disconnect();
-      if (activeIndicatorRef.current) {
-        gsap.killTweensOf(activeIndicatorRef.current);
-      }
-    };
-  }, [activeSection, debounce, isMobile]);
-
   return (
-    <nav className="bg-gray-900/90 backdrop-blur-sm border-b border-gray-700 sticky top-0 z-30 transition-all duration-300">
+    <motion.nav
+      initial="hidden"
+      animate="visible"
+      variants={containerVariants}
+      className="bg-eerie-black-2/90 backdrop-blur-sm border-b border-jet/50 sticky top-0 z-30 transition-all duration-300"
+    >
       <div
         ref={navContainerRef}
         className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative"
@@ -159,30 +137,36 @@ export default function Navigation({
           />
           <ul className="flex space-x-1">
             {navigationItems.map((item) => (
-              <li key={item.id}>
-                <button
+              <motion.li key={item.id} variants={itemVariants}>
+                <motion.button
                   ref={(el) => {
                     navItemsRef.current[item.id] = el;
                   }}
                   onClick={() => onSectionChange(item.id)}
                   aria-label={`Navigate to ${item.label} section`}
                   aria-current={activeSection === item.id ? 'page' : undefined}
+                  whileHover={performanceMode !== 'low' ? { scale: 1.05 } : {}}
+                  whileTap={{ scale: 0.95 }}
+                  transition={{
+                    duration: performanceMode === 'low' ? 0.1 : 0.2,
+                    ease: 'easeOut',
+                  }}
                   className={`
                     relative px-6 py-4 text-sm font-medium tab-button
                     transition-all duration-200 ease-out
                     ${
                       activeSection === item.id
-                        ? 'text-orange-400 bg-gray-800/50'
-                        : 'text-gray-400 hover:text-white hover:bg-gray-800/30'
+                        ? 'text-orange-400 bg-eerie-black-1/50'
+                        : 'text-white-2 hover:text-white-1 hover:bg-eerie-black-1/30'
                     }
                     focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-400
-                    focus-visible:ring-offset-2 focus-visible:ring-offset-gray-900
+                    focus-visible:ring-offset-2 focus-visible:ring-offset-eerie-black-2
                     rounded-lg
                   `}
                 >
                   {item.label}
-                </button>
-              </li>
+                </motion.button>
+              </motion.li>
             ))}
           </ul>
         </div>
@@ -197,9 +181,10 @@ export default function Navigation({
           </div>
 
           {/* Mobile Menu Button */}
-          <button
+          <motion.button
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            className="flex items-center justify-center w-10 h-10 text-gray-400 hover:text-white transition-colors duration-200 rounded-lg hover:bg-gray-800/30 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-400"
+            whileTap={{ scale: 0.95 }}
+            className="flex items-center justify-center w-10 h-10 text-white-2 hover:text-white-1 transition-colors duration-200 rounded-lg hover:bg-eerie-black-1/30 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-400"
             aria-label="Toggle navigation menu"
             aria-expanded={isMobileMenuOpen}
           >
@@ -227,50 +212,48 @@ export default function Navigation({
                 />
               )}
             </svg>
-          </button>
+          </motion.button>
         </div>
 
         {/* Mobile Menu Dropdown */}
-        <div
-          ref={mobileMenuRef}
-          className={`md:hidden absolute top-full left-0 right-0 bg-gray-900/95 backdrop-blur-sm border-b border-gray-700 transition-all duration-300 ease-out ${
-            isMobileMenuOpen
-              ? 'opacity-100 transform translate-y-0 visible'
-              : 'opacity-0 transform -translate-y-2 invisible'
-          }`}
-        >
-          <ul className="py-2 px-4 space-y-1">
-            {navigationItems.map((item, index) => (
-              <li key={item.id}>
-                <button
-                  onClick={() => {
-                    onSectionChange(item.id);
-                    setIsMobileMenuOpen(false);
-                  }}
-                  className={`
-                    w-full text-left px-4 py-3 text-base font-medium rounded-lg
-                    transition-all duration-200 ease-out
-                    ${
-                      activeSection === item.id
-                        ? 'text-orange-400 bg-orange-500/10 border border-orange-500/20'
-                        : 'text-gray-400 hover:text-white hover:bg-gray-800/30'
-                    }
-                    focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-400
-                    focus-visible:ring-inset
-                  `}
-                  style={{
-                    animationDelay: isMobileMenuOpen
-                      ? `${index * 50}ms`
-                      : '0ms',
-                  }}
-                >
-                  {item.label}
-                </button>
-              </li>
-            ))}
-          </ul>
-        </div>
+        {isMobileMenuOpen && (
+          <motion.div
+            ref={mobileMenuRef}
+            initial="hidden"
+            animate="visible"
+            exit="hidden"
+            variants={mobileMenuVariants}
+            className="md:hidden absolute top-full left-0 right-0 bg-eerie-black-2/95 backdrop-blur-sm border-b border-jet/50"
+          >
+            <ul className="py-2 px-4 space-y-1">
+              {navigationItems.map((item) => (
+                <motion.li key={item.id} variants={itemVariants}>
+                  <motion.button
+                    onClick={() => {
+                      onSectionChange(item.id);
+                      setIsMobileMenuOpen(false);
+                    }}
+                    whileTap={{ scale: 0.98 }}
+                    className={`
+                      w-full text-left px-4 py-3 text-base font-medium rounded-lg
+                      transition-all duration-200 ease-out
+                      ${
+                        activeSection === item.id
+                          ? 'text-orange-400 bg-orange-500/10 border border-orange-500/20'
+                          : 'text-white-2 hover:text-white-1 hover:bg-eerie-black-1/30'
+                      }
+                      focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-400
+                      focus-visible:ring-inset
+                    `}
+                  >
+                    {item.label}
+                  </motion.button>
+                </motion.li>
+              ))}
+            </ul>
+          </motion.div>
+        )}
       </div>
-    </nav>
+    </motion.nav>
   );
 }
