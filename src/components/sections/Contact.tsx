@@ -24,6 +24,7 @@ import {
 } from 'lucide-react';
 import { contactInfo } from '@/data/personal';
 import { sendContactEmail, type EmailData } from '@/services/emailService';
+import { professionalStats } from '../../data/skills';
 import { useAnimationPerformance } from '../../hooks/useAnimationPerformance';
 
 interface FormData {
@@ -57,7 +58,7 @@ const Contact: React.FC = () => {
   const [focusedField, setFocusedField] = useState<string | null>(null);
   const [typedText, setTypedText] = useState('');
 
-  const { performanceMode, isMobile, isClient } = useAnimationPerformance();
+  const { performanceMode, isClient } = useAnimationPerformance();
 
   // Typing animation effect
   const fullText = "Let's Connect & Create Something Amazing Together!";
@@ -82,10 +83,30 @@ const Contact: React.FC = () => {
 
   // Contact stats
   const contactStats = [
-    { icon: Clock, label: 'Response Time', value: '< 24h', color: 'orange' },
-    { icon: Globe, label: 'Availability', value: '24/7', color: 'purple' },
-    { icon: MessageCircle, label: 'Languages', value: 'EN/VI', color: 'cyan' },
-    { icon: Coffee, label: 'Projects', value: 'Ready', color: 'emerald' },
+    {
+      icon: Clock,
+      label: 'Response Time',
+      value: professionalStats.responseTime,
+      color: 'orange',
+    },
+    {
+      icon: Globe,
+      label: 'Availability',
+      value: professionalStats.availability,
+      color: 'purple',
+    },
+    {
+      icon: MessageCircle,
+      label: 'Languages',
+      value: professionalStats.languages,
+      color: 'cyan',
+    },
+    {
+      icon: Coffee,
+      label: 'Projects',
+      value: professionalStats.projectsReady,
+      color: 'emerald',
+    },
   ];
 
   // Email validation regex
@@ -325,7 +346,7 @@ const Contact: React.FC = () => {
           </h1>
 
           <div
-            className="text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed mb-4 animate-fade-in"
+            className="text-xl text-white-2 max-w-3xl mx-auto leading-relaxed mb-4 animate-fade-in"
             style={{ animationDelay: '0.3s' }}
           >
             {typedText}
@@ -341,7 +362,7 @@ const Contact: React.FC = () => {
           </div>
 
           <p
-            className="text-gray-400 max-w-2xl mx-auto animate-fade-in"
+            className="text-white-2/80 max-w-2xl mx-auto animate-fade-in"
             style={{ animationDelay: '0.4s' }}
           >
             Whether you have a project in mind, want to collaborate, or just say
@@ -361,7 +382,7 @@ const Contact: React.FC = () => {
               className="relative group animate-scale-in"
               style={{ animationDelay: `${0.5 + index * 0.1}s` }}
             >
-              <div className="bg-gradient-to-br from-gray-800/80 to-gray-900/80 backdrop-blur-xl rounded-3xl p-6 border border-gray-700/50 hover:border-orange-500/50 transition-all duration-500 text-center overflow-hidden">
+              <div className="bg-gradient-to-br from-eerie-black-1/80 to-eerie-black-2/80 backdrop-blur-xl rounded-3xl p-6 border border-jet/50 hover:border-orange-500/50 transition-all duration-500 text-center overflow-hidden">
                 <div className="absolute inset-0 bg-gradient-to-r from-orange-400/5 to-purple-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
 
                 <motion.div
@@ -375,13 +396,13 @@ const Contact: React.FC = () => {
                 </motion.div>
 
                 <h3
-                  className="text-2xl font-bold text-white mb-2 relative z-10 animate-count-up"
+                  className="text-2xl font-bold text-white-1 mb-2 relative z-10 animate-count-up"
                   style={{ animationDelay: `${0.6 + index * 0.1}s` }}
                 >
                   {stat.value}
                 </h3>
 
-                <p className="text-gray-300 text-sm font-medium relative z-10">
+                <p className="text-white-2 text-sm font-medium relative z-10">
                   {stat.label}
                 </p>
               </div>
@@ -401,7 +422,7 @@ const Contact: React.FC = () => {
               className="relative group animate-slide-in-up"
               style={{ animationDelay: `${0.8 + index * 0.1}s` }}
             >
-              <div className="bg-gradient-to-br from-gray-800/90 to-gray-900/90 backdrop-blur-xl rounded-3xl p-6 border border-gray-600/50 hover:border-orange-500/50 transition-all duration-500 text-center overflow-hidden min-h-[280px] flex flex-col justify-between shadow-lg">
+              <div className="bg-gradient-to-br from-eerie-black-1/90 to-eerie-black-2/90 backdrop-blur-xl rounded-3xl p-6 border border-jet/50 hover:border-orange-500/50 transition-all duration-500 text-center overflow-hidden min-h-[280px] flex flex-col justify-between shadow-lg">
                 <div className="absolute inset-0 bg-gradient-to-r from-orange-400/10 via-purple-500/10 to-cyan-400/10 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
 
                 <motion.div
@@ -415,11 +436,11 @@ const Contact: React.FC = () => {
                 </motion.div>
 
                 <div className="flex-1 flex flex-col justify-center">
-                  <h3 className="text-lg font-bold text-white mb-2 relative z-10 group-hover:text-orange-300 transition-colors duration-300">
+                  <h3 className="text-lg font-bold text-white-1 mb-2 relative z-10 group-hover:text-orange-300 transition-colors duration-300">
                     {detail.title}
                   </h3>
 
-                  <p className="text-gray-400 text-xs mb-3 relative z-10">
+                  <p className="text-white-2/80 text-xs mb-3 relative z-10">
                     {detail.description}
                   </p>
 
@@ -431,12 +452,12 @@ const Contact: React.FC = () => {
                           performanceMode !== 'low' ? { scale: 1.05 } : {}
                         }
                         whileTap={{ scale: 0.95 }}
-                        className={`inline-block text-${detail.color}-300 font-semibold hover:text-white transition-colors duration-300 relative z-10 bg-${detail.color}-500/25 border border-${detail.color}-400/20 px-4 py-3 rounded-2xl hover:bg-${detail.color}-500/40 hover:border-${detail.color}-400/40 text-center text-sm max-w-full break-words leading-tight shadow-sm`}
+                        className={`inline-block text-${detail.color}-300 font-semibold hover:text-white-1 transition-colors duration-300 relative z-10 bg-${detail.color}-500/25 border border-${detail.color}-400/20 px-4 py-3 rounded-2xl hover:bg-${detail.color}-500/40 hover:border-${detail.color}-400/40 text-center text-sm max-w-full break-words leading-tight shadow-sm`}
                       >
                         {detail.value}
                       </motion.a>
                     ) : (
-                      <span className="text-gray-200 font-medium relative z-10 block bg-gray-700/50 border border-gray-600/30 px-4 py-3 rounded-2xl text-center text-sm max-w-full break-words leading-tight shadow-sm">
+                      <span className="text-white-1 font-medium relative z-10 block bg-eerie-black-1/50 border border-jet/30 px-4 py-3 rounded-2xl text-center text-sm max-w-full break-words leading-tight shadow-sm">
                         {detail.value}
                       </span>
                     )}
@@ -452,7 +473,7 @@ const Contact: React.FC = () => {
           className="max-w-4xl mx-auto animate-slide-in-up"
           style={{ animationDelay: '1s' }}
         >
-          <div className="bg-gradient-to-br from-gray-800/60 to-gray-900/60 backdrop-blur-xl rounded-3xl p-8 lg:p-12 border border-gray-700/50 hover:border-orange-500/30 transition-all duration-500 relative overflow-hidden">
+          <div className="bg-gradient-to-br from-eerie-black-1/60 to-eerie-black-2/60 backdrop-blur-xl rounded-3xl p-8 lg:p-12 border border-jet/50 hover:border-orange-500/30 transition-all duration-500 relative overflow-hidden">
             {/* Holographic overlay */}
             <div className="absolute inset-0 bg-gradient-to-r from-orange-400/5 via-purple-500/5 to-cyan-400/5 rounded-3xl opacity-0 hover:opacity-100 transition-opacity duration-500" />
 
@@ -477,10 +498,10 @@ const Contact: React.FC = () => {
                     <Send className="w-8 h-8 text-orange-400" />
                   </motion.div>
                   <div>
-                    <h3 className="text-3xl font-bold text-white">
+                    <h3 className="text-3xl font-bold text-white-1">
                       Send Message
                     </h3>
-                    <p className="text-gray-400">
+                    <p className="text-white-2">
                       Let&apos;s start a conversation
                     </p>
                   </div>
@@ -494,7 +515,7 @@ const Contact: React.FC = () => {
                     className="relative group animate-slide-in-left"
                     style={{ animationDelay: '1.2s' }}
                   >
-                    <label className="flex items-center gap-2 text-gray-300 text-sm font-medium mb-3">
+                    <label className="flex items-center gap-2 text-white-2 text-sm font-medium mb-3">
                       <User className="w-4 h-4" />
                       Your Name *
                     </label>
@@ -507,12 +528,12 @@ const Contact: React.FC = () => {
                         onFocus={() => handleFocus('name')}
                         onBlur={handleBlur}
                         placeholder="Enter your full name"
-                        className={`w-full px-6 py-4 bg-gray-800/50 backdrop-blur-sm border rounded-2xl text-white placeholder-gray-400 focus:outline-none transition-all duration-500 hover:bg-gray-800/70 ${
+                        className={`w-full px-6 py-4 bg-eerie-black-2/50 backdrop-blur-sm border rounded-2xl text-white-1 placeholder-white-2/60 focus:outline-none transition-all duration-500 hover:bg-eerie-black-2/70 ${
                           errors.name
                             ? 'border-red-500 focus:border-red-400 focus:shadow-lg focus:shadow-red-500/20'
                             : focusedField === 'name'
                             ? 'border-orange-500 focus:shadow-lg focus:shadow-orange-500/20'
-                            : 'border-gray-600 hover:border-gray-500'
+                            : 'border-jet hover:border-jet/70'
                         }`}
                         required
                       />
@@ -543,7 +564,7 @@ const Contact: React.FC = () => {
                     className="relative group animate-slide-in-right"
                     style={{ animationDelay: '1.3s' }}
                   >
-                    <label className="flex items-center gap-2 text-gray-300 text-sm font-medium mb-3">
+                    <label className="flex items-center gap-2 text-white-2 text-sm font-medium mb-3">
                       <AtSign className="w-4 h-4" />
                       Email Address *
                     </label>
@@ -556,12 +577,12 @@ const Contact: React.FC = () => {
                         onFocus={() => handleFocus('email')}
                         onBlur={handleBlur}
                         placeholder="your.email@example.com"
-                        className={`w-full px-6 py-4 bg-gray-800/50 backdrop-blur-sm border rounded-2xl text-white placeholder-gray-400 focus:outline-none transition-all duration-500 hover:bg-gray-800/70 ${
+                        className={`w-full px-6 py-4 bg-eerie-black-2/50 backdrop-blur-sm border rounded-2xl text-white-1 placeholder-white-2/60 focus:outline-none transition-all duration-500 hover:bg-eerie-black-2/70 ${
                           errors.email
                             ? 'border-red-500 focus:border-red-400 focus:shadow-lg focus:shadow-red-500/20'
                             : focusedField === 'email'
                             ? 'border-purple-500 focus:shadow-lg focus:shadow-purple-500/20'
-                            : 'border-gray-600 hover:border-gray-500'
+                            : 'border-jet hover:border-jet/70'
                         }`}
                         required
                       />
@@ -594,7 +615,7 @@ const Contact: React.FC = () => {
                   className="relative group animate-slide-in-up"
                   style={{ animationDelay: '1.4s' }}
                 >
-                  <label className="flex items-center gap-2 text-gray-300 text-sm font-medium mb-3">
+                  <label className="flex items-center gap-2 text-white-2 text-sm font-medium mb-3">
                     <FileText className="w-4 h-4" />
                     Subject *
                   </label>
@@ -607,12 +628,12 @@ const Contact: React.FC = () => {
                       onFocus={() => handleFocus('subject')}
                       onBlur={handleBlur}
                       placeholder="What's this about?"
-                      className={`w-full px-6 py-4 bg-gray-800/50 backdrop-blur-sm border rounded-2xl text-white placeholder-gray-400 focus:outline-none transition-all duration-500 hover:bg-gray-800/70 ${
+                      className={`w-full px-6 py-4 bg-eerie-black-2/50 backdrop-blur-sm border rounded-2xl text-white-1 placeholder-white-2/60 focus:outline-none transition-all duration-500 hover:bg-eerie-black-2/70 ${
                         errors.subject
                           ? 'border-red-500 focus:border-red-400 focus:shadow-lg focus:shadow-red-500/20'
                           : focusedField === 'subject'
                           ? 'border-cyan-500 focus:shadow-lg focus:shadow-cyan-500/20'
-                          : 'border-gray-600 hover:border-gray-500'
+                          : 'border-jet hover:border-jet/70'
                       }`}
                       required
                     />
@@ -644,7 +665,7 @@ const Contact: React.FC = () => {
                   className="relative group animate-slide-in-up"
                   style={{ animationDelay: '1.5s' }}
                 >
-                  <label className="flex items-center gap-2 text-gray-300 text-sm font-medium mb-3">
+                  <label className="flex items-center gap-2 text-white-2 text-sm font-medium mb-3">
                     <MessageCircle className="w-4 h-4" />
                     Your Message *
                   </label>
@@ -657,12 +678,12 @@ const Contact: React.FC = () => {
                       onBlur={handleBlur}
                       placeholder="Tell me about your project, ideas, or just say hello!"
                       rows={6}
-                      className={`w-full px-6 py-4 bg-gray-800/50 backdrop-blur-sm border rounded-2xl text-white placeholder-gray-400 focus:outline-none transition-all duration-500 resize-vertical min-h-[150px] max-h-[300px] hover:bg-gray-800/70 ${
+                      className={`w-full px-6 py-4 bg-eerie-black-2/50 backdrop-blur-sm border rounded-2xl text-white-1 placeholder-white-2/60 focus:outline-none transition-all duration-500 resize-vertical min-h-[150px] max-h-[300px] hover:bg-eerie-black-2/70 ${
                         errors.message
                           ? 'border-red-500 focus:border-red-400 focus:shadow-lg focus:shadow-red-500/20'
                           : focusedField === 'message'
                           ? 'border-emerald-500 focus:shadow-lg focus:shadow-emerald-500/20'
-                          : 'border-gray-600 hover:border-gray-500'
+                          : 'border-jet hover:border-jet/70'
                       }`}
                       required
                     />
@@ -703,7 +724,7 @@ const Contact: React.FC = () => {
                         : {}
                     }
                     whileTap={{ scale: isSubmitting ? 1 : 0.95 }}
-                    className="relative group px-12 py-4 bg-gradient-to-r from-orange-500 to-purple-600 hover:from-orange-600 hover:to-purple-700 text-white font-semibold rounded-2xl transition-all duration-500 shadow-xl shadow-orange-500/25 hover:shadow-orange-500/40 disabled:opacity-50 disabled:cursor-not-allowed overflow-hidden"
+                    className="relative group px-12 py-4 bg-gradient-to-r from-orange-500 to-purple-600 hover:from-orange-600 hover:to-purple-700 text-white-1 font-semibold rounded-2xl transition-all duration-500 shadow-xl shadow-orange-500/25 hover:shadow-orange-500/40 disabled:opacity-50 disabled:cursor-not-allowed overflow-hidden"
                   >
                     <div className="absolute inset-0 bg-gradient-to-r from-orange-400/20 to-purple-500/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
 
@@ -801,7 +822,7 @@ const Contact: React.FC = () => {
           className="text-center mt-16 animate-fade-in"
           style={{ animationDelay: '1.8s' }}
         >
-          <div className="inline-flex items-center gap-2 text-gray-400 text-sm">
+          <div className="inline-flex items-center gap-2 text-white-2/80 text-sm">
             <Heart className="w-4 h-4 text-red-400" />
             <span>
               Made with passion for creating amazing digital experiences

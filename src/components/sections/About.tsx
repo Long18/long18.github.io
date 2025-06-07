@@ -22,6 +22,7 @@ import {
   Gamepad2,
   Rocket,
   Sparkles,
+  Info,
 } from 'lucide-react';
 
 const services = [
@@ -71,7 +72,7 @@ const statistics = [
   { number: '3+', label: 'Years Experience', icon: Calendar, color: '#fb923c' },
   {
     number: '15+',
-    label: 'Projects Completed',
+    label: 'Projeccts Completed',
     icon: Trophy,
     color: '#8b5cf6',
   },
@@ -103,6 +104,7 @@ export default function About({ className = '' }: AboutProps) {
   const [activeSkillCategory, setActiveSkillCategory] = useState<string | null>(
     null
   );
+  const [hoveredSkill, setHoveredSkill] = useState<string | null>(null);
 
   const { performanceMode, isMobile, isClient } = useAnimationPerformance();
 
@@ -175,431 +177,544 @@ export default function About({ className = '' }: AboutProps) {
   };
 
   return (
-    <motion.div
-      ref={containerRef}
-      className={`space-y-16 ${className} relative overflow-hidden animate-fade-in-up`}
-      initial="hidden"
-      animate={isVisible ? 'visible' : 'hidden'}
-      variants={containerVariants}
-    >
-      {/* Background Effects - Only for high performance */}
-      {isClient && performanceMode === 'high' && (
-        <div className="absolute inset-0 overflow-hidden pointer-events-none">
-          <div className="absolute top-10 left-10 w-72 h-72 bg-gradient-to-r from-orange-400/20 to-purple-500/20 rounded-full blur-3xl animate-pulse" />
-          <div
-            className="absolute bottom-20 right-10 w-96 h-96 bg-gradient-to-r from-blue-400/15 to-cyan-500/15 rounded-full blur-3xl animate-pulse"
-            style={{ animationDelay: '1s' }}
-          />
-        </div>
-      )}
+    <>
+      <motion.div
+        ref={containerRef}
+        className={`space-y-16 ${className} relative overflow-hidden animate-fade-in-up`}
+        initial="hidden"
+        animate={isVisible ? 'visible' : 'hidden'}
+        variants={containerVariants}
+      >
+        {/* Background Effects - Only for high performance */}
+        {isClient && performanceMode === 'high' && (
+          <div className="absolute inset-0 overflow-hidden pointer-events-none">
+            <div className="absolute top-10 left-10 w-72 h-72 bg-gradient-to-r from-orange-400/20 to-purple-500/20 rounded-full blur-3xl animate-pulse" />
+            <div
+              className="absolute bottom-20 right-10 w-96 h-96 bg-gradient-to-r from-blue-400/15 to-cyan-500/15 rounded-full blur-3xl animate-pulse"
+              style={{ animationDelay: '1s' }}
+            />
+          </div>
+        )}
 
-      {/* Hero Section */}
-      <motion.section variants={itemVariants} className="relative z-10">
-        <div className="grid lg:grid-cols-2 gap-12 items-center">
-          {/* Left: Enhanced Profile Card */}
-          <motion.div
-            variants={itemVariants}
-            className="relative animate-slide-in-left"
-          >
-            <div className="relative bg-gradient-to-br from-gray-800/80 to-gray-900/80 backdrop-blur-xl rounded-3xl p-8 border border-gray-700/50 shadow-2xl hover:shadow-orange-500/20 transition-all duration-700 group">
-              {/* Holographic overlay */}
-              <div className="absolute inset-0 bg-gradient-to-r from-orange-400/5 via-purple-500/5 to-cyan-400/5 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-
-              {/* Profile Image with enhanced effects */}
-              <div className="relative mb-6 flex justify-center">
-                <div className="relative">
-                  {/* Rotating rings around avatar - only for high performance */}
-                  {performanceMode === 'high' && (
-                    <>
-                      <div
-                        className="absolute inset-0 rounded-full border-2 border-orange-400/30 animate-spin-slow"
-                        style={{ padding: '20px' }}
-                      />
-                      <div
-                        className="absolute inset-0 rounded-full border border-purple-400/20 animate-reverse-spin"
-                        style={{ padding: '30px' }}
-                      />
-                    </>
-                  )}
-
-                  {/* Avatar with glow effect */}
-                  <div className="relative w-32 h-32 rounded-full overflow-hidden border-4 border-gray-700/50 shadow-2xl group-hover:shadow-orange-500/30 transition-all duration-500 animate-scale-in">
-                    <Image
-                      src={personalInfo.portrait}
-                      alt={personalInfo.fullName}
-                      width={128}
-                      height={128}
-                      className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-orange-400/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                  </div>
-                </div>
-              </div>
-
-              {/* Name and Title with animated gradients */}
-              <div className="text-center mb-6">
-                <h3 className="text-2xl font-bold mb-2 animate-fade-in-up">
-                  <span className="bg-gradient-to-r from-orange-400 via-purple-500 to-cyan-400 bg-clip-text text-transparent animate-gradient-shift">
-                    {personalInfo.displayName}
-                  </span>
-                </h3>
-
-                <p className="text-lg text-gray-400 flex items-center justify-center gap-2 animate-fade-in">
-                  <Sparkles className="w-5 h-5 text-orange-400" />
-                  {personalInfo.title}
-                </p>
-              </div>
-
-              {/* Personal Info with icons */}
-              <div
-                className="space-y-3 text-sm animate-fade-in-up"
-                style={{ animationDelay: '0.4s' }}
-              >
-                <div className="flex items-center gap-3 text-gray-300 hover:text-orange-400 transition-colors duration-300">
-                  <Calendar className="w-4 h-4 text-orange-400" />
-                  <span>Born {personalInfo.birthday}</span>
-                </div>
-
-                <div className="flex items-center gap-3 text-gray-300 hover:text-orange-400 transition-colors duration-300">
-                  <MapPin className="w-4 h-4 text-orange-400" />
-                  <span>Ho Chi Minh City, Vietnam</span>
-                </div>
-              </div>
-
-              {/* Download Resume Button */}
-              <motion.a
-                whileHover={performanceMode !== 'low' ? { scale: 1.05 } : {}}
-                whileTap={{ scale: 0.95 }}
-                href={personalInfo.resume}
-                download="William_Resume.pdf"
-                className="mt-6 w-full flex items-center justify-center gap-2 bg-gradient-to-r from-orange-500 to-purple-600 text-white py-3 px-6 rounded-2xl font-semibold hover:shadow-lg hover:shadow-orange-500/25 transition-all duration-300 group/btn animate-scale-in"
-                style={{ animationDelay: '0.6s' }}
-              >
-                <Download className="w-4 h-4 group-hover/btn:animate-bounce" />
-                Download Resume
-              </motion.a>
-            </div>
-          </motion.div>
-
-          {/* Right: Animated About Text */}
-          <motion.div
-            variants={itemVariants}
-            className="space-y-6 animate-slide-in-right"
-          >
-            <div className="flex items-center gap-3 mb-6">
-              <motion.div
-                animate={performanceMode === 'high' ? { rotate: 360 } : {}}
-                transition={{ duration: 20, repeat: Infinity, ease: 'linear' }}
-                className="w-12 h-12 bg-gradient-to-r from-orange-400 to-purple-500 rounded-2xl flex items-center justify-center"
-              >
-                <Target className="w-6 h-6 text-white" />
-              </motion.div>
-              <h2 className="text-3xl font-bold text-white">About Me</h2>
-            </div>
-
-            {/* Typed text effect */}
-            <div className="relative bg-gray-800/50 backdrop-blur-sm rounded-2xl p-6 border border-gray-700/30">
-              <div className="text-gray-300 leading-relaxed text-lg">
-                {typedText}
-                {performanceMode !== 'low' && (
-                  <motion.span
-                    animate={{ opacity: [1, 0] }}
-                    transition={{ duration: 0.5, repeat: Infinity }}
-                    className="inline-block w-0.5 h-6 bg-orange-400 ml-1"
-                  />
-                )}
-              </div>
-            </div>
-
-            {/* Fun Facts */}
-            <div className="grid grid-cols-2 gap-4">
-              {funFacts.map((fact, index) => (
-                <motion.div
-                  key={index}
-                  variants={itemVariants}
-                  className="bg-gray-800/30 backdrop-blur-sm rounded-xl p-4 border border-gray-700/30 hover:border-orange-500/50 transition-all duration-300 group cursor-pointer animate-scale-in"
-                  style={{ animationDelay: `${0.8 + index * 0.1}s` }}
-                >
-                  <div className="flex items-center gap-3">
-                    <fact.icon
-                      className="w-5 h-5 group-hover:scale-110 transition-transform duration-300"
-                      style={{ color: fact.color }}
-                    />
-                    <span className="text-sm text-gray-300 group-hover:text-white transition-colors duration-300">
-                      {fact.text}
-                    </span>
-                  </div>
-                </motion.div>
-              ))}
-            </div>
-          </motion.div>
-        </div>
-      </motion.section>
-
-      {/* Statistics Section */}
-      <motion.section variants={itemVariants} className="relative">
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-          {statistics.map((stat, index) => (
+        {/* Hero Section */}
+        <motion.section variants={itemVariants} className="relative z-10">
+          <div className="grid lg:grid-cols-2 gap-12 items-center">
+            {/* Left: Enhanced Profile Card */}
             <motion.div
-              key={stat.label}
               variants={itemVariants}
-              whileHover={
-                performanceMode !== 'low' ? { scale: 1.05, y: -5 } : {}
-              }
-              className="relative text-center p-6 bg-gray-800/40 backdrop-blur-sm rounded-2xl border border-gray-700/30 hover:border-orange-500/50 hover:shadow-xl hover:shadow-orange-500/10 transition-all duration-500 group cursor-pointer animate-scale-in"
-              style={{ animationDelay: `${1.2 + index * 0.1}s` }}
+              className="relative animate-slide-in-left"
             >
-              {/* Icon */}
-              <motion.div
-                whileHover={
-                  performanceMode !== 'low' ? { rotate: 360, scale: 1.1 } : {}
-                }
-                transition={{ duration: 0.5 }}
-                className="w-12 h-12 mx-auto mb-4 rounded-xl flex items-center justify-center relative z-10"
-                style={{
-                  background: `linear-gradient(135deg, ${stat.color}20, ${stat.color}10)`,
-                }}
-              >
-                <stat.icon className="w-6 h-6" style={{ color: stat.color }} />
-              </motion.div>
+              <div className="relative bg-gradient-to-br from-eerie-black-1/80 to-eerie-black-2/80 backdrop-blur-xl rounded-3xl p-8 border border-jet/50 shadow-2xl hover:shadow-orange-500/20 transition-all duration-700 group">
+                {/* Holographic overlay */}
+                <div className="absolute inset-0 bg-gradient-to-r from-orange-400/5 via-purple-500/5 to-cyan-400/5 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
 
-              {/* Number */}
-              <div
-                className="text-2xl lg:text-3xl font-bold mb-2 relative z-10 animate-count-up"
-                style={{
-                  color: stat.color,
-                  animationDelay: `${1.4 + index * 0.1}s`,
-                }}
-              >
-                {stat.number}
-              </div>
+                {/* Profile Image with enhanced effects */}
+                <div className="relative mb-6 flex justify-center">
+                  <div className="relative">
+                    {/* Rotating rings around avatar - only for high performance */}
+                    {performanceMode === 'high' && (
+                      <>
+                        <div
+                          className="absolute inset-0 rounded-full border-2 border-orange-400/30 animate-spin-slow"
+                          style={{ padding: '20px' }}
+                        />
+                        <div
+                          className="absolute inset-0 rounded-full border border-purple-400/20 animate-reverse-spin"
+                          style={{ padding: '30px' }}
+                        />
+                      </>
+                    )}
 
-              {/* Label */}
-              <div className="text-sm text-gray-400 group-hover:text-gray-300 transition-colors duration-300 relative z-10">
-                {stat.label}
+                    {/* Avatar with glow effect */}
+                    <div className="relative w-32 h-32 rounded-full overflow-hidden border-4 border-jet/50 shadow-2xl group-hover:shadow-orange-500/30 transition-all duration-500 animate-scale-in">
+                      <Image
+                        src={personalInfo.portrait}
+                        alt={personalInfo.fullName}
+                        width={128}
+                        height={128}
+                        className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-orange-400/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                    </div>
+                  </div>
+                </div>
+
+                {/* Name and Title with animated gradients */}
+                <div className="text-center mb-6">
+                  <h3 className="text-2xl font-bold mb-2 animate-fade-in-up">
+                    <span className="bg-gradient-to-r from-orange-400 via-purple-500 to-cyan-400 bg-clip-text text-transparent animate-gradient-shift">
+                      {personalInfo.displayName}
+                    </span>
+                  </h3>
+
+                  <p className="text-lg text-white-2 flex items-center justify-center gap-2 animate-fade-in">
+                    <Sparkles className="w-5 h-5 text-orange-400" />
+                    {personalInfo.title}
+                  </p>
+                </div>
+
+                {/* Personal Info with icons */}
+                <div
+                  className="space-y-3 text-sm animate-fade-in-up"
+                  style={{ animationDelay: '0.4s' }}
+                >
+                  <div className="flex items-center gap-3 text-white-2 hover:text-orange-400 transition-colors duration-300">
+                    <Calendar className="w-4 h-4 text-orange-400" />
+                    <span>Born {personalInfo.birthday}</span>
+                  </div>
+
+                  <div className="flex items-center gap-3 text-white-2 hover:text-orange-400 transition-colors duration-300">
+                    <MapPin className="w-4 h-4 text-orange-400" />
+                    <span>Ho Chi Minh City, Vietnam</span>
+                  </div>
+                </div>
+
+                {/* Download Resume Button */}
+                <motion.a
+                  whileHover={performanceMode !== 'low' ? { scale: 1.05 } : {}}
+                  whileTap={{ scale: 0.95 }}
+                  href={personalInfo.resume}
+                  download="William_Resume.pdf"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="relative z-20 mt-6 w-full flex items-center justify-center gap-2 bg-gradient-to-r from-orange-500 to-purple-600 text-white-1 py-3 px-6 rounded-2xl font-semibold hover:shadow-lg hover:shadow-orange-500/25 transition-all duration-300 group/btn animate-scale-in cursor-pointer"
+                  style={{ animationDelay: '0.6s' }}
+                >
+                  <Download className="w-4 h-4 group-hover/btn:animate-bounce" />
+                  Download Resume
+                </motion.a>
               </div>
             </motion.div>
-          ))}
-        </div>
-      </motion.section>
 
-      {/* Services Section */}
-      <motion.section variants={itemVariants} className="space-y-8">
-        <div className="flex items-center gap-3 mb-8">
-          <motion.div
-            animate={performanceMode === 'high' ? { rotate: [0, 360] } : {}}
-            transition={{ duration: 15, repeat: Infinity, ease: 'linear' }}
-            className="w-12 h-12 bg-gradient-to-r from-purple-500 to-cyan-400 rounded-2xl flex items-center justify-center"
-          >
-            <Briefcase className="w-6 h-6 text-white" />
-          </motion.div>
-          <h2 className="text-3xl font-bold text-white">What I&apos;m Doing</h2>
-        </div>
-
-        <div className="grid gap-6">
-          {services.map((service, index) => (
+            {/* Right: Animated About Text */}
             <motion.div
-              key={service.id}
               variants={itemVariants}
-              onMouseEnter={() => setHoveredService(service.id)}
-              onMouseLeave={() => setHoveredService(null)}
-              className="relative group animate-slide-in-up"
-              style={{ animationDelay: `${1.6 + index * 0.2}s` }}
+              className="space-y-6 animate-slide-in-right"
             >
-              <div className="relative bg-gray-800/50 backdrop-blur-sm rounded-3xl p-6 border border-gray-700/50 hover:border-orange-500/30 hover:shadow-xl hover:shadow-orange-500/10 transition-all duration-500 overflow-hidden">
-                <div className="relative z-10 flex items-start gap-6">
-                  {/* Enhanced Icon */}
-                  <div className="flex-shrink-0">
-                    <motion.div
-                      whileHover={
-                        performanceMode !== 'low'
-                          ? { scale: 1.1, rotate: 5 }
-                          : {}
-                      }
-                      className="relative w-16 h-16 flex items-center justify-center rounded-2xl overflow-hidden"
-                      style={{
-                        background: `linear-gradient(135deg, ${service.color}20, ${service.color}10)`,
-                      }}
-                    >
-                      <div className="relative z-10 w-14 h-14 bg-gray-800/90 rounded-xl flex items-center justify-center">
-                        <Image
-                          src={service.icon}
-                          alt={service.title}
-                          width={32}
-                          height={32}
-                          className="filter brightness-0 invert opacity-70 group-hover:opacity-100 transition-all duration-500"
-                        />
-                      </div>
-                    </motion.div>
-                  </div>
+              <div className="flex items-center gap-3 mb-6">
+                <motion.div
+                  animate={performanceMode === 'high' ? { rotate: 360 } : {}}
+                  transition={{
+                    duration: 20,
+                    repeat: Infinity,
+                    ease: 'linear',
+                  }}
+                  className="w-12 h-12 bg-gradient-to-r from-orange-400 to-purple-500 rounded-2xl flex items-center justify-center"
+                >
+                  <Target className="w-6 h-6 text-white-1" />
+                </motion.div>
+                <h2 className="text-3xl font-bold text-white-1">About Me</h2>
+              </div>
 
-                  {/* Content */}
-                  <div className="flex-1 min-w-0">
-                    <div className="flex items-center justify-between mb-3">
-                      <h4 className="text-xl font-semibold text-white group-hover:text-orange-400 transition-colors duration-300">
-                        {service.title}
-                      </h4>
+              {/* Typed text effect */}
+              <div className="relative bg-eerie-black-2/50 backdrop-blur-sm rounded-2xl p-6 border border-jet/30">
+                <div className="text-white-2 leading-relaxed text-lg">
+                  {typedText}
+                  {performanceMode !== 'low' && (
+                    <motion.span
+                      animate={{ opacity: [1, 0] }}
+                      transition={{ duration: 0.5, repeat: Infinity }}
+                      className="inline-block w-0.5 h-6 bg-orange-400 ml-1"
+                    />
+                  )}
+                </div>
+              </div>
+
+              {/* Fun Facts */}
+              <div className="grid grid-cols-2 gap-4">
+                {funFacts.map((fact, index) => (
+                  <motion.div
+                    key={index}
+                    variants={itemVariants}
+                    className="bg-eerie-black-2/30 backdrop-blur-sm rounded-xl p-4 border border-jet/30 hover:border-orange-500/50 transition-all duration-300 group cursor-pointer animate-scale-in"
+                    style={{ animationDelay: `${0.8 + index * 0.1}s` }}
+                  >
+                    <div className="flex items-center gap-3">
+                      <fact.icon
+                        className="w-5 h-5 group-hover:scale-110 transition-transform duration-300"
+                        style={{ color: fact.color }}
+                      />
+                      <span className="text-sm text-white-2 group-hover:text-white-1 transition-colors duration-300">
+                        {fact.text}
+                      </span>
+                    </div>
+                  </motion.div>
+                ))}
+              </div>
+            </motion.div>
+          </div>
+        </motion.section>
+
+        {/* Statistics Section */}
+        <motion.section variants={itemVariants} className="relative">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+            {statistics.map((stat, index) => (
+              <motion.div
+                key={stat.label}
+                variants={itemVariants}
+                whileHover={
+                  performanceMode !== 'low' ? { scale: 1.05, y: -5 } : {}
+                }
+                className="relative text-center p-6 bg-eerie-black-2/40 backdrop-blur-sm rounded-2xl border border-jet/30 hover:border-orange-500/50 hover:shadow-xl hover:shadow-orange-500/10 transition-all duration-500 group cursor-pointer animate-scale-in"
+                style={{ animationDelay: `${1.2 + index * 0.1}s` }}
+              >
+                {/* Icon */}
+                <motion.div
+                  whileHover={
+                    performanceMode !== 'low' ? { rotate: 360, scale: 1.1 } : {}
+                  }
+                  transition={{ duration: 0.5 }}
+                  className="w-12 h-12 mx-auto mb-4 rounded-xl flex items-center justify-center relative z-10"
+                  style={{
+                    background: `linear-gradient(135deg, ${stat.color}20, ${stat.color}10)`,
+                  }}
+                >
+                  <stat.icon
+                    className="w-6 h-6"
+                    style={{ color: stat.color }}
+                  />
+                </motion.div>
+
+                {/* Number */}
+                <div
+                  className="text-2xl lg:text-3xl font-bold mb-2 relative z-10 animate-count-up"
+                  style={{
+                    color: stat.color,
+                    animationDelay: `${1.4 + index * 0.1}s`,
+                  }}
+                >
+                  {stat.number}
+                </div>
+
+                {/* Label */}
+                <div className="text-sm text-white-2/80 group-hover:text-white-2 transition-colors duration-300 relative z-10">
+                  {stat.label}
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        </motion.section>
+
+        {/* Services Section */}
+        <motion.section variants={itemVariants} className="space-y-8">
+          <div className="flex items-center gap-3 mb-8">
+            <motion.div
+              animate={performanceMode === 'high' ? { rotate: [0, 360] } : {}}
+              transition={{ duration: 15, repeat: Infinity, ease: 'linear' }}
+              className="w-12 h-12 bg-gradient-to-r from-purple-500 to-cyan-400 rounded-2xl flex items-center justify-center"
+            >
+              <Briefcase className="w-6 h-6 text-white-1" />
+            </motion.div>
+            <h2 className="text-3xl font-bold text-white-1">
+              What I&apos;m Doing
+            </h2>
+          </div>
+
+          <div className="grid gap-6">
+            {services.map((service, index) => (
+              <motion.div
+                key={service.id}
+                variants={itemVariants}
+                onMouseEnter={() => setHoveredService(service.id)}
+                onMouseLeave={() => setHoveredService(null)}
+                className="relative group animate-slide-in-up"
+                style={{ animationDelay: `${1.6 + index * 0.2}s` }}
+              >
+                <div className="relative bg-eerie-black-2/50 backdrop-blur-sm rounded-3xl p-6 border border-jet/50 hover:border-orange-500/30 hover:shadow-xl hover:shadow-orange-500/10 transition-all duration-500 overflow-hidden">
+                  <div className="relative z-10 flex items-start gap-6">
+                    {/* Enhanced Icon */}
+                    <div className="flex-shrink-0">
                       <motion.div
-                        initial={{ scale: 0 }}
-                        animate={{
-                          scale: hoveredService === service.id ? 1 : 0,
+                        whileHover={
+                          performanceMode !== 'low'
+                            ? { scale: 1.1, rotate: 5 }
+                            : {}
+                        }
+                        className="relative w-16 h-16 flex items-center justify-center rounded-2xl overflow-hidden"
+                        style={{
+                          background: `linear-gradient(135deg, ${service.color}20, ${service.color}10)`,
                         }}
-                        className="bg-gradient-to-r from-orange-400 to-purple-500 text-white text-xs px-3 py-1 rounded-full font-semibold"
                       >
-                        {service.stats}
+                        <div className="relative z-10 w-14 h-14 bg-eerie-black-2/90 rounded-xl flex items-center justify-center">
+                          <Image
+                            src={service.icon}
+                            alt={service.title}
+                            width={32}
+                            height={32}
+                            className="filter brightness-0 invert opacity-70 group-hover:opacity-100 transition-all duration-500"
+                          />
+                        </div>
                       </motion.div>
                     </div>
 
-                    <p className="text-gray-400 leading-relaxed mb-4 group-hover:text-gray-300 transition-colors duration-300">
-                      {service.description}
-                    </p>
-
-                    {/* Tech stack */}
-                    <div className="flex flex-wrap gap-2 mb-4">
-                      {service.tech.map((tech, techIndex) => (
-                        <span
-                          key={tech}
-                          className="text-xs px-2 py-1 bg-gray-700/50 text-gray-300 rounded-lg border border-gray-600/30 hover:border-orange-500/50 transition-all duration-300 animate-fade-in"
-                          style={{
-                            animationDelay: `${
-                              1.8 + index * 0.2 + techIndex * 0.1
-                            }s`,
+                    {/* Content */}
+                    <div className="flex-1 min-w-0">
+                      <div className="flex items-center justify-between mb-3">
+                        <h4 className="text-xl font-semibold text-white-1 group-hover:text-orange-400 transition-colors duration-300">
+                          {service.title}
+                        </h4>
+                        <motion.div
+                          initial={{ scale: 0 }}
+                          animate={{
+                            scale: hoveredService === service.id ? 1 : 0,
                           }}
+                          className="bg-gradient-to-r from-orange-400 to-purple-500 text-white-1 text-xs px-3 py-1 rounded-full font-semibold"
                         >
-                          {tech}
-                        </span>
-                      ))}
-                    </div>
+                          {service.stats}
+                        </motion.div>
+                      </div>
 
-                    {/* Achievements */}
-                    <div className="grid grid-cols-3 gap-2">
-                      {service.achievements.map((achievement, achIndex) => (
-                        <div
-                          key={achievement}
-                          className="text-xs text-center p-2 bg-gray-700/30 rounded-lg border border-gray-600/20 hover:border-orange-500/30 transition-all duration-300 animate-scale-in"
-                          style={{
-                            animationDelay: `${
-                              2 + index * 0.2 + achIndex * 0.1
-                            }s`,
-                          }}
-                        >
-                          <Zap className="w-3 h-3 mx-auto mb-1 text-orange-400" />
-                          <span className="text-gray-400">{achievement}</span>
-                        </div>
-                      ))}
+                      <p className="text-white-2/80 leading-relaxed mb-4 group-hover:text-white-2 transition-colors duration-300">
+                        {service.description}
+                      </p>
+
+                      {/* Tech stack */}
+                      <div className="flex flex-wrap gap-2 mb-4">
+                        {service.tech.map((tech, techIndex) => (
+                          <span
+                            key={tech}
+                            className="text-xs px-2 py-1 bg-jet/50 text-white-2 rounded-lg border border-jet/50 hover:border-orange-500/50 transition-all duration-300 animate-fade-in"
+                            style={{
+                              animationDelay: `${
+                                1.8 + index * 0.2 + techIndex * 0.1
+                              }s`,
+                            }}
+                          >
+                            {tech}
+                          </span>
+                        ))}
+                      </div>
+
+                      {/* Achievements */}
+                      <div className="grid grid-cols-3 gap-2">
+                        {service.achievements.map((achievement, achIndex) => (
+                          <div
+                            key={achievement}
+                            className="text-xs text-center p-2 bg-jet/30 rounded-lg border border-jet/20 hover:border-orange-500/30 transition-all duration-300 animate-scale-in"
+                            style={{
+                              animationDelay: `${
+                                2 + index * 0.2 + achIndex * 0.1
+                              }s`,
+                            }}
+                          >
+                            <Zap className="w-3 h-3 mx-auto mb-1 text-orange-400" />
+                            <span className="text-white-2/80">
+                              {achievement}
+                            </span>
+                          </div>
+                        ))}
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
-            </motion.div>
-          ))}
-        </div>
-      </motion.section>
+              </motion.div>
+            ))}
+          </div>
+        </motion.section>
 
-      {/* Skills Section */}
-      <motion.section variants={itemVariants} className="space-y-8">
-        <div className="flex items-center gap-3 mb-8">
-          <motion.div
-            animate={performanceMode === 'high' ? { rotate: [0, 360] } : {}}
-            transition={{ duration: 10, repeat: Infinity, ease: 'linear' }}
-            className="w-12 h-12 bg-gradient-to-r from-cyan-400 to-blue-500 rounded-2xl flex items-center justify-center"
-          >
-            <Code className="w-6 h-6 text-white" />
-          </motion.div>
-          <h2 className="text-3xl font-bold text-white">Technical Skills</h2>
-        </div>
-
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-          {skillCategories.map((category, categoryIndex) => (
+        {/* Skills Section */}
+        <motion.section variants={itemVariants} className="space-y-8">
+          <div className="flex items-center gap-3 mb-8">
             <motion.div
-              key={category.title}
-              variants={itemVariants}
-              onMouseEnter={() => setActiveSkillCategory(category.title)}
-              onMouseLeave={() => setActiveSkillCategory(null)}
-              className="relative bg-gray-800/30 backdrop-blur-sm rounded-3xl p-6 border border-gray-700/30 hover:border-orange-500/30 hover:shadow-xl hover:shadow-orange-500/10 transition-all duration-500 group overflow-hidden animate-slide-in-up"
-              style={{ animationDelay: `${2.4 + categoryIndex * 0.1}s` }}
+              animate={performanceMode === 'high' ? { rotate: [0, 360] } : {}}
+              transition={{ duration: 10, repeat: Infinity, ease: 'linear' }}
+              className="w-12 h-12 bg-gradient-to-r from-cyan-400 to-blue-500 rounded-2xl flex items-center justify-center"
             >
-              {/* Background animation */}
-              <div className="absolute inset-0 bg-gradient-to-br from-orange-400/5 via-purple-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-3xl" />
-
-              <div className="relative z-10">
-                <motion.h4
-                  whileHover={performanceMode !== 'low' ? { scale: 1.05 } : {}}
-                  className="text-xl font-semibold text-orange-400 mb-6 flex items-center gap-3"
-                >
-                  <motion.div
-                    animate={{
-                      rotate:
-                        activeSkillCategory === category.title &&
-                        performanceMode !== 'low'
-                          ? 360
-                          : 0,
-                    }}
-                    transition={{ duration: 0.5 }}
-                    className="w-8 h-8 bg-gradient-to-r from-orange-400 to-purple-500 rounded-lg flex items-center justify-center"
-                  >
-                    <Sparkles className="w-4 h-4 text-white" />
-                  </motion.div>
-                  {category.title}
-                </motion.h4>
-
-                <div className="grid grid-cols-2 gap-3">
-                  {category.skills.map((skill, skillIndex) => (
-                    <motion.div
-                      key={skill.id}
-                      variants={itemVariants}
-                      whileHover={
-                        performanceMode !== 'low' ? { scale: 1.05, y: -2 } : {}
-                      }
-                      className="flex items-center gap-3 p-3 bg-gray-700/50 backdrop-blur-sm rounded-2xl border border-gray-600/30 hover:border-orange-500/50 hover:bg-orange-500/10 hover:shadow-lg hover:shadow-orange-500/20 transition-all duration-500 group/skill cursor-pointer animate-scale-in"
-                      style={{
-                        animationDelay: `${
-                          2.6 + categoryIndex * 0.1 + skillIndex * 0.05
-                        }s`,
-                      }}
-                    >
-                      {/* Skill icon */}
-                      <div className="relative group-hover/skill:scale-125 transition-transform duration-500">
-                        <SkillIcon
-                          skillId={skill.id}
-                          className="w-6 h-6 text-orange-400"
-                        />
-                      </div>
-
-                      {/* Skill name */}
-                      <div className="flex-1">
-                        <span className="text-sm font-medium text-gray-300 group-hover/skill:text-white transition-colors duration-500">
-                          {skill.name}
-                        </span>
-
-                        {/* Skill level indicator */}
-                        <div className="mt-1 h-1 bg-gray-600/50 rounded-full overflow-hidden">
-                          <div
-                            className="h-full bg-gradient-to-r from-orange-400 to-purple-500 rounded-full transition-all duration-1000 animate-progress-bar"
-                            style={{
-                              width:
-                                skill.level === 'expert'
-                                  ? '100%'
-                                  : skill.level === 'advanced'
-                                  ? '80%'
-                                  : skill.level === 'intermediate'
-                                  ? '60%'
-                                  : '40%',
-                              animationDelay: `${
-                                2.8 + categoryIndex * 0.1 + skillIndex * 0.05
-                              }s`,
-                            }}
-                          />
-                        </div>
-                      </div>
-                    </motion.div>
-                  ))}
-                </div>
-              </div>
+              <Code className="w-6 h-6 text-white-1" />
             </motion.div>
-          ))}
-        </div>
-      </motion.section>
-    </motion.div>
+            <h2 className="text-3xl font-bold text-white-1">
+              Technical Skills
+            </h2>
+          </div>
+
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            {skillCategories.map((category, categoryIndex) => (
+              <motion.div
+                key={category.title}
+                variants={itemVariants}
+                onMouseEnter={() => setActiveSkillCategory(category.title)}
+                onMouseLeave={() => setActiveSkillCategory(null)}
+                className="relative bg-eerie-black-2/30 backdrop-blur-sm rounded-3xl p-6 border border-jet/30 hover:border-orange-500/30 hover:shadow-xl hover:shadow-orange-500/10 transition-all duration-500 group overflow-visible animate-slide-in-up"
+                style={{ animationDelay: `${2.4 + categoryIndex * 0.1}s` }}
+              >
+                {/* Background animation */}
+                <div className="absolute inset-0 bg-gradient-to-br from-orange-400/5 via-purple-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-3xl" />
+
+                <div className="relative z-10">
+                  <motion.h4
+                    whileHover={
+                      performanceMode !== 'low' ? { scale: 1.05 } : {}
+                    }
+                    className="text-xl font-semibold text-orange-400 mb-6 flex items-center gap-3"
+                  >
+                    <motion.div
+                      animate={{
+                        rotate:
+                          activeSkillCategory === category.title &&
+                          performanceMode !== 'low'
+                            ? 360
+                            : 0,
+                      }}
+                      transition={{ duration: 0.5 }}
+                      className="w-8 h-8 bg-gradient-to-r from-orange-400 to-purple-500 rounded-lg flex items-center justify-center"
+                    >
+                      <Sparkles className="w-4 h-4 text-white-1" />
+                    </motion.div>
+                    {category.title}
+                  </motion.h4>
+
+                  <div className="flex flex-wrap gap-3">
+                    {category.skills.map((skill, skillIndex) => (
+                      <div key={skill.id} className="relative group/tooltip">
+                        <motion.div
+                          variants={itemVariants}
+                          whileHover={
+                            performanceMode !== 'low'
+                              ? { scale: 1.05, y: -2 }
+                              : {}
+                          }
+                          onMouseEnter={() =>
+                            !isMobile && setHoveredSkill(skill.id)
+                          }
+                          onMouseLeave={() =>
+                            !isMobile && setHoveredSkill(null)
+                          }
+                          onClick={() =>
+                            isMobile &&
+                            setHoveredSkill(
+                              hoveredSkill === skill.id ? null : skill.id
+                            )
+                          }
+                          className="flex items-center gap-3 px-4 py-3 bg-jet/50 backdrop-blur-sm rounded-2xl border border-jet/50 hover:border-orange-500/50 hover:bg-orange-500/10 hover:shadow-lg hover:shadow-orange-500/20 transition-all duration-500 group/skill cursor-pointer animate-scale-in"
+                          style={{
+                            animationDelay: `${
+                              2.6 + categoryIndex * 0.1 + skillIndex * 0.05
+                            }s`,
+                          }}
+                        >
+                          {/* Skill icon */}
+                          <div className="relative group-hover/skill:scale-110 transition-transform duration-500">
+                            <SkillIcon
+                              skillId={skill.id}
+                              className="w-5 h-5 text-orange-400 group-hover/skill:text-orange-300"
+                            />
+                          </div>
+
+                          {/* Skill name */}
+                          <span className="text-sm font-medium text-white-2 group-hover/skill:text-white-1 transition-colors duration-500 whitespace-nowrap">
+                            {skill.name}
+                          </span>
+
+                          {/* Info icon for skills with descriptions */}
+                          {skill.description && (
+                            <Info className="w-3 h-3 text-white-2/60 group-hover/skill:text-orange-400 transition-colors duration-300" />
+                          )}
+                        </motion.div>
+
+                        {/* Desktop Tooltip */}
+                        {skill.description &&
+                          hoveredSkill === skill.id &&
+                          !isMobile && (
+                            <motion.div
+                              initial={{ opacity: 0, y: 15, scale: 0.6 }}
+                              animate={{ opacity: 1, y: 0, scale: 1 }}
+                              exit={{ opacity: 0, y: 15, scale: 0.6 }}
+                              transition={{
+                                duration: 0.4,
+                                type: 'spring',
+                                damping: 8,
+                                stiffness: 400,
+                              }}
+                              className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-4 z-[100] pointer-events-auto"
+                            >
+                              <div className="bg-eerie-black-1 backdrop-blur-xl border border-orange-400/80 shadow-2xl shadow-orange-500/70 max-w-80 px-6 py-5 rounded-2xl text-white-1 text-center">
+                                <div className="font-semibold text-orange-300 mb-4 text-lg">
+                                  {skill.name}
+                                </div>
+                                <div className="text-white-1/95 leading-relaxed text-base">
+                                  {skill.description}
+                                </div>
+                                {/* Tooltip arrow */}
+                                <div className="absolute top-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-[8px] border-r-[8px] border-t-[8px] border-transparent border-t-orange-400/70"></div>
+                              </div>
+                            </motion.div>
+                          )}
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        </motion.section>
+      </motion.div>
+
+      {/* Mobile Tooltip Portal */}
+      {isMobile && hoveredSkill && (
+        <>
+          {/* Global backdrop overlay */}
+          <div
+            className="fixed inset-0 bg-black/40 backdrop-blur-sm z-[9998]"
+            onClick={(e) => {
+              e.preventDefault();
+              e.stopPropagation();
+              setHoveredSkill(null);
+            }}
+            onTouchEnd={(e) => {
+              e.preventDefault();
+              e.stopPropagation();
+              setHoveredSkill(null);
+            }}
+          />
+
+          {/* Mobile tooltip modal */}
+          <motion.div
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 0.9 }}
+            transition={{ duration: 0.2 }}
+            className="fixed inset-0 flex items-center justify-center z-[9999] p-4 pointer-events-none"
+          >
+            <div
+              className="bg-eerie-black-1/95 backdrop-blur-xl border border-orange-400/50 shadow-2xl shadow-orange-500/40 w-full max-w-sm p-6 rounded-3xl text-white-1 text-center pointer-events-auto"
+              onClick={(e) => {
+                e.preventDefault();
+                e.stopPropagation();
+              }}
+            >
+              {(() => {
+                type SkillType = {
+                  id: string;
+                  name: string;
+                  category:
+                    | 'programming'
+                    | 'game-engines'
+                    | 'tools'
+                    | 'soft-skills';
+                  description: string;
+                };
+
+                const currentSkill = skillCategories
+                  .flatMap((cat) => cat.skills as SkillType[])
+                  .find((skill: SkillType) => skill.id === hoveredSkill);
+                return currentSkill ? (
+                  <>
+                    <div className="font-semibold text-orange-300 mb-3 text-lg">
+                      {currentSkill.name}
+                    </div>
+                    <div className="text-white-1/95 leading-relaxed text-base">
+                      {currentSkill.description}
+                    </div>
+                  </>
+                ) : null;
+              })()}
+              <div className="mt-5 pt-4 border-t border-orange-500/30 text-white-2/80 text-sm">
+                Tap outside to close
+              </div>
+            </div>
+          </motion.div>
+        </>
+      )}
+    </>
   );
 }

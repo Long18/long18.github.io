@@ -9,11 +9,11 @@ import { mainSkills } from '../../data/skills';
 import SkillIcon from '../ui/SkillIcon';
 import { useAnimationPerformance } from '../../hooks/useAnimationPerformance';
 
-interface HeroSectionProps {
+interface HomeProps {
   onNavigate?: (section: string) => void;
 }
 
-const HeroSection: React.FC<HeroSectionProps> = ({ onNavigate }) => {
+const Home: React.FC<HomeProps> = ({ onNavigate }) => {
   const sectionRef = useRef<HTMLElement>(null);
   const avatarRef = useRef<HTMLDivElement>(null);
   const skillsRef = useRef<HTMLDivElement>(null);
@@ -138,7 +138,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({ onNavigate }) => {
       className="relative overflow-hidden py-24 sm:py-32 animate-fade-in-up"
     >
       {/* Background Effects */}
-      <div className="absolute inset-0 bg-gradient-to-br from-gray-900 via-gray-900 to-gray-800 animate-bg-shift" />
+      <div className="absolute inset-0 bg-gradient-to-br from-eerie-black-1 via-eerie-black-2 to-jet animate-bg-shift" />
 
       {/* Animated background dots */}
       <div className="absolute inset-0 pointer-events-none opacity-30">
@@ -160,10 +160,10 @@ const HeroSection: React.FC<HeroSectionProps> = ({ onNavigate }) => {
           <div className="max-w-xl animate-slide-in-left">
             {/* Greeting */}
             <div
-              className="text-lg sm:text-xl font-semibold text-gray-300 mb-4 animate-fade-in"
+              className="text-lg sm:text-xl font-semibold text-white-2 mb-4 animate-fade-in"
               style={{ animationDelay: '0.2s' }}
             >
-              Hello, I'm
+              Hello, I&apos;m
             </div>
 
             {/* Name with gradient */}
@@ -181,10 +181,10 @@ const HeroSection: React.FC<HeroSectionProps> = ({ onNavigate }) => {
               className="flex flex-col sm:flex-row sm:gap-4 mb-8 animate-fade-in-up"
               style={{ animationDelay: '0.6s' }}
             >
-              <h2 className="text-3xl sm:text-4xl font-bold text-white leading-tight mb-2 sm:mb-0">
+              <h2 className="text-3xl sm:text-4xl font-bold text-white-1 leading-tight mb-2 sm:mb-0">
                 Game Developer
               </h2>
-              <p className="text-lg sm:text-xl text-gray-400 leading-relaxed">
+              <p className="text-lg sm:text-xl text-white-2 leading-relaxed">
                 Creating immersive experiences with Unity & Unreal Engine
               </p>
             </div>
@@ -239,7 +239,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({ onNavigate }) => {
                   href={personalInfo.resume}
                   download="William_Resume.pdf"
                   onClick={handleResumeDownload}
-                  className="group flex items-center gap-2 text-gray-400 hover:text-orange-400 transition-all duration-300 border-b border-transparent hover:border-orange-400/50 animate-float"
+                  className="group flex items-center gap-2 text-white-2 hover:text-orange-400 transition-all duration-300 border-b border-transparent hover:border-orange-400/50 animate-float"
                   aria-label="Download resume PDF"
                 >
                   {buttonStates.downloadResume.isLoading ? (
@@ -261,14 +261,14 @@ const HeroSection: React.FC<HeroSectionProps> = ({ onNavigate }) => {
                 </motion.a>
 
                 {/* Divider */}
-                <div className="w-px h-4 bg-gray-600"></div>
+                <div className="w-px h-4 bg-jet"></div>
 
                 {/* Contact Link */}
                 <motion.button
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                   onClick={() => handleNavigation('contact', 'contact')}
-                  className="group flex items-center gap-2 text-gray-400 hover:text-purple-400 transition-all duration-300 border-b border-transparent hover:border-purple-400/50 animate-float"
+                  className="group flex items-center gap-2 text-white-2 hover:text-purple-400 transition-all duration-300 border-b border-transparent hover:border-purple-400/50 animate-float"
                   style={{ animationDelay: '0.5s' }}
                   aria-label="Navigate to contact section"
                 >
@@ -289,7 +289,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({ onNavigate }) => {
             className="relative flex items-center justify-center min-h-[400px] animate-slide-in-right"
           >
             {/* Avatar container with enhanced effects */}
-            <div className="relative w-[400px] h-[400px] flex items-center justify-center">
+            <div className="relative w-[400px] h-[400px] flex items-center justify-center overflow-visible">
               {/* Outer atmospheric rings */}
               <div className="absolute inset-0 rounded-full opacity-20 animate-pulse-slow bg-gradient-radial from-orange-400/20 via-purple-500/10 to-transparent" />
               <div
@@ -299,12 +299,12 @@ const HeroSection: React.FC<HeroSectionProps> = ({ onNavigate }) => {
 
               {/* Rotating border ring */}
               <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-60 h-60 rounded-full opacity-70 animate-spin-slow bg-gradient-conic from-orange-400 via-purple-500 to-orange-400 p-1">
-                <div className="w-full h-full bg-gray-900 rounded-full" />
+                <div className="w-full h-full bg-eerie-black-1 rounded-full" />
               </div>
 
               {/* Avatar image */}
               <div
-                className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-40 h-40 bg-gray-900 rounded-full p-1 shadow-2xl animate-scale-in"
+                className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-40 h-40 bg-eerie-black-1 rounded-full p-1 shadow-2xl animate-scale-in"
                 style={{ animationDelay: '0.6s' }}
               >
                 <Image
@@ -369,14 +369,16 @@ const HeroSection: React.FC<HeroSectionProps> = ({ onNavigate }) => {
                     >
                       <div className="relative">
                         <div className="absolute inset-0 bg-gradient-to-br from-orange-400/30 to-purple-500/30 rounded-full blur-xl scale-150 opacity-0 group-hover:opacity-100 transition-all duration-500 animate-pulse" />
-                        <span className="relative z-10 block p-4 bg-gray-800/90 backdrop-blur-md rounded-2xl border border-gray-700/50 shadow-2xl group-hover:shadow-orange-500/20 group-hover:border-orange-500/60 transition-all duration-500 group-hover:bg-gray-700/90">
+                        <span className="relative z-10 block p-4 bg-eerie-black-2/90 backdrop-blur-md rounded-2xl border border-jet/50 shadow-2xl group-hover:shadow-orange-500/20 group-hover:border-orange-500/60 transition-all duration-500 group-hover:bg-eerie-black-1/90">
                           <span className="block transition-transform duration-300 group-hover:scale-110 group-hover:rotate-6">
                             {item.icon}
                           </span>
                         </span>
-                        <div className="absolute -top-14 left-1/2 transform -translate-x-1/2 bg-gray-900/95 backdrop-blur-sm text-white text-sm px-4 py-2 rounded-xl opacity-0 group-hover:opacity-100 transition-all duration-500 pointer-events-none border border-gray-700/50 shadow-2xl whitespace-nowrap z-50">
-                          {item.skill}
-                          <div className="absolute top-full left-1/2 transform -translate-x-1/2 border-4 border-transparent border-t-gray-900" />
+                        <div className="absolute -top-16 left-1/2 transform -translate-x-1/2 bg-eerie-black-1 backdrop-blur-xl border border-orange-400/80 shadow-2xl shadow-orange-500/70 px-6 py-4 rounded-2xl opacity-0 group-hover:opacity-100 transition-all duration-500 pointer-events-none whitespace-nowrap z-[9999]">
+                          <div className="font-semibold text-orange-300 text-base">
+                            {item.skill}
+                          </div>
+                          <div className="absolute top-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-[8px] border-r-[8px] border-t-[8px] border-transparent border-t-orange-400/70"></div>
                         </div>
                       </div>
                     </div>
@@ -443,10 +445,10 @@ const HeroSection: React.FC<HeroSectionProps> = ({ onNavigate }) => {
                         }}
                       >
                         <div
-                          className="relative w-16 h-16 backdrop-blur-sm border border-gray-700/60 rounded-2xl flex items-center justify-center text-2xl shadow-2xl transition-all duration-700 hover:scale-125 hover:rotate-12"
+                          className="relative w-16 h-16 backdrop-blur-sm border border-jet/60 rounded-2xl flex items-center justify-center text-2xl shadow-2xl transition-all duration-700 hover:scale-125 hover:rotate-12"
                           style={{
                             background:
-                              'linear-gradient(135deg, rgba(55, 65, 81, 0.95), rgba(31, 41, 55, 0.98))',
+                              'linear-gradient(135deg, rgba(31, 41, 55, 0.95), rgba(17, 24, 39, 0.98))',
                             boxShadow: `0 0 20px ${item.color}60, inset 0 0 20px rgba(255, 255, 255, 0.1)`,
                             transform: 'translate(-50%, -50%)',
                           }}
@@ -460,12 +462,11 @@ const HeroSection: React.FC<HeroSectionProps> = ({ onNavigate }) => {
                           >
                             {item.icon}
                           </span>
-                          <div
-                            className="absolute -top-14 left-1/2 transform -translate-x-1/2 bg-gray-900/95 backdrop-blur-sm text-white text-xs px-3 py-2 rounded-lg opacity-0 group-hover:opacity-100 transition-all duration-300 pointer-events-none border border-gray-700/50 shadow-xl whitespace-nowrap z-50"
-                            style={{ boxShadow: `0 0 20px ${item.color}40` }}
-                          >
-                            {item.label}
-                            <div className="absolute top-full left-1/2 transform -translate-x-1/2 border-4 border-transparent border-t-gray-900" />
+                          <div className="absolute -top-16 left-1/2 transform -translate-x-1/2 bg-eerie-black-1 backdrop-blur-xl border border-orange-400/80 shadow-2xl shadow-orange-500/70 px-4 py-3 rounded-xl opacity-0 group-hover:opacity-100 transition-all duration-300 pointer-events-none whitespace-nowrap z-[9999]">
+                            <div className="font-semibold text-orange-300 text-sm">
+                              {item.label}
+                            </div>
+                            <div className="absolute top-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-[6px] border-r-[6px] border-t-[6px] border-transparent border-t-orange-400/70"></div>
                           </div>
                         </div>
                       </div>
@@ -483,7 +484,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({ onNavigate }) => {
           className="space-y-8 mt-24 animate-fade-in-up"
           style={{ animationDelay: '1.2s' }}
         >
-          <h2 className="text-3xl sm:text-4xl font-bold text-white text-center animate-slide-in-up">
+          <h2 className="text-3xl sm:text-4xl font-bold text-white-1 text-center animate-slide-in-up">
             Main Skills
           </h2>
 
@@ -491,7 +492,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({ onNavigate }) => {
             {mainSkills.map((category, categoryIndex) => (
               <div
                 key={category.title}
-                className="bg-gray-800/40 backdrop-blur-sm rounded-3xl p-6 lg:p-8 border border-gray-700/40 hover:border-orange-500/40 hover:bg-gray-800/60 transition-all duration-500 group relative overflow-hidden shadow-xl hover:shadow-2xl hover:shadow-orange-500/10 animate-scale-in"
+                className="bg-eerie-black-2/40 backdrop-blur-sm rounded-3xl p-6 lg:p-8 border border-jet/40 hover:border-orange-500/40 hover:bg-eerie-black-2/60 transition-all duration-500 group relative overflow-hidden shadow-xl hover:shadow-2xl hover:shadow-orange-500/10 animate-scale-in"
                 style={{ animationDelay: `${1.4 + categoryIndex * 0.2}s` }}
               >
                 <div className="absolute inset-0 bg-gradient-to-br from-orange-500/5 via-transparent to-purple-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-3xl" />
@@ -504,7 +505,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({ onNavigate }) => {
                     {category.skills.map((skill, skillIndex) => (
                       <div
                         key={skill.id}
-                        className="flex items-center gap-3 px-4 py-3 bg-gray-700/50 backdrop-blur-sm rounded-2xl border border-gray-600/30 hover:border-orange-500/50 hover:bg-orange-500/10 transition-all duration-300 group/skill shadow-md hover:shadow-lg hover:shadow-orange-500/20 animate-fade-in"
+                        className="flex items-center gap-3 px-4 py-3 bg-jet/50 backdrop-blur-sm rounded-2xl border border-jet/50 hover:border-orange-500/50 hover:bg-orange-500/10 transition-all duration-300 group/skill shadow-md hover:shadow-lg hover:shadow-orange-500/20 animate-fade-in"
                         style={{
                           animationDelay: `${
                             1.6 + categoryIndex * 0.2 + skillIndex * 0.1
@@ -517,7 +518,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({ onNavigate }) => {
                             className="w-6 h-6 text-orange-400"
                           />
                         </div>
-                        <span className="text-base font-medium text-gray-300 group-hover/skill:text-white transition-colors duration-300">
+                        <span className="text-base font-medium text-white-2 group-hover/skill:text-white-1 transition-colors duration-300">
                           {skill.name}
                         </span>
                       </div>
@@ -542,7 +543,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({ onNavigate }) => {
           ].map((stat, index) => (
             <div
               key={stat.label}
-              className="text-center p-6 bg-gray-800/30 backdrop-blur-sm border border-gray-700/30 rounded-2xl hover:border-orange-500/50 hover:bg-gray-800/50 transition-all duration-300 group animate-scale-in"
+              className="text-center p-6 bg-eerie-black-2/30 backdrop-blur-sm border border-jet/30 rounded-2xl hover:border-orange-500/50 hover:bg-eerie-black-2/50 transition-all duration-300 group animate-scale-in"
               style={{ animationDelay: `${2.2 + index * 0.1}s` }}
             >
               <div
@@ -554,7 +555,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({ onNavigate }) => {
               <div className="text-2xl lg:text-3xl font-bold text-orange-400 mb-2 group-hover:text-orange-300 transition-colors duration-300 animate-count-up">
                 {stat.number}
               </div>
-              <div className="text-sm text-gray-400 group-hover:text-gray-300 transition-colors duration-300">
+              <div className="text-sm text-white-2 group-hover:text-white-1 transition-colors duration-300">
                 {stat.label}
               </div>
             </div>
@@ -565,4 +566,4 @@ const HeroSection: React.FC<HeroSectionProps> = ({ onNavigate }) => {
   );
 };
 
-export default HeroSection;
+export default Home;

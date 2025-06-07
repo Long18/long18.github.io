@@ -32,7 +32,7 @@ const getTechColor = (tech: string): string => {
     JavaScript: 'bg-yellow-500/20 text-yellow-400 border-yellow-500/30',
     TypeScript: 'bg-blue-600/20 text-blue-300 border-blue-600/30',
     React: 'bg-cyan-400/20 text-cyan-300 border-cyan-400/30',
-    'Next.js': 'bg-gray-500/20 text-gray-300 border-gray-500/30',
+    'Next.js': 'bg-jet/20 text-white-2 border-jet/30',
     'Node.js': 'bg-green-500/20 text-green-400 border-green-500/30',
     Python: 'bg-green-600/20 text-green-300 border-green-600/30',
     Java: 'bg-orange-600/20 text-orange-300 border-orange-600/30',
@@ -46,7 +46,7 @@ const getTechColor = (tech: string): string => {
     'Google Maps API': 'bg-red-500/20 text-red-400 border-red-500/30',
   };
 
-  return techColors[tech] || 'bg-gray-600/20 text-gray-400 border-gray-600/30';
+  return techColors[tech] || 'bg-jet/20 text-white-2 border-jet/30';
 };
 
 // Interface for ProjectCard props
@@ -94,7 +94,7 @@ export default function Portfolio({ onProjectSelect }: PortfolioProps) {
   >('default');
   const [isLoading, setIsLoading] = useState(false);
 
-  const { performanceMode, isMobile } = useAnimationPerformance();
+  const { performanceMode } = useAnimationPerformance();
 
   // Refs for animations
   const dropdownRef = useRef<HTMLDivElement>(null);
@@ -839,7 +839,7 @@ const ProjectCard = React.memo<ProjectCardProps>(function ProjectCard({
                 target="_blank"
                 rel="noopener noreferrer"
                 onClick={(e) => e.stopPropagation()}
-                className="flex items-center gap-1 px-3 py-1.5 bg-green-500/20 text-green-400 hover:bg-green-500/30 hover:text-green-300 transition-all duration-300 rounded-lg border border-green-500/30"
+                className="flex items-center gap-1 px-3 py-1.5 bg-application-tag/20 text-application-tag hover:bg-application-tag/30 hover:text-green-teal transition-all duration-300 rounded-lg border border-application-tag/30"
                 title="Download on Google Play"
               >
                 <svg
@@ -855,7 +855,7 @@ const ProjectCard = React.memo<ProjectCardProps>(function ProjectCard({
           </div>
 
           <div className="text-right">
-            <span className="text-gray-500 text-xs">
+            <span className="text-white-2/60 text-xs">
               {project.timeline || 'Recent'}
             </span>
           </div>
