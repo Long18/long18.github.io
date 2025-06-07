@@ -44,7 +44,7 @@ module.exports = {
         'chart-4': 'hsl(var(--chart-4))',
         'chart-5': 'hsl(var(--chart-5))',
         
-        // Portfolio Design System Colors (from your CSS files)
+        // Unified Portfolio Design System Colors
         'smoky-black': 'hsl(0, 0%, 7%)',
         'eerie-black-1': 'hsl(240, 2%, 13%)',
         'eerie-black-2': 'hsl(240, 2%, 12%)',
@@ -69,32 +69,103 @@ module.exports = {
         mono: ['JetBrains Mono', 'monospace'],
       },
       animation: {
-        'fade-in': 'fadeIn 0.5s ease-in-out',
-        'slide-in': 'slideIn 0.5s ease-out',
-        'scale-in': 'scaleIn 0.3s ease-out',
+        // Unified centralized animations (consistent across all components)
+        'fade-in': 'fadeIn 0.6s ease-out forwards',
+        'fade-in-up': 'fadeInUp 0.8s ease-out forwards',
+        'fade-in-down': 'fadeInDown 0.8s ease-out forwards',
+        'slide-in-left': 'slideInLeft 0.8s ease-out forwards',
+        'slide-in-right': 'slideInRight 0.8s ease-out forwards',
+        'slide-in-up': 'slideInUp 0.8s ease-out forwards',
+        'scale-in': 'scaleIn 0.6s ease-out forwards',
+        'count-up': 'countUp 1s ease-out forwards',
+        'progress-bar': 'progressBar 1.5s ease-out forwards',
+        'gradient-shift': 'gradientShift 3s ease infinite',
+        
+        // Enhanced animations for high performance mode
+        'bounce-subtle': 'bounceSubtle 2s ease-in-out infinite',
+        'float': 'float 6s ease-in-out infinite',
+        'pulse-slow': 'pulseSlow 4s ease-in-out infinite',
+        'rotate-slow': 'rotateSlow 20s linear infinite',
+        'shimmer': 'shimmer 3s ease-in-out infinite',
+        
+        // Legacy animations (kept for compatibility)
+        'scale-in-legacy': 'scaleIn 0.3s ease-out',
         'bounce-gentle': 'bounceGentle 2s infinite',
-        'float': 'float 3s ease-in-out infinite',
+        'slide-in': 'slideIn 0.5s ease-out',
       },
       keyframes: {
+        // Unified animation keyframes
         fadeIn: {
-          '0%': { opacity: '0' },
-          '100%': { opacity: '1' },
+          'from': { opacity: '0' },
+          'to': { opacity: '1' },
         },
-        slideIn: {
-          '0%': { transform: 'translateY(20px)', opacity: '0' },
-          '100%': { transform: 'translateY(0)', opacity: '1' },
+        fadeInUp: {
+          'from': { opacity: '0', transform: 'translateY(30px)' },
+          'to': { opacity: '1', transform: 'translateY(0)' },
+        },
+        fadeInDown: {
+          'from': { opacity: '0', transform: 'translateY(-30px)' },
+          'to': { opacity: '1', transform: 'translateY(0)' },
+        },
+        slideInLeft: {
+          'from': { opacity: '0', transform: 'translateX(-50px)' },
+          'to': { opacity: '1', transform: 'translateX(0)' },
+        },
+        slideInRight: {
+          'from': { opacity: '0', transform: 'translateX(50px)' },
+          'to': { opacity: '1', transform: 'translateX(0)' },
+        },
+        slideInUp: {
+          'from': { opacity: '0', transform: 'translateY(50px)' },
+          'to': { opacity: '1', transform: 'translateY(0)' },
         },
         scaleIn: {
-          '0%': { transform: 'scale(0.9)', opacity: '0' },
-          '100%': { transform: 'scale(1)', opacity: '1' },
+          'from': { opacity: '0', transform: 'scale(0.8)' },
+          'to': { opacity: '1', transform: 'scale(1)' },
         },
-        bounceGentle: {
+        countUp: {
+          'from': { opacity: '0', transform: 'scale(0.5)' },
+          'to': { opacity: '1', transform: 'scale(1)' },
+        },
+        progressBar: {
+          'from': { width: '0' },
+          'to': { width: 'var(--progress-width, 100%)' },
+        },
+        gradientShift: {
+          '0%, 100%': { backgroundPosition: '0% 50%' },
+          '50%': { backgroundPosition: '100% 50%' },
+        },
+        
+        // Enhanced animations
+        bounceSubtle: {
           '0%, 100%': { transform: 'translateY(0)' },
           '50%': { transform: 'translateY(-10px)' },
         },
         float: {
-          '0%, 100%': { transform: 'translateY(0px)' },
+          '0%, 100%': { transform: 'translateY(0)' },
           '50%': { transform: 'translateY(-20px)' },
+        },
+        pulseSlow: {
+          '0%, 100%': { opacity: '1' },
+          '50%': { opacity: '0.7' },
+        },
+        rotateSlow: {
+          'from': { transform: 'rotate(0deg)' },
+          'to': { transform: 'rotate(360deg)' },
+        },
+        shimmer: {
+          '0%': { backgroundPosition: '-200% 0' },
+          '100%': { backgroundPosition: '200% 0' },
+        },
+        
+        // Legacy keyframes (for compatibility)
+        slideIn: {
+          '0%': { transform: 'translateY(20px)', opacity: '0' },
+          '100%': { transform: 'translateY(0)', opacity: '1' },
+        },
+        bounceGentle: {
+          '0%, 100%': { transform: 'translateY(0)' },
+          '50%': { transform: 'translateY(-10px)' },
         },
       },
     },

@@ -1,11 +1,12 @@
 'use client';
 
 import React, { useRef, useEffect, useState } from 'react';
-import { motion, useScroll, useTransform, useSpring } from 'framer-motion';
+import { motion } from 'framer-motion';
 import Image from 'next/image';
 import { personalInfo } from '@/data/personal';
 import { skillCategories } from '@/data/skills';
 import SkillIcon from '@/components/ui/SkillIcon';
+import { useAnimationPerformance } from '../../hooks/useAnimationPerformance';
 import {
   Briefcase,
   Code,
@@ -97,31 +98,13 @@ interface AboutProps {
 
 export default function About({ className = '' }: AboutProps) {
   const containerRef = useRef<HTMLDivElement>(null);
-  const heroRef = useRef<HTMLDivElement>(null);
-  const statsRef = useRef<HTMLDivElement>(null);
   const [isVisible, setIsVisible] = useState(false);
   const [hoveredService, setHoveredService] = useState<string | null>(null);
   const [activeSkillCategory, setActiveSkillCategory] = useState<string | null>(
     null
   );
 
-  // Scroll-based animations
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ['start end', 'end start'],
-  });
-
-  const y = useTransform(scrollYProgress, [0, 1], [100, -100]);
-  const opacity = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [0, 1, 1, 0]);
-  const scale = useTransform(
-    scrollYProgress,
-    [0, 0.2, 0.8, 1],
-    [0.8, 1, 1, 0.8]
-  );
-
-  // Spring animations
-  const springScale = useSpring(scale, { stiffness: 300, damping: 30 });
-  const springY = useSpring(y, { stiffness: 300, damping: 30 });
+  const { performanceMode, isMobile, isClient } = useAnimationPerformance();
 
   // Intersection Observer for entrance animations
   useEffect(() => {
@@ -146,7 +129,10 @@ export default function About({ className = '' }: AboutProps) {
   const fullText = personalInfo.aboutText.join(' ');
 
   useEffect(() => {
-    if (!isVisible) return;
+    if (!isVisible || performanceMode === 'low') {
+      setTypedText(fullText);
+      return;
+    }
 
     let index = 0;
     const timer = setInterval(() => {
@@ -159,55 +145,62 @@ export default function About({ className = '' }: AboutProps) {
     }, 30);
 
     return () => clearInterval(timer);
-  }, [isVisible, fullText]);
+  }, [isVisible, fullText, performanceMode]);
+
+  // Animation variants based on performance mode
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: performanceMode === 'low' ? 0 : 0.2,
+        duration: performanceMode === 'low' ? 0.3 : 0.8,
+      },
+    },
+  };
+
+  const itemVariants = {
+    hidden: {
+      opacity: 0,
+      y: performanceMode === 'low' ? 0 : 30,
+    },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: performanceMode === 'low' ? 0.3 : 0.8,
+        ease: 'easeOut',
+      },
+    },
+  };
 
   return (
     <motion.div
       ref={containerRef}
-      style={{ opacity, scale: springScale }}
-      className={`space-y-16 ${className} relative overflow-hidden`}
+      className={`space-y-16 ${className} relative overflow-hidden animate-fade-in-up`}
+      initial="hidden"
+      animate={isVisible ? 'visible' : 'hidden'}
+      variants={containerVariants}
     >
-      {/* 🌟 HERO SECTION - Enhanced Visual Appeal */}
-      <motion.section ref={heroRef} style={{ y: springY }} className="relative">
-        {/* Background Effects */}
+      {/* Background Effects - Only for high performance */}
+      {isClient && performanceMode === 'high' && (
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
-          {/* Animated gradient orbs */}
           <div className="absolute top-10 left-10 w-72 h-72 bg-gradient-to-r from-orange-400/20 to-purple-500/20 rounded-full blur-3xl animate-pulse" />
-          <div className="absolute bottom-20 right-10 w-96 h-96 bg-gradient-to-r from-blue-400/15 to-cyan-500/15 rounded-full blur-3xl animate-pulse delay-1000" />
-
-          {/* Floating particles */}
-          {Array.from({ length: 20 }).map((_, i) => (
-            <motion.div
-              key={i}
-              className="absolute w-1 h-1 bg-orange-400/40 rounded-full"
-              animate={{
-                x: [0, 100, 0],
-                y: [0, -100, 0],
-                opacity: [0, 1, 0],
-              }}
-              transition={{
-                duration: 8 + Math.random() * 4,
-                repeat: Infinity,
-                delay: Math.random() * 5,
-              }}
-              style={{
-                left: `${Math.random() * 100}%`,
-                top: `${Math.random() * 100}%`,
-              }}
-            />
-          ))}
+          <div
+            className="absolute bottom-20 right-10 w-96 h-96 bg-gradient-to-r from-blue-400/15 to-cyan-500/15 rounded-full blur-3xl animate-pulse"
+            style={{ animationDelay: '1s' }}
+          />
         </div>
+      )}
 
-        {/* Hero Content */}
-        <div className="relative z-10 grid lg:grid-cols-2 gap-12 items-center">
+      {/* Hero Section */}
+      <motion.section variants={itemVariants} className="relative z-10">
+        <div className="grid lg:grid-cols-2 gap-12 items-center">
           {/* Left: Enhanced Profile Card */}
           <motion.div
-            initial={{ opacity: 0, x: -50 }}
-            animate={{ opacity: isVisible ? 1 : 0, x: isVisible ? 0 : -50 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-            className="relative"
+            variants={itemVariants}
+            className="relative animate-slide-in-left"
           >
-            {/* Profile Card with 3D effects */}
             <div className="relative bg-gradient-to-br from-gray-800/80 to-gray-900/80 backdrop-blur-xl rounded-3xl p-8 border border-gray-700/50 shadow-2xl hover:shadow-orange-500/20 transition-all duration-700 group">
               {/* Holographic overlay */}
               <div className="absolute inset-0 bg-gradient-to-r from-orange-400/5 via-purple-500/5 to-cyan-400/5 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
@@ -215,18 +208,22 @@ export default function About({ className = '' }: AboutProps) {
               {/* Profile Image with enhanced effects */}
               <div className="relative mb-6 flex justify-center">
                 <div className="relative">
-                  {/* Rotating rings around avatar */}
-                  <div
-                    className="absolute inset-0 rounded-full border-2 border-orange-400/30 animate-spin-slow"
-                    style={{ padding: '20px' }}
-                  />
-                  <div
-                    className="absolute inset-0 rounded-full border border-purple-400/20 animate-reverse-spin"
-                    style={{ padding: '30px' }}
-                  />
+                  {/* Rotating rings around avatar - only for high performance */}
+                  {performanceMode === 'high' && (
+                    <>
+                      <div
+                        className="absolute inset-0 rounded-full border-2 border-orange-400/30 animate-spin-slow"
+                        style={{ padding: '20px' }}
+                      />
+                      <div
+                        className="absolute inset-0 rounded-full border border-purple-400/20 animate-reverse-spin"
+                        style={{ padding: '30px' }}
+                      />
+                    </>
+                  )}
 
                   {/* Avatar with glow effect */}
-                  <div className="relative w-32 h-32 rounded-full overflow-hidden border-4 border-gray-700/50 shadow-2xl group-hover:shadow-orange-500/30 transition-all duration-500">
+                  <div className="relative w-32 h-32 rounded-full overflow-hidden border-4 border-gray-700/50 shadow-2xl group-hover:shadow-orange-500/30 transition-all duration-500 animate-scale-in">
                     <Image
                       src={personalInfo.portrait}
                       alt={personalInfo.fullName}
@@ -241,68 +238,42 @@ export default function About({ className = '' }: AboutProps) {
 
               {/* Name and Title with animated gradients */}
               <div className="text-center mb-6">
-                <motion.h3
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{
-                    opacity: isVisible ? 1 : 0,
-                    y: isVisible ? 0 : 20,
-                  }}
-                  transition={{ delay: 0.4 }}
-                  className="text-2xl font-bold mb-2"
-                >
-                  <span className="bg-gradient-to-r from-orange-400 via-purple-500 to-cyan-400 bg-clip-text text-transparent animate-gradient-x">
+                <h3 className="text-2xl font-bold mb-2 animate-fade-in-up">
+                  <span className="bg-gradient-to-r from-orange-400 via-purple-500 to-cyan-400 bg-clip-text text-transparent animate-gradient-shift">
                     {personalInfo.displayName}
                   </span>
-                </motion.h3>
+                </h3>
 
-                <motion.p
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: isVisible ? 1 : 0 }}
-                  transition={{ delay: 0.6 }}
-                  className="text-lg text-gray-400 flex items-center justify-center gap-2"
-                >
+                <p className="text-lg text-gray-400 flex items-center justify-center gap-2 animate-fade-in">
                   <Sparkles className="w-5 h-5 text-orange-400" />
                   {personalInfo.title}
-                </motion.p>
+                </p>
               </div>
 
               {/* Personal Info with icons */}
-              <div className="space-y-3 text-sm">
-                <motion.div
-                  initial={{ opacity: 0, x: -20 }}
-                  animate={{
-                    opacity: isVisible ? 1 : 0,
-                    x: isVisible ? 0 : -20,
-                  }}
-                  transition={{ delay: 0.7 }}
-                  className="flex items-center gap-3 text-gray-300 hover:text-orange-400 transition-colors duration-300"
-                >
+              <div
+                className="space-y-3 text-sm animate-fade-in-up"
+                style={{ animationDelay: '0.4s' }}
+              >
+                <div className="flex items-center gap-3 text-gray-300 hover:text-orange-400 transition-colors duration-300">
                   <Calendar className="w-4 h-4 text-orange-400" />
                   <span>Born {personalInfo.birthday}</span>
-                </motion.div>
+                </div>
 
-                <motion.div
-                  initial={{ opacity: 0, x: -20 }}
-                  animate={{
-                    opacity: isVisible ? 1 : 0,
-                    x: isVisible ? 0 : -20,
-                  }}
-                  transition={{ delay: 0.8 }}
-                  className="flex items-center gap-3 text-gray-300 hover:text-orange-400 transition-colors duration-300"
-                >
+                <div className="flex items-center gap-3 text-gray-300 hover:text-orange-400 transition-colors duration-300">
                   <MapPin className="w-4 h-4 text-orange-400" />
                   <span>Ho Chi Minh City, Vietnam</span>
-                </motion.div>
+                </div>
               </div>
 
               {/* Download Resume Button */}
               <motion.a
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: isVisible ? 1 : 0, y: isVisible ? 0 : 20 }}
-                transition={{ delay: 0.9 }}
+                whileHover={performanceMode !== 'low' ? { scale: 1.05 } : {}}
+                whileTap={{ scale: 0.95 }}
                 href={personalInfo.resume}
                 download="William_Resume.pdf"
-                className="mt-6 w-full flex items-center justify-center gap-2 bg-gradient-to-r from-orange-500 to-purple-600 text-white py-3 px-6 rounded-2xl font-semibold hover:shadow-lg hover:shadow-orange-500/25 transition-all duration-300 group/btn"
+                className="mt-6 w-full flex items-center justify-center gap-2 bg-gradient-to-r from-orange-500 to-purple-600 text-white py-3 px-6 rounded-2xl font-semibold hover:shadow-lg hover:shadow-orange-500/25 transition-all duration-300 group/btn animate-scale-in"
+                style={{ animationDelay: '0.6s' }}
               >
                 <Download className="w-4 h-4 group-hover/btn:animate-bounce" />
                 Download Resume
@@ -312,14 +283,12 @@ export default function About({ className = '' }: AboutProps) {
 
           {/* Right: Animated About Text */}
           <motion.div
-            initial={{ opacity: 0, x: 50 }}
-            animate={{ opacity: isVisible ? 1 : 0, x: isVisible ? 0 : 50 }}
-            transition={{ duration: 0.8, delay: 0.4 }}
-            className="space-y-6"
+            variants={itemVariants}
+            className="space-y-6 animate-slide-in-right"
           >
             <div className="flex items-center gap-3 mb-6">
               <motion.div
-                animate={{ rotate: 360 }}
+                animate={performanceMode === 'high' ? { rotate: 360 } : {}}
                 transition={{ duration: 20, repeat: Infinity, ease: 'linear' }}
                 className="w-12 h-12 bg-gradient-to-r from-orange-400 to-purple-500 rounded-2xl flex items-center justify-center"
               >
@@ -332,11 +301,13 @@ export default function About({ className = '' }: AboutProps) {
             <div className="relative bg-gray-800/50 backdrop-blur-sm rounded-2xl p-6 border border-gray-700/30">
               <div className="text-gray-300 leading-relaxed text-lg">
                 {typedText}
-                <motion.span
-                  animate={{ opacity: [1, 0] }}
-                  transition={{ duration: 0.5, repeat: Infinity }}
-                  className="inline-block w-0.5 h-6 bg-orange-400 ml-1"
-                />
+                {performanceMode !== 'low' && (
+                  <motion.span
+                    animate={{ opacity: [1, 0] }}
+                    transition={{ duration: 0.5, repeat: Infinity }}
+                    className="inline-block w-0.5 h-6 bg-orange-400 ml-1"
+                  />
+                )}
               </div>
             </div>
 
@@ -345,13 +316,9 @@ export default function About({ className = '' }: AboutProps) {
               {funFacts.map((fact, index) => (
                 <motion.div
                   key={index}
-                  initial={{ opacity: 0, scale: 0.8 }}
-                  animate={{
-                    opacity: isVisible ? 1 : 0,
-                    scale: isVisible ? 1 : 0.8,
-                  }}
-                  transition={{ delay: 1 + index * 0.1 }}
-                  className="bg-gray-800/30 backdrop-blur-sm rounded-xl p-4 border border-gray-700/30 hover:border-orange-500/50 transition-all duration-300 group cursor-pointer"
+                  variants={itemVariants}
+                  className="bg-gray-800/30 backdrop-blur-sm rounded-xl p-4 border border-gray-700/30 hover:border-orange-500/50 transition-all duration-300 group cursor-pointer animate-scale-in"
+                  style={{ animationDelay: `${0.8 + index * 0.1}s` }}
                 >
                   <div className="flex items-center gap-3">
                     <fact.icon
@@ -369,41 +336,24 @@ export default function About({ className = '' }: AboutProps) {
         </div>
       </motion.section>
 
-      {/* 🌟 STATISTICS SECTION - Animated counters */}
-      <motion.section
-        ref={statsRef}
-        initial={{ opacity: 0, y: 50 }}
-        animate={{ opacity: isVisible ? 1 : 0, y: isVisible ? 0 : 50 }}
-        transition={{ duration: 0.8, delay: 1.2 }}
-        className="relative"
-      >
+      {/* Statistics Section */}
+      <motion.section variants={itemVariants} className="relative">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
           {statistics.map((stat, index) => (
             <motion.div
               key={stat.label}
-              initial={{ opacity: 0, scale: 0.5 }}
-              animate={{
-                opacity: isVisible ? 1 : 0,
-                scale: isVisible ? 1 : 0.5,
-              }}
-              transition={{
-                delay: 1.4 + index * 0.1,
-                type: 'spring',
-                bounce: 0.4,
-              }}
-              className="relative text-center p-6 bg-gray-800/40 backdrop-blur-sm rounded-2xl border border-gray-700/30 hover:border-orange-500/50 hover:shadow-xl hover:shadow-orange-500/10 transition-all duration-500 group cursor-pointer"
+              variants={itemVariants}
+              whileHover={
+                performanceMode !== 'low' ? { scale: 1.05, y: -5 } : {}
+              }
+              className="relative text-center p-6 bg-gray-800/40 backdrop-blur-sm rounded-2xl border border-gray-700/30 hover:border-orange-500/50 hover:shadow-xl hover:shadow-orange-500/10 transition-all duration-500 group cursor-pointer animate-scale-in"
+              style={{ animationDelay: `${1.2 + index * 0.1}s` }}
             >
-              {/* Background glow effect */}
-              <div
-                className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-20 transition-opacity duration-500 blur-xl"
-                style={{
-                  background: `radial-gradient(circle, ${stat.color}40, transparent)`,
-                }}
-              />
-
               {/* Icon */}
               <motion.div
-                whileHover={{ rotate: 360, scale: 1.1 }}
+                whileHover={
+                  performanceMode !== 'low' ? { rotate: 360, scale: 1.1 } : {}
+                }
                 transition={{ duration: 0.5 }}
                 className="w-12 h-12 mx-auto mb-4 rounded-xl flex items-center justify-center relative z-10"
                 style={{
@@ -413,13 +363,16 @@ export default function About({ className = '' }: AboutProps) {
                 <stat.icon className="w-6 h-6" style={{ color: stat.color }} />
               </motion.div>
 
-              {/* Number with counter animation */}
-              <motion.div
-                className="text-2xl lg:text-3xl font-bold mb-2 relative z-10"
-                style={{ color: stat.color }}
+              {/* Number */}
+              <div
+                className="text-2xl lg:text-3xl font-bold mb-2 relative z-10 animate-count-up"
+                style={{
+                  color: stat.color,
+                  animationDelay: `${1.4 + index * 0.1}s`,
+                }}
               >
                 {stat.number}
-              </motion.div>
+              </div>
 
               {/* Label */}
               <div className="text-sm text-gray-400 group-hover:text-gray-300 transition-colors duration-300 relative z-10">
@@ -430,16 +383,11 @@ export default function About({ className = '' }: AboutProps) {
         </div>
       </motion.section>
 
-      {/* 🌟 SERVICES SECTION - Interactive cards */}
-      <motion.section
-        initial={{ opacity: 0, y: 50 }}
-        animate={{ opacity: isVisible ? 1 : 0, y: isVisible ? 0 : 50 }}
-        transition={{ duration: 0.8, delay: 1.6 }}
-        className="space-y-8"
-      >
+      {/* Services Section */}
+      <motion.section variants={itemVariants} className="space-y-8">
         <div className="flex items-center gap-3 mb-8">
           <motion.div
-            animate={{ rotate: [0, 360] }}
+            animate={performanceMode === 'high' ? { rotate: [0, 360] } : {}}
             transition={{ duration: 15, repeat: Infinity, ease: 'linear' }}
             className="w-12 h-12 bg-gradient-to-r from-purple-500 to-cyan-400 rounded-2xl flex items-center justify-center"
           >
@@ -452,62 +400,27 @@ export default function About({ className = '' }: AboutProps) {
           {services.map((service, index) => (
             <motion.div
               key={service.id}
-              initial={{ opacity: 0, x: index % 2 === 0 ? -50 : 50 }}
-              animate={{
-                opacity: isVisible ? 1 : 0,
-                x: isVisible ? 0 : index % 2 === 0 ? -50 : 50,
-              }}
-              transition={{ delay: 1.8 + index * 0.2 }}
+              variants={itemVariants}
               onMouseEnter={() => setHoveredService(service.id)}
               onMouseLeave={() => setHoveredService(null)}
-              className="relative group"
+              className="relative group animate-slide-in-up"
+              style={{ animationDelay: `${1.6 + index * 0.2}s` }}
             >
-              {/* Background with gradient animation */}
-              <div
-                className="absolute inset-0 bg-gradient-to-r opacity-0 group-hover:opacity-10 transition-opacity duration-500 rounded-3xl blur-xl"
-                style={{
-                  background: `linear-gradient(135deg, ${service.color}40, transparent)`,
-                }}
-              />
-
               <div className="relative bg-gray-800/50 backdrop-blur-sm rounded-3xl p-6 border border-gray-700/50 hover:border-orange-500/30 hover:shadow-xl hover:shadow-orange-500/10 transition-all duration-500 overflow-hidden">
-                {/* Animated background pattern */}
-                <div className="absolute inset-0 opacity-5">
-                  <div
-                    className="absolute inset-0"
-                    style={{
-                      backgroundImage: `radial-gradient(circle at 50% 50%, ${service.color}40 1px, transparent 1px)`,
-                      backgroundSize: '20px 20px',
-                      animation:
-                        hoveredService === service.id
-                          ? 'float 4s ease-in-out infinite'
-                          : 'none',
-                    }}
-                  />
-                </div>
-
                 <div className="relative z-10 flex items-start gap-6">
                   {/* Enhanced Icon */}
                   <div className="flex-shrink-0">
                     <motion.div
-                      whileHover={{ scale: 1.1, rotate: 5 }}
+                      whileHover={
+                        performanceMode !== 'low'
+                          ? { scale: 1.1, rotate: 5 }
+                          : {}
+                      }
                       className="relative w-16 h-16 flex items-center justify-center rounded-2xl overflow-hidden"
                       style={{
                         background: `linear-gradient(135deg, ${service.color}20, ${service.color}10)`,
                       }}
                     >
-                      {/* Rotating border */}
-                      <div
-                        className="absolute inset-0 rounded-2xl"
-                        style={{
-                          background: `conic-gradient(from 0deg, ${service.color}80, transparent, ${service.color}80)`,
-                          animation:
-                            hoveredService === service.id
-                              ? 'spin 2s linear infinite'
-                              : 'none',
-                        }}
-                      />
-
                       <div className="relative z-10 w-14 h-14 bg-gray-800/90 rounded-xl flex items-center justify-center">
                         <Image
                           src={service.icon}
@@ -544,35 +457,35 @@ export default function About({ className = '' }: AboutProps) {
                     {/* Tech stack */}
                     <div className="flex flex-wrap gap-2 mb-4">
                       {service.tech.map((tech, techIndex) => (
-                        <motion.span
+                        <span
                           key={tech}
-                          initial={{ opacity: 0, scale: 0.8 }}
-                          animate={{ opacity: 1, scale: 1 }}
-                          transition={{
-                            delay: 2 + index * 0.2 + techIndex * 0.1,
+                          className="text-xs px-2 py-1 bg-gray-700/50 text-gray-300 rounded-lg border border-gray-600/30 hover:border-orange-500/50 transition-all duration-300 animate-fade-in"
+                          style={{
+                            animationDelay: `${
+                              1.8 + index * 0.2 + techIndex * 0.1
+                            }s`,
                           }}
-                          className="text-xs px-2 py-1 bg-gray-700/50 text-gray-300 rounded-lg border border-gray-600/30 hover:border-orange-500/50 transition-all duration-300"
                         >
                           {tech}
-                        </motion.span>
+                        </span>
                       ))}
                     </div>
 
                     {/* Achievements */}
                     <div className="grid grid-cols-3 gap-2">
                       {service.achievements.map((achievement, achIndex) => (
-                        <motion.div
+                        <div
                           key={achievement}
-                          initial={{ opacity: 0, y: 10 }}
-                          animate={{ opacity: 1, y: 0 }}
-                          transition={{
-                            delay: 2.2 + index * 0.2 + achIndex * 0.1,
+                          className="text-xs text-center p-2 bg-gray-700/30 rounded-lg border border-gray-600/20 hover:border-orange-500/30 transition-all duration-300 animate-scale-in"
+                          style={{
+                            animationDelay: `${
+                              2 + index * 0.2 + achIndex * 0.1
+                            }s`,
                           }}
-                          className="text-xs text-center p-2 bg-gray-700/30 rounded-lg border border-gray-600/20 hover:border-orange-500/30 transition-all duration-300"
                         >
                           <Zap className="w-3 h-3 mx-auto mb-1 text-orange-400" />
                           <span className="text-gray-400">{achievement}</span>
-                        </motion.div>
+                        </div>
                       ))}
                     </div>
                   </div>
@@ -583,16 +496,11 @@ export default function About({ className = '' }: AboutProps) {
         </div>
       </motion.section>
 
-      {/* 🌟 SKILLS SECTION - Interactive grid */}
-      <motion.section
-        initial={{ opacity: 0, y: 50 }}
-        animate={{ opacity: isVisible ? 1 : 0, y: isVisible ? 0 : 50 }}
-        transition={{ duration: 0.8, delay: 2.5 }}
-        className="space-y-8"
-      >
+      {/* Skills Section */}
+      <motion.section variants={itemVariants} className="space-y-8">
         <div className="flex items-center gap-3 mb-8">
           <motion.div
-            animate={{ rotate: [0, 360] }}
+            animate={performanceMode === 'high' ? { rotate: [0, 360] } : {}}
             transition={{ duration: 10, repeat: Infinity, ease: 'linear' }}
             className="w-12 h-12 bg-gradient-to-r from-cyan-400 to-blue-500 rounded-2xl flex items-center justify-center"
           >
@@ -605,50 +513,27 @@ export default function About({ className = '' }: AboutProps) {
           {skillCategories.map((category, categoryIndex) => (
             <motion.div
               key={category.title}
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: isVisible ? 1 : 0, y: isVisible ? 0 : 30 }}
-              transition={{ delay: 2.7 + categoryIndex * 0.1 }}
+              variants={itemVariants}
               onMouseEnter={() => setActiveSkillCategory(category.title)}
               onMouseLeave={() => setActiveSkillCategory(null)}
-              className="relative bg-gray-800/30 backdrop-blur-sm rounded-3xl p-6 border border-gray-700/30 hover:border-orange-500/30 hover:shadow-xl hover:shadow-orange-500/10 transition-all duration-500 group overflow-hidden"
+              className="relative bg-gray-800/30 backdrop-blur-sm rounded-3xl p-6 border border-gray-700/30 hover:border-orange-500/30 hover:shadow-xl hover:shadow-orange-500/10 transition-all duration-500 group overflow-hidden animate-slide-in-up"
+              style={{ animationDelay: `${2.4 + categoryIndex * 0.1}s` }}
             >
               {/* Background animation */}
               <div className="absolute inset-0 bg-gradient-to-br from-orange-400/5 via-purple-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-3xl" />
 
-              {/* Floating particles for active category */}
-              {activeSkillCategory === category.title && (
-                <>
-                  {Array.from({ length: 10 }).map((_, i) => (
-                    <motion.div
-                      key={i}
-                      className="absolute w-1 h-1 bg-orange-400/60 rounded-full"
-                      animate={{
-                        x: [0, Math.random() * 100 - 50],
-                        y: [0, Math.random() * 100 - 50],
-                        opacity: [0, 1, 0],
-                      }}
-                      transition={{
-                        duration: 2 + Math.random() * 2,
-                        repeat: Infinity,
-                        delay: Math.random() * 2,
-                      }}
-                      style={{
-                        left: `${Math.random() * 100}%`,
-                        top: `${Math.random() * 100}%`,
-                      }}
-                    />
-                  ))}
-                </>
-              )}
-
               <div className="relative z-10">
                 <motion.h4
-                  whileHover={{ scale: 1.05 }}
+                  whileHover={performanceMode !== 'low' ? { scale: 1.05 } : {}}
                   className="text-xl font-semibold text-orange-400 mb-6 flex items-center gap-3"
                 >
                   <motion.div
                     animate={{
-                      rotate: activeSkillCategory === category.title ? 360 : 0,
+                      rotate:
+                        activeSkillCategory === category.title &&
+                        performanceMode !== 'low'
+                          ? 360
+                          : 0,
                     }}
                     transition={{ duration: 0.5 }}
                     className="w-8 h-8 bg-gradient-to-r from-orange-400 to-purple-500 rounded-lg flex items-center justify-center"
@@ -662,23 +547,23 @@ export default function About({ className = '' }: AboutProps) {
                   {category.skills.map((skill, skillIndex) => (
                     <motion.div
                       key={skill.id}
-                      initial={{ opacity: 0, scale: 0.8 }}
-                      animate={{ opacity: 1, scale: 1 }}
-                      transition={{
-                        delay: 2.9 + categoryIndex * 0.1 + skillIndex * 0.05,
+                      variants={itemVariants}
+                      whileHover={
+                        performanceMode !== 'low' ? { scale: 1.05, y: -2 } : {}
+                      }
+                      className="flex items-center gap-3 p-3 bg-gray-700/50 backdrop-blur-sm rounded-2xl border border-gray-600/30 hover:border-orange-500/50 hover:bg-orange-500/10 hover:shadow-lg hover:shadow-orange-500/20 transition-all duration-500 group/skill cursor-pointer animate-scale-in"
+                      style={{
+                        animationDelay: `${
+                          2.6 + categoryIndex * 0.1 + skillIndex * 0.05
+                        }s`,
                       }}
-                      whileHover={{ scale: 1.05, y: -2 }}
-                      className="flex items-center gap-3 p-3 bg-gray-700/50 backdrop-blur-sm rounded-2xl border border-gray-600/30 hover:border-orange-500/50 hover:bg-orange-500/10 hover:shadow-lg hover:shadow-orange-500/20 transition-all duration-500 group/skill cursor-pointer"
                     >
-                      {/* Skill icon with glow */}
-                      <div className="relative">
-                        <div className="absolute inset-0 bg-orange-400/20 rounded-lg blur-sm opacity-0 group-hover/skill:opacity-100 transition-opacity duration-300" />
-                        <div className="relative group-hover/skill:scale-125 transition-transform duration-500">
-                          <SkillIcon
-                            skillId={skill.id}
-                            className="w-6 h-6 text-orange-400"
-                          />
-                        </div>
+                      {/* Skill icon */}
+                      <div className="relative group-hover/skill:scale-125 transition-transform duration-500">
+                        <SkillIcon
+                          skillId={skill.id}
+                          className="w-6 h-6 text-orange-400"
+                        />
                       </div>
 
                       {/* Skill name */}
@@ -689,10 +574,9 @@ export default function About({ className = '' }: AboutProps) {
 
                         {/* Skill level indicator */}
                         <div className="mt-1 h-1 bg-gray-600/50 rounded-full overflow-hidden">
-                          <motion.div
-                            className="h-full bg-gradient-to-r from-orange-400 to-purple-500 rounded-full"
-                            initial={{ width: 0 }}
-                            animate={{
+                          <div
+                            className="h-full bg-gradient-to-r from-orange-400 to-purple-500 rounded-full transition-all duration-1000 animate-progress-bar"
+                            style={{
                               width:
                                 skill.level === 'expert'
                                   ? '100%'
@@ -701,11 +585,9 @@ export default function About({ className = '' }: AboutProps) {
                                   : skill.level === 'intermediate'
                                   ? '60%'
                                   : '40%',
-                            }}
-                            transition={{
-                              delay:
-                                3 + categoryIndex * 0.1 + skillIndex * 0.05,
-                              duration: 0.8,
+                              animationDelay: `${
+                                2.8 + categoryIndex * 0.1 + skillIndex * 0.05
+                              }s`,
                             }}
                           />
                         </div>
@@ -718,62 +600,6 @@ export default function About({ className = '' }: AboutProps) {
           ))}
         </div>
       </motion.section>
-
-      {/* Custom CSS animations */}
-      <style jsx>{`
-        @keyframes gradient-x {
-          0%,
-          100% {
-            background-position: 0% 50%;
-          }
-          50% {
-            background-position: 100% 50%;
-          }
-        }
-
-        @keyframes spin-slow {
-          from {
-            transform: rotate(0deg);
-          }
-          to {
-            transform: rotate(360deg);
-          }
-          animation-duration: 20s;
-        }
-
-        @keyframes reverse-spin {
-          from {
-            transform: rotate(360deg);
-          }
-          to {
-            transform: rotate(0deg);
-          }
-          animation-duration: 15s;
-        }
-
-        @keyframes float {
-          0%,
-          100% {
-            transform: translateY(0px);
-          }
-          50% {
-            transform: translateY(-10px);
-          }
-        }
-
-        .animate-gradient-x {
-          background-size: 200% 200%;
-          animation: gradient-x 3s ease infinite;
-        }
-
-        .animate-spin-slow {
-          animation: spin-slow 20s linear infinite;
-        }
-
-        .animate-reverse-spin {
-          animation: reverse-spin 15s linear infinite;
-        }
-      `}</style>
     </motion.div>
   );
 }
