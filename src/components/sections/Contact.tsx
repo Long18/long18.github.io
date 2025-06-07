@@ -1,13 +1,7 @@
 'use client';
 
 import React, { useState, useRef, useEffect } from 'react';
-import {
-  motion,
-  useScroll,
-  useTransform,
-  useSpring,
-  AnimatePresence,
-} from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import {
   Mail,
   Phone,
@@ -30,6 +24,7 @@ import {
 } from 'lucide-react';
 import { contactInfo } from '@/data/personal';
 import { sendContactEmail, type EmailData } from '@/services/emailService';
+import { useAnimationPerformance } from '../../hooks/useAnimationPerformance';
 
 interface FormData {
   name: string;
@@ -47,10 +42,6 @@ interface FormErrors {
 
 const Contact: React.FC = () => {
   const containerRef = useRef<HTMLDivElement>(null);
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ['start end', 'end start'],
-  });
 
   const [formData, setFormData] = useState<FormData>({
     name: '',
@@ -66,19 +57,16 @@ const Contact: React.FC = () => {
   const [focusedField, setFocusedField] = useState<string | null>(null);
   const [typedText, setTypedText] = useState('');
 
-  // Scroll-based animations
-  const y = useTransform(scrollYProgress, [0, 1], [100, -100]);
-  const opacity = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [0, 1, 1, 0]);
-  const scale = useTransform(
-    scrollYProgress,
-    [0, 0.2, 0.8, 1],
-    [0.8, 1, 1, 0.8]
-  );
-  const springY = useSpring(y, { stiffness: 400, damping: 90 });
+  const { performanceMode, isMobile, isClient } = useAnimationPerformance();
 
   // Typing animation effect
   const fullText = "Let's Connect & Create Something Amazing Together!";
   useEffect(() => {
+    if (performanceMode === 'low') {
+      setTypedText(fullText);
+      return;
+    }
+
     let index = 0;
     const timer = setInterval(() => {
       if (index <= fullText.length) {
@@ -90,12 +78,7 @@ const Contact: React.FC = () => {
     }, 50);
 
     return () => clearInterval(timer);
-  }, []);
-
-  // No need to load SMTP.js anymore - using reliable alternatives
-  // useEffect(() => {
-  //   // SMTP.js loading code removed for better reliability
-  // }, []);
+  }, [performanceMode]);
 
   // Contact stats
   const contactStats = [
@@ -165,21 +148,24 @@ const Contact: React.FC = () => {
 
   const sendEmail = async (data: EmailData): Promise<string> => {
     try {
-      // Use EmailJS to send real emails
       console.log('🚀 Attempting to send email via EmailJS...', data);
       const result = await sendContactEmail(data);
       return result;
     } catch (error) {
       console.error('❌ Failed to send email via EmailJS:', error);
-      
-      // Show setup message if EmailJS not configured
+
       if (error instanceof Error && error.message.includes('not configured')) {
         console.log('📖 EmailJS not configured, using mailto fallback');
-        alert('⚙️ EmailJS chưa được cấu hình. Sẽ mở email client để gửi email thủ công.\n\n📖 Xem docs/EMAILJS_SETUP.md để setup EmailJS');
+        alert(
+          '⚙️ EmailJS chưa được cấu hình. Sẽ mở email client để gửi email thủ công.\n\n📖 Xem docs/EMAILJS_SETUP.md để setup EmailJS'
+        );
       }
-      
-      // Fallback to mailto if EmailJS fails
-      const mailtoLink = `mailto:us.thanhlong18@gmail.com?subject=${encodeURIComponent(data.subject)}&body=${encodeURIComponent(`Tên: ${data.name}\nEmail: ${data.email}\nTin nhắn: ${data.message}`)}`;
+
+      const mailtoLink = `mailto:us.thanhlong18@gmail.com?subject=${encodeURIComponent(
+        data.subject
+      )}&body=${encodeURIComponent(
+        `Tên: ${data.name}\nEmail: ${data.email}\nTin nhắn: ${data.message}`
+      )}`;
       window.open(mailtoLink, '_blank');
       return 'Fallback: Email client opened';
     }
@@ -198,7 +184,6 @@ const Contact: React.FC = () => {
     try {
       console.log('Form data being sent:', formData);
 
-      // Send email using EmailJS
       const result = await sendEmail({
         name: formData.name,
         email: formData.email,
@@ -217,28 +202,23 @@ const Contact: React.FC = () => {
         message: '',
       });
 
-      // Show success message based on result
       if (result.includes('Fallback')) {
         alert(
-          "Đã mở ứng dụng email của bạn với nội dung được điền sẵn. Vui lòng gửi từ đó để hoàn tất!"
+          'Đã mở ứng dụng email của bạn với nội dung được điền sẵn. Vui lòng gửi từ đó để hoàn tất!'
         );
       } else {
         alert(
-          "Email đã được gửi thành công! Tôi sẽ phản hồi bạn sớm nhất có thể. 🚀"
+          'Email đã được gửi thành công! Tôi sẽ phản hồi bạn sớm nhất có thể. 🚀'
         );
       }
     } catch (error) {
       console.error('Error opening email client:', error);
       setSubmitStatus('error');
-
-      // Show error message with manual contact info
       alert(
         'Sorry, there was an error opening your email client. Please contact me directly at us.thanhlong18@gmail.com'
       );
     } finally {
       setIsSubmitting(false);
-
-      // Reset status after 4 seconds (same as original)
       setTimeout(() => {
         setSubmitStatus('idle');
       }, 4000);
@@ -277,181 +257,129 @@ const Contact: React.FC = () => {
   return (
     <motion.div
       ref={containerRef}
-      style={{ opacity }}
-      className="relative min-h-screen overflow-hidden"
+      className="relative min-h-screen overflow-hidden animate-fade-in-up"
     >
-      {/* Animated Background */}
-      <div className="absolute inset-0 -z-10">
-        {/* Floating particles */}
-        {Array.from({ length: 60 }).map((_, i) => (
+      {/* Animated Background - Only for high performance */}
+      {isClient && performanceMode === 'high' && (
+        <div className="absolute inset-0 -z-10">
+          {/* Gradient orbs */}
           <motion.div
-            key={i}
-            className="absolute w-1 h-1 bg-orange-400/40 rounded-full"
             animate={{
-              x: [0, Math.random() * 120 - 60],
-              y: [0, Math.random() * 120 - 60],
-              opacity: [0, 1, 0],
+              x: [0, 150, -150, 0],
+              y: [0, -120, 120, 0],
+              scale: [1, 1.3, 0.7, 1],
+            }}
+            transition={{ duration: 25, repeat: Infinity, ease: 'linear' }}
+            className="absolute top-1/3 left-1/5 w-96 h-96 bg-gradient-to-r from-orange-500/25 to-purple-500/25 rounded-full blur-3xl"
+          />
+          <motion.div
+            animate={{
+              x: [0, -200, 200, 0],
+              y: [0, 200, -200, 0],
+              scale: [0.7, 1.4, 0.8, 0.7],
+            }}
+            transition={{ duration: 30, repeat: Infinity, ease: 'linear' }}
+            className="absolute top-2/3 right-1/5 w-80 h-80 bg-gradient-to-l from-cyan-500/20 to-purple-500/20 rounded-full blur-3xl"
+          />
+
+          {/* Animated grid */}
+          <motion.div
+            animate={{
+              backgroundPosition: ['0% 0%', '100% 100%'],
             }}
             transition={{
-              duration: 4 + Math.random() * 6,
+              duration: 30,
               repeat: Infinity,
-              delay: Math.random() * 8,
-              ease: 'easeInOut',
+              ease: 'linear',
             }}
+            className="absolute inset-0 opacity-5"
             style={{
-              left: `${Math.random() * 100}%`,
-              top: `${Math.random() * 100}%`,
+              backgroundImage:
+                'radial-gradient(circle at 1px 1px, #f97316 1px, transparent 0)',
+              backgroundSize: '40px 40px',
             }}
           />
-        ))}
+        </div>
+      )}
 
-        {/* Gradient orbs */}
-        <motion.div
-          animate={{
-            x: [0, 150, -150, 0],
-            y: [0, -120, 120, 0],
-            scale: [1, 1.3, 0.7, 1],
-          }}
-          transition={{ duration: 25, repeat: Infinity, ease: 'linear' }}
-          className="absolute top-1/3 left-1/5 w-96 h-96 bg-gradient-to-r from-orange-500/25 to-purple-500/25 rounded-full blur-3xl"
-        />
-        <motion.div
-          animate={{
-            x: [0, -200, 200, 0],
-            y: [0, 200, -200, 0],
-            scale: [0.7, 1.4, 0.8, 0.7],
-          }}
-          transition={{ duration: 30, repeat: Infinity, ease: 'linear' }}
-          className="absolute top-2/3 right-1/5 w-80 h-80 bg-gradient-to-l from-cyan-500/20 to-purple-500/20 rounded-full blur-3xl"
-        />
-
-        {/* Animated grid */}
-        <motion.div
-          animate={{
-            backgroundPosition: ['0% 0%', '100% 100%'],
-          }}
-          transition={{
-            duration: 30,
-            repeat: Infinity,
-            ease: 'linear',
-          }}
-          className="absolute inset-0 opacity-5"
-          style={{
-            backgroundImage:
-              'radial-gradient(circle at 1px 1px, #f97316 1px, transparent 0)',
-            backgroundSize: '40px 40px',
-          }}
-        />
-      </div>
-
-      <motion.div
-        style={{ y: springY, scale }}
-        className="relative z-10 max-w-6xl mx-auto px-6 py-16"
-      >
+      <div className="relative z-10 max-w-6xl mx-auto px-6 py-16">
         {/* Header Section */}
-        <motion.div
-          initial={{ opacity: 0, y: 50 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          className="text-center mb-16"
-        >
-          <motion.div
-            initial={{ scale: 0 }}
-            animate={{ scale: 1 }}
-            transition={{ delay: 0.2, type: 'spring', bounce: 0.6 }}
-            className="inline-flex items-center gap-3 bg-gradient-to-r from-orange-500/20 to-purple-500/20 backdrop-blur-xl px-6 py-3 rounded-full border border-orange-500/30 mb-6"
-          >
+        <div className="text-center mb-16 animate-fade-in-up">
+          <div className="inline-flex items-center gap-3 bg-gradient-to-r from-orange-500/20 to-purple-500/20 backdrop-blur-xl px-6 py-3 rounded-full border border-orange-500/30 mb-6 animate-scale-in">
             <motion.div
-              animate={{ rotate: 360 }}
+              animate={performanceMode === 'high' ? { rotate: 360 } : {}}
               transition={{ duration: 3, repeat: Infinity, ease: 'linear' }}
             >
               <Diamond className="w-5 h-5 text-orange-400" />
             </motion.div>
             <span className="text-orange-300 font-semibold">Get In Touch</span>
-          </motion.div>
+          </div>
 
-          <motion.h1
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.3, duration: 0.8 }}
-            className="text-4xl lg:text-6xl font-bold mb-6"
+          <h1
+            className="text-4xl lg:text-6xl font-bold mb-6 animate-fade-in-up"
+            style={{ animationDelay: '0.2s' }}
           >
-            <span className="bg-gradient-to-r from-orange-400 via-purple-500 to-cyan-400 bg-clip-text text-transparent animate-gradient-text">
+            <span className="bg-gradient-to-r from-orange-400 via-purple-500 to-cyan-400 bg-clip-text text-transparent">
               Contact Me
             </span>
-          </motion.h1>
+          </h1>
 
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.4, duration: 0.8 }}
-            className="text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed mb-4"
+          <div
+            className="text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed mb-4 animate-fade-in"
+            style={{ animationDelay: '0.3s' }}
           >
             {typedText}
-            <motion.span
-              animate={{ opacity: [0, 1, 0] }}
-              transition={{ duration: 1, repeat: Infinity }}
-              className="text-orange-400"
-            >
-              |
-            </motion.span>
-          </motion.div>
+            {performanceMode !== 'low' && (
+              <motion.span
+                animate={{ opacity: [0, 1, 0] }}
+                transition={{ duration: 1, repeat: Infinity }}
+                className="text-orange-400"
+              >
+                |
+              </motion.span>
+            )}
+          </div>
 
-          <motion.p
-            initial={{ opacity: 0, y: 15 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.6, duration: 0.8 }}
-            className="text-gray-400 max-w-2xl mx-auto"
+          <p
+            className="text-gray-400 max-w-2xl mx-auto animate-fade-in"
+            style={{ animationDelay: '0.4s' }}
           >
             Whether you have a project in mind, want to collaborate, or just say
             hello - I&apos;d love to hear from you!
-          </motion.p>
-        </motion.div>
+          </p>
+        </div>
 
         {/* Stats Section */}
-        <motion.div
-          initial={{ opacity: 0, y: 50 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.7, duration: 0.8 }}
-          className="grid grid-cols-2 lg:grid-cols-4 gap-6 mb-16"
-        >
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
           {contactStats.map((stat, index) => (
             <motion.div
               key={stat.label}
-              initial={{ opacity: 0, scale: 0.8 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{
-                delay: 0.8 + index * 0.1,
-                type: 'spring',
-                bounce: 0.4,
-              }}
-              whileHover={{
-                scale: 1.05,
-                rotateY: 10,
-                transition: { duration: 0.3 },
-              }}
-              className="relative group"
+              whileHover={
+                performanceMode !== 'low' ? { scale: 1.05, rotateY: 10 } : {}
+              }
+              transition={{ duration: 0.3 }}
+              className="relative group animate-scale-in"
+              style={{ animationDelay: `${0.5 + index * 0.1}s` }}
             >
               <div className="bg-gradient-to-br from-gray-800/80 to-gray-900/80 backdrop-blur-xl rounded-3xl p-6 border border-gray-700/50 hover:border-orange-500/50 transition-all duration-500 text-center overflow-hidden">
-                {/* Animated background */}
                 <div className="absolute inset-0 bg-gradient-to-r from-orange-400/5 to-purple-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
 
                 <motion.div
-                  whileHover={{ rotate: 360, scale: 1.2 }}
+                  whileHover={
+                    performanceMode !== 'low' ? { rotate: 360, scale: 1.2 } : {}
+                  }
                   transition={{ duration: 0.6 }}
                   className={`inline-flex items-center justify-center w-16 h-16 bg-gradient-to-r from-${stat.color}-500/20 to-${stat.color}-600/20 rounded-2xl mb-4 relative z-10`}
                 >
                   <stat.icon className={`w-8 h-8 text-${stat.color}-400`} />
                 </motion.div>
 
-                <motion.h3
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  transition={{ delay: 0.9 + index * 0.1 }}
-                  className="text-2xl font-bold text-white mb-2 relative z-10"
+                <h3
+                  className="text-2xl font-bold text-white mb-2 relative z-10 animate-count-up"
+                  style={{ animationDelay: `${0.6 + index * 0.1}s` }}
                 >
                   {stat.value}
-                </motion.h3>
+                </h3>
 
                 <p className="text-gray-300 text-sm font-medium relative z-10">
                   {stat.label}
@@ -459,58 +387,27 @@ const Contact: React.FC = () => {
               </div>
             </motion.div>
           ))}
-        </motion.div>
+        </div>
 
         {/* Contact Cards */}
-        <motion.div
-          initial={{ opacity: 0, y: 50 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 1.0, duration: 0.8 }}
-          className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16"
-        >
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
           {contactDetails.map((detail, index) => (
             <motion.div
               key={index}
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 1.1 + index * 0.2 }}
-              whileHover={{
-                y: -10,
-                scale: 1.05,
-                transition: { duration: 0.3 },
-              }}
-              className="relative group"
+              whileHover={
+                performanceMode !== 'low' ? { y: -10, scale: 1.05 } : {}
+              }
+              transition={{ duration: 0.3 }}
+              className="relative group animate-slide-in-up"
+              style={{ animationDelay: `${0.8 + index * 0.1}s` }}
             >
               <div className="bg-gradient-to-br from-gray-800/90 to-gray-900/90 backdrop-blur-xl rounded-3xl p-6 border border-gray-600/50 hover:border-orange-500/50 transition-all duration-500 text-center overflow-hidden min-h-[280px] flex flex-col justify-between shadow-lg">
-                {/* Holographic overlay */}
                 <div className="absolute inset-0 bg-gradient-to-r from-orange-400/10 via-purple-500/10 to-cyan-400/10 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
 
-                {/* Floating particles around card */}
-                <div className="absolute inset-0 overflow-hidden">
-                  {Array.from({ length: 5 }).map((_, i) => (
-                    <motion.div
-                      key={i}
-                      className={`absolute w-1 h-1 bg-${detail.color}-400/60 rounded-full opacity-0 group-hover:opacity-100`}
-                      animate={{
-                        x: [0, Math.random() * 40 - 20],
-                        y: [0, Math.random() * 40 - 20],
-                        opacity: [0, 1, 0],
-                      }}
-                      transition={{
-                        duration: 2 + Math.random() * 2,
-                        repeat: Infinity,
-                        delay: Math.random() * 2,
-                      }}
-                      style={{
-                        left: `${Math.random() * 100}%`,
-                        top: `${Math.random() * 100}%`,
-                      }}
-                    />
-                  ))}
-                </div>
-
                 <motion.div
-                  whileHover={{ rotate: 360, scale: 1.2 }}
+                  whileHover={
+                    performanceMode !== 'low' ? { rotate: 360, scale: 1.2 } : {}
+                  }
                   transition={{ duration: 0.6 }}
                   className={`inline-flex items-center justify-center w-16 h-16 bg-gradient-to-r from-${detail.color}-500/20 to-${detail.color}-600/20 rounded-2xl mb-4 relative z-10 group-hover:shadow-lg group-hover:shadow-${detail.color}-500/30`}
                 >
@@ -530,7 +427,9 @@ const Contact: React.FC = () => {
                     {detail.href ? (
                       <motion.a
                         href={detail.href}
-                        whileHover={{ scale: 1.05 }}
+                        whileHover={
+                          performanceMode !== 'low' ? { scale: 1.05 } : {}
+                        }
                         whileTap={{ scale: 0.95 }}
                         className={`inline-block text-${detail.color}-300 font-semibold hover:text-white transition-colors duration-300 relative z-10 bg-${detail.color}-500/25 border border-${detail.color}-400/20 px-4 py-3 rounded-2xl hover:bg-${detail.color}-500/40 hover:border-${detail.color}-400/40 text-center text-sm max-w-full break-words leading-tight shadow-sm`}
                       >
@@ -546,50 +445,28 @@ const Contact: React.FC = () => {
               </div>
             </motion.div>
           ))}
-        </motion.div>
+        </div>
 
         {/* Enhanced Contact Form */}
-        <motion.div
-          initial={{ opacity: 0, y: 50 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 1.4, duration: 0.8 }}
-          className="max-w-4xl mx-auto"
+        <div
+          className="max-w-4xl mx-auto animate-slide-in-up"
+          style={{ animationDelay: '1s' }}
         >
           <div className="bg-gradient-to-br from-gray-800/60 to-gray-900/60 backdrop-blur-xl rounded-3xl p-8 lg:p-12 border border-gray-700/50 hover:border-orange-500/30 transition-all duration-500 relative overflow-hidden">
-            {/* Animated background pattern */}
-            <div className="absolute inset-0 opacity-5">
-              <motion.div
-                animate={{
-                  backgroundPosition: ['0% 0%', '100% 100%'],
-                }}
-                transition={{
-                  duration: 25,
-                  repeat: Infinity,
-                  ease: 'linear',
-                }}
-                className="w-full h-full"
-                style={{
-                  backgroundImage:
-                    'radial-gradient(circle at 50% 50%, #f97316 2px, transparent 2px)',
-                  backgroundSize: '30px 30px',
-                }}
-              />
-            </div>
-
             {/* Holographic overlay */}
             <div className="absolute inset-0 bg-gradient-to-r from-orange-400/5 via-purple-500/5 to-cyan-400/5 rounded-3xl opacity-0 hover:opacity-100 transition-opacity duration-500" />
 
             <div className="relative z-10">
               {/* Form Header */}
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 1.5 }}
-                className="text-center mb-12"
+              <div
+                className="text-center mb-12 animate-fade-in-up"
+                style={{ animationDelay: '1.1s' }}
               >
                 <div className="flex items-center justify-center gap-4 mb-6">
                   <motion.div
-                    animate={{ rotate: [0, 360] }}
+                    animate={
+                      performanceMode === 'high' ? { rotate: [0, 360] } : {}
+                    }
                     transition={{
                       duration: 4,
                       repeat: Infinity,
@@ -608,16 +485,14 @@ const Contact: React.FC = () => {
                     </p>
                   </div>
                 </div>
-              </motion.div>
+              </div>
 
               <form onSubmit={handleSubmit} className="space-y-8">
                 {/* Name and Email Row */}
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-                  <motion.div
-                    initial={{ opacity: 0, x: -30 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: 1.6 }}
-                    className="relative group"
+                  <div
+                    className="relative group animate-slide-in-left"
+                    style={{ animationDelay: '1.2s' }}
                   >
                     <label className="flex items-center gap-2 text-gray-300 text-sm font-medium mb-3">
                       <User className="w-4 h-4" />
@@ -662,13 +537,11 @@ const Contact: React.FC = () => {
                         </motion.div>
                       )}
                     </AnimatePresence>
-                  </motion.div>
+                  </div>
 
-                  <motion.div
-                    initial={{ opacity: 0, x: 30 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: 1.7 }}
-                    className="relative group"
+                  <div
+                    className="relative group animate-slide-in-right"
+                    style={{ animationDelay: '1.3s' }}
                   >
                     <label className="flex items-center gap-2 text-gray-300 text-sm font-medium mb-3">
                       <AtSign className="w-4 h-4" />
@@ -713,15 +586,13 @@ const Contact: React.FC = () => {
                         </motion.div>
                       )}
                     </AnimatePresence>
-                  </motion.div>
+                  </div>
                 </div>
 
                 {/* Subject */}
-                <motion.div
-                  initial={{ opacity: 0, y: 30 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 1.8 }}
-                  className="relative group"
+                <div
+                  className="relative group animate-slide-in-up"
+                  style={{ animationDelay: '1.4s' }}
                 >
                   <label className="flex items-center gap-2 text-gray-300 text-sm font-medium mb-3">
                     <FileText className="w-4 h-4" />
@@ -766,14 +637,12 @@ const Contact: React.FC = () => {
                       </motion.div>
                     )}
                   </AnimatePresence>
-                </motion.div>
+                </div>
 
                 {/* Message */}
-                <motion.div
-                  initial={{ opacity: 0, y: 30 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 1.9 }}
-                  className="relative group"
+                <div
+                  className="relative group animate-slide-in-up"
+                  style={{ animationDelay: '1.5s' }}
                 >
                   <label className="flex items-center gap-2 text-gray-300 text-sm font-medium mb-3">
                     <MessageCircle className="w-4 h-4" />
@@ -818,23 +687,24 @@ const Contact: React.FC = () => {
                       </motion.div>
                     )}
                   </AnimatePresence>
-                </motion.div>
+                </div>
 
                 {/* Submit Button */}
-                <motion.div
-                  initial={{ opacity: 0, y: 30 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 2.0 }}
-                  className="text-center pt-4"
+                <div
+                  className="text-center pt-4 animate-scale-in"
+                  style={{ animationDelay: '1.6s' }}
                 >
                   <motion.button
                     type="submit"
                     disabled={isSubmitting}
-                    whileHover={{ scale: isSubmitting ? 1 : 1.05 }}
+                    whileHover={
+                      !isSubmitting && performanceMode !== 'low'
+                        ? { scale: 1.05 }
+                        : {}
+                    }
                     whileTap={{ scale: isSubmitting ? 1 : 0.95 }}
                     className="relative group px-12 py-4 bg-gradient-to-r from-orange-500 to-purple-600 hover:from-orange-600 hover:to-purple-700 text-white font-semibold rounded-2xl transition-all duration-500 shadow-xl shadow-orange-500/25 hover:shadow-orange-500/40 disabled:opacity-50 disabled:cursor-not-allowed overflow-hidden"
                   >
-                    {/* Button background animation */}
                     <div className="absolute inset-0 bg-gradient-to-r from-orange-400/20 to-purple-500/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
 
                     <div className="relative z-10 flex items-center gap-3">
@@ -855,7 +725,7 @@ const Contact: React.FC = () => {
                         <AlertCircle className="w-5 h-5" />
                       ) : (
                         <motion.div
-                          whileHover={{ x: 5 }}
+                          whileHover={performanceMode !== 'low' ? { x: 5 } : {}}
                           transition={{ duration: 0.2 }}
                         >
                           <Send className="w-5 h-5" />
@@ -872,17 +742,19 @@ const Contact: React.FC = () => {
                           : 'Send Message'}
                       </span>
 
-                      {!isSubmitting && submitStatus === 'idle' && (
-                        <motion.div
-                          animate={{ x: [0, 5, 0] }}
-                          transition={{ duration: 1.5, repeat: Infinity }}
-                        >
-                          <ChevronRight className="w-5 h-5" />
-                        </motion.div>
-                      )}
+                      {!isSubmitting &&
+                        submitStatus === 'idle' &&
+                        performanceMode === 'high' && (
+                          <motion.div
+                            animate={{ x: [0, 5, 0] }}
+                            transition={{ duration: 1.5, repeat: Infinity }}
+                          >
+                            <ChevronRight className="w-5 h-5" />
+                          </motion.div>
+                        )}
                     </div>
                   </motion.button>
-                </motion.div>
+                </div>
 
                 {/* Status Messages */}
                 <AnimatePresence>
@@ -922,14 +794,12 @@ const Contact: React.FC = () => {
               </form>
             </div>
           </div>
-        </motion.div>
+        </div>
 
         {/* Bottom CTA */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 2.2, duration: 0.8 }}
-          className="text-center mt-16"
+        <div
+          className="text-center mt-16 animate-fade-in"
+          style={{ animationDelay: '1.8s' }}
         >
           <div className="inline-flex items-center gap-2 text-gray-400 text-sm">
             <Heart className="w-4 h-4 text-red-400" />
@@ -938,27 +808,8 @@ const Contact: React.FC = () => {
             </span>
             <Sparkles className="w-4 h-4 text-orange-400" />
           </div>
-        </motion.div>
-      </motion.div>
-
-      {/* Custom CSS for animations */}
-      <style jsx>{`
-        @keyframes gradient-text {
-          0%,
-          100% {
-            background-size: 200% 200%;
-            background-position: left center;
-          }
-          50% {
-            background-size: 200% 200%;
-            background-position: right center;
-          }
-        }
-
-        .animate-gradient-text {
-          animation: gradient-text 4s ease infinite;
-        }
-      `}</style>
+        </div>
+      </div>
     </motion.div>
   );
 };
