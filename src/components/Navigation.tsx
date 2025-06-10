@@ -239,7 +239,7 @@ export default function Navigation({
                       transition-all duration-200 ease-out
                       ${
                         activeSection === item.id
-                          ? 'text-orange-400 bg-orange-500/10 border border-orange-500/20'
+                          ? 'text-orange-400 bg-orange-400/10 border border-orange-400/20'
                           : 'text-white-2 hover:text-white-1 hover:bg-eerie-black-1/30'
                       }
                       focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-400
