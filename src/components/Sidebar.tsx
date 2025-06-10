@@ -80,17 +80,17 @@ export default function Sidebar({ locale }: SidebarProps) {
       {/* Desktop Sidebar - Enhanced with responsive design */}
       <aside
         ref={sidebarRef}
-        className="hidden md:block fixed top-0 left-0 h-full w-72 lg:w-80 xl:w-96 
-                  bg-gray-900/95 backdrop-blur-sm text-white z-40 
-                  shadow-2xl shadow-black/20 
-                  border-r border-gray-800/50
+        className="hidden md:block fixed top-0 left-0 h-full w-72 lg:w-80 xl:w-96
+                  bg-eerie-black-2/90 backdrop-blur-sm text-white-1 z-40
+                  shadow-2xl shadow-smoky-black/20
+                  border-r border-jet/50
                   lg:static
                   rounded-r-[2rem] lg:rounded-r-[3rem]"
       >
         <div className="p-4 md:p-5 lg:p-6 h-full overflow-y-auto overscroll-contain">
           {/* Avatar and Info - Responsive sizing */}
           <div className="text-center mb-5 md:mb-6">
-            <div className="relative w-20 h-20 md:w-22 lg:w-24 md:h-22 lg:h-24 mx-auto mb-3 md:mb-4 overflow-hidden rounded-2xl md:rounded-3xl shadow-lg shadow-orange-500/20">
+            <div className="relative w-20 h-20 md:w-22 lg:w-24 md:h-22 lg:h-24 mx-auto mb-3 md:mb-4 overflow-hidden rounded-2xl md:rounded-3xl shadow-lg shadow-orange-400/20">
               <Image
                 src={personalInfo.avatar}
                 alt={personalInfo.fullName}
@@ -101,13 +101,13 @@ export default function Sidebar({ locale }: SidebarProps) {
               />
             </div>
 
-            <h1 className="text-base md:text-lg font-medium text-gray-300 mb-0.5 md:mb-1">
+            <h1 className="text-base md:text-lg font-medium text-white-2 mb-0.5 md:mb-1">
               {personalInfo.fullName}
             </h1>
-            <h2 className="text-lg md:text-xl font-bold text-white mb-1.5 md:mb-2">
+            <h2 className="text-lg md:text-xl font-bold text-white-1 mb-1.5 md:mb-2">
               {personalInfo.displayName}
             </h2>
-            <p className="text-orange-400 text-xs md:text-sm px-3 md:px-4 py-1.5 md:py-2 bg-gray-800/70 backdrop-blur-sm rounded-2xl shadow-lg shadow-orange-500/10 inline-block">
+            <p className="text-orange-400 text-xs md:text-sm px-3 md:px-4 py-1.5 md:py-2 bg-eerie-black-1/70 backdrop-blur-sm rounded-2xl shadow-lg shadow-orange-400/10 inline-block">
               {personalInfo.title}
             </p>
           </div>
@@ -115,16 +115,16 @@ export default function Sidebar({ locale }: SidebarProps) {
           {/* Hide Contacts Button - Only shows when contacts are open */}
           {isContactsOpen && (
             <button
-              className="w-full flex items-center justify-between p-2.5 md:p-3 
-                        bg-gray-800/70 backdrop-blur-sm hover:bg-gray-700/70 
-                        rounded-2xl 
-                        border border-transparent hover:border-gray-600/50 hover:shadow-lg hover:shadow-orange-500/10
-                        transition-all duration-500 
-                        group mb-4 
+              className="w-full flex items-center justify-between p-2.5 md:p-3
+                        bg-eerie-black-1/70 backdrop-blur-sm hover:bg-jet/70
+                        rounded-2xl
+                        border border-transparent hover:border-jet/50 hover:shadow-lg hover:shadow-orange-400/10
+                        transition-all duration-500
+                        group mb-4
                         focus:outline-none focus:ring-2 focus:ring-orange-400/30"
               onClick={toggleContacts}
             >
-              <span className="text-white group-hover:text-orange-400 transition-colors duration-500 text-sm md:text-base">
+              <span className="text-white-1 group-hover:text-orange-400 transition-colors duration-500 text-sm md:text-base">
                 Hide Contacts
               </span>
               <svg
@@ -148,16 +148,16 @@ export default function Sidebar({ locale }: SidebarProps) {
           {/* Show Contacts Button - Only shows when contacts are hidden */}
           {!isContactsOpen && (
             <button
-              className="w-full flex items-center justify-center p-2.5 md:p-3 
-                        bg-orange-500/90 backdrop-blur-sm hover:bg-orange-600/90 
-                        rounded-2xl 
-                        border border-transparent hover:border-orange-400/50 hover:shadow-xl hover:shadow-orange-500/20
-                        transition-all duration-500 
-                        group mb-4 
+              className="w-full flex items-center justify-center p-2.5 md:p-3
+                        bg-orange-400/90 backdrop-blur-sm hover:bg-orange-500/90
+                        rounded-2xl
+                        border border-transparent hover:border-orange-400/50 hover:shadow-xl hover:shadow-orange-400/20
+                        transition-all duration-500
+                        group mb-4
                         focus:outline-none focus:ring-2 focus:ring-orange-400/30"
               onClick={toggleContacts}
             >
-              <span className="text-white font-medium text-sm md:text-base">
+              <span className="text-white-1 font-medium text-sm md:text-base">
                 Show Contacts
               </span>
             </button>
@@ -172,7 +172,7 @@ export default function Sidebar({ locale }: SidebarProps) {
               transform: `translateY(${isContactsOpen ? '0' : '-10px'})`,
             }}
           >
-            <div className="h-px bg-gray-700 mb-4 md:mb-5 lg:mb-6" />
+            <div className="h-px bg-jet mb-4 md:mb-5 lg:mb-6" />
 
             {/* Contact Information */}
             <div className="space-y-2 md:space-y-3 lg:space-y-4 mb-4 md:mb-5 lg:mb-6">
@@ -203,7 +203,7 @@ export default function Sidebar({ locale }: SidebarProps) {
               />
             </div>
 
-            <div className="h-px bg-gray-700 mb-4 md:mb-5 lg:mb-6" />
+            <div className="h-px bg-jet mb-4 md:mb-5 lg:mb-6" />
 
             {/* Social Links - Responsive grid */}
             <div className="flex flex-wrap gap-2 md:gap-3 mb-4 md:mb-5 lg:mb-6 justify-center">
@@ -212,18 +212,18 @@ export default function Sidebar({ locale }: SidebarProps) {
               ))}
             </div>
 
-            <div className="h-px bg-gray-700 mb-4 md:mb-5 lg:mb-6" />
+            <div className="h-px bg-jet mb-4 md:mb-5 lg:mb-6" />
 
             {/* Legacy Versions Section */}
             <div className="w-full block mb-4 md:mb-5 lg:mb-6">
               <LegacyVersionSelector />
             </div>
 
-            <div className="h-px bg-gray-700 mb-4 md:mb-5 lg:mb-6" />
+            <div className="h-px bg-jet mb-4 md:mb-5 lg:mb-6" />
 
             {/* Language Switcher Section */}
             <div className="mb-4 md:mb-5 lg:mb-6">
-              <h3 className="text-gray-400 text-xs md:text-sm font-medium mb-2 md:mb-3 tracking-wider uppercase">
+              <h3 className="text-white-2 text-xs md:text-sm font-medium mb-2 md:mb-3 tracking-wider uppercase">
                 Language
               </h3>
               <LanguageSwitcher currentLocale={locale} />
@@ -237,7 +237,7 @@ export default function Sidebar({ locale }: SidebarProps) {
         <div className="p-1 sm:p-2">
           {/* Avatar and Info (mobile) - Responsive sizing */}
           <div className="text-center mb-3 sm:mb-4">
-            <div className="relative w-14 h-14 sm:w-16 sm:h-16 mx-auto mb-1.5 sm:mb-2 overflow-hidden rounded-2xl shadow-lg shadow-orange-500/20">
+            <div className="relative w-14 h-14 sm:w-16 sm:h-16 mx-auto mb-1.5 sm:mb-2 overflow-hidden rounded-2xl shadow-lg shadow-orange-400/20">
               <Image
                 src={personalInfo.avatar}
                 alt={personalInfo.fullName}
@@ -247,10 +247,10 @@ export default function Sidebar({ locale }: SidebarProps) {
                 sizes="(max-width: 640px) 3.5rem, 4rem"
               />
             </div>
-            <h2 className="text-base sm:text-lg font-bold text-white mb-0.5 sm:mb-1">
+            <h2 className="text-base sm:text-lg font-bold text-white-1 mb-0.5 sm:mb-1">
               {personalInfo.displayName}
             </h2>
-            <p className="text-orange-400 text-xs px-2 sm:px-3 py-0.5 sm:py-1 bg-gray-800/70 backdrop-blur-sm rounded-2xl shadow-lg shadow-orange-500/10 inline-block">
+            <p className="text-orange-400 text-xs px-2 sm:px-3 py-0.5 sm:py-1 bg-eerie-black-1/70 backdrop-blur-sm rounded-2xl shadow-lg shadow-orange-400/10 inline-block">
               {personalInfo.title}
             </p>
           </div>
@@ -341,17 +341,17 @@ function ContactItem({ icon, label, value, href }: ContactItemProps) {
   const content = (
     <div
       ref={itemRef}
-      className="flex items-center space-x-2 sm:space-x-3 
-                p-2 sm:p-2.5 md:p-3 
-                rounded-2xl 
-                hover:bg-gray-800/70 backdrop-blur-sm
+      className="flex items-center space-x-2 sm:space-x-3
+                p-2 sm:p-2.5 md:p-3
+                rounded-2xl
+                hover:bg-eerie-black-1/70 backdrop-blur-sm
                 transition-all duration-500
-                border border-transparent hover:border-gray-700/50 hover:shadow-lg hover:shadow-orange-500/10"
+                border border-transparent hover:border-jet/50 hover:shadow-lg hover:shadow-orange-400/10"
     >
       <div className="text-orange-400 flex-shrink-0">{icon}</div>
       <div className="min-w-0 flex-1">
-        <p className="text-gray-400 text-[10px] sm:text-xs">{label}</p>
-        <p className="text-white text-xs sm:text-sm truncate">{value}</p>
+        <p className="text-white-2 text-[10px] sm:text-xs">{label}</p>
+        <p className="text-white-1 text-xs sm:text-sm truncate">{value}</p>
       </div>
     </div>
   );
@@ -413,18 +413,18 @@ function SocialLink({ social }: SocialLinkProps) {
       href={social.url}
       target="_blank"
       rel="noopener noreferrer"
-      className="w-10 h-10 sm:w-11 sm:h-11 md:w-12 md:h-12 
-                bg-gray-800/70 backdrop-blur-sm hover:bg-orange-400/90 
-                rounded-2xl 
-                flex items-center justify-center 
-                transition-all duration-500 
-                border border-transparent hover:border-orange-300/50
+      className="w-10 h-10 sm:w-11 sm:h-11 md:w-12 md:h-12
+                bg-eerie-black-1/70 backdrop-blur-sm hover:bg-orange-400/90
+                rounded-2xl
+                flex items-center justify-center
+                transition-all duration-500
+                border border-transparent hover:border-orange-400/50
                 shadow-sm hover:shadow-xl hover:shadow-orange-400/20
                 focus:outline-none focus:ring-2 focus:ring-orange-400/30"
       title={social.platform}
       aria-label={`Visit ${social.platform}`}
     >
-      <div className="text-white group-hover:text-white transition-colors duration-500">
+      <div className="text-white-1 group-hover:text-white-1 transition-colors duration-500">
         <SocialIcon icon={social.icon} />
       </div>
     </a>
@@ -680,15 +680,15 @@ function LegacyVersionSelector() {
   const dropdownMenu = (
     <div
       ref={dropdownRef}
-      className="bg-gray-800 rounded-xl shadow-2xl border border-gray-600 overflow-hidden"
+      className="bg-eerie-black-1 rounded-xl shadow-2xl border border-jet overflow-hidden"
       style={dropdownStyle}
     >
       {/* Header */}
-      <div className="px-4 py-3 bg-gray-700 border-b border-gray-600">
-        <h4 className="text-white text-sm font-semibold">
+      <div className="px-4 py-3 bg-eerie-black-2 border-b border-jet">
+        <h4 className="text-white-1 text-sm font-semibold">
           Previous Portfolio Versions
         </h4>
-        <p className="text-gray-300 text-xs mt-1">
+        <p className="text-white-2 text-xs mt-1">
           Showcase of design evolution
         </p>
       </div>
@@ -700,25 +700,23 @@ function LegacyVersionSelector() {
             href={version.href}
             target="_blank"
             rel="noopener noreferrer"
-            className="flex items-center p-3 rounded-lg hover:bg-gray-700 transition-all duration-200 group"
+            className="flex items-center p-3 rounded-lg hover:bg-eerie-black-2 transition-all duration-200 group"
           >
-            <div className="w-10 h-10 bg-gradient-to-br from-orange-400 to-orange-500 rounded-lg flex items-center justify-center text-white shadow-lg group-hover:scale-110 transition-transform duration-200">
+            <div className="w-10 h-10 bg-gradient-to-br from-orange-400 to-orange-500 rounded-lg flex items-center justify-center text-white-1 shadow-lg group-hover:scale-110 transition-transform duration-200">
               {version.icon}
             </div>
             <div className="flex-1 ml-3">
               <div className="flex items-center space-x-2">
-                <h4 className="text-white text-sm font-semibold group-hover:text-orange-400 transition-colors">
+                <h4 className="text-white-1 text-sm font-semibold group-hover:text-orange-400 transition-colors">
                   {version.name}
                 </h4>
-                <span className="text-xs bg-gray-700 text-gray-300 px-2 py-1 rounded-full">
+                <span className="text-xs bg-eerie-black-2 text-white-2 px-2 py-1 rounded-full">
                   {version.year}
                 </span>
               </div>
-              <p className="text-gray-400 text-xs mt-1">
-                {version.description}
-              </p>
+              <p className="text-white-2 text-xs mt-1">{version.description}</p>
             </div>
-            <div className="text-gray-400 group-hover:text-orange-400 transition-colors">
+            <div className="text-white-2 group-hover:text-orange-400 transition-colors">
               <svg
                 className="w-5 h-5"
                 fill="none"
@@ -737,8 +735,8 @@ function LegacyVersionSelector() {
         ))}
       </div>
       {/* Footer */}
-      <div className="px-4 py-3 bg-gray-900/50 border-t border-gray-700">
-        <p className="text-xs text-gray-400 text-center">
+      <div className="px-4 py-3 bg-smoky-black/50 border-t border-jet">
+        <p className="text-xs text-white-2 text-center">
           Each version showcases different design approaches and technologies
         </p>
       </div>
@@ -751,10 +749,10 @@ function LegacyVersionSelector() {
       <button
         ref={buttonRef}
         onClick={toggleDropdown}
-        className="w-full flex items-center justify-between p-4 bg-gradient-to-r from-gray-800 to-gray-700 rounded-xl hover:from-gray-700 hover:to-gray-600 transition-all duration-300 group shadow-lg border border-gray-600 z-[9999]"
+        className="w-full flex items-center justify-between p-4 bg-gradient-to-r from-eerie-black-1 to-eerie-black-2 rounded-xl hover:from-jet hover:to-eerie-black-1 transition-all duration-300 group shadow-lg border border-jet z-[9999]"
       >
         <div className="flex items-center space-x-3">
-          <div className="w-8 h-8 bg-orange-400 rounded-lg flex items-center justify-center text-white">
+          <div className="w-8 h-8 bg-orange-400 rounded-lg flex items-center justify-center text-white-1">
             <svg
               className="w-4 h-4"
               fill="none"
