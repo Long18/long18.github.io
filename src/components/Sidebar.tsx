@@ -2,7 +2,9 @@
 
 import { useState, useRef, useEffect, useLayoutEffect } from 'react';
 import Image from 'next/image';
-import { personalInfo, socialLinks } from '@/data/personal';
+import { personalInfo, contactInfo, socialLinks } from '@/data/personal';
+import { mainSkills, professionalStats } from '@/data/skills';
+import { portfolioStats, getFeaturedProjects } from '@/data/portfolioData';
 import LanguageSwitcher from '@/components/LanguageSwitcher';
 import { useGSAP } from '@/hooks/useGSAP';
 import gsap from 'gsap';
@@ -80,10 +82,9 @@ export default function Sidebar({ locale }: SidebarProps) {
       {/* Desktop Sidebar - Unified with main layout */}
       <aside
         ref={sidebarRef}
-        className="hidden md:block fixed top-0 left-0 h-screen w-64 lg:w-72 xl:w-80
-                  bg-eerie-black-2/60 backdrop-blur-xl text-white-1 z-40
-                  lg:static lg:h-auto lg:min-h-screen
-                  relative overflow-hidden"
+        className="hidden lg:block w-full h-full
+                  bg-eerie-black-2/60 backdrop-blur-xl text-white-1
+                  relative overflow-hidden rounded-r-3xl border-r border-jet/30 shadow-xl shadow-smoky-black/20"
       >
         {/* Sidebar Background */}
         <div className="absolute inset-0 bg-gradient-to-br from-eerie-black-2/70 via-eerie-black-1/50 to-eerie-black-2/70 pointer-events-none" />
@@ -96,7 +97,7 @@ export default function Sidebar({ locale }: SidebarProps) {
             backgroundSize: '16px 16px',
           }}
         />
-        <div className="relative z-10 p-4 md:p-5 lg:p-6 h-full lg:h-auto overflow-y-auto lg:overflow-visible overscroll-contain flex flex-col">
+        <div className="relative z-10 p-4 lg:p-6 h-full overflow-y-auto overscroll-contain flex flex-col">
           {/* Avatar and Info - Responsive sizing */}
           <div className="text-center mb-4 lg:mb-5">
             <div className="relative w-16 h-16 lg:w-20 lg:h-20 xl:w-24 xl:h-24 mx-auto mb-3 lg:mb-4 overflow-hidden rounded-2xl lg:rounded-3xl shadow-lg shadow-orange-400/20">
@@ -188,15 +189,19 @@ export default function Sidebar({ locale }: SidebarProps) {
               <ContactItem
                 icon={<EmailIcon />}
                 label="Email"
-                value="us.thanhlong18@gmail.com"
-                href="mailto:us.thanhlong18@gmail.com"
+                value={contactInfo.email}
+                href={`mailto:${contactInfo.email}`}
               />
 
               <ContactItem
                 icon={<PhoneIcon />}
                 label="Phone"
-                value="+84 918 399 443"
-                href="tel:+84918399443"
+                value={contactInfo.phone || 'Not available'}
+                href={
+                  contactInfo.phone
+                    ? `tel:${contactInfo.phone.replace(/\s/g, '')}`
+                    : undefined
+                }
               />
 
               <ContactItem
@@ -208,7 +213,7 @@ export default function Sidebar({ locale }: SidebarProps) {
               <ContactItem
                 icon={<LocationIcon />}
                 label="Location"
-                value="Ho Chi Minh City"
+                value={contactInfo.location}
               />
             </div>
 
@@ -269,14 +274,18 @@ export default function Sidebar({ locale }: SidebarProps) {
             <ContactItem
               icon={<EmailIcon />}
               label="Email"
-              value="us.thanhlong18@gmail.com"
-              href="mailto:us.thanhlong18@gmail.com"
+              value={contactInfo.email}
+              href={`mailto:${contactInfo.email}`}
             />
             <ContactItem
               icon={<PhoneIcon />}
               label="Phone"
-              value="+84 918 399 443"
-              href="tel:+84918399443"
+              value={contactInfo.phone || 'Not available'}
+              href={
+                contactInfo.phone
+                  ? `tel:${contactInfo.phone.replace(/\s/g, '')}`
+                  : undefined
+              }
             />
             <ContactItem
               icon={<CalendarIcon />}
@@ -286,7 +295,7 @@ export default function Sidebar({ locale }: SidebarProps) {
             <ContactItem
               icon={<LocationIcon />}
               label="Location"
-              value="Ho Chi Minh City"
+              value={contactInfo.location}
             />
           </div>
 
@@ -594,8 +603,8 @@ function LegacyVersionSelector() {
   const versions = [
     {
       id: 'v2.0',
-      name: 'Legacy v2.0',
-      description: 'Enhanced Design',
+      name: 'Portfolio v2.0',
+      description: 'Enhanced Modern Design',
       href: `${getBaseUrl()}/v2.0`,
       year: '2024',
       icon: (
@@ -609,15 +618,15 @@ function LegacyVersionSelector() {
             strokeLinecap="round"
             strokeLinejoin="round"
             strokeWidth={2}
-            d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"
+            d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
           />
         </svg>
       ),
     },
     {
       id: 'v1.0',
-      name: 'Legacy v1.0',
-      description: 'Original Design',
+      name: 'Portfolio v1.0',
+      description: 'Original Classic Design',
       href: `${getBaseUrl()}/v1.0`,
       year: '2023',
       icon: (
@@ -715,10 +724,10 @@ function LegacyVersionSelector() {
       {/* Header */}
       <div className="px-4 py-3 bg-eerie-black-2 border-b border-jet">
         <h4 className="text-white-1 text-sm font-semibold">
-          Previous Portfolio Versions
+          Portfolio Versions
         </h4>
         <p className="text-white-2 text-xs mt-1">
-          Showcase of design evolution
+          Evolution of my portfolio design
         </p>
       </div>
       {/* Version List */}
@@ -766,7 +775,7 @@ function LegacyVersionSelector() {
       {/* Footer */}
       <div className="px-4 py-3 bg-smoky-black/50 border-t border-jet">
         <p className="text-xs text-white-2 text-center">
-          Each version showcases different design approaches and technologies
+          Each version represents different milestones in my design journey
         </p>
       </div>
     </div>
@@ -798,10 +807,10 @@ function LegacyVersionSelector() {
           </div>
           <div className="text-left">
             <span className="text-white-1 text-xs lg:text-sm font-semibold block">
-              Legacy Versions
+              Portfolio Versions
             </span>
             <span className="text-white-2 text-[10px] lg:text-xs">
-              Explore previous designs
+              View previous designs
             </span>
           </div>
         </div>

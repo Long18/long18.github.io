@@ -221,8 +221,8 @@ export default function MainApp({ locale }: MainAppProps) {
               <div className="absolute inset-0 bg-gradient-to-b from-eerie-black-2/50 via-transparent to-eerie-black-1/30 pointer-events-none" />
 
               {/* Scrollable Content */}
-              <div className="relative z-10 scroll-smooth-enhanced transition-all duration-300 ease-out overflow-auto h-full">
-                <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8 max-w-6xl">
+              <div className="relative z-10 scroll-smooth-enhanced transition-all duration-300 ease-out overflow-auto h-full main-content-mobile">
+                <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8 pb-20 md:pb-8 max-w-6xl">
                   <div
                     key={activeSection}
                     className="content-section animate-fadeIn min-h-[calc(100vh-8rem)]"
