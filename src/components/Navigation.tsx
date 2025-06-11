@@ -122,20 +122,22 @@ export default function Navigation({
       initial="hidden"
       animate="visible"
       variants={containerVariants}
-      className="bg-eerie-black-2/90 backdrop-blur-sm border-b border-jet/50 sticky top-0 z-30 transition-all duration-300"
+      className="bg-eerie-black-2/60 backdrop-blur-xl border-b border-jet/30 sticky top-0 z-30 transition-all duration-300 relative"
     >
+      {/* Background Gradient */}
+      <div className="absolute inset-0 bg-gradient-to-r from-eerie-black-2/40 via-eerie-black-1/30 to-eerie-black-2/40 pointer-events-none" />
       <div
         ref={navContainerRef}
-        className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative"
+        className="w-full mx-auto px-3 sm:px-4 lg:px-6 relative z-10"
       >
         {/* Desktop Navigation */}
         <div className="hidden md:flex">
           <div
             ref={activeIndicatorRef}
-            className="absolute bottom-0 h-0.5 bg-gradient-to-r from-orange-400 to-orange-500 shadow-lg shadow-orange-400/30"
+            className="absolute bottom-0 h-0.5 bg-gradient-to-r from-orange-400 to-orange-400 shadow-lg shadow-orange-400/40"
             style={{ width: 0 }}
           />
-          <ul className="flex space-x-1">
+          <ul className="flex space-x-0.5 lg:space-x-1">
             {navigationItems.map((item) => (
               <motion.li key={item.id} variants={itemVariants}>
                 <motion.button
@@ -152,12 +154,12 @@ export default function Navigation({
                     ease: 'easeOut',
                   }}
                   className={`
-                    relative px-6 py-4 text-sm font-medium tab-button
+                    relative px-3 sm:px-4 lg:px-6 py-3 lg:py-4 text-xs sm:text-sm font-medium tab-button
                     transition-all duration-200 ease-out
                     ${
                       activeSection === item.id
-                        ? 'text-orange-400 bg-eerie-black-1/50'
-                        : 'text-white-2 hover:text-white-1 hover:bg-eerie-black-1/30'
+                        ? 'text-orange-400 bg-eerie-black-1/60'
+                        : 'text-white-2 hover:text-white-1 hover:bg-eerie-black-1/40'
                     }
                     focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-400
                     focus-visible:ring-offset-2 focus-visible:ring-offset-eerie-black-2
@@ -172,10 +174,10 @@ export default function Navigation({
         </div>
 
         {/* Mobile Navigation */}
-        <div className="md:hidden flex items-center justify-between py-3">
+        <div className="md:hidden flex items-center justify-between py-2.5">
           {/* Current Section Display */}
           <div className="flex items-center space-x-2">
-            <span className="text-orange-400 text-sm font-medium">
+            <span className="text-orange-400 text-xs sm:text-sm font-medium">
               {navigationItems.find((item) => item.id === activeSection)?.label}
             </span>
           </div>
@@ -184,12 +186,12 @@ export default function Navigation({
           <motion.button
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
             whileTap={{ scale: 0.95 }}
-            className="flex items-center justify-center w-10 h-10 text-white-2 hover:text-white-1 transition-colors duration-200 rounded-lg hover:bg-eerie-black-1/30 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-400"
+            className="flex items-center justify-center w-9 h-9 sm:w-10 sm:h-10 text-white-2 hover:text-white-1 transition-colors duration-200 rounded-lg hover:bg-eerie-black-1/40 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-400"
             aria-label="Toggle navigation menu"
             aria-expanded={isMobileMenuOpen}
           >
             <svg
-              className={`w-6 h-6 transition-transform duration-200 ${
+              className={`w-5 h-5 sm:w-6 sm:h-6 transition-transform duration-200 ${
                 isMobileMenuOpen ? 'rotate-90' : ''
               }`}
               fill="none"
@@ -223,9 +225,9 @@ export default function Navigation({
             animate="visible"
             exit="hidden"
             variants={mobileMenuVariants}
-            className="md:hidden absolute top-full left-0 right-0 bg-eerie-black-2/95 backdrop-blur-sm border-b border-jet/50"
+            className="md:hidden absolute top-full left-0 right-0 bg-eerie-black-2/98 backdrop-blur-md border-b border-jet/60 shadow-lg"
           >
-            <ul className="py-2 px-4 space-y-1">
+            <ul className="py-2 px-3 space-y-1">
               {navigationItems.map((item) => (
                 <motion.li key={item.id} variants={itemVariants}>
                   <motion.button
@@ -235,12 +237,12 @@ export default function Navigation({
                     }}
                     whileTap={{ scale: 0.98 }}
                     className={`
-                      w-full text-left px-4 py-3 text-base font-medium rounded-lg
+                      w-full text-left px-3 py-2.5 text-sm font-medium rounded-lg
                       transition-all duration-200 ease-out
                       ${
                         activeSection === item.id
-                          ? 'text-orange-400 bg-orange-400/10 border border-orange-400/20'
-                          : 'text-white-2 hover:text-white-1 hover:bg-eerie-black-1/30'
+                          ? 'text-orange-400 bg-orange-400/15 border border-orange-400/25'
+                          : 'text-white-2 hover:text-white-1 hover:bg-eerie-black-1/40'
                       }
                       focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-400
                       focus-visible:ring-inset

@@ -46,10 +46,11 @@ export const socialLinks = [
     platform: 'LinkedIn',
     url: 'https://www.linkedin.com/in/william186/',
     icon: 'logo-linkedin'
-  },
-  {
-    platform: 'Skype',
-    url: 'https://join.skype.com/invite/xJY5pgHzba5y',
-    icon: 'logo-skype'
   }
+  //,
+  // {
+  //   platform: 'Skype',
+  //   url: 'https://join.skype.com/invite/xJY5pgHzba5y',
+  //   icon: 'logo-skype'
+  // }
 ];
