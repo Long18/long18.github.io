@@ -43,7 +43,7 @@ module.exports = {
         'chart-3': 'hsl(var(--chart-3))',
         'chart-4': 'hsl(var(--chart-4))',
         'chart-5': 'hsl(var(--chart-5))',
-        
+
         // Unified Portfolio Design System Colors
         'smoky-black': 'hsl(0, 0%, 7%)',
         'eerie-black-1': 'hsl(240, 2%, 13%)',
@@ -57,12 +57,19 @@ module.exports = {
         'light-gray': 'hsl(0, 0%, 84%)',
         'light-gray-70': 'hsla(0, 0%, 84%, 0.7)',
         'bittersweet-shimmer': 'hsl(0, 43%, 51%)',
-        
+
         // Technology tag colors
         'unity-tag': 'hsl(270, 100%, 65%)',
         'unreal-tag': 'hsl(240, 100%, 65%)',
         'application-tag': 'hsl(120, 60%, 50%)',
         'green-teal': 'hsl(180, 60%, 50%)',
+
+        // Dark Theme Specific Colors
+        'dark-primary': '#111827',    // Gray-900
+        'dark-secondary': '#1F2937',  // Gray-800
+        'dark-accent': '#F59E0B',     // Yellow-500
+        'dark-text': '#F3F4F6',      // Gray-100
+        'dark-text-muted': '#9CA3AF', // Gray-400
       },
       fontFamily: {
         sans: ['Inter', 'Poppins', 'sans-serif'],
@@ -80,14 +87,16 @@ module.exports = {
         'count-up': 'countUp 1s ease-out forwards',
         'progress-bar': 'progressBar 1.5s ease-out forwards',
         'gradient-shift': 'gradientShift 3s ease infinite',
-        
+
         // Enhanced animations for high performance mode
         'bounce-subtle': 'bounceSubtle 2s ease-in-out infinite',
         'float': 'float 6s ease-in-out infinite',
         'pulse-slow': 'pulseSlow 4s ease-in-out infinite',
         'rotate-slow': 'rotateSlow 20s linear infinite',
+        'reverse-spin': 'rotateSlow 15s linear infinite reverse',
+        'spin-slow': 'rotateSlow 20s linear infinite',
         'shimmer': 'shimmer 3s ease-in-out infinite',
-        
+
         // Legacy animations (kept for compatibility)
         'scale-in-legacy': 'scaleIn 0.3s ease-out',
         'bounce-gentle': 'bounceGentle 2s infinite',
@@ -135,7 +144,7 @@ module.exports = {
           '0%, 100%': { backgroundPosition: '0% 50%' },
           '50%': { backgroundPosition: '100% 50%' },
         },
-        
+
         // Enhanced animations
         bounceSubtle: {
           '0%, 100%': { transform: 'translateY(0)' },
@@ -157,7 +166,7 @@ module.exports = {
           '0%': { backgroundPosition: '-200% 0' },
           '100%': { backgroundPosition: '200% 0' },
         },
-        
+
         // Legacy keyframes (for compatibility)
         slideIn: {
           '0%': { transform: 'translateY(20px)', opacity: '0' },
