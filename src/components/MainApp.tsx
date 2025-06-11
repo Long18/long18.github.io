@@ -184,46 +184,72 @@ export default function MainApp({ locale }: MainAppProps) {
 
   return (
     <ThemeProvider>
-      <div className="min-h-screen bg-gray-900 text-white">
-        <div className="flex flex-col lg:flex-row">
-          {/* Sidebar - Hidden on mobile, visible on desktop */}
-          <div className="hidden lg:block lg:w-80 xl:w-96 flex-shrink-0">
+      <div className="min-h-screen bg-gradient-to-br from-eerie-black-2 via-smoky-black to-eerie-black-1 text-white relative overflow-hidden">
+        {/* Background Pattern */}
+        <div className="absolute inset-0 opacity-[0.02]">
+          <div className="absolute inset-0 bg-gradient-to-br from-orange-400/10 via-transparent to-orange-400/5" />
+          <div
+            className="absolute inset-0"
+            style={{
+              backgroundImage: `radial-gradient(circle at 1px 1px, rgba(255,255,255,0.15) 1px, transparent 0)`,
+              backgroundSize: '20px 20px',
+            }}
+          />
+        </div>
+
+        <div className="relative z-10 flex flex-col lg:flex-row min-h-screen">
+          {/* Sidebar - Integrated Design */}
+          <div className="hidden lg:block lg:w-80 xl:w-96 flex-shrink-0 relative">
+            <div className="absolute inset-y-0 right-0 w-px bg-gradient-to-b from-transparent via-orange-400/20 to-transparent" />
             <Sidebar locale={locale} />
           </div>
 
-          {/* Main Content */}
-          <div className="flex-1 flex flex-col min-h-screen lg:min-h-0">
-            {/* Navigation */}
-            <div className="flex-shrink-0 border-b border-gray-700/50 bg-gray-800/50 backdrop-blur-sm sticky top-0 z-40">
+          {/* Main Content Area - Unified Layout */}
+          <div className="flex-1 flex flex-col min-h-screen relative">
+            {/* Navigation - Seamlessly Connected */}
+            <div className="flex-shrink-0 relative">
+              <div className="absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-orange-400/30 to-transparent" />
               <Navigation
                 activeSection={activeSection}
                 onSectionChange={handleSectionChange}
               />
             </div>
 
-            {/* Content Area */}
-            <main className="flex-1 scroll-smooth-enhanced transition-all duration-300 ease-out">
-              <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8 max-w-6xl">
-                <div
-                  key={activeSection}
-                  className="content-section animate-fadeIn min-h-screen"
-                >
-                  {renderSection()}
-                </div>
-                {/* Extra spacer to ensure enough content for scrolling */}
-                <div
-                  className="h-96 lg:h-screen opacity-0 pointer-events-none"
-                  aria-hidden="true"
-                >
-                  <div className="h-full flex items-center justify-center text-gray-700">
-                    <p className="text-sm">
-                      Additional scrollable content for navigation testing
-                    </p>
+            {/* Content Area - Unified Styling */}
+            <main className="flex-1 relative">
+              {/* Content Background */}
+              <div className="absolute inset-0 bg-gradient-to-b from-eerie-black-2/50 via-transparent to-eerie-black-1/30 pointer-events-none" />
+
+              {/* Scrollable Content */}
+              <div className="relative z-10 scroll-smooth-enhanced transition-all duration-300 ease-out overflow-auto h-full">
+                <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8 max-w-6xl">
+                  <div
+                    key={activeSection}
+                    className="content-section animate-fadeIn min-h-[calc(100vh-8rem)]"
+                  >
+                    {/* Content Card Wrapper */}
+                    <div className="relative bg-eerie-black-2/40 backdrop-blur-sm rounded-3xl border border-jet/30 shadow-2xl shadow-smoky-black/20 overflow-hidden">
+                      {/* Card Header Gradient */}
+                      <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-orange-400/40 to-transparent" />
+
+                      {/* Content */}
+                      <div className="relative p-6 sm:p-8 lg:p-10">
+                        {renderSection()}
+                      </div>
+
+                      {/* Card Footer Gradient */}
+                      <div className="absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-orange-400/20 to-transparent" />
+                    </div>
                   </div>
                 </div>
               </div>
             </main>
           </div>
+        </div>
+
+        {/* Mobile Contact Toggle - Positioned Absolutely */}
+        <div className="lg:hidden">
+          {/* This will be handled by the Sidebar component's ContactToggle */}
         </div>
       </div>
     </ThemeProvider>

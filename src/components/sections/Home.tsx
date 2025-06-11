@@ -135,25 +135,22 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
   return (
     <section
       ref={sectionRef}
-      className="relative overflow-hidden py-24 sm:py-32 animate-fade-in-up"
+      className="relative overflow-hidden py-12 sm:py-16 animate-fade-in-up"
     >
-      {/* Background Effects */}
-      <div className="absolute inset-0 bg-gradient-to-br from-eerie-black-1 via-eerie-black-2 to-jet animate-bg-shift" />
-
-      {/* Animated background dots */}
-      <div className="absolute inset-0 pointer-events-none opacity-30">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(251,146,60,0.1)_0%,transparent_50%)] animate-pulse-slow" />
+      {/* Subtle accent patterns - unified with main design */}
+      <div className="absolute inset-0 pointer-events-none opacity-20">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(251,146,60,0.05)_0%,transparent_50%)] animate-pulse-slow" />
         <div
-          className="absolute inset-0 bg-[radial-gradient(circle_at_80%_20%,rgba(168,85,247,0.1)_0%,transparent_50%)] animate-pulse-slow"
+          className="absolute inset-0 bg-[radial-gradient(circle_at_80%_20%,rgba(168,85,247,0.03)_0%,transparent_50%)] animate-pulse-slow"
           style={{ animationDelay: '1s' }}
         />
         <div
-          className="absolute inset-0 bg-[radial-gradient(circle_at_20%_80%,rgba(6,182,212,0.1)_0%,transparent_50%)] animate-pulse-slow"
+          className="absolute inset-0 bg-[radial-gradient(circle_at_20%_80%,rgba(6,182,212,0.03)_0%,transparent_50%)] animate-pulse-slow"
           style={{ animationDelay: '2s' }}
         />
       </div>
 
-      <div className="container mx-auto px-4 relative z-10">
+      <div className="relative z-10">
         {/* Hero Content */}
         <div className="flex flex-col-reverse lg:flex-row lg:items-center lg:justify-between gap-12">
           {/* Left Content */}
@@ -492,10 +489,10 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
             {mainSkills.map((category, categoryIndex) => (
               <div
                 key={category.title}
-                className="bg-eerie-black-2/40 backdrop-blur-sm rounded-3xl p-6 lg:p-8 border border-jet/40 hover:border-orange-500/40 hover:bg-eerie-black-2/60 transition-all duration-500 group relative overflow-hidden shadow-xl hover:shadow-2xl hover:shadow-orange-500/10 animate-scale-in"
+                className="bg-eerie-black-2/20 backdrop-blur-sm rounded-2xl p-6 lg:p-8 border border-jet/20 hover:border-orange-500/30 hover:bg-eerie-black-2/30 transition-all duration-500 group relative overflow-hidden shadow-lg hover:shadow-xl hover:shadow-orange-500/10 animate-scale-in"
                 style={{ animationDelay: `${1.4 + categoryIndex * 0.2}s` }}
               >
-                <div className="absolute inset-0 bg-gradient-to-br from-orange-500/5 via-transparent to-purple-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-3xl" />
+                <div className="absolute inset-0 bg-gradient-to-br from-orange-500/3 via-transparent to-purple-500/3 opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-2xl" />
 
                 <div className="relative z-10">
                   <h4 className="text-xl font-semibold text-orange-400 mb-6 text-center group-hover:text-orange-300 transition-colors duration-300">
@@ -505,7 +502,7 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
                     {category.skills.map((skill, skillIndex) => (
                       <div
                         key={skill.id}
-                        className="flex items-center gap-3 px-4 py-3 bg-jet/50 backdrop-blur-sm rounded-2xl border border-jet/50 hover:border-orange-500/50 hover:bg-orange-500/10 transition-all duration-300 group/skill shadow-md hover:shadow-lg hover:shadow-orange-500/20 animate-fade-in"
+                        className="flex items-center gap-3 px-4 py-3 bg-jet/30 backdrop-blur-sm rounded-xl border border-jet/30 hover:border-orange-500/40 hover:bg-orange-500/10 transition-all duration-300 group/skill shadow-sm hover:shadow-md hover:shadow-orange-500/15 animate-fade-in"
                         style={{
                           animationDelay: `${
                             1.6 + categoryIndex * 0.2 + skillIndex * 0.1
@@ -543,7 +540,7 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
           ].map((stat, index) => (
             <div
               key={stat.label}
-              className="text-center p-6 bg-eerie-black-2/30 backdrop-blur-sm border border-jet/30 rounded-2xl hover:border-orange-500/50 hover:bg-eerie-black-2/50 transition-all duration-300 group animate-scale-in"
+              className="text-center p-6 bg-eerie-black-2/15 backdrop-blur-sm border border-jet/20 rounded-xl hover:border-orange-500/30 hover:bg-eerie-black-2/25 transition-all duration-300 group animate-scale-in"
               style={{ animationDelay: `${2.2 + index * 0.1}s` }}
             >
               <div

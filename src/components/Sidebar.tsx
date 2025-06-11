@@ -77,17 +77,26 @@ export default function Sidebar({ locale }: SidebarProps) {
   // Responsive: show sidebar on md+, use ContactToggle on mobile
   return (
     <>
-      {/* Desktop Sidebar - Enhanced with responsive design */}
+      {/* Desktop Sidebar - Unified with main layout */}
       <aside
         ref={sidebarRef}
         className="hidden md:block fixed top-0 left-0 h-screen w-64 lg:w-72 xl:w-80
-                  bg-eerie-black-2/90 backdrop-blur-sm text-white-1 z-40
-                  shadow-2xl shadow-smoky-black/20
-                  border-r border-jet/50
-                  lg:static lg:h-auto lg:min-h-0
-                  rounded-r-[2rem] lg:rounded-r-[3rem]"
+                  bg-eerie-black-2/60 backdrop-blur-xl text-white-1 z-40
+                  lg:static lg:h-auto lg:min-h-screen
+                  relative overflow-hidden"
       >
-        <div className="p-4 md:p-5 lg:p-6 h-full lg:h-auto overflow-y-auto lg:overflow-visible overscroll-contain flex flex-col">
+        {/* Sidebar Background */}
+        <div className="absolute inset-0 bg-gradient-to-br from-eerie-black-2/70 via-eerie-black-1/50 to-eerie-black-2/70 pointer-events-none" />
+
+        {/* Subtle Pattern */}
+        <div
+          className="absolute inset-0 opacity-[0.03]"
+          style={{
+            backgroundImage: `radial-gradient(circle at 1px 1px, rgba(255,255,255,0.15) 1px, transparent 0)`,
+            backgroundSize: '16px 16px',
+          }}
+        />
+        <div className="relative z-10 p-4 md:p-5 lg:p-6 h-full lg:h-auto overflow-y-auto lg:overflow-visible overscroll-contain flex flex-col">
           {/* Avatar and Info - Responsive sizing */}
           <div className="text-center mb-4 lg:mb-5">
             <div className="relative w-16 h-16 lg:w-20 lg:h-20 xl:w-24 xl:h-24 mx-auto mb-3 lg:mb-4 overflow-hidden rounded-2xl lg:rounded-3xl shadow-lg shadow-orange-400/20">
@@ -219,15 +228,15 @@ export default function Sidebar({ locale }: SidebarProps) {
               <LegacyVersionSelector />
             </div>
 
-            <div className="h-px bg-jet mb-3 lg:mb-4" />
+            {/* <div className="h-px bg-jet mb-3 lg:mb-4" /> */}
 
             {/* Language Switcher Section */}
-            <div className="mb-0">
+            {/* <div className="mb-0">
               <h3 className="text-white-2 text-xs lg:text-sm font-medium mb-2 lg:mb-3 tracking-wider uppercase">
                 Language
               </h3>
               <LanguageSwitcher currentLocale={locale} />
-            </div>
+            </div> */}
           </div>
         </div>
       </aside>

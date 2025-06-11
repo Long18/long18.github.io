@@ -233,25 +233,24 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({
       className={cn(
         // Base styles with enhanced shadows and gradients
         'group relative cursor-pointer overflow-hidden',
-        'bg-gradient-to-br from-eerie-black-2/90 via-eerie-black-1/90 to-eerie-black-2/90',
-        'border border-jet/50 backdrop-blur-sm',
-        'rounded-2xl shadow-xl shadow-smoky-black/20',
+        'bg-eerie-black-2/20 backdrop-blur-sm',
+        'border border-jet/30 rounded-2xl shadow-lg',
 
         // Interactive states
         'transform transition-all duration-500 ease-out',
-        'hover:shadow-2xl hover:shadow-orange-yellow-crayola/20',
-        'hover:border-orange-yellow-crayola/50',
-        'focus:scale-105 focus:outline-none focus:ring-2 focus:ring-orange-yellow-crayola/50',
+        'hover:shadow-xl hover:shadow-orange-400/20',
+        'hover:border-orange-400/50 hover:bg-eerie-black-2/30',
+        'focus:scale-105 focus:outline-none focus:ring-2 focus:ring-orange-400/50',
 
         // Layout
         'flex flex-col h-full',
         'min-h-[380px] sm:min-h-[420px] md:min-h-[460px] lg:min-h-[480px]',
 
         // Glass morphism effect
-        'before:absolute before:inset-0 before:bg-gradient-to-br before:from-white-1/5 before:to-transparent before:pointer-events-none before:rounded-2xl',
+        'before:absolute before:inset-0 before:bg-gradient-to-br before:from-white/5 before:to-transparent before:pointer-events-none before:rounded-2xl',
 
         // Animated border gradient
-        'after:absolute after:inset-0 after:bg-gradient-to-r after:from-transparent after:via-orange-yellow-crayola/20 after:to-transparent',
+        'after:absolute after:inset-0 after:bg-gradient-to-r after:from-transparent after:via-orange-400/20 after:to-transparent',
         'after:opacity-0 hover:after:opacity-100 after:transition-opacity after:duration-700',
         'after:pointer-events-none after:rounded-2xl'
       )}
@@ -266,13 +265,13 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({
       >
         {/* Loading placeholder with animated gradient */}
         {!imageLoaded && (
-          <div className="absolute inset-0 bg-gradient-to-br from-eerie-black-1 to-eerie-black-2 animate-pulse">
+          <div className="absolute inset-0 bg-gradient-to-br from-gray-800 to-gray-700 animate-pulse">
             <div
-              className="absolute inset-0 bg-gradient-to-r from-transparent via-jet/50 to-transparent
+              className="absolute inset-0 bg-gradient-to-r from-transparent via-gray-600/50 to-transparent
                            transform translate-x-[-100%] animate-shimmer"
             />
             <div className="absolute inset-0 flex items-center justify-center">
-              <div className="w-12 h-12 border-2 border-orange-yellow-crayola/30 border-t-orange-yellow-crayola rounded-full animate-spin" />
+              <div className="w-12 h-12 border-2 border-orange-400/30 border-t-orange-400 rounded-full animate-spin" />
             </div>
           </div>
         )}
@@ -297,8 +296,8 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({
             }}
           />
         ) : (
-          <div className="absolute inset-0 bg-gradient-to-br from-eerie-black-1 to-eerie-black-2 flex items-center justify-center">
-            <div className="text-center text-white-2/60">
+          <div className="absolute inset-0 bg-gradient-to-br from-gray-800 to-gray-700 flex items-center justify-center">
+            <div className="text-center text-gray-300/60">
               <svg
                 className="w-16 h-16 mx-auto mb-2 opacity-50"
                 fill="none"
@@ -325,9 +324,9 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({
               onClick={prevImage}
               className={cn(
                 'absolute left-2 top-1/2 -translate-y-1/2 z-10',
-                'bg-smoky-black/40 hover:bg-smoky-black/60 text-white-1 p-2 rounded-full backdrop-blur-sm',
+                'bg-gray-900/40 hover:bg-gray-900/60 text-white p-2 rounded-full backdrop-blur-sm',
                 'transition-all duration-300 opacity-0 group-hover:opacity-100',
-                'hover:scale-110 focus:outline-none focus:ring-2 focus:ring-orange-yellow-crayola/50'
+                'hover:scale-110 focus:outline-none focus:ring-2 focus:ring-orange-400/50'
               )}
               aria-label="Previous image"
             >
@@ -350,9 +349,9 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({
               onClick={nextImage}
               className={cn(
                 'absolute right-2 top-1/2 -translate-y-1/2 z-10',
-                'bg-smoky-black/40 hover:bg-smoky-black/60 text-white-1 p-2 rounded-full backdrop-blur-sm',
+                'bg-gray-900/40 hover:bg-gray-900/60 text-white p-2 rounded-full backdrop-blur-sm',
                 'transition-all duration-300 opacity-0 group-hover:opacity-100',
-                'hover:scale-110 focus:outline-none focus:ring-2 focus:ring-orange-yellow-crayola/50'
+                'hover:scale-110 focus:outline-none focus:ring-2 focus:ring-orange-400/50'
               )}
               aria-label="Next image"
             >
@@ -375,16 +374,16 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({
             <div
               className={cn(
                 'absolute top-3 right-3 z-10',
-                'bg-smoky-black/60 text-white-1 px-2.5 py-1 rounded-full text-xs backdrop-blur-sm',
+                'bg-gray-900/60 text-white px-2.5 py-1 rounded-full text-xs backdrop-blur-sm',
                 'transition-all duration-300 opacity-0 group-hover:opacity-100',
-                'border border-white-1/20'
+                'border border-white/20'
               )}
             >
               {currentImageIndex + 1} / {images.length}
             </div>
 
             {/* Gallery indicator */}
-            <div className="absolute top-3 left-3 z-10 bg-smoky-black/60 text-white-1 p-1.5 rounded-full backdrop-blur-sm border border-white-1/20">
+            <div className="absolute top-3 left-3 z-10 bg-gray-900/60 text-white p-1.5 rounded-full backdrop-blur-sm border border-white/20">
               <svg
                 className="w-3.5 h-3.5"
                 fill="none"
@@ -407,8 +406,8 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({
           <span
             className={cn(
               'px-3 py-1.5 rounded-full text-xs font-semibold backdrop-blur-md border',
-              'bg-gradient-to-r from-orange-yellow-crayola/90 to-vegas-gold/90',
-              'text-smoky-black border-orange-yellow-crayola/50 shadow-lg shadow-orange-yellow-crayola/25'
+              'bg-gradient-to-r from-orange-400/90 to-orange-500/90',
+              'text-gray-900 border-orange-400/50 shadow-lg shadow-orange-400/25'
             )}
           >
             {project.category.charAt(0).toUpperCase() +
@@ -426,16 +425,16 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({
         {/* Hover Overlay with Enhanced View Icon */}
         <div
           className={cn(
-            'absolute inset-0 bg-gradient-to-t from-smoky-black/60 via-smoky-black/20 to-transparent',
+            'absolute inset-0 bg-gradient-to-t from-gray-900/60 via-gray-900/20 to-transparent',
             'flex items-center justify-center opacity-0 group-hover:opacity-100',
             'transition-all duration-300 backdrop-blur-[1px]'
           )}
         >
           <div
             className={cn(
-              'bg-orange-yellow-crayola/90 text-smoky-black p-4 rounded-full shadow-lg',
+              'bg-orange-400/90 text-gray-900 p-4 rounded-full shadow-lg',
               'transform scale-75 group-hover:scale-100 transition-all duration-300',
-              'border-2 border-white-1/20'
+              'border-2 border-white/20'
             )}
           >
             <svg
@@ -469,9 +468,9 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({
         <div className="min-h-[2rem] sm:min-h-[2.5rem]">
           <h3
             className={cn(
-              'text-base sm:text-lg md:text-xl font-bold text-white-1 truncate',
+              'text-base sm:text-lg md:text-xl font-bold text-white truncate',
               'transition-all duration-300 group-hover:text-transparent',
-              'group-hover:bg-gradient-to-r group-hover:from-orange-yellow-crayola group-hover:to-vegas-gold',
+              'group-hover:bg-gradient-to-r group-hover:from-orange-400 group-hover:to-orange-500',
               'group-hover:bg-clip-text'
             )}
           >
@@ -481,7 +480,7 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({
 
         {/* Description with better typography */}
         <div className="min-h-[3rem] sm:min-h-[4rem] md:min-h-[5rem]">
-          <p className="text-xs sm:text-sm md:text-base text-white-2 line-clamp-2 md:line-clamp-3 leading-relaxed">
+          <p className="text-xs sm:text-sm md:text-base text-gray-300 line-clamp-2 md:line-clamp-3 leading-relaxed">
             {project.description}
           </p>
         </div>
@@ -511,8 +510,8 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({
                 <span
                   className={cn(
                     'px-2 py-1 sm:px-3 sm:py-1.5 rounded-lg text-[10px] sm:text-xs font-semibold',
-                    'bg-gradient-to-r from-jet/50 to-onyx/50 text-white-2',
-                    'border border-jet/40 transition-all duration-300 hover:scale-105',
+                    'bg-gradient-to-r from-gray-600/50 to-gray-700/50 text-gray-300',
+                    'border border-gray-600/40 transition-all duration-300 hover:scale-105',
                     'cursor-default shadow-md backdrop-blur-sm'
                   )}
                   title={project.tags
@@ -526,7 +525,7 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({
               )}
             </>
           ) : (
-            <span className="px-3 py-1.5 rounded-lg text-xs font-semibold bg-jet/40 text-white-2/60 border border-jet/40 cursor-default">
+            <span className="px-3 py-1.5 rounded-lg text-xs font-semibold bg-gray-600/40 text-gray-300/60 border border-gray-600/40 cursor-default">
               No tags
             </span>
           )}
@@ -536,7 +535,7 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({
         {(project.website ||
           project.storeLinks?.android ||
           project.storeLinks?.ios) && (
-          <div className="flex items-center justify-between pt-3 border-t border-jet/50">
+          <div className="flex items-center justify-between pt-3 border-t border-gray-600/50">
             <div className="flex items-center gap-2">
               {project.website && (
                 <a
@@ -546,10 +545,10 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({
                   onClick={(e) => e.stopPropagation()}
                   className={cn(
                     'group/btn flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium',
-                    'bg-gradient-to-r from-orange-yellow-crayola/20 to-vegas-gold/20 text-orange-yellow-crayola',
-                    'border border-orange-yellow-crayola/40 hover:border-orange-yellow-crayola/60',
+                    'bg-gradient-to-r from-orange-400/20 to-orange-500/20 text-orange-400',
+                    'border border-orange-400/40 hover:border-orange-400/60',
                     'transition-all duration-300 hover:scale-105 hover:shadow-lg',
-                    'hover:from-orange-yellow-crayola/30 hover:to-vegas-gold/30'
+                    'hover:from-orange-400/30 hover:to-orange-500/30'
                   )}
                   title="Visit Website"
                   aria-label="Visit project website"
@@ -578,10 +577,10 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({
                   onClick={(e) => e.stopPropagation()}
                   className={cn(
                     'group/btn flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium',
-                    'bg-gradient-to-r from-application-tag/20 to-green-teal/20 text-application-tag',
-                    'border border-application-tag/40 hover:border-application-tag/60',
+                    'bg-gradient-to-r from-green-600/20 to-green-700/20 text-green-400',
+                    'border border-green-600/40 hover:border-green-600/60',
                     'transition-all duration-300 hover:scale-105 hover:shadow-lg',
-                    'hover:from-application-tag/30 hover:to-green-teal/30'
+                    'hover:from-green-600/30 hover:to-green-700/30'
                   )}
                   title="Download on Google Play"
                   aria-label="Download on Google Play"
@@ -604,10 +603,10 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({
                   onClick={(e) => e.stopPropagation()}
                   className={cn(
                     'group/btn flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium',
-                    'bg-gradient-to-r from-jet/20 to-onyx/20 text-white-2',
-                    'border border-jet/40 hover:border-onyx/60',
+                    'bg-gradient-to-r from-gray-600/20 to-gray-700/20 text-gray-300',
+                    'border border-gray-600/40 hover:border-gray-700/60',
                     'transition-all duration-300 hover:scale-105 hover:shadow-lg',
-                    'hover:from-jet/30 hover:to-onyx/30 hover:text-white-1'
+                    'hover:from-gray-600/30 hover:to-gray-700/30 hover:text-white'
                   )}
                   title="Download on App Store"
                   aria-label="Download on App Store"
@@ -625,7 +624,7 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({
             </div>
             {/* Project Timeline */}
             <div className="text-right">
-              <span className="text-xs text-white-2/60 font-medium">
+              <span className="text-xs text-gray-400/60 font-medium">
                 {project.timeline || 'Recent'}
               </span>
             </div>
