@@ -108,6 +108,29 @@ export default function About({ className = '' }: AboutProps) {
 
   const { performanceMode, isMobile, isClient } = useAnimationPerformance();
 
+  // Close mobile tooltip when switching to desktop or on escape key
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth >= 768 && hoveredSkill) {
+        setHoveredSkill(null);
+      }
+    };
+
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape' && hoveredSkill) {
+        setHoveredSkill(null);
+      }
+    };
+
+    window.addEventListener('resize', handleResize);
+    window.addEventListener('keydown', handleKeyDown);
+
+    return () => {
+      window.removeEventListener('resize', handleResize);
+      window.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [hoveredSkill]);
+
   // Intersection Observer for entrance animations
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -569,8 +592,13 @@ export default function About({ className = '' }: AboutProps) {
                         <motion.div
                           variants={itemVariants}
                           whileHover={
-                            performanceMode !== 'low'
+                            performanceMode !== 'low' && !isMobile
                               ? { scale: 1.05, y: -2 }
+                              : {}
+                          }
+                          whileTap={
+                            isMobile
+                              ? { scale: 0.95 }
                               : {}
                           }
                           onMouseEnter={() =>
@@ -579,13 +607,21 @@ export default function About({ className = '' }: AboutProps) {
                           onMouseLeave={() =>
                             !isMobile && setHoveredSkill(null)
                           }
-                          onClick={() =>
-                            isMobile &&
-                            setHoveredSkill(
-                              hoveredSkill === skill.id ? null : skill.id
-                            )
-                          }
-                          className="flex items-center gap-3 px-4 py-3 bg-jet/50 backdrop-blur-sm rounded-2xl border border-jet/50 hover:border-orange-500/50 hover:bg-orange-500/10 hover:shadow-lg hover:shadow-orange-500/20 transition-all duration-500 group/skill cursor-pointer animate-scale-in"
+                          onTouchStart={() => {
+                            if (isMobile && navigator.vibrate) {
+                              navigator.vibrate(50); // Haptic feedback
+                            }
+                          }}
+                          onClick={(e) => {
+                            if (isMobile) {
+                              e.preventDefault();
+                              e.stopPropagation();
+                              setHoveredSkill(
+                                hoveredSkill === skill.id ? null : skill.id
+                              );
+                            }
+                          }}
+                          className="flex items-center gap-3 px-4 py-3 bg-jet/50 backdrop-blur-sm rounded-2xl border border-jet/50 hover:border-orange-500/50 hover:bg-orange-500/10 hover:shadow-lg hover:shadow-orange-500/20 transition-all duration-500 group/skill cursor-pointer animate-scale-in select-none"
                           style={{
                             animationDelay: `${
                               2.6 + categoryIndex * 0.1 + skillIndex * 0.05
@@ -607,7 +643,22 @@ export default function About({ className = '' }: AboutProps) {
 
                           {/* Info icon for skills with descriptions */}
                           {skill.description && (
-                            <Info className="w-3 h-3 text-white-2/60 group-hover/skill:text-orange-400 transition-colors duration-300" />
+                            <motion.div
+                              animate={isMobile && hoveredSkill === skill.id ? {
+                                rotate: [0, 10, -10, 0],
+                                scale: [1, 1.2, 1]
+                              } : {}}
+                              transition={{ duration: 0.5 }}
+                            >
+                              <Info className="w-3 h-3 text-white-2/60 group-hover/skill:text-orange-400 transition-colors duration-300" />
+                            </motion.div>
+                          )}
+
+                          {/* Mobile tap indicator */}
+                          {isMobile && skill.description && (
+                            <div className="ml-auto text-xs text-white-2/60 group-hover/skill:text-orange-400 transition-colors duration-300">
+                              Tap
+                            </div>
                           )}
                         </motion.div>
 
@@ -649,16 +700,23 @@ export default function About({ className = '' }: AboutProps) {
         </motion.section>
       </motion.div>
 
-      {/* Mobile Tooltip Portal */}
+      {/* Enhanced Mobile Tooltip Portal */}
       {isMobile && hoveredSkill && (
         <>
-          {/* Global backdrop overlay */}
-          <div
-            className="fixed inset-0 bg-black/40 backdrop-blur-sm z-[9998]"
+          {/* Global backdrop overlay with enhanced mobile UX */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 bg-black/50 backdrop-blur-md z-[9998]"
             onClick={(e) => {
               e.preventDefault();
               e.stopPropagation();
               setHoveredSkill(null);
+            }}
+            onTouchStart={(e) => {
+              e.preventDefault();
+              e.stopPropagation();
             }}
             onTouchEnd={(e) => {
               e.preventDefault();
@@ -667,17 +725,27 @@ export default function About({ className = '' }: AboutProps) {
             }}
           />
 
-          {/* Mobile tooltip modal */}
+          {/* Enhanced Mobile tooltip modal */}
           <motion.div
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
-            exit={{ opacity: 0, scale: 0.9 }}
-            transition={{ duration: 0.2 }}
-            className="fixed inset-0 flex items-center justify-center z-[9999] p-4 pointer-events-none"
+            initial={{ opacity: 0, scale: 0.8, y: 50 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            exit={{ opacity: 0, scale: 0.8, y: 50 }}
+            transition={{
+              type: "spring",
+              damping: 25,
+              stiffness: 300,
+              duration: 0.3
+            }}
+            className="fixed inset-0 flex items-center justify-center z-[9999] p-6 pointer-events-none"
           >
-            <div
-              className="bg-eerie-black-1/95 backdrop-blur-xl border border-orange-400/50 shadow-2xl shadow-orange-500/40 w-full max-w-sm p-6 rounded-3xl text-white-1 text-center pointer-events-auto"
+            <motion.div
+              layoutId={`skill-${hoveredSkill}`}
+              className="bg-gradient-to-br from-eerie-black-1/98 to-eerie-black-2/98 backdrop-blur-xl border-2 border-orange-400/60 shadow-2xl shadow-orange-500/50 w-full max-w-sm rounded-3xl overflow-hidden pointer-events-auto"
               onClick={(e) => {
+                e.preventDefault();
+                e.stopPropagation();
+              }}
+              onTouchStart={(e) => {
                 e.preventDefault();
                 e.stopPropagation();
               }}
@@ -697,21 +765,61 @@ export default function About({ className = '' }: AboutProps) {
                 const currentSkill = skillCategories
                   .flatMap((cat) => cat.skills as SkillType[])
                   .find((skill: SkillType) => skill.id === hoveredSkill);
+
                 return currentSkill ? (
                   <>
-                    <div className="font-semibold text-orange-300 mb-3 text-lg">
-                      {currentSkill.name}
+                    {/* Header with gradient background */}
+                    <div className="bg-gradient-to-r from-orange-400/20 to-purple-500/20 p-6 text-center">
+                      <motion.div
+                        initial={{ scale: 0.8 }}
+                        animate={{ scale: 1 }}
+                        className="w-16 h-16 mx-auto mb-3 bg-gradient-to-br from-orange-400 to-purple-500 rounded-2xl flex items-center justify-center"
+                      >
+                        <SkillIcon
+                          skillId={currentSkill.id}
+                          className="w-8 h-8 text-white"
+                        />
+                      </motion.div>
+                      <motion.h3
+                        initial={{ opacity: 0, y: 10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ delay: 0.1 }}
+                        className="font-bold text-orange-300 text-xl"
+                      >
+                        {currentSkill.name}
+                      </motion.h3>
                     </div>
-                    <div className="text-white-1/95 leading-relaxed text-base">
-                      {currentSkill.description}
+
+                    {/* Content */}
+                    <div className="p-6">
+                      <motion.p
+                        initial={{ opacity: 0, y: 15 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ delay: 0.2 }}
+                        className="text-white-1/95 leading-relaxed text-base mb-6"
+                      >
+                        {currentSkill.description}
+                      </motion.p>
+
+                      {/* Close instruction */}
+                      <motion.div
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        transition={{ delay: 0.3 }}
+                        className="flex items-center justify-center gap-2 pt-4 border-t border-orange-500/30 text-white-2/80 text-sm"
+                      >
+                        <motion.div
+                          animate={{ scale: [1, 1.1, 1] }}
+                          transition={{ duration: 2, repeat: Infinity }}
+                          className="w-2 h-2 bg-orange-400 rounded-full"
+                        />
+                        <span>Tap outside to close</span>
+                      </motion.div>
                     </div>
                   </>
                 ) : null;
               })()}
-              <div className="mt-5 pt-4 border-t border-orange-500/30 text-white-2/80 text-sm">
-                Tap outside to close
-              </div>
-            </div>
+            </motion.div>
           </motion.div>
         </>
       )}
