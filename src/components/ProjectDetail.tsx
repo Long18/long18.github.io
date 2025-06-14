@@ -220,7 +220,7 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-[10000] flex items-center justify-center p-4 sm:p-6 md:p-8"
+            className="fixed inset-0 z-[10000] flex items-center justify-center p-4 sm:p-6 md:p-8 xl:p-4 2xl:p-6"
             style={{
               position: 'fixed',
               top: 0,
@@ -241,7 +241,7 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({
               exit={{ opacity: 0, scale: 0.9, y: 50 }}
               transition={{ duration: 0.3, ease: 'easeOut' }}
               onClick={(e) => e.stopPropagation()}
-              className="relative w-full max-w-6xl h-[90vh] bg-gradient-to-br from-eerie-black-2/95 via-smoky-black/90 to-eerie-black-1/95 rounded-2xl shadow-2xl border border-jet/50 overflow-hidden flex flex-col"
+              className="relative w-full max-w-6xl xl:max-w-none h-[90vh] xl:h-[95vh] bg-gradient-to-br from-eerie-black-2/95 via-smoky-black/90 to-eerie-black-1/95 rounded-2xl shadow-2xl border border-jet/50 overflow-hidden flex flex-col"
             >
               {/* Background Pattern */}
               <div className="absolute inset-0 opacity-[0.02] pointer-events-none">
@@ -356,21 +356,28 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({
                     {/* Enhanced Close Button */}
                     <button
                       onClick={onClose}
-                      className="relative group p-3 bg-gradient-to-r from-jet/80 to-eerie-black-1/80 hover:from-orange-400/20 hover:to-orange-500/20 border border-jet/60 hover:border-orange-400/60 rounded-xl transition-all duration-300 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-orange-400/50 shadow-lg hover:shadow-orange-400/20 backdrop-blur-sm"
+                      className="relative group p-3 xl:p-3.5 bg-gradient-to-r from-red-500/80 to-rose-500/80 hover:from-red-400/90 hover:to-rose-400/90 border border-red-400/60 hover:border-red-300/80 rounded-xl transition-all duration-300 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-red-400/60 shadow-lg shadow-red-500/20 hover:shadow-red-400/30 backdrop-blur-sm"
                       aria-label="Close project details"
                     >
-                      <div className="absolute inset-0 bg-gradient-to-r from-orange-400/0 to-orange-400/0 group-hover:from-orange-400/10 group-hover:to-orange-400/5 rounded-xl transition-all duration-300" />
-                      <IoCloseOutline className="relative z-10 text-2xl text-white-1 group-hover:text-orange-400 transition-colors duration-300" />
+                                            <div className="absolute inset-0 bg-gradient-to-r from-red-400/20 to-rose-400/20 group-hover:from-red-300/30 group-hover:to-rose-300/30 rounded-xl transition-all duration-300" />
+
+                      {/* Bubble X icon */}
+                      <IoCloseOutline className="relative z-10 text-2xl text-white group-hover:text-red-50 transition-all duration-300 filter drop-shadow-lg group-hover:drop-shadow-2xl animate-pulse group-hover:animate-bounce"
+                        style={{
+                          textShadow: '0 0 10px rgba(255,255,255,0.5), 0 0 20px rgba(255,255,255,0.3), 0 0 30px rgba(255,255,255,0.1)',
+                          filter: 'drop-shadow(0 0 8px rgba(255,255,255,0.6)) drop-shadow(0 0 16px rgba(255,255,255,0.4))'
+                        }}
+                      />
                     </button>
                   </div>
                 </div>
               </div>
 
               {/* Scrollable Content - Fixed height calculation */}
-              <div className="flex-1 overflow-y-auto p-4 sm:p-6 md:p-8 space-y-6">
-                <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+              <div className="flex-1 overflow-y-auto p-4 sm:p-6 md:p-8 xl:p-6 2xl:p-8 space-y-6">
+                <div className="grid grid-cols-1 lg:grid-cols-3 xl:grid-cols-4 gap-6 xl:gap-8">
                   {/* Enhanced Main Content with Professional Card Layout */}
-                  <div className="lg:col-span-2 space-y-8">
+                  <div className="lg:col-span-2 xl:col-span-3 space-y-8">
                     {/* Enhanced Description Card */}
                     <motion.div
                       initial={{ opacity: 0, y: 20 }}
@@ -534,7 +541,7 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({
                   </div>
 
                   {/* Enhanced Sidebar */}
-                  <div className="space-y-6">
+                  <div className="space-y-6 xl:space-y-8">
                     {/* Enhanced Project Info Card */}
                     <div className="relative group bg-gradient-to-br from-eerie-black-2/80 via-smoky-black/70 to-eerie-black-1/80 border border-jet/60 hover:border-orange-400/50 rounded-2xl p-5 sm:p-6 backdrop-blur-md shadow-xl hover:shadow-2xl hover:shadow-orange-400/10 transition-all duration-300">
                       {/* Card Background Effects */}
@@ -856,7 +863,7 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({
                       </div>
 
                       {/* Enhanced Gallery Grid */}
-                      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+                      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-4 xl:gap-6">
                         {project.gallery.map((image: string, index: number) => (
                           <motion.div
                             key={index}
@@ -935,7 +942,7 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({
                       </div>
 
                       {/* Enhanced Videos Grid */}
-                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                      <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6 xl:gap-8">
                         {project.videos.map((video, index) => (
                           <motion.div
                             key={index}
