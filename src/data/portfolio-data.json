@@ -1,590 +1,845 @@
 {
-  "sidebar": {
-    "name": "Lê Nguyễn Thành Long",
-    "alias": "William",
-    "avatar": "/assets/images/avatar.png",
-    "email": "us.thanhlong18@gmail.com",
-    "phone": "+84918399443",
-    "birthday": "2000-06-18",
-    "location": "Ho Chi Minh City",
-    "socials": {
-      "github": "https://github.com/long18",
-      "facebook": "https://www.facebook.com/William.2418/",
-      "twitter": "https://twitter.com/Willlee186",
-      "linkedin": "https://www.linkedin.com/in/william186/",
-      "skype": "https://join.skype.com/invite/xJY5pgHzba5y"
-    }
-  },
-  "projects": [
-    {
-      "id": "heroicDefense",
-      "title": "Heroic Defense",
-      "category": "unity",
-      "image": "https://github.com/user-attachments/assets/80ad6adb-8497-4416-8a0e-cdd0bda4c0e2",
-      "tags": [
+    "sidebar": {
+        "name": "Lê Nguyễn Thành Long",
+        "alias": "William",
+        "avatar": "/assets/images/avatar.png",
+        "email": "us.thanhlong18@gmail.com",
+        "phone": "+84918399443",
+        "birthday": "2000-06-18",
+        "location": "Ho Chi Minh City",
+        "socials": {
+            "github": "https://github.com/long18",
+            "facebook": "https://www.facebook.com/William.2418/",
+            "twitter": "https://twitter.com/Willlee186",
+            "linkedin": "https://www.linkedin.com/in/william186/",
+            "skype": "https://join.skype.com/invite/xJY5pgHzba5y"
+        }
+    },
+    "projects": [
         {
-          "label": "Unity",
-          "colorClass": "bg-gray-800 text-white"
+            "id": "heroicDefense",
+            "title": "Heroic Defense",
+            "category": "unity",
+            "image": "https://github.com/user-attachments/assets/80ad6adb-8497-4416-8a0e-cdd0bda4c0e2",
+            "tags": [
+                {
+                    "label": "Unity2D",
+                    "colorClass": "bg-gray-800 text-white"
+                },
+                {
+                    "label": "C#",
+                    "colorClass": "bg-blue-600 text-white"
+                },
+                {
+                    "label": "UniRx",
+                    "colorClass": "bg-purple-600 text-white"
+                },
+                {
+                    "label": "GAS",
+                    "colorClass": "bg-green-600 text-white"
+                },
+                {
+                    "label": "VContainer",
+                    "colorClass": "bg-orange-600 text-white"
+                },
+                {
+                    "label": "Prime-Tween",
+                    "colorClass": "bg-pink-600 text-white"
+                },
+                {
+                    "label": "Tower Defense",
+                    "colorClass": "bg-red-600 text-white"
+                }
+            ],
+            "timeline": "09/2024 — Present",
+            "description": "Team composition includes 4 members: 2 game developers, 1 game designer, and 1 artist. A comprehensive tower defense game featuring advanced enemy AI, special weapon mechanics, and dynamic skill systems.",
+            "gallery": [
+                "https://github.com/user-attachments/assets/80ad6adb-8497-4416-8a0e-cdd0bda4c0e2",
+                "https://github.com/user-attachments/assets/79237991-15d5-4d12-a230-2ef02e009513",
+                "https://github.com/user-attachments/assets/7b2b48f7-54eb-4711-9d0e-1a177bc84286",
+                "https://github.com/user-attachments/assets/07967261-9e41-426b-97a9-68d19752861a",
+                "https://github.com/user-attachments/assets/790edaa2-a8e6-4ab6-a6ec-b15acbe70caf",
+                "https://github.com/user-attachments/assets/1ff2f712-b1d8-4f1b-9712-345a1a571b53",
+                "https://github.com/user-attachments/assets/2f369a89-192e-4bc9-9356-12b65273672c",
+                "https://github.com/user-attachments/assets/60dc8f0e-9f30-4453-9b61-7491cebbfd10",
+                "https://github.com/user-attachments/assets/e684b198-ecb5-4dc4-b6ad-522cbb8880cf",
+                "https://github.com/user-attachments/assets/1c79da14-c16a-455c-8143-b31fd2b32f24",
+                "https://github.com/user-attachments/assets/910ae1db-a140-44c6-bc9e-56ddcf380681",
+                "https://github.com/user-attachments/assets/27c6435d-3ec5-48a5-a49d-ac4ec84f645f",
+                "https://github.com/user-attachments/assets/15cab860-1208-47bf-928c-5ba763383877",
+                "https://github.com/user-attachments/assets/be7e519b-1a2f-4fb6-80e7-743945762611",
+                "https://github.com/user-attachments/assets/fe3d3b92-07c3-405d-9a7e-8b0e375e262c"
+            ],
+            "responsibilities": [
+                "Implemented unique enemy behaviors and new enemy types across multiple maps.",
+                "Designed and optimized special weapon mechanics, including rocket, machine gun, and flamethrower.",
+                "Developed robust reward systems with material drops and currency management.",
+                "Created and fine-tuned passive and active skill systems for dynamic gameplay.",
+                "Enhanced combat with refined damage calculation and energy regeneration mechanics.",
+                "Integrated SDK, ads, and in-app purchases (IAP) for monetization.",
+                "Took full responsibility for the core game development and technical architecture."
+            ],
+            "achievements": [
+                "Task Management: Successfully divided tasks clearly among the team members, ensuring efficiency and accountability.",
+                "Agile Process: Followed Agile/Scrum methodologies to ensure smooth project development and delivery.",
+                "Gameplay Enhancements: Delivered innovative enemy behaviors and combat systems, providing a more engaging experience.",
+                "Performance Optimization: Optimized game mechanics, ensuring high performance and stability during gameplay.",
+                "Global Success - Android: Achieved 200K+ downloads on Google Play Store (As of January 2025)",
+                "Global Success - iOS: Achieved 50K+ downloads on App Store (As of January 2025)",
+                "Combined Success: Over 250K total downloads across both platforms within 4 months of release"
+            ],
+            "storeLinks": {
+                "android": "https://play.google.com/store/apps/details?id=com.hd.heroic.defense",
+                "ios": "https://apps.apple.com/app/heroic-defense/id6742034673"
+            }
         },
         {
-          "label": "Tower Defense",
-          "colorClass": "bg-purple-600 text-white"
-        }
-      ],
-      "timeline": "Sep/2024 — Jan/2025",
-      "description": "Team composition includes 4 members: 2 game developers, 1 game designer, and 1 artist.",
-      "gallery": [
-        "https://github.com/user-attachments/assets/80ad6adb-8497-4416-8a0e-cdd0bda4c0e2",
-        "https://github.com/user-attachments/assets/79237991-15d5-4d12-a230-2ef02e009513",
-        "https://github.com/user-attachments/assets/7b2b48f7-54eb-4711-9d0e-1a177bc84286",
-        "https://github.com/user-attachments/assets/07967261-9e41-426b-97a9-68d19752861a",
-        "https://github.com/user-attachments/assets/790edaa2-a8e6-4ab6-a6ec-b15acbe70caf",
-        "https://github.com/user-attachments/assets/1ff2f712-b1d8-4f1b-9712-345a1a571b53",
-        "https://github.com/user-attachments/assets/2f369a89-192e-4bc9-9356-12b65273672c",
-        "https://github.com/user-attachments/assets/60dc8f0e-9f30-4453-9b61-7491cebbfd10",
-        "https://github.com/user-attachments/assets/e684b198-ecb5-4dc4-b6ad-522cbb8880cf",
-        "https://github.com/user-attachments/assets/1c79da14-c16a-455c-8143-b31fd2b32f24",
-        "https://github.com/user-attachments/assets/910ae1db-a140-44c6-bc9e-56ddcf380681",
-        "https://github.com/user-attachments/assets/27c6435d-3ec5-48a5-a49d-ac4ec84f645f",
-        "https://github.com/user-attachments/assets/15cab860-1208-47bf-928c-5ba763383877",
-        "https://github.com/user-attachments/assets/be7e519b-1a2f-4fb6-80e7-743945762611",
-        "https://github.com/user-attachments/assets/fe3d3b92-07c3-405d-9a7e-8b0e375e262c"
-      ],
-      "responsibilities": [
-        "Implemented unique enemy behaviors and new enemy types across multiple maps.",
-        "Designed and optimized special weapon mechanics, including saw, rocket, machine gun, and flamethrower.",
-        "Developed robust reward systems with material drops and currency management.",
-        "Created and fine-tuned passive and active skill systems for dynamic gameplay.",
-        "Enhanced combat with refined damage calculation and energy regeneration mechanics.",
-        "Integrated SDK, ads, and in-app purchases (IAP).",
-        "Took full responsibility for the core game development."
-      ],
-      "achievements": [
-        "Task Management: Successfully divided tasks clearly among the team members, ensuring efficiency and accountability.",
-        "Agile Process: Followed Agile/Scrum methodologies to ensure smooth project development and delivery.",
-        "Gameplay Enhancements: Delivered innovative enemy behaviors and combat systems, providing a more engaging experience.",
-        "Performance Optimization: Optimized game mechanics, ensuring high performance and stability during gameplay.",
-        "Global Success - Android: Achieved 200K+ downloads on Google Play Store (As of January 2025)",
-        "Global Success - iOS: Achieved 50K+ downloads on App Store (As of January 2025)",
-        "Combined Success: Over 250K total downloads across both platforms within 4 months of release"
-      ],
-      "storeLinks": {
-        "android": "https://play.google.com/store/apps/details?id=com.hd.heroic.defense",
-        "ios": "https://apps.apple.com/app/heroic-defense/id6742034673"
-      }
-    },
-    {
-      "id": "iceBreakingBattle",
-      "title": "Ice Breaking Battle",
-      "category": "unity",
-      "image": "https://github.com/user-attachments/assets/b45f3c89-d0ca-4e6a-a540-85f2ac8cc764",
-      "tags": [
+            "id": "iceBreakingBattle",
+            "title": "Ice Breaking Battle",
+            "category": "unity",
+            "image": "https://github.com/user-attachments/assets/b45f3c89-d0ca-4e6a-a540-85f2ac8cc764",
+            "tags": [
+                {
+                    "label": "Unity3D",
+                    "colorClass": "bg-gray-800 text-white"
+                },
+                {
+                    "label": "C#",
+                    "colorClass": "bg-blue-600 text-white"
+                },
+                {
+                    "label": "DOTween",
+                    "colorClass": "bg-green-600 text-white"
+                },
+                {
+                    "label": "Physics",
+                    "colorClass": "bg-purple-600 text-white"
+                }
+            ],
+            "timeline": "07/2024 — 09/2024",
+            "description": "Team composition includes a total of 2 members: 1 game developer and 1 game designer. A physics-based action game featuring complex enemy behaviors and dynamic power-up systems.",
+            "gallery": [
+                "https://github.com/user-attachments/assets/f9591bca-b07b-4cb4-8d18-542a88b860ad",
+                "https://github.com/user-attachments/assets/06e03ac3-5971-45df-89e1-320ce2bd4e19",
+                "https://github.com/user-attachments/assets/a2932be6-554f-44a4-a589-8dd1012ded7a",
+                "https://github.com/user-attachments/assets/a63817de-05b6-4136-87e2-1279d451ad90",
+                "https://github.com/user-attachments/assets/a48908a5-9d6a-4a02-a78d-06935485e47f",
+                "https://github.com/user-attachments/assets/3be46ce5-f57e-4443-a398-62da81754aa0"
+            ],
+            "responsibilities": [
+                "Developed complex enemy behaviors, including intelligent movement and attack strategies.",
+                "Implemented power-up systems like bombs, special discs, and enhanced player abilities.",
+                "Designed and balanced multiple levels with distinct challenges and environments.",
+                "Built dynamic reward systems, including currency synchronization and gem-to-coin conversion.",
+                "Enhanced gameplay mechanics with physics-based collision handling and power disc effects."
+            ],
+            "achievements": [
+                "Enhanced Gameplay Experience: Introduced complex enemy behaviors making the game more challenging and engaging. Implemented various power-ups including bombs, special discs, and enhanced player abilities to improve strategy and dynamics.",
+                "Level Design Excellence: Designed and balanced multiple levels offering diverse challenges and maintaining player interest through unique environments.",
+                "Reward System Optimization: Built dynamic reward systems including currency synchronization and gem-to-coin conversion, encouraging replayability.",
+                "Improved Game Physics: Refined collision handling making gameplay smoother and more realistic with physics-based mechanics.",
+                "Global Success - Android: Achieved 50K+ downloads on Google Play Store (As of January 2025)",
+                "Platform Expansion: Successfully launched on Android platform with strong user retention rate"
+            ],
+            "storeLinks": {
+                "android": "https://play.google.com/store/apps/details?id=com.ibb.ice.breaking.battle"
+            }
+        },
         {
-          "label": "Unity",
-          "colorClass": "bg-gray-800 text-white"
-        }
-      ],
-      "timeline": "Jul/2024 — Sep/2024",
-      "description": "Team composition includes a total of 2 members: 1 game developer and 1 game designer.",
-      "gallery": [
-        "https://github.com/user-attachments/assets/f9591bca-b07b-4cb4-8d18-542a88b860ad",
-        "https://github.com/user-attachments/assets/06e03ac3-5971-45df-89e1-320ce2bd4e19",
-        "https://github.com/user-attachments/assets/a2932be6-554f-44a4-a589-8dd1012ded7a",
-        "https://github.com/user-attachments/assets/a63817de-05b6-4136-87e2-1279d451ad90",
-        "https://github.com/user-attachments/assets/a48908a5-9d6a-4a02-a78d-06935485e47f",
-        "https://github.com/user-attachments/assets/3be46ce5-f57e-4443-a398-62da81754aa0"
-      ],
-      "responsibilities": [
-        "Developed complex enemy behaviors, including intelligent movement and attack strategies.",
-        "Implemented power-up systems like bombs, special discs, and enhanced player abilities.",
-        "Designed and balanced multiple levels with distinct challenges and environments.",
-        "Built dynamic reward systems, including currency synchronization and gem-to-coin conversion.",
-        "Enhanced gameplay mechanics with physics-based collision handling and power disc effects."
-      ],
-      "achievements": [
-        "Enhanced Gameplay Experience: Introduced complex enemy behaviors: Making the game more challenging and engaging. Implemented various power-ups: Including bombs, special discs, and enhanced player abilities to improve strategy and dynamics.",
-        "Level Design Excellence: Designed and balanced multiple levels: Offering diverse challenges and maintaining player interest through unique environments.",
-        "Reward System Optimization: Built dynamic reward systems: Including currency synchronization and gem-to-coin conversion, encouraging replayability.",
-        "Improved Game Physics: Refined collision handling: Making gameplay smoother and more realistic with physics-based mechanics.",
-        "Global Success - Android: Achieved 50K+ downloads on Google Play Store (As of January 2025)",
-        "Platform Expansion: Successfully launched on Android platform with strong user retention rate"
-      ],
-      "storeLinks": {
-        "android": "https://play.google.com/store/apps/details?id=com.ibb.ice.breaking.battle"
-      }
-    },
-    {
-      "id": "metameAmusementPark",
-      "title": "Metame Amusement Park",
-      "category": "unreal",
-      "image": "https://github.com/Long18/long18.github.io/assets/28853225/d78990f0-2b48-4635-bf33-7ed637940f63",
-      "tags": [
+            "id": "metameAmusementPark",
+            "title": "Metame Amusement Park",
+            "category": "unreal",
+            "image": "https://github.com/Long18/long18.github.io/assets/28853225/d78990f0-2b48-4635-bf33-7ed637940f63",
+            "tags": [
+                {
+                    "label": "Unreal Engine 5",
+                    "colorClass": "bg-purple-700 text-white"
+                },
+                {
+                    "label": "C++",
+                    "colorClass": "bg-blue-700 text-white"
+                },
+                {
+                    "label": "Blueprints",
+                    "colorClass": "bg-indigo-600 text-white"
+                },
+                {
+                    "label": "VFX",
+                    "colorClass": "bg-pink-600 text-white"
+                }
+            ],
+            "timeline": "02/2024 — 04/2024",
+            "description": "Team composition includes a total of 4 individuals, with 3 working in the front-end team and 1 serving as a tester. An immersive amusement park experience with advanced VFX and interactive systems.",
+            "gallery": [
+                "https://github.com/Long18/long18.github.io/assets/28853225/d78990f0-2b48-4635-bf33-7ed637940f63"
+            ],
+            "responsibilities": [
+                "Creating passcode functionality with input validation, error handling, and feedback mechanisms for correct and incorrect inputs.",
+                "Integrating firework visual effects (VFX) to add excitement and visual appeal to key moments in the game.",
+                "Implementing audio features to enhance the immersive gaming experience.",
+                "Added and configured various audio elements like fireworks sound, code hacked sound, and main scene audio setup.",
+                "Integrated the Dynomega quest system for enhanced gameplay depth.",
+                "Implemented spinning cup gimmick with slow-in slow-out speed and on/off features.",
+                "Fixed field of view (FOV) issues on SceneCapture camera and corrected various interaction bugs."
+            ],
+            "achievements": [
+                "Enhanced User Experience: Added accept buttons and various hints making the user interface more intuitive and user-friendly. Implemented dynamic quest systems and interactive elements enhancing gameplay depth and engagement.",
+                "Improved Audio and Visuals: Integrated various audio effects and sound setups significantly enriching the auditory experience. Addressed visual consistency issues particularly with lighting and reflection, ensuring a more immersive environment.",
+                "Increased Interactivity: Added interactive elements like passcode hints and popup pin codes improving user interaction and puzzle-solving aspects. Enhanced interaction mechanics with the environment such as the spinning cup feature.",
+                "Optimized Performance and Stability: Resolved conflicts and bugs leading to a more stable and smoother gameplay experience. Improved character animations and camera handling reducing glitches and improving overall game fluidity."
+            ],
+            "website": "https://www.metame.ne.jp/start"
+        },
         {
-          "label": "Unreal Engine",
-          "colorClass": "bg-purple-700 text-white"
-        }
-      ],
-      "timeline": "Feb/2023 — Apr/2024",
-      "description": "Team composition includes a total of 4 individuals, with 3 working in the front-end team and 1\n                        serving as a tester.",
-      "gallery": [
-        "https://github.com/Long18/long18.github.io/assets/28853225/d78990f0-2b48-4635-bf33-7ed637940f63"
-      ],
-      "responsibilities": [
-        "Added an accept button.",
-        "Implemented various hints and icons for better user guidance.",
-        "Added and configured various audio elements like fireworks sound, code hacked sound, and main scene audio setup.",
-        "Integrated the Dynomega quest system.",
-        "Added functionalities related to sitting animations, including different animations and sitting spots.",
-        "Implemented a spinning cup gimmick with slow-in slow-out speed and on/off features.",
-        "Handled passcode interaction, popup pin code, and sync camera between server and client.",
-        "Fixed field of view (FOV) issues on SceneCapture camera.",
-        "Corrected various interaction and display bugs, such as incorrect icon hints and lighting inconsistencies.",
-        "Improved animation sequences and attachment logic for characters."
-      ],
-      "achievements": [
-        "Enhanced User Experience: Added accept buttons and various hints: Making the user interface more intuitive and user-friendly. Implemented dynamic quest systems and interactive elements: Enhancing gameplay depth and engagement.",
-        "Improved Audio and Visuals: Integrated various audio effects and sound setups: Significantly enriching the auditory experience. Addressed visual consistency issues: Particularly with lighting and reflection, ensuring a more immersive environment.",
-        "Increased Interactivity: Added interactive elements like passcode hints and popup pin codes: Improving user interaction and puzzle-solving aspects. Enhanced interaction mechanics with the environment: Such as the spinning cup feature and interaction with input.",
-        "Optimized Performance and Stability: Resolved conflicts and bugs: Leading to a more stable and smoother gameplay experience. Improved character animations and camera handling: Reducing glitches and improving overall game fluidity."
-      ],
-      "website": "https://www.metame.ne.jp/start"
-    },
-    {
-      "id": "cryptoquest",
-      "title": "Crypto Quest",
-      "category": "unity",
-      "image": "https://github.com/Long18/long18.github.io/assets/28853225/5f87b8cc-1f5d-4b41-a65b-edbf5aae5c8e",
-      "tags": [
+            "id": "cryptoquest",
+            "title": "Crypto Quest",
+            "category": "unity",
+            "image": "https://github.com/Long18/long18.github.io/assets/28853225/5f87b8cc-1f5d-4b41-a65b-edbf5aae5c8e",
+            "tags": [
+                {
+                    "label": "Unity2D",
+                    "colorClass": "bg-gray-800 text-white"
+                },
+                {
+                    "label": "C#",
+                    "colorClass": "bg-blue-600 text-white"
+                },
+                {
+                    "label": "UniRx",
+                    "colorClass": "bg-purple-600 text-white"
+                },
+                {
+                    "label": "Firebase",
+                    "colorClass": "bg-orange-600 text-white"
+                },
+                {
+                    "label": "GAS",
+                    "colorClass": "bg-green-600 text-white"
+                },
+                {
+                    "label": "RPG",
+                    "colorClass": "bg-red-600 text-white"
+                },
+                {
+                    "label": "Agile Scrum",
+                    "colorClass": "bg-indigo-600 text-white"
+                },
+                {
+                    "label": "Blockchain",
+                    "colorClass": "bg-yellow-600 text-white"
+                }
+            ],
+            "timeline": "05/2023 — 02/2024",
+            "description": "A comprehensive turn-based RPG inspired by Dragon Quest, featuring intricate quest systems, character management, and blockchain integration. Developed by a 14-member team (9 front-end, 3 back-end, 2 testers) using Agile Scrum methodology. The game incorporates advanced networking features, dynamic audio systems, and extensive localization support for global accessibility.",
+            "gallery": [
+                "https://github.com/Long18/long18.github.io/assets/28853225/ec260ea9-c07f-4775-b890-0450594b1adc",
+                "https://github.com/Long18/long18.github.io/assets/28853225/006c5b82-75d6-4e9d-bdfc-056bfb7131b7",
+                "https://github.com/Long18/long18.github.io/assets/28853225/404ee6aa-eb73-4637-8501-918b974a03af",
+                "https://github.com/Long18/long18.github.io/assets/28853225/73ff3c78-9475-48d1-9f99-7cc686e618f7",
+                "https://github.com/Long18/long18.github.io/assets/28853225/957fb9ae-cb17-44a0-8ff5-dbca4a03cfa9",
+                "https://github.com/Long18/long18.github.io/assets/28853225/60bd840f-9942-49ec-929c-9497b0d7717a",
+                "https://github.com/Long18/long18.github.io/assets/28853225/0104ba58-293f-4b1e-80ba-1dfc76c8fb28",
+                "https://github.com/Long18/long18.github.io/assets/28853225/e3952602-ac8b-4462-986d-342c09bd37d6",
+                "https://github.com/Long18/long18.github.io/assets/28853225/a8549106-234d-47ae-b6a0-5af68edae2e1",
+                "https://github.com/Long18/long18.github.io/assets/28853225/2dfa44a6-800a-4ea8-9574-03cd4d35bd34",
+                "https://github.com/Long18/long18.github.io/assets/28853225/aae1b3d5-0aaa-492c-87e3-1016088ed903",
+                "https://github.com/Long18/long18.github.io/assets/28853225/643fa9c6-025b-4120-b703-7580ce6617bf",
+                "https://github.com/Long18/long18.github.io/assets/28853225/ba6adc74-b14c-4884-99b2-69968bacdf2b",
+                "https://github.com/Long18/long18.github.io/assets/28853225/978fa48b-24fd-49fc-aafd-1c011aef405e",
+                "https://github.com/Long18/long18.github.io/assets/28853225/76742036-0227-4de8-a417-d4d1c9445b8d"
+            ],
+            "responsibilities": [
+                "Quest System Development: Contributed to implementing dynamic quest creation and completion systems, working closely with back-end team to integrate quest logic and actor conditions for smooth progression and player engagement.",
+                "Audio System Integration: Integrated comprehensive Audio Manager system with dynamic controls based on game events and player actions, enhancing immersive gameplay through music, sound effects, and ambient audio.",
+                "Beast Management System: Collaborated on developing Beast Management module enabling players to manage and upgrade in-game creatures, designed APIs for seamless beast data interaction and contributed to UI elements for stat displays and upgrade interfaces.",
+                "Core Game Mechanics: Implemented crucial gameplay systems including item usage, equipment management, skill integration, consumables handling, equipment rarity systems, and item effects for rich gameplay experience.",
+                "UI/UX Enhancement: Enhanced game UI/UX focusing on currency display, language settings, menu navigation, dialogue boxes, inventory editors, and command menus with comprehensive localization support for global accessibility.",
+                "Development Tools & Operations: Implemented additional functionality including Cheat Management, Cutscene Management, Tool Editor (account deletion, local build with port 80, ScriptableObject Browser), and provided live operations support for content updates and performance optimizations.",
+                "Agile Scrum Collaboration: Actively participated in sprint planning, daily stand-ups, and retrospective meetings, engaging with cross-functional teams to exchange ideas, offer suggestions, and address challenges collaboratively under team lead guidance."
+            ],
+            "achievements": [
+                "Successfully delivered the CryptoQuest project to the client, meeting all requirements and milestones within the specified 9-month timeline while working with a 14-member international development team.",
+                "Recognized for outstanding teamwork and contributions during project development, fostering a collaborative and productive work environment across front-end, back-end, and testing teams.",
+                "Implemented comprehensive RPG systems including dynamic quest management, beast collection mechanics, and advanced audio integration that significantly enhanced player engagement and game immersion.",
+                "Developed robust development tools and live operations support systems that streamlined content updates, debugging processes, and performance optimizations for ongoing game maintenance.",
+                "Successfully integrated blockchain technology with traditional RPG mechanics, creating seamless crypto-based gameplay elements while maintaining accessibility for mainstream gaming audiences.",
+                "Contributed to multi-language localization system supporting global player base, ensuring cultural sensitivity and technical accuracy across different regions and languages.",
+                "Demonstrated expertise in Agile Scrum methodology through effective cross-team collaboration, sprint management, and adaptive development practices in a complex, multi-disciplinary project environment."
+            ],
+            "website": "https://crypto-quest.org/",
+            "videos": [
+                {
+                    "src": "https://youtu.be/DLbbKSdFZEw",
+                    "poster": "https://github.com/Long18/long18.github.io/assets/28853225/5f87b8cc-1f5d-4b41-a65b-edbf5aae5c8e"
+                }
+            ]
+        },
         {
-          "label": "Unity",
-          "colorClass": "bg-gray-800 text-white"
-        }
-      ],
-      "timeline": "May/2023 — Feb/2024",
-      "description": "This game, inspired by Dragon Quest, operates in turns and incorporates various intricate\n                        elements\n                        such as quests, abilities, characters, and networking features.",
-      "gallery": [
-        "https://github.com/Long18/long18.github.io/assets/28853225/ec260ea9-c07f-4775-b890-0450594b1adc",
-        "https://github.com/Long18/long18.github.io/assets/28853225/006c5b82-75d6-4e9d-bdfc-056bfb7131b7",
-        "https://github.com/Long18/long18.github.io/assets/28853225/404ee6aa-eb73-4637-8501-918b974a03af",
-        "https://github.com/Long18/long18.github.io/assets/28853225/73ff3c78-9475-48d1-9f99-7cc686e618f7",
-        "https://github.com/Long18/long18.github.io/assets/28853225/957fb9ae-cb17-44a0-8ff5-dbca4a03cfa9",
-        "https://github.com/Long18/long18.github.io/assets/28853225/60bd840f-9942-49ec-929c-9497b0d7717a",
-        "https://github.com/Long18/long18.github.io/assets/28853225/0104ba58-293f-4b1e-80ba-1dfc76c8fb28",
-        "https://github.com/Long18/long18.github.io/assets/28853225/e3952602-ac8b-4462-986d-342c09bd37d6",
-        "https://github.com/Long18/long18.github.io/assets/28853225/a8549106-234d-47ae-b6a0-5af68edae2e1",
-        "https://github.com/Long18/long18.github.io/assets/28853225/2dfa44a6-800a-4ea8-9574-03cd4d35bd34",
-        "https://github.com/Long18/long18.github.io/assets/28853225/aae1b3d5-0aaa-492c-87e3-1016088ed903",
-        "https://github.com/Long18/long18.github.io/assets/28853225/643fa9c6-025b-4120-b703-7580ce6617bf",
-        "https://github.com/Long18/long18.github.io/assets/28853225/ba6adc74-b14c-4884-99b2-69968bacdf2b",
-        "https://github.com/Long18/long18.github.io/assets/28853225/978fa48b-24fd-49fc-aafd-1c011aef405e",
-        "https://github.com/Long18/long18.github.io/assets/28853225/76742036-0227-4de8-a417-d4d1c9445b8d"
-      ],
-      "responsibilities": [],
-      "achievements": [
-        "Successfully delivered the CryptoQuest project to the client, meeting all requirements and milestones within the specified timeline.",
-        "Recognized for outstanding teamwork and contributions during project development, fostering a collaborative and productive work environment.",
-        "Played a vital role in ensuring the quality and functionality of the game, contributing to the overall success of the project."
-      ],
-      "website": "https://crypto-quest.org/",
-      "videos": [
+            "id": "hyperCasualGames",
+            "title": "Hyper-casual Games Collection",
+            "category": "unity",
+            "image": "https://github.com/Long18/long18.github.io/assets/28853225/7cc38bed-a36c-40ea-8a3f-8323b1a939fc",
+            "tags": [
+                {
+                    "label": "Unity3D",
+                    "colorClass": "bg-gray-800 text-white"
+                },
+                {
+                    "label": "C#",
+                    "colorClass": "bg-blue-600 text-white"
+                },
+                {
+                    "label": "DOTween",
+                    "colorClass": "bg-green-600 text-white"
+                },
+                {
+                    "label": "WebGL",
+                    "colorClass": "bg-purple-600 text-white"
+                },
+                {
+                    "label": "Addressables",
+                    "colorClass": "bg-orange-600 text-white"
+                }
+            ],
+            "timeline": "06/2023 — 11/2023",
+            "description": "A collection of hyper-casual games developed for web platforms, featuring multiple gameplay genres including simulation, FPS, and action games. Enhanced and transferred mobile games to WebGL for cross-platform compatibility.",
+            "gallery": [
+                "https://github.com/Long18/long18.github.io/assets/28853225/ff590430-49d2-49f4-adad-a3c29e6360dd",
+                "https://github.com/Long18/long18.github.io/assets/28853225/ae1804a1-41cd-43d1-8f29-5432858b908e",
+                "https://github.com/Long18/long18.github.io/assets/28853225/73102955-16e2-432e-b71f-cfce255ccebf",
+                "https://github.com/Long18/long18.github.io/assets/28853225/92d53779-0455-4b55-b735-bbbbe3057526",
+                "https://github.com/Long18/long18.github.io/assets/28853225/04b48c62-3718-441a-9924-bf2afb85eaa8",
+                "https://github.com/Long18/long18.github.io/assets/28853225/c689d241-0ea0-4e1c-b2e9-3ae34a0b7b5e",
+                "https://github.com/Long18/long18.github.io/assets/28853225/79d2869e-1835-4973-9be1-f961ef5ed02c"
+            ],
+            "responsibilities": [
+                "Enhanced and transferred mobile games to WebGL to ensure compatibility across various platforms.",
+                "Upheld and introduced additional functionalities to older games.",
+                "Utilized the addressable asset system to enhance the loading efficiency of game assets.",
+                "Worked with multiple gameplay genres including Simulation, FPS, and Action games.",
+                "Reduced the complexity of 3D object meshes to optimize performance and decrease loading times.",
+                "Integrated ad systems to enhance monetization across multiple games."
+            ],
+            "achievements": [
+                "Successfully reduced the complexity of 3D object meshes, resulting in a 40% improvement in game performance and a 25% decrease in loading times.",
+                "Enhanced cross-platform compatibility by successfully porting multiple mobile games to WebGL.",
+                "Improved asset loading efficiency through implementation of addressable asset system.",
+                "Delivered multiple game genres demonstrating versatility in game development approaches."
+            ],
+            "website": "https://kantan.game/easygame"
+        },
         {
-          "src": "/assets/videos/CryptoQuest.mp4",
-          "poster": "https://github.com/Long18/long18.github.io/assets/28853225/5f87b8cc-1f5d-4b41-a65b-edbf5aae5c8e"
-        }
-      ]
-    },
-    {
-      "id": "fireFireFire",
-      "title": "Fire Fire Fire",
-      "category": "unity",
-      "image": "https://github.com/Long18/long18.github.io/assets/28853225/7cc38bed-a36c-40ea-8a3f-8323b1a939fc",
-      "tags": [
+            "id": "mugenHorror",
+            "title": "Mugen Horror Action",
+            "category": "unity",
+            "image": "https://github.com/Long18/long18.github.io/assets/28853225/5da79431-819d-43a5-99d8-45fa79777cc3",
+            "tags": [
+                {
+                    "label": "Unity3D",
+                    "colorClass": "bg-gray-800 text-white"
+                },
+                {
+                    "label": "C#",
+                    "colorClass": "bg-blue-600 text-white"
+                },
+                {
+                    "label": "GAS",
+                    "colorClass": "bg-green-600 text-white"
+                },
+                {
+                    "label": "DOTween",
+                    "colorClass": "bg-purple-600 text-white"
+                },
+                {
+                    "label": "Horror",
+                    "colorClass": "bg-red-600 text-white"
+                }
+            ],
+            "timeline": "06/2023 — 11/2023",
+            "description": "This multi-genre game allows players to explore haunted locations, uncover their stories, and defeat main ghosts. In each level, players begin by searching and solving puzzles to find the key to the room where the main ghost resides. Upon entering that room, players engage in combat mode with the ghost.",
+            "gallery": [
+                "https://github.com/Long18/long18.github.io/assets/28853225/0c6c898e-f0c2-42eb-9ef7-17559136384b",
+                "https://github.com/Long18/long18.github.io/assets/28853225/46187032-e146-4a21-87ef-2e16559e6c30",
+                "https://github.com/Long18/long18.github.io/assets/28853225/8bc8af22-4829-462c-9817-9f7c88f49c02",
+                "https://github.com/Long18/long18.github.io/assets/28853225/c6e5cdfe-855e-4faf-9004-2e6541814ba6",
+                "https://github.com/Long18/long18.github.io/assets/28853225/3eb588b8-36fa-4800-bfe2-69d3f1611fc7",
+                "https://github.com/Long18/long18.github.io/assets/28853225/b0eedffc-121d-405b-b6f5-827cc7fa282b",
+                "https://github.com/Long18/long18.github.io/assets/28853225/57b374a8-e666-4f86-b925-4b64d7abce4c",
+                "https://github.com/Long18/long18.github.io/assets/28853225/88b77400-e8d7-4d27-baef-023b4c6f3d77",
+                "https://github.com/Long18/long18.github.io/assets/28853225/91359264-f4d7-43ff-a687-a85e4d859786",
+                "https://github.com/Long18/long18.github.io/assets/28853225/853600e7-e13e-4556-8ff4-57c2bf7b7fa7",
+                "https://github.com/Long18/long18.github.io/assets/28853225/0a6cd069-d8d0-4174-9ffc-34376c94c935",
+                "https://github.com/Long18/long18.github.io/assets/28853225/dd108cde-14ab-40ff-9205-e567374d8aa3",
+                "https://github.com/Long18/long18.github.io/assets/28853225/084a2757-af2a-4368-b8f2-fd1f24095313",
+                "https://github.com/Long18/long18.github.io/assets/28853225/719d3f12-f609-4c06-8cef-40a9a35853d5",
+                "https://github.com/Long18/long18.github.io/assets/28853225/9421ea97-d17b-4583-ad04-00e9543b5bcd",
+                "https://github.com/Long18/long18.github.io/assets/28853225/13ac24dd-6ea2-4b82-a4e2-6199bc2aae20",
+                "https://github.com/Long18/long18.github.io/assets/28853225/064e274d-38c5-42ee-823c-a7f78ba1da3d"
+            ],
+            "responsibilities": [
+                "Implementing new skills within the framework of an ability system.",
+                "Addressing and resolving any issues related to skills and game mechanics.",
+                "Refactoring the map by segregating enemies within each room, ensuring that only the pertinent map sections are loaded during enemy encounters.",
+                "Separated scenes (addition of a loading scene) with a scene loading system.",
+                "Implemented enemy stats with an already available game ability system.",
+                "Created new skills for enemies/bosses based on the game ability system."
+            ],
+            "achievements": [
+                "Developed and implemented a scene loading system that significantly improved game flow and reduced loading times, enhancing the overall player experience.",
+                "Successfully integrated enemy stats using the existing game ability system.",
+                "Implemented new enemy and boss skills that leveraged the game ability system, enhancing game complexity and strategy.",
+                "Developed comprehensive unit tests for the newly created skills, ensuring high code coverage and reducing bugs, thereby increasing the overall stability and reliability of the game.",
+                "Released in late November 2022 and had been the most popular game on Mirrativ app for 3 months."
+            ],
+            "website": "https://twitter.com/hashtag/%E3%82%80%E3%81%92%E3%81%9F%E3%82%93?src=hashtag_click",
+            "videos": [
+                {
+                    "src": "https://youtu.be/zg3qNVPQPYg",
+                    "poster": "https://github.com/Long18/long18.github.io/assets/28853225/5da79431-819d-43a5-99d8-45fa79777cc3"
+                }
+            ]
+        },
         {
-          "label": "Unity",
-          "colorClass": "bg-gray-800 text-white"
-        }
-      ],
-      "timeline": "Jan/2023 — June/2024",
-      "description": "Kantan Game is a website offering a variety of casual games and daily quizzes. It features\n                        easy-to-play\n                        games designed for quick entertainment. The site is managed by GMO Media, Inc., providing a\n                        user-friendly platform for gaming enthusiasts to enjoy short, engaging activities.",
-      "gallery": [
-        "https://github.com/Long18/long18.github.io/assets/28853225/ff590430-49d2-49f4-adad-a3c29e6360dd",
-        "https://github.com/Long18/long18.github.io/assets/28853225/ae1804a1-41cd-43d1-8f29-5432858b908e",
-        "https://github.com/Long18/long18.github.io/assets/28853225/73102955-16e2-432e-b71f-cfce255ccebf",
-        "https://github.com/Long18/long18.github.io/assets/28853225/92d53779-0455-4b55-b735-bbbbe3057526",
-        "https://github.com/Long18/long18.github.io/assets/28853225/04b48c62-3718-441a-9924-bf2afb85eaa8",
-        "https://github.com/Long18/long18.github.io/assets/28853225/c689d241-0ea0-4e1c-b2e9-3ae34a0b7b5e",
-        "https://github.com/Long18/long18.github.io/assets/28853225/79d2869e-1835-4973-9be1-f961ef5ed02c"
-      ],
-      "responsibilities": [
-        "Reduced the complexity of 3D object meshes to optimize performance and decrease loading times.",
-        "Integrated an ad system to enhance monetization."
-      ],
-      "achievements": [
-        "Successfully reduced the complexity of 3D object meshes, resulting in a 40% improvement in game performance and a 25% decrease in loading times."
-      ],
-      "website": "https://kantan.game/easygame"
-    },
-    {
-      "id": "rpgRun",
-      "title": "The Brave",
-      "category": "unity",
-      "image": "https://github.com/Long18/long18.github.io/assets/28853225/3e3a8224-9e92-4f64-b44f-22f6726bac81",
-      "tags": [
+            "id": "matchingCasino",
+            "title": "Matching Casino - Baccarat",
+            "category": "unity",
+            "image": "https://github.com/Long18/long18.github.io/assets/28853225/eb15bd28-93ee-4f7c-ac0b-aa0322b1ff37",
+            "tags": [
+                {
+                    "label": "Unity2D",
+                    "colorClass": "bg-gray-800 text-white"
+                },
+                {
+                    "label": "C#",
+                    "colorClass": "bg-blue-600 text-white"
+                },
+                {
+                    "label": "REST API",
+                    "colorClass": "bg-green-600 text-white"
+                },
+                {
+                    "label": "Regex",
+                    "colorClass": "bg-purple-600 text-white"
+                },
+                {
+                    "label": "YouTube API",
+                    "colorClass": "bg-red-600 text-white"
+                },
+                {
+                    "label": "DOTween",
+                    "colorClass": "bg-orange-600 text-white"
+                }
+            ],
+            "timeline": "07/2022 — 11/2022",
+            "description": "This gaming platform enables streamers and viewers to actively participate together, enriching the live streaming experience. Viewers receive gifts from the streamer within the game, amplifying interactivity and engagement during live streams.",
+            "gallery": [
+                "https://github.com/Long18/long18.github.io/assets/28853225/c6f83fa4-06bd-4b57-ac77-cac9e75fcd07",
+                "https://github.com/Long18/long18.github.io/assets/28853225/8ff4d0be-6e59-4381-8c74-df9074d7a467",
+                "https://github.com/Long18/long18.github.io/assets/28853225/01350344-3f25-4f71-9cce-17f0cbef8145",
+                "https://github.com/Long18/long18.github.io/assets/28853225/5005ffc7-cf86-4d0d-9f0e-3cf4e2d9c7f9",
+                "https://github.com/Long18/long18.github.io/assets/28853225/ef78f5e5-7f1b-4561-9558-7b9d8d28c590",
+                "https://github.com/Long18/long18.github.io/assets/28853225/9f88bc90-ae61-4692-8178-98463b991566",
+                "https://github.com/Long18/long18.github.io/assets/28853225/74b2795e-2897-404d-baf1-1c469292cc99",
+                "https://github.com/Long18/long18.github.io/assets/28853225/40f0984a-d3c4-4380-924e-04f48c1abf68",
+                "https://github.com/Long18/long18.github.io/assets/28853225/fa664ed9-fa1d-4afc-b3de-7a771eaac7a2",
+                "https://github.com/Long18/long18.github.io/assets/28853225/5042c152-1bf4-489b-acc8-b72ddeb385f5",
+                "https://github.com/Long18/long18.github.io/assets/28853225/a56e502a-3b76-4201-90e4-caad99bed7ff",
+                "https://github.com/Long18/long18.github.io/assets/28853225/de9d8856-6eb0-4239-a40d-8b89be97dba0",
+                "https://github.com/Long18/long18.github.io/assets/28853225/b6cd033c-a039-4a5f-b528-6d41e17c514d",
+                "https://github.com/Long18/long18.github.io/assets/28853225/c50635e2-9bb2-4875-a2b3-63cc14f35355",
+                "https://github.com/Long18/long18.github.io/assets/28853225/b7d8fa4d-ffc2-435d-ac83-ebf3e8e891d6",
+                "https://github.com/Long18/long18.github.io/assets/28853225/eda3c731-9d5b-45ab-9d99-762376f33104",
+                "https://github.com/Long18/long18.github.io/assets/28853225/1a3ed855-24fe-4ce1-8f35-1004a92ad874",
+                "https://github.com/Long18/long18.github.io/assets/28853225/06fe91c6-00ec-4bab-ae26-4e6f74a8ce5b",
+                "https://github.com/Long18/long18.github.io/assets/28853225/c117128b-03b9-4bda-9586-b08f24fb2e31",
+                "https://github.com/Long18/long18.github.io/assets/28853225/aab286d7-1d9a-4d85-8694-b8e923e8b8c7",
+                "https://github.com/Long18/long18.github.io/assets/28853225/343c18ea-f648-4d07-85fb-41896d1a4ce3",
+                "https://github.com/Long18/long18.github.io/assets/28853225/bc16f09c-2553-43bc-af0a-4a8d0eceb9f1",
+                "https://github.com/Long18/long18.github.io/assets/28853225/f7f4599d-19df-4f5f-b4a4-b7c71fc2909d"
+            ],
+            "responsibilities": [
+                "Developed a tool editor for question management, leveraging REST API for server synchronization and implementing features like question addition, deletion, gold management, and player rankings.",
+                "Implemented regex to filter YouTube comments, ensuring they align with the game's format.",
+                "Integrated Super Chats from YouTube's API into the in-game chat UI.",
+                "Utilized YouTube's API along with the Fingger library to display real-time user comments within the game interface.",
+                "Integrated DOTween to enhance animation smoothness throughout the game."
+            ],
+            "achievements": [
+                "Successfully delivered the project to the client, meeting all requirements and milestones within the specified timeline.",
+                "Implemented advanced streaming integration features that enhanced viewer-streamer interaction.",
+                "Developed robust API integration systems for real-time data synchronization.",
+                "Created innovative social gaming features that increased engagement during live streams."
+            ],
+            "website": "https://kantan.game/easygame/game/483",
+            "videos": [
+                {
+                    "src": "https://youtu.be/qddxMmCo81U",
+                    "poster": "/assets/videos/machingbaccarat.jpg"
+                }
+            ]
+        },
         {
-          "label": "Unity",
-          "colorClass": "bg-gray-800 text-white"
-        }
-      ],
-      "timeline": "Jan/2023 — Jun/2023",
-      "description": "Kantan Game is a website offering a variety of casual games and daily quizzes. It features\n                        easy-to-play\n                        games designed for quick entertainment. The site is managed by GMO Media, Inc., providing a\n                        user-friendly platform for gaming enthusiasts to enjoy short, engaging activities.",
-      "gallery": [
-        "https://github.com/Long18/long18.github.io/assets/28853225/6abb6842-6d73-4d75-b3d0-a58cde41d3a7",
-        "https://github.com/Long18/long18.github.io/assets/28853225/cf357b36-160e-4e4e-99e3-598961cd6542",
-        "https://github.com/Long18/long18.github.io/assets/28853225/0e0399e4-3e50-45bc-ad15-d8cc5c18fd9b",
-        "https://github.com/Long18/long18.github.io/assets/28853225/ac2d911d-821f-4cf1-9674-a64a3bcfc883",
-        "https://github.com/Long18/long18.github.io/assets/28853225/0c86ed0d-f403-4dac-b8d0-593a9ed33aae",
-        "https://github.com/Long18/long18.github.io/assets/28853225/29b8f2db-ddc2-47e9-8fd4-d7c0065521e8",
-        "https://github.com/Long18/long18.github.io/assets/28853225/646914a1-45af-4fce-a390-23aadf06115e",
-        "https://github.com/Long18/long18.github.io/assets/28853225/baef087c-c6d5-40ea-8e11-06c0e5539101"
-      ],
-      "responsibilities": [
-        "Developed a new item reward system for ads, enhancing player incentives and engagement.",
-        "Integrated an ad system, increasing game monetization and boosting revenue."
-      ],
-      "achievements": [
-        "Developed a item rewards to improve gaming functionality, resulting in a more seamless user experience and more player retention."
-      ],
-      "website": "https://kantan.game/easygame"
-    },
-    {
-      "id": "betakuma",
-      "title": "Betakuma - Super Avoidance",
-      "category": "unity",
-      "image": "https://github.com/Long18/long18.github.io/assets/28853225/da766bb7-4527-4778-9ce4-e0ad6748130e",
-      "tags": [
+            "id": "pinoRacing",
+            "title": "Pino Racing",
+            "category": "unity",
+            "image": "https://github.com/Long18/long18.github.io/assets/28853225/47ed817b-0cc5-431e-84a6-2af7cab8f9f6",
+            "tags": [
+                {
+                    "label": "Unity3D",
+                    "colorClass": "bg-gray-800 text-white"
+                },
+                {
+                    "label": "C#",
+                    "colorClass": "bg-blue-600 text-white"
+                },
+                {
+                    "label": "PathCreator",
+                    "colorClass": "bg-green-600 text-white"
+                },
+                {
+                    "label": "WebGL",
+                    "colorClass": "bg-purple-600 text-white"
+                },
+                {
+                    "label": "WebGLTemplates",
+                    "colorClass": "bg-orange-600 text-white"
+                }
+            ],
+            "timeline": "05/2022 — 09/2022",
+            "description": "Introducing Morinaga Milk's latest innovation: the \"Pino Game\" campaign. Embark on a digital adventure like never before with our limited-time package, launching October 3rd 2022. Simply scan the QR code on the lid using your smartphone or tablet to unlock a world of fun and excitement.",
+            "gallery": [
+                "https://github.com/Long18/long18.github.io/assets/28853225/7b43e00b-3b4d-4356-bd78-144ef5684aa3",
+                "https://github.com/Long18/long18.github.io/assets/28853225/211e0cd1-64e2-4981-a90d-436292a3bbe3",
+                "https://github.com/Long18/long18.github.io/assets/28853225/75fa4620-6def-4a6c-83a5-dd7aad0a4e7e",
+                "https://github.com/Long18/long18.github.io/assets/28853225/a52fd271-629f-4c82-9fdd-f00aa2a43414",
+                "https://github.com/Long18/long18.github.io/assets/28853225/f85e8000-5469-4671-b0ba-5119ca83b5ed",
+                "https://github.com/Long18/long18.github.io/assets/28853225/34fa471e-8d96-42df-9c76-146602212136",
+                "https://github.com/Long18/long18.github.io/assets/28853225/7fe5902d-1c6b-4930-b8e1-4bc5cce4b778",
+                "https://github.com/Long18/long18.github.io/assets/28853225/7addf9c4-fbfd-42b6-907e-fd87d8e0e830",
+                "https://github.com/Long18/long18.github.io/assets/28853225/8efb245f-ac28-4db1-af4e-ead142b2756c"
+            ],
+            "responsibilities": [
+                "Utilized PathCreator for map creation and implemented Twitter sharing functionality.",
+                "Customized WebGL builds with WebGLTemplates to meet client requirements.",
+                "Managed item spawning, including the Stick item, with precise fall trajectory calculations.",
+                "Integrated social media sharing features for enhanced user engagement.",
+                "Optimized WebGL performance for mobile and desktop platforms."
+            ],
+            "achievements": [
+                "Successfully integrated PathCreator for dynamic map creation and integrated Twitter sharing, enhancing user engagement and social interaction within the project.",
+                "Customized WebGL builds using WebGLTemplates to align precisely with client specifications, ensuring seamless compatibility and optimal performance.",
+                "Implemented advanced item spawning management, including intricate fall trajectory calculations for the Stick item, resulting in a polished and immersive gaming experience.",
+                "Delivered a successful marketing campaign game for Morinaga Milk with high user engagement."
+            ],
+            "website": "https://long18.github.io/Pino-Racing/",
+            "videos": [
+                {
+                    "src": "/assets/videos/pinoracing.mp4",
+                    "poster": "/assets/videos/pinoracing.jpg"
+                }
+            ]
+        },
         {
-          "label": "Unity",
-          "colorClass": "bg-gray-800 text-white"
-        }
-      ],
-      "timeline": "Jan/2023 — Jun/2023",
-      "description": "Kantan Game is a website offering a variety of casual games and daily quizzes. It features\n                        easy-to-play\n                        games designed for quick entertainment. The site is managed by GMO Media, Inc., providing a\n                        user-friendly platform for gaming enthusiasts to enjoy short, engaging activities.",
-      "gallery": [
-        "https://github.com/Long18/long18.github.io/assets/28853225/0fa2a3f9-fc25-433f-b775-390ae1be0023",
-        "https://github.com/Long18/long18.github.io/assets/28853225/366c1b1b-8255-42bc-ba8f-9774656b0aa2",
-        "https://github.com/Long18/long18.github.io/assets/28853225/a8fa6e93-0332-4b1d-b135-ad78048c43f5",
-        "https://github.com/Long18/long18.github.io/assets/28853225/0d535774-f5fe-4625-a8ac-35d84692c271",
-        "https://github.com/Long18/long18.github.io/assets/28853225/9a052f82-cced-406a-8646-1f92f1a9fee7"
-      ],
-      "responsibilities": [
-        "Developed a new inventory system to enhance gameplay functionality.",
-        "Refactored the currency system to improve efficiency and user experience.",
-        "Overhauled the point system for better tracking and reward distribution.",
-        "Integrated an ad system to monetize the game and increase revenue streams."
-      ],
-      "achievements": [
-        "Developed a new inventory system to enhance gameplay functionality, resulting in a smoother user experience and increased player retention."
-      ],
-      "website": "https://kantan.game/easygame"
-    },
-    {
-      "id": "mugenHorror",
-      "title": "Mugen Horror",
-      "category": "unity",
-      "image": "https://github.com/Long18/long18.github.io/assets/28853225/5da79431-819d-43a5-99d8-45fa79777cc3",
-      "tags": [
+            "id": "hutingAnimal",
+            "title": "Huting Animal",
+            "category": "unity",
+            "image": "https://github.com/Long18/long18.github.io/assets/28853225/6d597614-b8a8-4737-b31f-4045c3cab5e4",
+            "tags": [
+                {
+                    "label": "Unity",
+                    "colorClass": "bg-gray-800 text-white"
+                }
+            ],
+            "timeline": "Jul/2021",
+            "description": "Team composition includes a total of 3 individuals, with 3 working in the front-end team.",
+            "gallery": [
+                "https://github.com/Long18/long18.github.io/assets/28853225/6d597614-b8a8-4737-b31f-4045c3cab5e4"
+            ],
+            "responsibilities": [
+                "Collaborated with the team to create gameplay.",
+                "GUI enhancements for improved user experience.",
+                "Updates to UI elements, ensuring a modern and intuitive design.",
+                "Implemented background UI modifications to enhance visual appeal and functionality.",
+                "Enhanced weapon features through meticulous updates and optimizations.",
+                "Streamlined ship functionalities to improve performance and gameplay dynamics.",
+                "Thoroughly researched Java web sockets, meticulously studying documentation to grasp implementation intricacies.",
+                "Expanded proficiency in utilizing web sockets for seamless, real-time communication within diverse web application frameworks."
+            ],
+            "achievements": [],
+            "website": "https://github.com/Long18/Game-ban-ca"
+        },
         {
-          "label": "Unity",
-          "colorClass": "bg-gray-800 text-white"
-        }
-      ],
-      "timeline": "Jun/2023 — Nov/2023",
-      "description": "This multi-genre game allows players to explore haunted locations, uncover their stories, and\n                        defeat main ghosts. In each level, players begin by searching and solving puzzles to find the\n                        key to the room where the main ghost resides. Upon entering that room, players engage in combat\n                        mode with the ghost.",
-      "gallery": [
-        "https://github.com/Long18/long18.github.io/assets/28853225/0c6c898e-f0c2-42eb-9ef7-17559136384b",
-        "https://github.com/Long18/long18.github.io/assets/28853225/46187032-e146-4a21-87ef-2e16559e6c30",
-        "https://github.com/Long18/long18.github.io/assets/28853225/8bc8af22-4829-462c-9817-9f7c88f49c02",
-        "https://github.com/Long18/long18.github.io/assets/28853225/c6e5cdfe-855e-4faf-9004-2e6541814ba6",
-        "https://github.com/Long18/long18.github.io/assets/28853225/3eb588b8-36fa-4800-bfe2-69d3f1611fc7",
-        "https://github.com/Long18/long18.github.io/assets/28853225/b0eedffc-121d-405b-b6f5-827cc7fa282b",
-        "https://github.com/Long18/long18.github.io/assets/28853225/57b374a8-e666-4f86-b925-4b64d7abce4c",
-        "https://github.com/Long18/long18.github.io/assets/28853225/88b77400-e8d7-4d27-baef-023b4c6f3d77",
-        "https://github.com/Long18/long18.github.io/assets/28853225/91359264-f4d7-43ff-a687-a85e4d859786",
-        "https://github.com/Long18/long18.github.io/assets/28853225/853600e7-e13e-4556-8ff4-57c2bf7b7fa7",
-        "https://github.com/Long18/long18.github.io/assets/28853225/0a6cd069-d8d0-4174-9ffc-34376c94c935",
-        "https://github.com/Long18/long18.github.io/assets/28853225/dd108cde-14ab-40ff-9205-e567374d8aa3",
-        "https://github.com/Long18/long18.github.io/assets/28853225/084a2757-af2a-4368-b8f2-fd1f24095313",
-        "https://github.com/Long18/long18.github.io/assets/28853225/719d3f12-f609-4c06-8cef-40a9a35853d5",
-        "https://github.com/Long18/long18.github.io/assets/28853225/9421ea97-d17b-4583-ad04-00e9543b5bcd",
-        "https://github.com/Long18/long18.github.io/assets/28853225/13ac24dd-6ea2-4b82-a4e2-6199bc2aae20",
-        "https://github.com/Long18/long18.github.io/assets/28853225/064e274d-38c5-42ee-823c-a7f78ba1da3d"
-      ],
-      "responsibilities": [
-        "Separated scenes (addition of a loading scene) with a scene loading system.",
-        "Implemented enemy stats with an already available game ability system.",
-        "Created new skills for enemies/bosses based on the game ability system.",
-        "Wrote unit tests for new skills."
-      ],
-      "achievements": [
-        "Developed and implemented a scene loading system that significantly improved game flow and reduced loading times, enhancing the overall player experience.",
-        "Successfully integrated enemy stats using the existing game ability system.",
-        "implemented new enemy and boss skills that leveraged the game ability system, enhancing game complexity and strategy.",
-        "Developed comprehensive unit tests for the newly created skills, ensuring high code coverage and reducing bugs, thereby increasing the overall stability and reliability of the game.",
-        "Released in late November 2022 and had been the most popular game on Mirrativ app for 3 months."
-      ],
-      "website": "https://twitter.com/hashtag/%E3%82%80%E3%81%92%E3%81%9F%E3%82%93?src=hashtag_click",
-      "videos": [
+            "id": "toiletTapTap",
+            "title": "Toilet Tap Tap",
+            "category": "unity",
+            "image": "https://github.com/Long18/long18.github.io/assets/28853225/87ee7fc3-3de9-4894-b71e-abbac380eefc",
+            "tags": [
+                {
+                    "label": "Unity3D",
+                    "colorClass": "bg-gray-800 text-white"
+                },
+                {
+                    "label": "C#",
+                    "colorClass": "bg-blue-600 text-white"
+                },
+                {
+                    "label": "2D Game",
+                    "colorClass": "bg-green-600 text-white"
+                },
+                {
+                    "label": "Mobile",
+                    "colorClass": "bg-purple-600 text-white"
+                },
+                {
+                    "label": "Arcade",
+                    "colorClass": "bg-orange-600 text-white"
+                }
+            ],
+            "timeline": "Jun/2020",
+            "description": "A challenging arcade-style game inspired by Flappy Bird mechanics, featuring a boy navigating through toilet paper obstacles. The game emphasizes precise timing and control with an extremely simple one-touch control system, making it accessible yet challenging for players of all skill levels.",
+            "gallery": [
+                "https://github.com/Long18/long18.github.io/assets/28853225/feb80801-8ec6-4404-91b5-8f6924134601"
+            ],
+            "responsibilities": [
+                "Designed and implemented core game mechanics inspired by Flappy Bird with unique toilet paper theme.",
+                "Developed precise collision detection system for obstacle avoidance gameplay.",
+                "Created simple yet responsive one-touch control system optimized for mobile devices.",
+                "Implemented scoring system with real-time point tracking for each successful obstacle passage.",
+                "Designed and integrated 2D sprites and animations for character and environmental elements.",
+                "Optimized game performance for smooth gameplay experience on mobile platforms.",
+                "Implemented game over conditions and restart functionality for seamless replay experience."
+            ],
+            "achievements": [
+                "Successfully created a complete arcade game demonstrating mastery of fundamental Unity 2D development principles.",
+                "Implemented precise physics-based movement and collision detection systems for challenging gameplay.",
+                "Developed intuitive one-touch control scheme that provides immediate accessibility while maintaining skill-based challenge.",
+                "Created engaging obstacle course mechanics with procedural difficulty progression.",
+                "Demonstrated ability to adapt popular game mechanics (Flappy Bird) with creative thematic variations.",
+                "Delivered a polished mobile game experience with smooth performance and responsive controls.",
+                "Gained foundational experience in 2D game development, physics systems, and mobile optimization."
+            ],
+            "website": "https://github.com/Long18/Toilet-Tap-Tap"
+        },
         {
-          "src": "/assets/videos/mugenhorror.mp4",
-          "poster": "https://github.com/Long18/long18.github.io/assets/28853225/5da79431-819d-43a5-99d8-45fa79777cc3"
-        }
-      ]
-    },
-    {
-      "id": "matchingCasino",
-      "title": "Matching Casino - Baccarat",
-      "category": "unity",
-      "image": "https://github.com/Long18/long18.github.io/assets/28853225/eb15bd28-93ee-4f7c-ac0b-aa0322b1ff37",
-      "tags": [
+            "id": "doggyMovement",
+            "title": "Doggy Movement",
+            "category": "unity",
+            "image": "https://github.com/Long18/long18.github.io/assets/28853225/f1b7915f-de09-4b10-b4ea-dc0f5bf6408d",
+            "tags": [
+                {
+                    "label": "Unity3D",
+                    "colorClass": "bg-gray-800 text-white"
+                },
+                {
+                    "label": "C#",
+                    "colorClass": "bg-blue-600 text-white"
+                },
+                {
+                    "label": "2D Physics",
+                    "colorClass": "bg-green-600 text-white"
+                },
+                {
+                    "label": "Animator",
+                    "colorClass": "bg-purple-600 text-white"
+                },
+                {
+                    "label": "UI Toolkit",
+                    "colorClass": "bg-orange-600 text-white"
+                },
+                {
+                    "label": "AudioSource",
+                    "colorClass": "bg-pink-600 text-white"
+                }
+            ],
+            "timeline": "March/2020",
+            "description": "A foundational 2D game development project focused on mastering fundamental Unity concepts through interactive gameplay. Features a dog character with mouse-controlled movement, bomb interactions, and comprehensive UI elements. This self-education project demonstrates core game development principles and serves as a portfolio-ready showcase of Unity fundamentals.",
+            "gallery": [
+                "https://github.com/Long18/long18.github.io/assets/28853225/f1b7915f-de09-4b10-b4ea-dc0f5bf6408d"
+            ],
+            "responsibilities": [
+                "Designed and configured game assets including sprites, prefabs, and animations for character and interactive elements.",
+                "Implemented character movement logic based on mouse position using Vector3.Lerp for smooth interpolation.",
+                "Programmed autonomous bomb movement and collision interactions with the player character.",
+                "Developed collision detection and basic physics handling for player-bomb interaction systems.",
+                "Built comprehensive UI with HUD elements to display real-time gameplay metrics including score and health.",
+                "Integrated audio sources for bomb explosions and interactive feedback effects to enhance player experience.",
+                "Managed communication between game objects using component access and Unity scripting best practices."
+            ],
+            "achievements": [
+                "Mastered fundamental 2D game development techniques in Unity, including sprites, prefabs, audio, animation, and physics systems.",
+                "Implemented sophisticated path-following and directional movement mechanics using advanced scripting and mouse input handling.",
+                "Designed and developed UI elements with real-time updates for score and health display systems.",
+                "Applied comprehensive object lifecycle management through proper use of Instantiate and Destroy methods.",
+                "Integrated immersive audio feedback systems for enhanced gameplay experience and player engagement.",
+                "Demonstrated proficiency in Unity's component system and inter-object communication patterns.",
+                "Created a complete, portfolio-ready game project showcasing fundamental Unity development skills and best practices."
+            ],
+            "website": "https://github.com/Long18/Doggy-Movement"
+        },
         {
-          "label": "Unity",
-          "colorClass": "bg-gray-800 text-white"
-        }
-      ],
-      "timeline": "July/2022 — January/2023",
-      "description": "This gaming platform enables streamers and viewers to actively participate together, enriching\n                        the live streaming experience. Viewers receive gifts from the streamer within the game,\n                        amplifying interactivity and engagement during live streams.",
-      "gallery": [
-        "https://github.com/Long18/long18.github.io/assets/28853225/c6f83fa4-06bd-4b57-ac77-cac9e75fcd07",
-        "https://github.com/Long18/long18.github.io/assets/28853225/8ff4d0be-6e59-4381-8c74-df9074d7a467",
-        "https://github.com/Long18/long18.github.io/assets/28853225/01350344-3f25-4f71-9cce-17f0cbef8145",
-        "https://github.com/Long18/long18.github.io/assets/28853225/5005ffc7-cf86-4d0d-9f0e-3cf4e2d9c7f9",
-        "https://github.com/Long18/long18.github.io/assets/28853225/ef78f5e5-7f1b-4561-9558-7b9d8d28c590",
-        "https://github.com/Long18/long18.github.io/assets/28853225/9f88bc90-ae61-4692-8178-98463b991566",
-        "https://github.com/Long18/long18.github.io/assets/28853225/74b2795e-2897-404d-baf1-1c469292cc99",
-        "https://github.com/Long18/long18.github.io/assets/28853225/40f0984a-d3c4-4380-924e-04f48c1abf68",
-        "https://github.com/Long18/long18.github.io/assets/28853225/fa664ed9-fa1d-4afc-b3de-7a771eaac7a2",
-        "https://github.com/Long18/long18.github.io/assets/28853225/5042c152-1bf4-489b-acc8-b72ddeb385f5",
-        "https://github.com/Long18/long18.github.io/assets/28853225/a56e502a-3b76-4201-90e4-caad99bed7ff",
-        "https://github.com/Long18/long18.github.io/assets/28853225/de9d8856-6eb0-4239-a40d-8b89be97dba0",
-        "https://github.com/Long18/long18.github.io/assets/28853225/b6cd033c-a039-4a5f-b528-6d41e17c514d",
-        "https://github.com/Long18/long18.github.io/assets/28853225/c50635e2-9bb2-4875-a2b3-63cc14f35355",
-        "https://github.com/Long18/long18.github.io/assets/28853225/b7d8fa4d-ffc2-435d-ac83-ebf3e8e891d6",
-        "https://github.com/Long18/long18.github.io/assets/28853225/eda3c731-9d5b-45ab-9d99-762376f33104",
-        "https://github.com/Long18/long18.github.io/assets/28853225/1a3ed855-24fe-4ce1-8f35-1004a92ad874",
-        "https://github.com/Long18/long18.github.io/assets/28853225/06fe91c6-00ec-4bab-ae26-4e6f74a8ce5b",
-        "https://github.com/Long18/long18.github.io/assets/28853225/c117128b-03b9-4bda-9586-b08f24fb2e31",
-        "https://github.com/Long18/long18.github.io/assets/28853225/aab286d7-1d9a-4d85-8694-b8e923e8b8c7",
-        "https://github.com/Long18/long18.github.io/assets/28853225/343c18ea-f648-4d07-85fb-41896d1a4ce3",
-        "https://github.com/Long18/long18.github.io/assets/28853225/bc16f09c-2553-43bc-af0a-4a8d0eceb9f1",
-        "https://github.com/Long18/long18.github.io/assets/28853225/f7f4599d-19df-4f5f-b4a4-b7c71fc2909d"
-      ],
-      "responsibilities": [],
-      "achievements": [
-        "Successfully delivered the project to the client, meeting all requirements and milestones within the specified timeline."
-      ],
-      "website": "https://kantan.game/easygame/game/483",
-      "videos": [
+            "id": "homeWithGrandma",
+            "title": "Home With Grandma",
+            "category": "unity",
+            "image": "https://github.com/Long18/long18.github.io/assets/28853225/8b5e2782-2fcb-4d5f-b301-14fbf0470d2f",
+            "tags": [
+                {
+                    "label": "Unity3D",
+                    "colorClass": "bg-gray-800 text-white"
+                },
+                {
+                    "label": "C#",
+                    "colorClass": "bg-blue-600 text-white"
+                },
+                {
+                    "label": "2D Platformer",
+                    "colorClass": "bg-green-600 text-white"
+                },
+                {
+                    "label": "GameJam",
+                    "colorClass": "bg-purple-600 text-white"
+                },
+                {
+                    "label": "Survival",
+                    "colorClass": "bg-red-600 text-white"
+                }
+            ],
+            "timeline": "Jan/2021",
+            "description": "A heartfelt survival platformer game developed during GameJam 2020 by Gameloft, inspired by the COVID-19 pandemic. Players take on the role of a grandchild caring for their grandmother during the pandemic, collecting essential supplies and protective items to keep her safe. The game features intuitive 2D platformer mechanics with survival elements and meaningful social commentary.",
+            "gallery": [
+                "https://github.com/Long18/long18.github.io/assets/28853225/c71efedd-274a-4b56-8611-8e09f30e4846",
+                "https://github.com/Long18/long18.github.io/assets/28853225/b5aa1355-79d5-44df-835b-6733ede7852f",
+                "https://github.com/Long18/long18.github.io/assets/28853225/8feda111-f926-4dda-b581-bfa08c592f5f"
+            ],
+            "responsibilities": [
+                "Collaborated with a 3-person Unity development team during GameJam 2020 to create a complete game within time constraints.",
+                "Implemented 2D platformer movement mechanics using arrow button controls and jump functionality.",
+                "Developed item collection and inventory system for essential supplies and protective equipment.",
+                "Created interactive gameplay mechanics including item throwing and grandmother healing systems.",
+                "Designed and implemented special item effects including virus blocking, area sanitization, and movement slowdown.",
+                "Integrated touch controls optimized for mobile gameplay with intuitive button layout.",
+                "Contributed to game design decisions focusing on pandemic awareness and family care themes."
+            ],
+            "achievements": [
+                "Successfully completed a full game development cycle during GameJam 2020, demonstrating ability to work under tight deadlines.",
+                "Developed meaningful gameplay that addresses real-world pandemic challenges through interactive storytelling.",
+                "Implemented comprehensive item system with unique effects: Face Masks (virus blocking), Hand Sanitizer (area sterilization), and Soap (virus movement reduction).",
+                "Created intuitive mobile controls with dual-side button layout for movement and action commands.",
+                "Demonstrated collaborative game development skills working effectively in a 3-person Unity team.",
+                "Delivered a socially relevant game that combines entertainment with pandemic awareness and family values.",
+                "Gained experience in rapid prototyping and game development under GameJam constraints."
+            ],
+            "website": "https://github.com/Long18/Save_Grandmother"
+        },
         {
-          "src": "/assets/videos/machingbaccarat.mp4",
-          "poster": "/assets/videos/machingbaccarat.jpg"
-        }
-      ]
-    },
-    {
-      "id": "pinoRacing",
-      "title": "Pino Racing",
-      "category": "unity",
-      "image": "https://github.com/Long18/long18.github.io/assets/28853225/47ed817b-0cc5-431e-84a6-2af7cab8f9f6",
-      "tags": [
+            "id": "ffats",
+            "title": "FFATS - Food Delivery System",
+            "category": "applications",
+            "image": "https://github.com/Long18/long18.github.io/assets/28853225/98db6413-57d9-4e62-bf73-6153c54c1494",
+            "tags": [
+                {
+                    "label": "Android Studio",
+                    "colorClass": "bg-green-600 text-white"
+                },
+                {
+                    "label": "Java",
+                    "colorClass": "bg-blue-600 text-white"
+                },
+                {
+                    "label": "Google Maps API",
+                    "colorClass": "bg-red-600 text-white"
+                },
+                {
+                    "label": "OpenStreetMap",
+                    "colorClass": "bg-purple-600 text-white"
+                },
+                {
+                    "label": "Dijkstra Algorithm",
+                    "colorClass": "bg-orange-600 text-white"
+                },
+                {
+                    "label": "SQLite",
+                    "colorClass": "bg-gray-600 text-white"
+                }
+            ],
+            "timeline": "Dec/2021",
+            "description": "A comprehensive food delivery solution featuring seamless functionality for customers, restaurants, and delivery drivers. The application revolutionizes the dining experience by providing intuitive ordering, real-time tracking, and optimized delivery routing using advanced pathfinding algorithms and integrated mapping services.",
+            "gallery": [
+                "https://github.com/Long18/long18.github.io/assets/28853225/d9adb7aa-def6-4f3f-ba46-357f555e683b",
+                "https://github.com/Long18/long18.github.io/assets/28853225/a79fa604-fbbf-44be-8f79-b64e249698fe",
+                "https://github.com/Long18/long18.github.io/assets/28853225/fa7cb095-18ed-4cf6-860f-a644a2f1155c",
+                "https://github.com/Long18/long18.github.io/assets/28853225/3656510c-2e07-4dcb-b1f4-eeaec129fd81",
+                "https://github.com/Long18/long18.github.io/assets/28853225/e6f0ff9f-9d04-4a00-8642-10aa6500ba76"
+            ],
+            "responsibilities": [
+                "Designed and implemented comprehensive data system architecture for multi-user food delivery platform.",
+                "Developed core application functions including order processing, restaurant management, and delivery tracking.",
+                "Implemented Dijkstra's Algorithm for optimal delivery route calculation and pathfinding optimization.",
+                "Integrated Priority Queue data structures for efficient order management and delivery scheduling.",
+                "Developed real-time map direction features using Google Maps API and OpenStreetMap integration.",
+                "Created intuitive UX/UI design for customers, restaurants, and delivery personnel interfaces.",
+                "Implemented geolocation services and real-time tracking functionality for enhanced user experience."
+            ],
+            "achievements": [
+                "Successfully researched and integrated map data from OpenStreetMap, demonstrating proficiency in third-party API integration.",
+                "Mastered Google Maps API implementation for real-time location services and navigation features.",
+                "Implemented advanced Dijkstra's Algorithm for optimal route calculation, showcasing algorithmic problem-solving skills.",
+                "Achieved significant self-learning milestones in mobile development, mapping technologies, and algorithm implementation.",
+                "Designed comprehensive UX/UI for multi-stakeholder platform, ensuring usability across different user types.",
+                "Delivered a complete food delivery ecosystem with advanced routing and tracking capabilities.",
+                "Demonstrated expertise in data structures and algorithms through practical Priority Queue implementation."
+            ],
+            "website": "https://github.com/Long18/FFAST_Food_Delivering"
+        },
         {
-          "label": "Unity",
-          "colorClass": "bg-gray-800 text-white"
+            "id": "fitnessCare",
+            "title": "Fitness Scheduler & Time Management",
+            "category": "applications",
+            "image": "https://github.com/Long18/long18.github.io/assets/28853225/9a3f3803-80ce-4dc5-9e8b-111ef7ea7084",
+            "tags": [
+                {
+                    "label": "Android Studio",
+                    "colorClass": "bg-green-600 text-white"
+                },
+                {
+                    "label": "Java",
+                    "colorClass": "bg-blue-600 text-white"
+                },
+                {
+                    "label": "XML",
+                    "colorClass": "bg-orange-600 text-white"
+                },
+                {
+                    "label": "Android SDK",
+                    "colorClass": "bg-purple-600 text-white"
+                },
+                {
+                    "label": "SQLite",
+                    "colorClass": "bg-gray-600 text-white"
+                }
+            ],
+            "timeline": "Jul/2021",
+            "description": "A comprehensive fitness scheduling and time management application designed to streamline group workout sessions. The app eliminates the traditional manual process of selecting exercise days and routines by providing an intelligent scheduling system with a predefined workout library and personalized exercise options.",
+            "gallery": [
+                "https://github.com/Long18/long18.github.io/assets/28853225/49872242-e0bb-44fc-9df1-ece4ff082c05",
+                "https://github.com/Long18/long18.github.io/assets/28853225/8d6d6369-bd9d-47bc-8832-15bd859984a6"
+            ],
+            "responsibilities": [
+                "Designed and implemented comprehensive data system architecture for workout scheduling and user management.",
+                "Developed core application functions including workout planning, progress tracking, and group coordination features.",
+                "Created intuitive UX/UI design with focus on user-friendly workout scheduling interface.",
+                "Implemented SQLite database integration for local data storage and retrieval.",
+                "Developed custom algorithms for workout recommendation and scheduling optimization.",
+                "Integrated Android SDK components for enhanced mobile functionality and performance."
+            ],
+            "achievements": [
+                "Successfully developed a complete Android application using Java and Android Studio, demonstrating proficiency in mobile development.",
+                "Mastered XML layout design and Android UI components, creating an intuitive and responsive user interface.",
+                "Implemented advanced Android SDK principles including Activities, Fragments, and Intent handling for seamless navigation.",
+                "Enhanced collaborative development skills through effective teamwork and project coordination.",
+                "Achieved significant self-learning milestones in mobile application development and database integration.",
+                "Delivered a functional fitness management solution that streamlines workout scheduling for group activities."
+            ],
+            "website": "https://github.com/Long18/FitnessCare"
         }
-      ],
-      "timeline": "May/2022 — Sep/2022",
-      "description": "Introducing Morinaga Milk's latest innovation: the \"Pino Game\" campaign. Embark on a digital\n                        adventure like never before with our limited-time package, launching October 3rd 2022. Simply\n                        scan the QR code on the lid using your smartphone or tablet to unlock a world of fun and\n                        excitement. Join us in redefining the joy of indulgence with Pino ice cream, where every bite\n                        becomes a thrilling gaming experience.",
-      "gallery": [
-        "https://github.com/Long18/long18.github.io/assets/28853225/7b43e00b-3b4d-4356-bd78-144ef5684aa3",
-        "https://github.com/Long18/long18.github.io/assets/28853225/211e0cd1-64e2-4981-a90d-436292a3bbe3",
-        "https://github.com/Long18/long18.github.io/assets/28853225/75fa4620-6def-4a6c-83a5-dd7aad0a4e7e",
-        "https://github.com/Long18/long18.github.io/assets/28853225/a52fd271-629f-4c82-9fdd-f00aa2a43414",
-        "https://github.com/Long18/long18.github.io/assets/28853225/f85e8000-5469-4671-b0ba-5119ca83b5ed",
-        "https://github.com/Long18/long18.github.io/assets/28853225/34fa471e-8d96-42df-9c76-146602212136",
-        "https://github.com/Long18/long18.github.io/assets/28853225/7fe5902d-1c6b-4930-b8e1-4bc5cce4b778",
-        "https://github.com/Long18/long18.github.io/assets/28853225/7addf9c4-fbfd-42b6-907e-fd87d8e0e830",
-        "https://github.com/Long18/long18.github.io/assets/28853225/8efb245f-ac28-4db1-af4e-ead142b2756c"
-      ],
-      "responsibilities": [],
-      "achievements": [
-        "Successfully integrated PathCreator for dynamic map creation and integrated Twitter sharing, enhancing user engagement and social interaction within the project. Customized WebGL builds using WebGLTemplates to align precisely with client specifications, ensuring seamless compatibility and optimal performance. Implemented advanced item spawning management, including intricate fall trajectory calculations for the Stick item, resulting in a polished and immersive gaming experience."
-      ],
-      "website": "https://long18.github.io/StrippedPino-Racing/",
-      "videos": [
-        {
-          "src": "/assets/videos/pinoracing.mp4",
-          "poster": "/assets/videos/pinoracing.jpg"
-        }
-      ]
-    },
-    {
-      "id": "hutingAnimal",
-      "title": "Huting Animal",
-      "category": "unity",
-      "image": "https://github.com/Long18/long18.github.io/assets/28853225/6d597614-b8a8-4737-b31f-4045c3cab5e4",
-      "tags": [
-        {
-          "label": "Unity",
-          "colorClass": "bg-gray-800 text-white"
-        }
-      ],
-      "timeline": "Jul/2021",
-      "description": "Team composition includes a total of 3 individuals, with 3 working in the front-end team.",
-      "gallery": [
-        "https://github.com/Long18/long18.github.io/assets/28853225/6d597614-b8a8-4737-b31f-4045c3cab5e4"
-      ],
-      "responsibilities": [
-        "Collaborated with the team to create gameplay.",
-        "GUI enhancements for improved user experience.",
-        "Updates to UI elements, ensuring a modern and intuitive design.",
-        "Implemented background UI modifications to enhance visual appeal and functionality.",
-        "Enhanced weapon features through meticulous updates and optimizations.",
-        "Streamlined ship functionalities to improve performance and gameplay dynamics.",
-        "Thoroughly researched Java web sockets, meticulously studying documentation to grasp implementation intricacies.",
-        "Expanded proficiency in utilizing web sockets for seamless, real-time communication within diverse web application frameworks."
-      ],
-      "achievements": [],
-      "website": "https://github.com/Long18/Game-ban-ca"
-    },
-    {
-      "id": "toiletTapTap",
-      "title": "Toilet Tap Tap",
-      "category": "unity",
-      "image": "https://github.com/Long18/long18.github.io/assets/28853225/87ee7fc3-3de9-4894-b71e-abbac380eefc",
-      "tags": [
-        {
-          "label": "Unity",
-          "colorClass": "bg-gray-800 text-white"
-        }
-      ],
-      "timeline": "Jun/2020",
-      "description": "The objective of the game is to control a boy flying through rolls of paper. If the boy touches\n                        an obstacle, the game ends. Each time the boy passes through a pair of papers, the player earns\n                        one point. Test your skills with an extremely simple control system.",
-      "gallery": [
-        "https://github.com/Long18/long18.github.io/assets/28853225/feb80801-8ec6-4404-91b5-8f6924134601"
-      ],
-      "responsibilities": [],
-      "achievements": [],
-      "website": "https://github.com/Long18/Toilet-Tap-Tap"
-    },
-    {
-      "id": "doggyMovement",
-      "title": "Doggy Movement",
-      "category": "unity",
-      "image": "https://github.com/Long18/long18.github.io/assets/28853225/f1b7915f-de09-4b10-b4ea-dc0f5bf6408d",
-      "tags": [
-        {
-          "label": "Unity",
-          "colorClass": "bg-gray-800 text-white"
-        }
-      ],
-      "timeline": "March/2020",
-      "description": "Self-Education.",
-      "gallery": [
-        "https://github.com/Long18/long18.github.io/assets/28853225/f1b7915f-de09-4b10-b4ea-dc0f5bf6408d"
-      ],
-      "responsibilities": [],
-      "achievements": [],
-      "website": "https://github.com/Long18/Doggy-Movement"
-    },
-    {
-      "id": "homeWithGrandma",
-      "title": "Home With Grandma",
-      "category": "unity",
-      "image": "https://github.com/Long18/long18.github.io/assets/28853225/8b5e2782-2fcb-4d5f-b301-14fbf0470d2f",
-      "tags": [
-        {
-          "label": "Unity",
-          "colorClass": "bg-gray-800 text-white"
-        }
-      ],
-      "timeline": "Jan/2021",
-      "description": "In late December 2019, the COVID-19 pandemic, caused by the SARS-CoV-2 virus, began to spread\n                        globally. Originating from the first cluster of cases recorded in the city of Wuhan, located in\n                        central China, the outbreak stemmed from a group of individuals suffering from unexplained\n                        pneumonia. Local health authorities confirmed prior contact, primarily with seafood traders at\n                        the Huanan Seafood Wholesale Market.",
-      "gallery": [
-        "https://github.com/Long18/long18.github.io/assets/28853225/c71efedd-274a-4b56-8611-8e09f30e4846",
-        "https://github.com/Long18/long18.github.io/assets/28853225/b5aa1355-79d5-44df-835b-6733ede7852f",
-        "https://github.com/Long18/long18.github.io/assets/28853225/8feda111-f926-4dda-b581-bfa08c592f5f"
-      ],
-      "responsibilities": [],
-      "achievements": [],
-      "website": "https://github.com/Long18/Save_Grandmother"
-    },
-    {
-      "id": "ffats",
-      "title": "FFATS",
-      "category": "applications",
-      "image": "https://github.com/Long18/long18.github.io/assets/28853225/98db6413-57d9-4e62-bf73-6153c54c1494",
-      "tags": [
-        {
-          "label": "Android Studio",
-          "colorClass": "bg-green-600 text-white"
-        }
-      ],
-      "timeline": "Dec/2021",
-      "description": "The ultimate food delivery solution powered by Android Studio. With seamless functionality for\n                        customers, restaurants, and shippers, we're revolutionizing the dining experience. Browse,\n                        order, and track deliveries effortlessly with FFAST.",
-      "gallery": [
-        "https://github.com/Long18/long18.github.io/assets/28853225/d9adb7aa-def6-4f3f-ba46-357f555e683b",
-        "https://github.com/Long18/long18.github.io/assets/28853225/a79fa604-fbbf-44be-8f79-b64e249698fe",
-        "https://github.com/Long18/long18.github.io/assets/28853225/fa7cb095-18ed-4cf6-860f-a644a2f1155c",
-        "https://github.com/Long18/long18.github.io/assets/28853225/3656510c-2e07-4dcb-b1f4-eeaec129fd81",
-        "https://github.com/Long18/long18.github.io/assets/28853225/e6f0ff9f-9d04-4a00-8642-10aa6500ba76"
-      ],
-      "responsibilities": [
-        "Data system design and building.",
-        "Design of functions and data processing.",
-        "Dijkstra's Algorithm.",
-        "Prority Queue.",
-        "Map direction.",
-        "Design UI/UI."
-      ],
-      "achievements": [
-        "Research and use map data retrived form OpenStreetMap.",
-        "Understand how to use Google map API.",
-        "Understand Dikstra's Algorithm.",
-        "Self-learning improvement.",
-        "Design UX/UI."
-      ],
-      "website": "https://github.com/Long18/FFAST_Food_Delivering"
-    },
-    {
-      "id": "fitnessCare",
-      "title": "Fitness Scheduler & Time Management.",
-      "category": "applications",
-      "image": "https://github.com/Long18/long18.github.io/assets/28853225/9a3f3803-80ce-4dc5-9e8b-111ef7ea7084",
-      "tags": [
-        {
-          "label": "Android Studio",
-          "colorClass": "bg-green-600 text-white"
-        }
-      ],
-      "timeline": "Jul/2021",
-      "description": "Our application aims to streamline the process of scheduling and managing group workout\n                        sessions. Traditionally,\n                        individuals manually select exercise days and routines for each muscle group, then record or\n                        store them somewhere for\n                        weekly or monthly observation. This scheduling process can be time-consuming.",
-      "gallery": [
-        "https://github.com/Long18/long18.github.io/assets/28853225/49872242-e0bb-44fc-9df1-ece4ff082c05",
-        "https://github.com/Long18/long18.github.io/assets/28853225/8d6d6369-bd9d-47bc-8832-15bd859984a6"
-      ],
-      "responsibilities": [
-        "Data system design and building.",
-        "Design of functions and data processing.",
-        "Design UX/UI."
-      ],
-      "achievements": [
-        "Programmable in Java and Android Studio.",
-        "The fundamentals of XML.",
-        "Master the key Android SDK principles.",
-        "Enhance abilities in teamwork.",
-        "Self-learning improvement.",
-        "Design UX/UI."
-      ],
-      "website": "https://github.com/Long18/FitnessCare"
-    }
-  ]
+    ]
 }
