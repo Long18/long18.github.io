@@ -1,0 +1,150 @@
+---
+title: "Code Block Test - Syntax Highlighting Demo"
+date: "2000-01-01"
+excerpt: "Testing the new advanced code block component with professional syntax highlighting and modern design."
+category: "Development"
+tags: ["React", "TypeScript", "Testing"]
+author: "Lê Nguyễn Thành Long"
+featured: false
+---
+
+# Code Block Component Test
+
+This post demonstrates the new advanced code block component with professional syntax highlighting.
+
+## JavaScript Example
+
+```javascript
+function fibonacci(n) {
+  if (n <= 1) return n;
+  return fibonacci(n - 1) + fibonacci(n - 2);
+}
+
+// Usage example
+const result = fibonacci(10);
+console.log(`Fibonacci of 10 is: ${result}`);
+```
+
+## TypeScript Example
+
+```typescript
+interface User {
+  id: number;
+  name: string;
+  email: string;
+}
+
+class UserService {
+  private users: User[] = [];
+
+  addUser(user: User): void {
+    this.users.push(user);
+  }
+
+  getUserById(id: number): User | undefined {
+    return this.users.find(user => user.id === id);
+  }
+}
+```
+
+## React Component Example
+
+```tsx
+import React, { useState } from 'react';
+
+interface CounterProps {
+  initialValue?: number;
+}
+
+const Counter: React.FC<CounterProps> = ({ initialValue = 0 }) => {
+  const [count, setCount] = useState(initialValue);
+
+  return (
+    <div className="counter">
+      <h2>Count: {count}</h2>
+      <button onClick={() => setCount(count + 1)}>
+        Increment
+      </button>
+      <button onClick={() => setCount(count - 1)}>
+        Decrement
+      </button>
+    </div>
+  );
+};
+
+export default Counter;
+```
+
+## Python Example
+
+```python
+def quicksort(arr):
+    if len(arr) <= 1:
+        return arr
+
+    pivot = arr[len(arr) // 2]
+    left = [x for x in arr if x < pivot]
+    middle = [x for x in arr if x == pivot]
+    right = [x for x in arr if x > pivot]
+
+    return quicksort(left) + middle + quicksort(right)
+
+# Example usage
+numbers = [3, 6, 8, 10, 1, 2, 1]
+sorted_numbers = quicksort(numbers)
+print(f"Sorted: {sorted_numbers}")
+```
+
+## CSS Example
+
+```css
+.code-block-container {
+  position: relative;
+  margin: 1.5rem 0;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+.code-block-header {
+  background: #21252b;
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.copy-button {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: #abb2bf;
+  padding: 0.375rem 0.75rem;
+  border-radius: 0.375rem;
+  transition: all 0.2s ease;
+}
+
+.copy-button:hover {
+  background: rgba(255, 255, 255, 0.2);
+  border-color: rgba(255, 255, 255, 0.2);
+  color: white;
+}
+```
+
+The code blocks above demonstrate:
+
+- **Professional syntax highlighting** with VS Code Dark+ inspired colors
+- **Copy-to-clipboard functionality** with visual feedback
+- **Language detection and display** in the header
+- **Responsive design** that works on all devices
+- **Modern styling** with rounded corners and subtle shadows
+- **Line numbers** for longer code blocks (automatically enabled)
+
+## Features
+
+- 🎨 **Beautiful Design**: Modern, professional appearance
+- 📋 **Copy Functionality**: One-click code copying
+- 🌈 **Syntax Highlighting**: Support for 20+ languages
+- 📱 **Responsive**: Works perfectly on mobile and desktop
+- ⚡ **Performance**: Optimized rendering with React
+- 🎯 **Accessibility**: Proper ARIA labels and keyboard navigation

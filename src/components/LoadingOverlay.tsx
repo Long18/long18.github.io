@@ -27,7 +27,7 @@ export default function LoadingOverlay() {
     <AnimatePresence>
       {isLoading && (
         <motion.div
-          className="fixed inset-0 z-[60000] flex items-center justify-center bg-gradient-to-br from-eerie-black-2 via-smoky-black to-eerie-black-1"
+          className="fixed inset-0 z-[60000] flex items-center justify-center bg-gradient-to-br from-portfolio-surface-secondary via-portfolio-surface-primary to-portfolio-surface-primary"
           initial={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           transition={{ duration: 0.6, ease: 'easeOut' }}

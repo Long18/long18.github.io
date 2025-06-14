@@ -46,7 +46,7 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
           const duration = Math.random() * 3 + 2;
 
           return `
-            <div 
+            <div
               class="absolute rounded-full bg-orange-400/40 animate-twinkle"
               style="
                 width: ${size}px;
@@ -178,7 +178,7 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
               className="flex flex-col sm:flex-row sm:gap-4 mb-8 animate-fade-in-up"
               style={{ animationDelay: '0.6s' }}
             >
-              <h2 className="text-3xl sm:text-4xl font-bold text-white-1 leading-tight mb-2 sm:mb-0">
+              <h2 className="text-3xl sm:text-4xl font-bold text-portfolio-text-primary leading-tight mb-2 sm:mb-0">
                 Game Developer
               </h2>
               <p className="text-lg sm:text-xl text-white-2 leading-relaxed">
@@ -481,7 +481,7 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
           className="space-y-8 mt-24 animate-fade-in-up"
           style={{ animationDelay: '1.2s' }}
         >
-          <h2 className="text-3xl sm:text-4xl font-bold text-white-1 text-center animate-slide-in-up">
+          <h2 className="text-3xl sm:text-4xl font-bold text-portfolio-text-primary text-center animate-slide-in-up">
             Main Skills
           </h2>
 
@@ -515,7 +515,7 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
                             className="w-6 h-6 text-orange-400"
                           />
                         </div>
-                        <span className="text-base font-medium text-white-2 group-hover/skill:text-white-1 transition-colors duration-300">
+                        <span className="text-base font-medium text-portfolio-text-secondary group-hover/skill:text-portfolio-text-primary transition-colors duration-300">
                           {skill.name}
                         </span>
                       </div>
@@ -552,7 +552,7 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
               <div className="text-2xl lg:text-3xl font-bold text-orange-400 mb-2 group-hover:text-orange-300 transition-colors duration-300 animate-count-up">
                 {stat.number}
               </div>
-              <div className="text-sm text-white-2 group-hover:text-white-1 transition-colors duration-300">
+              <div className="text-sm text-portfolio-text-secondary group-hover:text-portfolio-text-primary transition-colors duration-300">
                 {stat.label}
               </div>
             </div>

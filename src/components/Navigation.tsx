@@ -8,11 +8,19 @@ interface NavigationProps {
   onSectionChange: (section: string) => void;
 }
 
-const navigationItems = [
+interface NavigationItem {
+  id: string;
+  label: string;
+  isExternal?: boolean;
+  href?: string;
+}
+
+const navigationItems: NavigationItem[] = [
   { id: 'hero', label: 'Home' },
   { id: 'about', label: 'About' },
   { id: 'resume', label: 'Resume' },
   { id: 'portfolio', label: 'Portfolio' },
+  { id: 'blog', label: 'Blog', isExternal: true, href: '/blog' },
   { id: 'contact', label: 'Contact' },
 ];
 
@@ -55,8 +63,14 @@ export default function Navigation({
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
-  const handleNavClick = (sectionId: string) => {
-    onSectionChange(sectionId);
+  const handleNavClick = (sectionId: string, href?: string) => {
+    if (href) {
+      // External link - navigate to different page
+      window.location.href = href;
+    } else {
+      // Internal section - use section navigation
+      onSectionChange(sectionId);
+    }
     setIsMobileMenuOpen(false);
   };
 
@@ -68,11 +82,11 @@ export default function Navigation({
           {navigationItems.map((item) => (
             <li key={item.id}>
               <button
-                onClick={() => handleNavClick(item.id)}
-                className={`relative py-3 px-4 text-sm lg:text-base xl:text-lg font-medium transition-all duration-300 hover:text-orange-yellow-crayola hover:scale-105 focus:outline-none focus:text-orange-yellow-crayola group ${
+                onClick={() => handleNavClick(item.id, item.href)}
+                className={`relative py-3 px-4 text-sm lg:text-base xl:text-lg font-medium transition-all duration-300 hover:text-portfolio-accent hover:scale-105 focus:outline-none focus:text-portfolio-accent group ${
                   activeSection === item.id
-                    ? 'text-orange-yellow-crayola font-semibold'
-                    : 'text-white-2'
+                    ? 'text-portfolio-accent font-semibold'
+                    : 'text-portfolio-text-secondary'
                 }`}
                 aria-current={activeSection === item.id ? 'page' : undefined}
               >
@@ -84,17 +98,17 @@ export default function Navigation({
                 {activeSection === item.id && (
                   <motion.div
                     layoutId="activeTab"
-                    className="absolute inset-0 bg-gradient-to-r from-orange-yellow-crayola/15 to-vegas-gold/15 rounded-xl border border-orange-yellow-crayola/40 shadow-lg"
+                    className="absolute inset-0 bg-gradient-to-r from-portfolio-accent/15 to-secondary/15 rounded-xl border border-portfolio-accent/40 shadow-lg"
                     initial={false}
                     transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
                   />
                 )}
 
                 {/* Hover effect background */}
-                <div className="absolute inset-0 bg-orange-yellow-crayola/8 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                <div className="absolute inset-0 bg-portfolio-accent/8 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
 
                 {/* Bottom indicator line */}
-                <div className={`absolute bottom-0 left-1/2 transform -translate-x-1/2 w-8 h-1 bg-gradient-to-r from-orange-yellow-crayola to-vegas-gold rounded-full transition-all duration-300 ${
+                <div className={`absolute bottom-0 left-1/2 transform -translate-x-1/2 w-8 h-1 bg-gradient-to-r from-portfolio-accent to-secondary rounded-full transition-all duration-300 ${
                   activeSection === item.id ? 'opacity-100 scale-x-100' : 'opacity-0 scale-x-0 group-hover:opacity-75 group-hover:scale-x-100'
                 }`} />
 
@@ -103,7 +117,7 @@ export default function Navigation({
                   <motion.div
                     initial={{ scaleX: 0 }}
                     animate={{ scaleX: 1 }}
-                    className="absolute top-0 left-1/2 transform -translate-x-1/2 w-12 h-0.5 bg-gradient-to-r from-transparent via-orange-yellow-crayola to-transparent rounded-full"
+                    className="absolute top-0 left-1/2 transform -translate-x-1/2 w-12 h-0.5 bg-gradient-to-r from-transparent via-portfolio-accent to-transparent rounded-full"
                   />
                 )}
               </button>
@@ -118,7 +132,7 @@ export default function Navigation({
         <motion.button
           whileTap={{ scale: 0.95 }}
           onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-          className="p-3 rounded-xl text-white-1 hover:text-orange-yellow-crayola hover:bg-orange-yellow-crayola/10 focus:outline-none focus:ring-2 focus:ring-orange-yellow-crayola/30 transition-all duration-300 group shadow-lg hover:shadow-orange-yellow-crayola/20"
+          className="p-3 rounded-xl text-portfolio-text-primary hover:text-portfolio-accent hover:bg-portfolio-accent/10 focus:outline-none focus:ring-2 focus:ring-portfolio-accent/30 transition-all duration-300 group shadow-lg hover:shadow-portfolio-accent/20"
           aria-label="Toggle navigation menu"
           aria-expanded={isMobileMenuOpen}
         >
@@ -149,12 +163,12 @@ export default function Navigation({
               animate={{ opacity: 1, y: 0, scale: 1 }}
               exit={{ opacity: 0, y: -20, scale: 0.95 }}
               transition={{ duration: 0.2, ease: 'easeOut' }}
-              className="absolute right-0 top-16 w-64 bg-eerie-black-2/95 backdrop-blur-xl rounded-2xl p-4 shadow-2xl border border-jet/50 z-50"
+              className="absolute right-0 top-16 w-64 bg-portfolio-surface-secondary/95 backdrop-blur-xl rounded-2xl p-4 shadow-2xl border border-border/50 z-50"
             >
               {/* Menu Header */}
-              <div className="px-4 py-3 border-b border-jet/30 mb-3">
-                <h3 className="text-white-1 text-base font-bold">Portfolio Navigation</h3>
-                <p className="text-white-2 text-sm mt-1">Game Developer • William</p>
+              <div className="px-4 py-3 border-b border-border/30 mb-3">
+                <h3 className="text-portfolio-text-primary text-base font-bold">Portfolio Navigation</h3>
+                <p className="text-portfolio-text-secondary text-sm mt-1">Game Developer • William</p>
               </div>
 
               <ul className="space-y-2">
@@ -166,11 +180,11 @@ export default function Navigation({
                     transition={{ delay: index * 0.1 }}
                   >
                     <button
-                      onClick={() => handleNavClick(item.id)}
+                      onClick={() => handleNavClick(item.id, item.href)}
                       className={`block w-full text-left px-4 py-3 rounded-xl font-medium transition-all duration-200 group ${
                         activeSection === item.id
-                          ? 'text-orange-yellow-crayola bg-orange-yellow-crayola/15 border border-orange-yellow-crayola/30 font-semibold shadow-lg'
-                          : 'text-white-2 hover:text-orange-yellow-crayola hover:bg-jet/50'
+                          ? 'text-portfolio-accent bg-portfolio-accent/15 border border-portfolio-accent/30 font-semibold shadow-lg'
+                          : 'text-portfolio-text-secondary hover:text-portfolio-accent hover:bg-portfolio-surface-tertiary/50'
                       }`}
                       aria-current={activeSection === item.id ? 'page' : undefined}
                     >
@@ -182,7 +196,7 @@ export default function Navigation({
                           <motion.div
                             initial={{ scale: 0, rotate: -180 }}
                             animate={{ scale: 1, rotate: 0 }}
-                            className="w-2 h-2 bg-orange-yellow-crayola rounded-full shadow-lg"
+                            className="w-2 h-2 bg-portfolio-accent rounded-full shadow-lg"
                           />
                         )}
                       </div>
@@ -192,8 +206,8 @@ export default function Navigation({
               </ul>
 
               {/* Menu Footer */}
-              <div className="px-4 py-3 border-t border-jet/30 mt-4">
-                <p className="text-white-2 text-xs text-center">
+              <div className="px-4 py-3 border-t border-border/30 mt-4">
+                <p className="text-portfolio-text-secondary text-xs text-center">
                   © 2024 • Game Development Portfolio
                 </p>
               </div>

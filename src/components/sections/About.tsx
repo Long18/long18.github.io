@@ -227,9 +227,9 @@ export default function About({ className = '' }: AboutProps) {
               variants={itemVariants}
               className="relative animate-slide-in-left"
             >
-              <div className="relative bg-gradient-to-br from-eerie-black-1/80 to-eerie-black-2/80 backdrop-blur-xl rounded-3xl p-8 border border-jet/50 shadow-2xl hover:shadow-orange-500/20 transition-all duration-700 group">
+              <div className="relative bg-gradient-to-br from-portfolio-surface-primary/80 to-portfolio-surface-secondary/80 backdrop-blur-xl rounded-3xl p-8 border border-border/50 shadow-2xl hover:shadow-portfolio-accent/20 transition-all duration-700 group">
                 {/* Holographic overlay */}
-                <div className="absolute inset-0 bg-gradient-to-r from-orange-400/5 via-purple-500/5 to-cyan-400/5 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                                  <div className="absolute inset-0 bg-gradient-to-r from-portfolio-accent/5 via-secondary/5 to-portfolio-accent/5 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
 
                 {/* Profile Image with enhanced effects */}
                 <div className="relative mb-6 flex justify-center">
@@ -249,7 +249,7 @@ export default function About({ className = '' }: AboutProps) {
                     )}
 
                     {/* Avatar with glow effect */}
-                    <div className="relative w-32 h-32 rounded-full overflow-hidden border-4 border-jet/50 shadow-2xl group-hover:shadow-orange-500/30 transition-all duration-500 animate-scale-in">
+                    <div className="relative w-32 h-32 rounded-full overflow-hidden border-4 border-border/50 shadow-2xl group-hover:shadow-portfolio-accent/30 transition-all duration-500 animate-scale-in">
                       <Image
                         src={personalInfo.portrait}
                         alt={personalInfo.fullName}
@@ -257,7 +257,7 @@ export default function About({ className = '' }: AboutProps) {
                         height={128}
                         className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
                       />
-                      <div className="absolute inset-0 bg-gradient-to-t from-orange-400/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                      <div className="absolute inset-0 bg-gradient-to-t from-portfolio-accent/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                     </div>
                   </div>
                 </div>
@@ -265,13 +265,13 @@ export default function About({ className = '' }: AboutProps) {
                 {/* Name and Title with animated gradients */}
                 <div className="text-center mb-6">
                   <h3 className="text-2xl font-bold mb-2 animate-fade-in-up">
-                    <span className="bg-gradient-to-r from-orange-400 via-purple-500 to-cyan-400 bg-clip-text text-transparent animate-gradient-shift">
+                    <span className="bg-gradient-to-r from-portfolio-accent via-secondary to-portfolio-accent bg-clip-text text-transparent animate-gradient-shift">
                       {personalInfo.displayName}
                     </span>
                   </h3>
 
-                  <p className="text-lg text-white-2 flex items-center justify-center gap-2 animate-fade-in">
-                    <Sparkles className="w-5 h-5 text-orange-400" />
+                  <p className="text-lg text-portfolio-text-secondary flex items-center justify-center gap-2 animate-fade-in">
+                    <Sparkles className="w-5 h-5 text-portfolio-accent" />
                     {personalInfo.title}
                   </p>
                 </div>
@@ -281,13 +281,13 @@ export default function About({ className = '' }: AboutProps) {
                   className="space-y-3 text-sm animate-fade-in-up"
                   style={{ animationDelay: '0.4s' }}
                 >
-                  <div className="flex items-center gap-3 text-white-2 hover:text-orange-400 transition-colors duration-300">
-                    <Calendar className="w-4 h-4 text-orange-400" />
+                  <div className="flex items-center gap-3 text-portfolio-text-secondary hover:text-portfolio-accent transition-colors duration-300">
+                    <Calendar className="w-4 h-4 text-portfolio-accent" />
                     <span>Born {personalInfo.birthday}</span>
                   </div>
 
-                  <div className="flex items-center gap-3 text-white-2 hover:text-orange-400 transition-colors duration-300">
-                    <MapPin className="w-4 h-4 text-orange-400" />
+                  <div className="flex items-center gap-3 text-portfolio-text-secondary hover:text-portfolio-accent transition-colors duration-300">
+                    <MapPin className="w-4 h-4 text-portfolio-accent" />
                     <span>Ho Chi Minh City, Vietnam</span>
                   </div>
                 </div>
@@ -300,7 +300,7 @@ export default function About({ className = '' }: AboutProps) {
                   download="William_Resume.pdf"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="relative z-20 mt-6 w-full flex items-center justify-center gap-2 bg-gradient-to-r from-orange-500 to-purple-600 text-white-1 py-3 px-6 rounded-2xl font-semibold hover:shadow-lg hover:shadow-orange-500/25 transition-all duration-300 group/btn animate-scale-in cursor-pointer"
+                  className="relative z-20 mt-6 w-full flex items-center justify-center gap-2 bg-gradient-to-r from-portfolio-accent to-secondary text-portfolio-accent-foreground py-3 px-6 rounded-2xl font-semibold hover:shadow-lg hover:shadow-portfolio-accent/25 transition-all duration-300 group/btn animate-scale-in cursor-pointer"
                   style={{ animationDelay: '0.6s' }}
                 >
                   <Download className="w-4 h-4 group-hover/btn:animate-bounce" />
@@ -326,18 +326,18 @@ export default function About({ className = '' }: AboutProps) {
                 >
                   <Target className="w-6 h-6 text-white-1" />
                 </motion.div>
-                <h2 className="text-3xl font-bold text-white-1">About Me</h2>
+                <h2 className="text-3xl font-bold text-portfolio-text-primary">About Me</h2>
               </div>
 
               {/* Typed text effect */}
-              <div className="relative bg-eerie-black-2/50 backdrop-blur-sm rounded-2xl p-6 border border-jet/30">
-                <div className="text-white-2 leading-relaxed text-lg">
+              <div className="relative bg-portfolio-surface-secondary/50 backdrop-blur-sm rounded-2xl p-6 border border-border/30">
+                <div className="text-portfolio-text-secondary leading-relaxed text-lg">
                   {typedText}
                   {performanceMode !== 'low' && (
                     <motion.span
                       animate={{ opacity: [1, 0] }}
                       transition={{ duration: 0.5, repeat: Infinity }}
-                      className="inline-block w-0.5 h-6 bg-orange-400 ml-1"
+                      className="inline-block w-0.5 h-6 bg-portfolio-accent ml-1"
                     />
                   )}
                 </div>
@@ -349,7 +349,7 @@ export default function About({ className = '' }: AboutProps) {
                   <motion.div
                     key={index}
                     variants={itemVariants}
-                    className="bg-eerie-black-2/30 backdrop-blur-sm rounded-xl p-4 border border-jet/30 hover:border-orange-500/50 transition-all duration-300 group cursor-pointer animate-scale-in"
+                    className="bg-portfolio-surface-secondary/30 backdrop-blur-sm rounded-xl p-4 border border-border/30 hover:border-portfolio-accent/50 transition-all duration-300 group cursor-pointer animate-scale-in"
                     style={{ animationDelay: `${0.8 + index * 0.1}s` }}
                   >
                     <div className="flex items-center gap-3">
@@ -357,7 +357,7 @@ export default function About({ className = '' }: AboutProps) {
                         className="w-5 h-5 group-hover:scale-110 transition-transform duration-300"
                         style={{ color: fact.color }}
                       />
-                      <span className="text-sm text-white-2 group-hover:text-white-1 transition-colors duration-300">
+                      <span className="text-sm text-portfolio-text-secondary group-hover:text-portfolio-text-primary transition-colors duration-300">
                         {fact.text}
                       </span>
                     </div>
@@ -378,7 +378,7 @@ export default function About({ className = '' }: AboutProps) {
                 whileHover={
                   performanceMode !== 'low' ? { scale: 1.05, y: -5 } : {}
                 }
-                className="relative text-center p-6 bg-eerie-black-2/40 backdrop-blur-sm rounded-2xl border border-jet/30 hover:border-orange-500/50 hover:shadow-xl hover:shadow-orange-500/10 transition-all duration-500 group cursor-pointer animate-scale-in"
+                className="relative text-center p-6 bg-portfolio-surface-secondary/40 backdrop-blur-sm rounded-2xl border border-border/30 hover:border-portfolio-accent/50 hover:shadow-xl hover:shadow-portfolio-accent/10 transition-all duration-500 group cursor-pointer animate-scale-in"
                 style={{ animationDelay: `${1.2 + index * 0.1}s` }}
               >
                 {/* Icon */}
@@ -410,7 +410,7 @@ export default function About({ className = '' }: AboutProps) {
                 </div>
 
                 {/* Label */}
-                <div className="text-sm text-white-2/80 group-hover:text-white-2 transition-colors duration-300 relative z-10">
+                <div className="text-sm text-portfolio-text-secondary/80 group-hover:text-portfolio-text-secondary transition-colors duration-300 relative z-10">
                   {stat.label}
                 </div>
               </motion.div>
@@ -428,7 +428,7 @@ export default function About({ className = '' }: AboutProps) {
             >
               <Briefcase className="w-6 h-6 text-white-1" />
             </motion.div>
-            <h2 className="text-3xl font-bold text-white-1">
+            <h2 className="text-3xl font-bold text-portfolio-text-primary">
               What I&apos;m Doing
             </h2>
           </div>
@@ -443,7 +443,7 @@ export default function About({ className = '' }: AboutProps) {
                 className="relative group animate-slide-in-up"
                 style={{ animationDelay: `${1.6 + index * 0.2}s` }}
               >
-                <div className="relative bg-eerie-black-2/50 backdrop-blur-sm rounded-3xl p-6 border border-jet/50 hover:border-orange-500/30 hover:shadow-xl hover:shadow-orange-500/10 transition-all duration-500 overflow-hidden">
+                <div className="relative bg-portfolio-surface-secondary/50 backdrop-blur-sm rounded-3xl p-6 border border-border/50 hover:border-portfolio-accent/30 hover:shadow-xl hover:shadow-portfolio-accent/10 transition-all duration-500 overflow-hidden">
                   <div className="relative z-10 flex items-start gap-6">
                     {/* Enhanced Icon */}
                     <div className="flex-shrink-0">
@@ -458,7 +458,7 @@ export default function About({ className = '' }: AboutProps) {
                           background: `linear-gradient(135deg, ${service.color}20, ${service.color}10)`,
                         }}
                       >
-                        <div className="relative z-10 w-14 h-14 bg-eerie-black-2/90 rounded-xl flex items-center justify-center">
+                        <div className="relative z-10 w-14 h-14 bg-portfolio-surface-secondary/90 rounded-xl flex items-center justify-center">
                           <Image
                             src={service.icon}
                             alt={service.title}
@@ -473,7 +473,7 @@ export default function About({ className = '' }: AboutProps) {
                     {/* Content */}
                     <div className="flex-1 min-w-0">
                       <div className="flex items-center justify-between mb-3">
-                        <h4 className="text-xl font-semibold text-white-1 group-hover:text-orange-400 transition-colors duration-300">
+                        <h4 className="text-xl font-semibold text-portfolio-text-primary group-hover:text-portfolio-accent transition-colors duration-300">
                           {service.title}
                         </h4>
                         <motion.div
@@ -481,13 +481,13 @@ export default function About({ className = '' }: AboutProps) {
                           animate={{
                             scale: hoveredService === service.id ? 1 : 0,
                           }}
-                          className="bg-gradient-to-r from-orange-400 to-purple-500 text-white-1 text-xs px-3 py-1 rounded-full font-semibold"
+                          className="bg-gradient-to-r from-portfolio-accent to-secondary text-portfolio-accent-foreground text-xs px-3 py-1 rounded-full font-semibold"
                         >
                           {service.stats}
                         </motion.div>
                       </div>
 
-                      <p className="text-white-2/80 leading-relaxed mb-4 group-hover:text-white-2 transition-colors duration-300">
+                      <p className="text-portfolio-text-secondary/80 leading-relaxed mb-4 group-hover:text-portfolio-text-secondary transition-colors duration-300">
                         {service.description}
                       </p>
 
@@ -496,7 +496,7 @@ export default function About({ className = '' }: AboutProps) {
                         {service.tech.map((tech, techIndex) => (
                           <span
                             key={tech}
-                            className="text-xs px-2 py-1 bg-jet/50 text-white-2 rounded-lg border border-jet/50 hover:border-orange-500/50 transition-all duration-300 animate-fade-in"
+                            className="text-xs px-2 py-1 bg-portfolio-surface-tertiary/50 text-portfolio-text-secondary rounded-lg border border-border/50 hover:border-portfolio-accent/50 transition-all duration-300 animate-fade-in"
                             style={{
                               animationDelay: `${
                                 1.8 + index * 0.2 + techIndex * 0.1
@@ -513,15 +513,15 @@ export default function About({ className = '' }: AboutProps) {
                         {service.achievements.map((achievement, achIndex) => (
                           <div
                             key={achievement}
-                            className="text-xs text-center p-2 bg-jet/30 rounded-lg border border-jet/20 hover:border-orange-500/30 transition-all duration-300 animate-scale-in"
+                            className="text-xs text-center p-2 bg-portfolio-surface-tertiary/30 rounded-lg border border-border/20 hover:border-portfolio-accent/30 transition-all duration-300 animate-scale-in"
                             style={{
                               animationDelay: `${
                                 2 + index * 0.2 + achIndex * 0.1
                               }s`,
                             }}
                           >
-                            <Zap className="w-3 h-3 mx-auto mb-1 text-orange-400" />
-                            <span className="text-white-2/80">
+                            <Zap className="w-3 h-3 mx-auto mb-1 text-portfolio-accent" />
+                            <span className="text-portfolio-text-secondary/80">
                               {achievement}
                             </span>
                           </div>
@@ -545,7 +545,7 @@ export default function About({ className = '' }: AboutProps) {
             >
               <Code className="w-6 h-6 text-white-1" />
             </motion.div>
-            <h2 className="text-3xl font-bold text-white-1">
+            <h2 className="text-3xl font-bold text-portfolio-text-primary">
               Technical Skills
             </h2>
           </div>
@@ -557,18 +557,18 @@ export default function About({ className = '' }: AboutProps) {
                 variants={itemVariants}
                 onMouseEnter={() => setActiveSkillCategory(category.title)}
                 onMouseLeave={() => setActiveSkillCategory(null)}
-                className="relative bg-eerie-black-2/30 backdrop-blur-sm rounded-3xl p-6 border border-jet/30 hover:border-orange-500/30 hover:shadow-xl hover:shadow-orange-500/10 transition-all duration-500 group overflow-visible animate-slide-in-up"
+                className="relative bg-portfolio-surface-secondary/30 backdrop-blur-sm rounded-3xl p-6 border border-border/30 hover:border-portfolio-accent/30 hover:shadow-xl hover:shadow-portfolio-accent/10 transition-all duration-500 group overflow-visible animate-slide-in-up"
                 style={{ animationDelay: `${2.4 + categoryIndex * 0.1}s` }}
               >
                 {/* Background animation */}
-                <div className="absolute inset-0 bg-gradient-to-br from-orange-400/5 via-purple-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-3xl" />
+                <div className="absolute inset-0 bg-gradient-to-br from-portfolio-accent/5 via-secondary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-3xl" />
 
                 <div className="relative z-10">
                   <motion.h4
                     whileHover={
                       performanceMode !== 'low' ? { scale: 1.05 } : {}
                     }
-                    className="text-xl font-semibold text-orange-400 mb-6 flex items-center gap-3"
+                    className="text-xl font-semibold text-portfolio-accent mb-6 flex items-center gap-3"
                   >
                     <motion.div
                       animate={{
@@ -579,7 +579,7 @@ export default function About({ className = '' }: AboutProps) {
                             : 0,
                       }}
                       transition={{ duration: 0.5 }}
-                      className="w-8 h-8 bg-gradient-to-r from-orange-400 to-purple-500 rounded-lg flex items-center justify-center"
+                      className="w-8 h-8 bg-gradient-to-r from-portfolio-accent to-secondary rounded-lg flex items-center justify-center"
                     >
                       <Sparkles className="w-4 h-4 text-white-1" />
                     </motion.div>
@@ -621,7 +621,7 @@ export default function About({ className = '' }: AboutProps) {
                               );
                             }
                           }}
-                          className="flex items-center gap-3 px-4 py-3 bg-jet/50 backdrop-blur-sm rounded-2xl border border-jet/50 hover:border-orange-500/50 hover:bg-orange-500/10 hover:shadow-lg hover:shadow-orange-500/20 transition-all duration-500 group/skill cursor-pointer animate-scale-in select-none"
+                          className="flex items-center gap-3 px-4 py-3 bg-portfolio-surface-tertiary/50 backdrop-blur-sm rounded-2xl border border-border/50 hover:border-portfolio-accent/50 hover:bg-portfolio-accent/10 hover:shadow-lg hover:shadow-portfolio-accent/20 transition-all duration-500 group/skill cursor-pointer animate-scale-in select-none"
                           style={{
                             animationDelay: `${
                               2.6 + categoryIndex * 0.1 + skillIndex * 0.05
@@ -632,12 +632,12 @@ export default function About({ className = '' }: AboutProps) {
                           <div className="relative group-hover/skill:scale-110 transition-transform duration-500">
                             <SkillIcon
                               skillId={skill.id}
-                              className="w-5 h-5 text-orange-400 group-hover/skill:text-orange-300"
+                              className="w-5 h-5 text-portfolio-accent group-hover/skill:text-portfolio-accent/80"
                             />
                           </div>
 
                           {/* Skill name */}
-                          <span className="text-sm font-medium text-white-2 group-hover/skill:text-white-1 transition-colors duration-500 whitespace-nowrap">
+                          <span className="text-sm font-medium text-portfolio-text-secondary group-hover/skill:text-portfolio-text-primary transition-colors duration-500 whitespace-nowrap">
                             {skill.name}
                           </span>
 
@@ -650,13 +650,13 @@ export default function About({ className = '' }: AboutProps) {
                               } : {}}
                               transition={{ duration: 0.5 }}
                             >
-                              <Info className="w-3 h-3 text-white-2/60 group-hover/skill:text-orange-400 transition-colors duration-300" />
+                              <Info className="w-3 h-3 text-portfolio-text-secondary/60 group-hover/skill:text-portfolio-accent transition-colors duration-300" />
                             </motion.div>
                           )}
 
                           {/* Mobile tap indicator */}
                           {isMobile && skill.description && (
-                            <div className="ml-auto text-xs text-white-2/60 group-hover/skill:text-orange-400 transition-colors duration-300">
+                            <div className="ml-auto text-xs text-portfolio-text-secondary/60 group-hover/skill:text-portfolio-accent transition-colors duration-300">
                               Tap
                             </div>
                           )}
@@ -678,15 +678,15 @@ export default function About({ className = '' }: AboutProps) {
                               }}
                               className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-4 z-[100] pointer-events-auto"
                             >
-                              <div className="bg-eerie-black-1 backdrop-blur-xl border border-orange-400/80 shadow-2xl shadow-orange-500/70 max-w-80 px-6 py-5 rounded-2xl text-white-1 text-center">
-                                <div className="font-semibold text-orange-300 mb-4 text-lg">
+                              <div className="bg-portfolio-surface-primary backdrop-blur-xl border border-portfolio-accent/80 shadow-2xl shadow-portfolio-accent/70 max-w-80 px-6 py-5 rounded-2xl text-portfolio-text-primary text-center">
+                                <div className="font-semibold text-portfolio-accent mb-4 text-lg">
                                   {skill.name}
                                 </div>
-                                <div className="text-white-1/95 leading-relaxed text-base">
+                                <div className="text-portfolio-text-primary/95 leading-relaxed text-base">
                                   {skill.description}
                                 </div>
                                 {/* Tooltip arrow */}
-                                <div className="absolute top-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-[8px] border-r-[8px] border-t-[8px] border-transparent border-t-orange-400/70"></div>
+                                <div className="absolute top-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-[8px] border-r-[8px] border-t-[8px] border-transparent border-t-portfolio-accent/70"></div>
                               </div>
                             </motion.div>
                           )}

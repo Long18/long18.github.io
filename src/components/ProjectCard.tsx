@@ -8,7 +8,7 @@ import { useGSAP } from '../hooks/useGSAP';
 import gsap from 'gsap';
 import type { Project } from '../types/portfolio';
 import { getProjectDownloadStats } from '../data/assetPaths';
-import { TECHNOLOGY_COLORS } from '../types/portfolio';
+import { colorSystem } from '../lib/colors';
 import DownloadStatsDisplay from './DownloadStatsDisplay';
 
 interface ProjectCardProps {
@@ -17,43 +17,25 @@ interface ProjectCardProps {
   index?: number;
 }
 
-// Import TECHNOLOGY_COLORS from portfolio types
-
+// Enhanced tech color function using the new color system
 const getTechColor = (tech: string): string => {
-  // Use the centralized TECHNOLOGY_COLORS from portfolio.ts
-  const baseColor = TECHNOLOGY_COLORS[tech];
+  const techColor = colorSystem.getTechColor(tech);
 
-  if (baseColor) {
-    // Convert the simple Tailwind classes to enhanced gradient format
-    const colorMap: Record<string, string> = {
-      'bg-gray-800 text-white':
-        'bg-gradient-to-r from-purple-500/20 to-purple-600/20 text-purple-300 border-purple-500/40 shadow-purple-500/10',
-      'bg-purple-700 text-white':
-        'bg-gradient-to-r from-blue-600/20 to-blue-700/20 text-blue-300 border-blue-600/40 shadow-blue-600/10',
-      'bg-blue-600 text-white':
-        'bg-gradient-to-r from-cyan-500/20 to-blue-500/20 text-cyan-300 border-cyan-500/40 shadow-cyan-500/10',
-      'bg-green-600 text-white':
-        'bg-gradient-to-r from-green-600/20 to-green-700/20 text-green-300 border-green-600/40 shadow-green-600/10',
-      'bg-pink-600 text-white':
-        'bg-gradient-to-r from-purple-600/20 to-pink-600/20 text-purple-300 border-purple-600/40 shadow-purple-600/10',
-      'bg-red-700 text-white':
-        'bg-gradient-to-r from-blue-700/20 to-blue-800/20 text-blue-300 border-blue-700/40 shadow-blue-700/10',
-      'bg-yellow-500 text-black':
-        'bg-gradient-to-r from-yellow-500/20 to-orange-500/20 text-yellow-300 border-yellow-500/40 shadow-yellow-500/10',
-      'bg-lime-600 text-white':
-        'bg-gradient-to-r from-green-600/20 to-green-700/20 text-green-300 border-green-600/40 shadow-green-600/10',
-      'bg-indigo-600 text-white':
-        'bg-gradient-to-r from-indigo-600/20 to-purple-600/20 text-indigo-300 border-indigo-600/40 shadow-indigo-600/10',
-    };
+  // Enhanced gradient mapping for tech colors
+  const enhancedColorMap: Record<string, string> = {
+    'tech-unity': 'bg-gradient-to-r from-tech-unity/20 to-tech-unity/30 text-tech-unity border-tech-unity/40 shadow-tech-unity/10',
+    'tech-unreal': 'bg-gradient-to-r from-tech-unreal/20 to-tech-unreal/30 text-tech-unreal border-tech-unreal/40 shadow-tech-unreal/10',
+    'tech-csharp': 'bg-gradient-to-r from-tech-csharp/20 to-tech-csharp/30 text-tech-csharp border-tech-csharp/40 shadow-tech-csharp/10',
+    'tech-cpp': 'bg-gradient-to-r from-tech-cpp/20 to-tech-cpp/30 text-tech-cpp border-tech-cpp/40 shadow-tech-cpp/10',
+    'tech-javascript': 'bg-gradient-to-r from-tech-javascript/20 to-tech-javascript/30 text-tech-javascript-foreground border-tech-javascript/40 shadow-tech-javascript/10',
+    'tech-typescript': 'bg-gradient-to-r from-tech-typescript/20 to-tech-typescript/30 text-tech-typescript border-tech-typescript/40 shadow-tech-typescript/10',
+    'tech-web': 'bg-gradient-to-r from-tech-web/20 to-tech-web/30 text-tech-web border-tech-web/40 shadow-tech-web/10',
+    'tech-mobile': 'bg-gradient-to-r from-tech-mobile/20 to-tech-mobile/30 text-tech-mobile border-tech-mobile/40 shadow-tech-mobile/10',
+    'tech-application': 'bg-gradient-to-r from-tech-application/20 to-tech-application/30 text-tech-application border-tech-application/40 shadow-tech-application/10',
+    'tech-default': 'bg-gradient-to-r from-tech-default/20 to-tech-default/30 text-tech-default border-tech-default/40 shadow-tech-default/10',
+  };
 
-    return (
-      colorMap[baseColor] ||
-      'bg-gradient-to-r from-gray-600/20 to-gray-700/20 text-gray-300 border-gray-600/40 shadow-gray-600/10'
-    );
-  }
-
-  // Enhanced default fallback with gradient and glow
-  return 'bg-gradient-to-r from-gray-600/20 to-gray-700/20 text-gray-300 border-gray-600/40 shadow-gray-600/10';
+  return enhancedColorMap[techColor] || enhancedColorMap['tech-default'];
 };
 
 export const ProjectCard: React.FC<ProjectCardProps> = ({
@@ -233,24 +215,24 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({
       className={cn(
         // Base styles with enhanced shadows and gradients
         'group relative cursor-pointer overflow-hidden',
-        'bg-eerie-black-2/20 backdrop-blur-sm',
-        'border border-jet/30 rounded-2xl shadow-lg',
+        'bg-portfolio-surface-secondary/20 backdrop-blur-sm',
+        'border border-border/30 rounded-2xl shadow-lg',
 
         // Interactive states
         'transform transition-all duration-500 ease-out',
-        'hover:shadow-xl hover:shadow-orange-400/20',
-        'hover:border-orange-400/50 hover:bg-eerie-black-2/30',
-        'focus:scale-105 focus:outline-none focus:ring-2 focus:ring-orange-400/50',
+        'hover:shadow-xl hover:shadow-portfolio-accent/20',
+        'hover:border-portfolio-accent/50 hover:bg-portfolio-surface-secondary/30',
+        'focus:scale-105 focus:outline-none focus:ring-2 focus:ring-portfolio-accent/50',
 
         // Layout
         'flex flex-col h-full',
         'min-h-[380px] sm:min-h-[420px] md:min-h-[460px] lg:min-h-[480px]',
 
         // Glass morphism effect
-        'before:absolute before:inset-0 before:bg-gradient-to-br before:from-white/5 before:to-transparent before:pointer-events-none before:rounded-2xl',
+        'before:absolute before:inset-0 before:bg-gradient-to-br before:from-portfolio-text-primary/5 before:to-transparent before:pointer-events-none before:rounded-2xl',
 
         // Animated border gradient
-        'after:absolute after:inset-0 after:bg-gradient-to-r after:from-transparent after:via-orange-400/20 after:to-transparent',
+        'after:absolute after:inset-0 after:bg-gradient-to-r after:from-transparent after:via-portfolio-accent/20 after:to-transparent',
         'after:opacity-0 hover:after:opacity-100 after:transition-opacity after:duration-700',
         'after:pointer-events-none after:rounded-2xl'
       )}
@@ -265,13 +247,13 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({
       >
         {/* Loading placeholder with animated gradient */}
         {!imageLoaded && (
-          <div className="absolute inset-0 bg-gradient-to-br from-gray-800 to-gray-700 animate-pulse">
+          <div className="absolute inset-0 bg-gradient-to-br from-portfolio-surface-secondary to-portfolio-surface-tertiary animate-pulse">
             <div
-              className="absolute inset-0 bg-gradient-to-r from-transparent via-gray-600/50 to-transparent
+              className="absolute inset-0 bg-gradient-to-r from-transparent via-muted/50 to-transparent
                            transform translate-x-[-100%] animate-shimmer"
             />
             <div className="absolute inset-0 flex items-center justify-center">
-              <div className="w-12 h-12 border-2 border-orange-400/30 border-t-orange-400 rounded-full animate-spin" />
+              <div className="w-12 h-12 border-2 border-portfolio-accent/30 border-t-portfolio-accent rounded-full animate-spin" />
             </div>
           </div>
         )}
@@ -296,8 +278,8 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({
             }}
           />
         ) : (
-          <div className="absolute inset-0 bg-gradient-to-br from-gray-800 to-gray-700 flex items-center justify-center">
-            <div className="text-center text-gray-300/60">
+                      <div className="absolute inset-0 bg-gradient-to-br from-portfolio-surface-secondary to-portfolio-surface-tertiary flex items-center justify-center">
+                            <div className="text-center text-portfolio-text-muted/60">
               <svg
                 className="w-16 h-16 mx-auto mb-2 opacity-50"
                 fill="none"
@@ -324,9 +306,9 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({
               onClick={prevImage}
               className={cn(
                 'absolute left-2 top-1/2 -translate-y-1/2 z-10',
-                'bg-gray-900/40 hover:bg-gray-900/60 text-white p-2 rounded-full backdrop-blur-sm',
+                'bg-portfolio-surface-secondary/40 hover:bg-portfolio-surface-secondary/60 text-portfolio-text-primary p-2 rounded-full backdrop-blur-sm',
                 'transition-all duration-300 opacity-0 group-hover:opacity-100',
-                'hover:scale-110 focus:outline-none focus:ring-2 focus:ring-orange-400/50'
+                'hover:scale-110 focus:outline-none focus:ring-2 focus:ring-portfolio-accent/50'
               )}
               aria-label="Previous image"
             >
@@ -349,9 +331,9 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({
               onClick={nextImage}
               className={cn(
                 'absolute right-2 top-1/2 -translate-y-1/2 z-10',
-                'bg-gray-900/40 hover:bg-gray-900/60 text-white p-2 rounded-full backdrop-blur-sm',
+                'bg-portfolio-surface-secondary/40 hover:bg-portfolio-surface-secondary/60 text-portfolio-text-primary p-2 rounded-full backdrop-blur-sm',
                 'transition-all duration-300 opacity-0 group-hover:opacity-100',
-                'hover:scale-110 focus:outline-none focus:ring-2 focus:ring-orange-400/50'
+                'hover:scale-110 focus:outline-none focus:ring-2 focus:ring-portfolio-accent/50'
               )}
               aria-label="Next image"
             >
@@ -374,16 +356,16 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({
             <div
               className={cn(
                 'absolute top-3 right-3 z-10',
-                'bg-gray-900/60 text-white px-2.5 py-1 rounded-full text-xs backdrop-blur-sm',
+                'bg-portfolio-surface-secondary/60 text-portfolio-text-primary px-2.5 py-1 rounded-full text-xs backdrop-blur-sm',
                 'transition-all duration-300 opacity-0 group-hover:opacity-100',
-                'border border-white/20'
+                'border border-portfolio-text-primary/20'
               )}
             >
               {currentImageIndex + 1} / {images.length}
             </div>
 
             {/* Gallery indicator */}
-            <div className="absolute top-3 left-3 z-10 bg-gray-900/60 text-white p-1.5 rounded-full backdrop-blur-sm border border-white/20">
+            <div className="absolute top-3 left-3 z-10 bg-portfolio-surface-secondary/60 text-portfolio-text-primary p-1.5 rounded-full backdrop-blur-sm border border-portfolio-text-primary/20">
               <svg
                 className="w-3.5 h-3.5"
                 fill="none"
@@ -406,8 +388,8 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({
           <span
             className={cn(
               'px-3 py-1.5 rounded-full text-xs font-semibold backdrop-blur-md border',
-              'bg-gradient-to-r from-orange-400/90 to-orange-500/90',
-              'text-gray-900 border-orange-400/50 shadow-lg shadow-orange-400/25'
+              'bg-gradient-to-r from-portfolio-accent/90 to-primary/90',
+              'text-portfolio-accent-foreground border-portfolio-accent/50 shadow-lg shadow-portfolio-accent/25'
             )}
           >
             {project.category.charAt(0).toUpperCase() +
@@ -425,16 +407,16 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({
         {/* Hover Overlay with Enhanced View Icon */}
         <div
           className={cn(
-            'absolute inset-0 bg-gradient-to-t from-gray-900/60 via-gray-900/20 to-transparent',
+            'absolute inset-0 bg-gradient-to-t from-portfolio-surface-primary/60 via-portfolio-surface-primary/20 to-transparent',
             'flex items-center justify-center opacity-0 group-hover:opacity-100',
             'transition-all duration-300 backdrop-blur-[1px]'
           )}
         >
           <div
             className={cn(
-              'bg-orange-400/90 text-gray-900 p-4 rounded-full shadow-lg',
+              'bg-portfolio-accent/90 text-portfolio-accent-foreground p-4 rounded-full shadow-lg',
               'transform scale-75 group-hover:scale-100 transition-all duration-300',
-              'border-2 border-white/20'
+              'border-2 border-portfolio-text-primary/20'
             )}
           >
             <svg
@@ -468,9 +450,9 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({
         <div className="min-h-[2rem] sm:min-h-[2.5rem]">
           <h3
             className={cn(
-              'text-base sm:text-lg md:text-xl font-bold text-white truncate',
+              'text-base sm:text-lg md:text-xl font-bold text-portfolio-text-primary truncate',
               'transition-all duration-300 group-hover:text-transparent',
-              'group-hover:bg-gradient-to-r group-hover:from-orange-400 group-hover:to-orange-500',
+              'group-hover:bg-gradient-to-r group-hover:from-portfolio-accent group-hover:to-primary',
               'group-hover:bg-clip-text'
             )}
           >
@@ -480,7 +462,7 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({
 
         {/* Description with better typography */}
         <div className="min-h-[3rem] sm:min-h-[4rem] md:min-h-[5rem]">
-          <p className="text-xs sm:text-sm md:text-base text-gray-300 line-clamp-2 md:line-clamp-3 leading-relaxed">
+          <p className="text-xs sm:text-sm md:text-base text-portfolio-text-secondary line-clamp-2 md:line-clamp-3 leading-relaxed">
             {project.description}
           </p>
         </div>
@@ -510,8 +492,8 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({
                 <span
                   className={cn(
                     'px-2 py-1 sm:px-3 sm:py-1.5 rounded-lg text-[10px] sm:text-xs font-semibold',
-                    'bg-gradient-to-r from-gray-600/50 to-gray-700/50 text-gray-300',
-                    'border border-gray-600/40 transition-all duration-300 hover:scale-105',
+                    'bg-gradient-to-r from-tech-default/50 to-tech-default/70 text-tech-default-foreground',
+                    'border border-tech-default/40 transition-all duration-300 hover:scale-105',
                     'cursor-default shadow-md backdrop-blur-sm'
                   )}
                   title={project.tags
@@ -525,7 +507,7 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({
               )}
             </>
           ) : (
-            <span className="px-3 py-1.5 rounded-lg text-xs font-semibold bg-gray-600/40 text-gray-300/60 border border-gray-600/40 cursor-default">
+                            <span className="px-3 py-1.5 rounded-lg text-xs font-semibold bg-tech-default/40 text-tech-default-foreground/60 border border-tech-default/40 cursor-default">
               No tags
             </span>
           )}
@@ -535,7 +517,7 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({
         {(project.website ||
           project.storeLinks?.android ||
           project.storeLinks?.ios) && (
-          <div className="flex items-center justify-between pt-3 border-t border-gray-600/50">
+          <div className="flex items-center justify-between pt-3 border-t border-border/50">
             <div className="flex items-center gap-2">
               {project.website && (
                 <a
@@ -545,10 +527,10 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({
                   onClick={(e) => e.stopPropagation()}
                   className={cn(
                     'group/btn flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium',
-                    'bg-gradient-to-r from-orange-400/20 to-orange-500/20 text-orange-400',
-                    'border border-orange-400/40 hover:border-orange-400/60',
+                    'bg-gradient-to-r from-portfolio-accent/20 to-primary/20 text-portfolio-accent',
+                    'border border-portfolio-accent/40 hover:border-portfolio-accent/60',
                     'transition-all duration-300 hover:scale-105 hover:shadow-lg',
-                    'hover:from-orange-400/30 hover:to-orange-500/30'
+                    'hover:from-portfolio-accent/30 hover:to-primary/30'
                   )}
                   title="Visit Website"
                   aria-label="Visit project website"
@@ -603,10 +585,10 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({
                   onClick={(e) => e.stopPropagation()}
                   className={cn(
                     'group/btn flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium',
-                    'bg-gradient-to-r from-gray-600/20 to-gray-700/20 text-gray-300',
-                    'border border-gray-600/40 hover:border-gray-700/60',
+                    'bg-gradient-to-r from-muted/20 to-muted/30 text-muted-foreground',
+                    'border border-muted/40 hover:border-muted/60',
                     'transition-all duration-300 hover:scale-105 hover:shadow-lg',
-                    'hover:from-gray-600/30 hover:to-gray-700/30 hover:text-white'
+                    'hover:from-muted/30 hover:to-muted/40 hover:text-portfolio-text-primary'
                   )}
                   title="Download on App Store"
                   aria-label="Download on App Store"
@@ -624,7 +606,7 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({
             </div>
             {/* Project Timeline */}
             <div className="text-right">
-              <span className="text-xs text-gray-400/60 font-medium">
+              <span className="text-xs text-portfolio-text-muted/60 font-medium">
                 {project.timeline || 'Recent'}
               </span>
             </div>

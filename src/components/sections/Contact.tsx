@@ -331,22 +331,22 @@ const Contact: React.FC = () => {
               animate={performanceMode === 'high' ? { rotate: 360 } : {}}
               transition={{ duration: 3, repeat: Infinity, ease: 'linear' }}
             >
-              <Diamond className="w-5 h-5 text-orange-400" />
+              <Diamond className="w-5 h-5 text-portfolio-accent" />
             </motion.div>
-            <span className="text-orange-300 font-semibold">Get In Touch</span>
+            <span className="text-portfolio-accent font-semibold">Get In Touch</span>
           </div>
 
           <h1
             className="text-4xl lg:text-6xl font-bold mb-6 animate-fade-in-up"
             style={{ animationDelay: '0.2s' }}
           >
-            <span className="bg-gradient-to-r from-orange-400 via-purple-500 to-cyan-400 bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-portfolio-accent via-secondary to-portfolio-accent bg-clip-text text-transparent">
               Contact Me
             </span>
           </h1>
 
           <div
-            className="text-xl text-white-2 max-w-3xl mx-auto leading-relaxed mb-4 animate-fade-in"
+            className="text-xl text-portfolio-text-secondary max-w-3xl mx-auto leading-relaxed mb-4 animate-fade-in"
             style={{ animationDelay: '0.3s' }}
           >
             {typedText}
@@ -354,7 +354,7 @@ const Contact: React.FC = () => {
               <motion.span
                 animate={{ opacity: [0, 1, 0] }}
                 transition={{ duration: 1, repeat: Infinity }}
-                className="text-orange-400"
+                className="text-portfolio-accent"
               >
                 |
               </motion.span>
@@ -362,7 +362,7 @@ const Contact: React.FC = () => {
           </div>
 
           <p
-            className="text-white-2/80 max-w-2xl mx-auto animate-fade-in"
+            className="text-portfolio-text-secondary/80 max-w-2xl mx-auto animate-fade-in"
             style={{ animationDelay: '0.4s' }}
           >
             Whether you have a project in mind, want to collaborate, or just say
@@ -382,8 +382,8 @@ const Contact: React.FC = () => {
               className="relative group animate-scale-in"
               style={{ animationDelay: `${0.5 + index * 0.1}s` }}
             >
-              <div className="bg-gradient-to-br from-eerie-black-1/80 to-eerie-black-2/80 backdrop-blur-xl rounded-3xl p-6 border border-jet/50 hover:border-orange-500/50 transition-all duration-500 text-center overflow-hidden">
-                <div className="absolute inset-0 bg-gradient-to-r from-orange-400/5 to-purple-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+              <div className="bg-gradient-to-br from-portfolio-surface-primary/80 to-portfolio-surface-secondary/80 backdrop-blur-xl rounded-3xl p-6 border border-border/50 hover:border-portfolio-accent/50 transition-all duration-500 text-center overflow-hidden">
+                <div className="absolute inset-0 bg-gradient-to-r from-portfolio-accent/5 to-secondary/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
 
                 <motion.div
                   whileHover={
@@ -396,13 +396,13 @@ const Contact: React.FC = () => {
                 </motion.div>
 
                 <h3
-                  className="text-2xl font-bold text-white-1 mb-2 relative z-10 animate-count-up"
+                  className="text-2xl font-bold text-portfolio-text-primary mb-2 relative z-10 animate-count-up"
                   style={{ animationDelay: `${0.6 + index * 0.1}s` }}
                 >
                   {stat.value}
                 </h3>
 
-                <p className="text-white-2 text-sm font-medium relative z-10">
+                <p className="text-portfolio-text-secondary text-sm font-medium relative z-10">
                   {stat.label}
                 </p>
               </div>
@@ -422,8 +422,8 @@ const Contact: React.FC = () => {
               className="relative group animate-slide-in-up"
               style={{ animationDelay: `${0.8 + index * 0.1}s` }}
             >
-              <div className="bg-gradient-to-br from-eerie-black-1/90 to-eerie-black-2/90 backdrop-blur-xl rounded-3xl p-6 border border-jet/50 hover:border-orange-500/50 transition-all duration-500 text-center overflow-hidden min-h-[280px] flex flex-col justify-between shadow-lg">
-                <div className="absolute inset-0 bg-gradient-to-r from-orange-400/10 via-purple-500/10 to-cyan-400/10 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+              <div className="bg-gradient-to-br from-portfolio-surface-primary/90 to-portfolio-surface-secondary/90 backdrop-blur-xl rounded-3xl p-6 border border-border/50 hover:border-portfolio-accent/50 transition-all duration-500 text-center overflow-hidden min-h-[280px] flex flex-col justify-between shadow-lg">
+                <div className="absolute inset-0 bg-gradient-to-r from-portfolio-accent/10 via-secondary/10 to-portfolio-accent/10 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
 
                 <motion.div
                   whileHover={
@@ -436,11 +436,11 @@ const Contact: React.FC = () => {
                 </motion.div>
 
                 <div className="flex-1 flex flex-col justify-center">
-                  <h3 className="text-lg font-bold text-white-1 mb-2 relative z-10 group-hover:text-orange-300 transition-colors duration-300">
+                  <h3 className="text-lg font-bold text-portfolio-text-primary mb-2 relative z-10 group-hover:text-portfolio-accent transition-colors duration-300">
                     {detail.title}
                   </h3>
 
-                  <p className="text-white-2/80 text-xs mb-3 relative z-10">
+                  <p className="text-portfolio-text-secondary/80 text-xs mb-3 relative z-10">
                     {detail.description}
                   </p>
 
@@ -452,12 +452,12 @@ const Contact: React.FC = () => {
                           performanceMode !== 'low' ? { scale: 1.05 } : {}
                         }
                         whileTap={{ scale: 0.95 }}
-                        className={`inline-block text-${detail.color}-300 font-semibold hover:text-white-1 transition-colors duration-300 relative z-10 bg-${detail.color}-500/25 border border-${detail.color}-400/20 px-4 py-3 rounded-2xl hover:bg-${detail.color}-500/40 hover:border-${detail.color}-400/40 text-center text-sm max-w-full break-words leading-tight shadow-sm`}
+                        className="inline-block text-portfolio-accent font-semibold hover:text-portfolio-text-primary transition-colors duration-300 relative z-10 bg-portfolio-accent/25 border border-portfolio-accent/20 px-4 py-3 rounded-2xl hover:bg-portfolio-accent/40 hover:border-portfolio-accent/40 text-center text-sm max-w-full break-words leading-tight shadow-sm"
                       >
                         {detail.value}
                       </motion.a>
                     ) : (
-                      <span className="text-white-1 font-medium relative z-10 block bg-eerie-black-1/50 border border-jet/30 px-4 py-3 rounded-2xl text-center text-sm max-w-full break-words leading-tight shadow-sm">
+                      <span className="text-portfolio-text-primary font-medium relative z-10 block bg-portfolio-surface-primary/50 border border-border/30 px-4 py-3 rounded-2xl text-center text-sm max-w-full break-words leading-tight shadow-sm">
                         {detail.value}
                       </span>
                     )}
@@ -473,9 +473,9 @@ const Contact: React.FC = () => {
           className="max-w-4xl mx-auto animate-slide-in-up"
           style={{ animationDelay: '1s' }}
         >
-          <div className="bg-gradient-to-br from-eerie-black-1/60 to-eerie-black-2/60 backdrop-blur-xl rounded-3xl p-8 lg:p-12 border border-jet/50 hover:border-orange-500/30 transition-all duration-500 relative overflow-hidden">
+          <div className="bg-gradient-to-br from-portfolio-surface-primary/60 to-portfolio-surface-secondary/60 backdrop-blur-xl rounded-3xl p-8 lg:p-12 border border-border/50 hover:border-portfolio-accent/30 transition-all duration-500 relative overflow-hidden">
             {/* Holographic overlay */}
-            <div className="absolute inset-0 bg-gradient-to-r from-orange-400/5 via-purple-500/5 to-cyan-400/5 rounded-3xl opacity-0 hover:opacity-100 transition-opacity duration-500" />
+            <div className="absolute inset-0 bg-gradient-to-r from-portfolio-accent/5 via-secondary/5 to-portfolio-accent/5 rounded-3xl opacity-0 hover:opacity-100 transition-opacity duration-500" />
 
             <div className="relative z-10">
               {/* Form Header */}
@@ -493,15 +493,15 @@ const Contact: React.FC = () => {
                       repeat: Infinity,
                       ease: 'linear',
                     }}
-                    className="bg-gradient-to-r from-orange-500/20 to-purple-500/20 p-3 rounded-2xl"
+                    className="bg-gradient-to-r from-portfolio-accent/20 to-secondary/20 p-3 rounded-2xl"
                   >
-                    <Send className="w-8 h-8 text-orange-400" />
+                    <Send className="w-8 h-8 text-portfolio-accent" />
                   </motion.div>
                   <div>
-                    <h3 className="text-3xl font-bold text-white-1">
+                    <h3 className="text-3xl font-bold text-portfolio-text-primary">
                       Send Message
                     </h3>
-                    <p className="text-white-2">
+                    <p className="text-portfolio-text-secondary">
                       Let&apos;s start a conversation
                     </p>
                   </div>

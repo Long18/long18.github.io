@@ -9,6 +9,7 @@ import Home from '@/components/sections/Home';
 import About from '@/components/sections/About';
 import Resume from '@/components/sections/Resume';
 import Portfolio from '@/components/sections/Portfolio';
+import Blog from '@/components/sections/Blog';
 import Contact from '@/components/sections/Contact';
 
 const sections = [
@@ -16,6 +17,7 @@ const sections = [
   { id: 'about', label: 'About', component: About },
   { id: 'resume', label: 'Resume', component: Resume },
   { id: 'portfolio', label: 'Portfolio', component: Portfolio },
+  { id: 'blog', label: 'Blog', component: Blog },
   { id: 'contact', label: 'Contact', component: Contact },
 ];
 
@@ -146,10 +148,14 @@ export default function MainApp({ locale }: MainAppProps) {
   const renderSection = () => {
     const section = sections.find((s) => s.id === activeSection);
     if (!section) return <About />;
-    const Component = section.component;
+    const Component = section.component as React.ComponentType<Record<string, unknown>>; // Type assertion for dynamic component rendering
 
     if (section.id === 'hero') {
       return <Component onNavigate={handleSectionChange} />;
+    }
+
+    if (section.id === 'blog') {
+      return <Component locale={locale} />;
     }
 
     return <Component />;
@@ -162,7 +168,7 @@ export default function MainApp({ locale }: MainAppProps) {
   return (
     <ThemeProvider>
       {/* Portfolio layout with original orange/yellow color scheme */}
-      <div className="min-h-screen bg-eerie-black-1 text-white-1 relative overflow-hidden">
+      <div className="min-h-screen bg-portfolio-surface-primary text-portfolio-text-primary relative overflow-hidden">
         {/* Subtle background effects with orange/purple gradients */}
         <div className="absolute inset-0 opacity-[0.03]">
           <div
@@ -175,7 +181,7 @@ export default function MainApp({ locale }: MainAppProps) {
         </div>
 
         {/* Header Navigation - Fixed/Floating */}
-        <header className="fixed top-0 left-0 right-0 z-50 bg-eerie-black-1/90 backdrop-blur-md border-b border-jet/20 md:bg-transparent md:backdrop-blur-none md:border-none md:relative">
+        <header className="fixed top-0 left-0 right-0 z-50 bg-portfolio-surface-primary/90 backdrop-blur-md border-b border-border/20 md:bg-transparent md:backdrop-blur-none md:border-none md:relative">
           <div className="w-full flex items-center justify-end p-4">
             <Navigation
               activeSection={activeSection}
@@ -187,14 +193,14 @@ export default function MainApp({ locale }: MainAppProps) {
         {/* Main Layout Container */}
         <div className="relative z-10 flex flex-col md:flex-row min-h-screen pt-16 md:pt-0 pb-24 md:pb-0">
           {/* Desktop Sidebar */}
-          <aside className="hidden lg:block w-80 lg:w-96 xl:w-[420px] 2xl:w-[480px] bg-eerie-black-2/60 backdrop-blur-xl">
+          <aside className="hidden lg:block w-80 lg:w-96 xl:w-[420px] 2xl:w-[480px] bg-portfolio-surface-secondary/60 backdrop-blur-xl">
             <Sidebar locale={locale} />
           </aside>
 
                       {/* Main Content Area */}
             <main className="flex-1 relative overflow-hidden">
               {/* Background gradient overlay */}
-              <div className="absolute inset-0 bg-gradient-to-b from-eerie-black-2/50 via-transparent to-eerie-black-1/30 pointer-events-none" />
+              <div className="absolute inset-0 bg-gradient-to-b from-portfolio-surface-secondary/50 via-transparent to-portfolio-surface-primary/30 pointer-events-none" />
 
               {/* Scrollable Content */}
               <div className="relative z-10 scroll-smooth-enhanced transition-all duration-300 ease-out overflow-auto h-full main-content-mobile">

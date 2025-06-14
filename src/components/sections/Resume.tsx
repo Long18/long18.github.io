@@ -115,7 +115,7 @@ function TimelineItem({
           )}
 
           {/* Main dot */}
-          <div className="relative w-6 h-6 bg-gradient-to-r from-orange-500 to-purple-600 rounded-full border-4 border-eerie-black-1 shadow-lg shadow-orange-500/30 group-hover:shadow-orange-500/50 transition-all duration-300">
+          <div className="relative w-6 h-6 bg-gradient-to-r from-portfolio-accent to-secondary rounded-full border-4 border-portfolio-surface-primary shadow-lg shadow-portfolio-accent/30 group-hover:shadow-portfolio-accent/50 transition-all duration-300">
             {performanceMode === 'high' && (
               <motion.div
                 animate={{ rotate: 360 }}
@@ -131,7 +131,7 @@ function TimelineItem({
       <motion.div
         whileHover={performanceMode !== 'low' ? { y: -5, scale: 1.02 } : {}}
         transition={{ type: 'spring', stiffness: 300, damping: 30 }}
-        className="relative bg-gradient-to-br from-eerie-black-1/80 to-eerie-black-2/80 backdrop-blur-xl rounded-3xl p-6 border border-jet/50 hover:border-orange-500/30 hover:shadow-2xl hover:shadow-orange-500/20 transition-all duration-500 overflow-hidden group/card"
+        className="relative bg-gradient-to-br from-portfolio-surface-primary/80 to-portfolio-surface-secondary/80 backdrop-blur-xl rounded-3xl p-6 border border-border/50 hover:border-portfolio-accent/30 hover:shadow-2xl hover:shadow-portfolio-accent/20 transition-all duration-500 overflow-hidden group/card"
       >
         {/* Holographic overlay */}
         <div className="absolute inset-0 bg-gradient-to-r from-orange-400/5 via-purple-500/5 to-cyan-400/5 rounded-3xl opacity-0 group-hover/card:opacity-100 transition-opacity duration-500" />
@@ -139,20 +139,20 @@ function TimelineItem({
         {/* Header section */}
         <div className="relative z-10 flex flex-col md:flex-row md:items-start md:justify-between gap-4 mb-6">
           <div className="flex-1">
-            <h3 className="text-xl font-bold mb-2 group-hover/card:text-orange-400 transition-colors duration-300 animate-fade-in-up">
+            <h3 className="text-xl font-bold mb-2 group-hover/card:text-portfolio-accent transition-colors duration-300 animate-fade-in-up">
               <span className="bg-gradient-to-r from-orange-400 via-purple-500 to-cyan-400 bg-clip-text text-transparent">
                 {title}
               </span>
             </h3>
 
-            <h4 className="text-lg text-orange-400 font-semibold mb-3 flex items-center gap-2 animate-fade-in">
+                          <h4 className="text-lg text-portfolio-accent font-semibold mb-3 flex items-center gap-2 animate-fade-in">
               <Sparkles className="w-5 h-5" />
               {subtitle}
             </h4>
           </div>
 
           <div className="flex flex-col items-start md:items-end gap-2 animate-scale-in">
-            <div className="flex items-center gap-2 bg-gradient-to-r from-orange-500/20 to-purple-500/20 backdrop-blur-sm text-orange-300 px-4 py-2 rounded-2xl border border-orange-500/30 shadow-lg shadow-orange-500/10">
+            <div className="flex items-center gap-2 bg-gradient-to-r from-portfolio-accent/20 to-secondary/20 backdrop-blur-sm text-portfolio-accent px-4 py-2 rounded-2xl border border-portfolio-accent/30 shadow-lg shadow-portfolio-accent/10">
               <Calendar className="w-4 h-4" />
               <span className="font-medium whitespace-nowrap">{period}</span>
             </div>
@@ -179,8 +179,8 @@ function TimelineItem({
             style={{ animationDelay: '0.2s' }}
           >
             <div className="flex items-center gap-2 mb-4">
-              <Trophy className="w-5 h-5 text-orange-400" />
-              <h5 className="font-semibold text-white-1">Key Achievements</h5>
+                              <Trophy className="w-5 h-5 text-portfolio-accent" />
+                <h5 className="font-semibold text-portfolio-text-primary">Key Achievements</h5>
             </div>
             <div className="grid gap-3">
               {achievements.map((achievement, idx) => (
@@ -198,7 +198,7 @@ function TimelineItem({
                     transition={{ duration: 0.3 }}
                     className="w-2 h-2 bg-gradient-to-r from-orange-500 to-purple-500 rounded-full mt-2 flex-shrink-0 group-hover/achievement:shadow-lg group-hover/achievement:shadow-orange-500/50"
                   />
-                  <span className="text-sm text-white-2 group-hover/achievement:text-white-1 transition-colors duration-300">
+                  <span className="text-sm text-portfolio-text-secondary group-hover/achievement:text-portfolio-text-primary transition-colors duration-300">
                     {achievement}
                   </span>
                 </div>
@@ -214,8 +214,8 @@ function TimelineItem({
             style={{ animationDelay: '0.4s' }}
           >
             <div className="flex items-center gap-2 mb-4">
-              <Code2 className="w-5 h-5 text-orange-400" />
-              <h5 className="font-semibold text-white-1">Technologies</h5>
+                              <Code2 className="w-5 h-5 text-portfolio-accent" />
+                <h5 className="font-semibold text-portfolio-text-primary">Technologies</h5>
             </div>
             <div className="flex flex-wrap gap-2">
               {technologies.map((tech, idx) => (
@@ -224,7 +224,7 @@ function TimelineItem({
                   whileHover={
                     performanceMode !== 'low' ? { scale: 1.1, y: -2 } : {}
                   }
-                  className="px-3 py-2 bg-gradient-to-r from-jet/50 to-eerie-black-1/50 backdrop-blur-sm text-white-2 rounded-xl border border-jet/50 hover:border-orange-500/50 hover:bg-orange-500/10 hover:text-white-1 hover:shadow-lg hover:shadow-orange-500/20 transition-all duration-300 cursor-pointer text-sm font-medium animate-scale-in"
+                  className="px-3 py-2 bg-gradient-to-r from-portfolio-surface-tertiary/50 to-portfolio-surface-primary/50 backdrop-blur-sm text-portfolio-text-secondary rounded-xl border border-border/50 hover:border-portfolio-accent/50 hover:bg-portfolio-accent/10 hover:text-portfolio-text-primary hover:shadow-lg hover:shadow-portfolio-accent/20 transition-all duration-300 cursor-pointer text-sm font-medium animate-scale-in"
                   style={{ animationDelay: `${0.5 + idx * 0.05}s` }}
                 >
                   {tech}
@@ -347,9 +347,9 @@ export default function Resume({ className = '' }: ResumeProps) {
               animate={performanceMode === 'high' ? { rotate: 360 } : {}}
               transition={{ duration: 3, repeat: Infinity, ease: 'linear' }}
             >
-              <Diamond className="w-5 h-5 text-orange-400" />
-            </motion.div>
-            <span className="text-orange-300 font-semibold">
+                        <Diamond className="w-5 h-5 text-portfolio-accent" />
+        </motion.div>
+        <span className="text-portfolio-accent font-semibold">
               Professional Journey
             </span>
           </div>
@@ -501,16 +501,16 @@ export default function Resume({ className = '' }: ResumeProps) {
                   transition={{ duration: 0.6 }}
                   className="bg-gradient-to-r from-orange-500/20 to-purple-500/20 p-3 rounded-2xl"
                 >
-                  <Briefcase className="w-8 h-8 text-orange-400" />
-                </motion.div>
-                <div>
-                  <h2 className="text-3xl font-bold text-white-1">
-                    Professional Experience
-                  </h2>
-                  <p className="text-white-2">
-                    Building amazing digital experiences
-                  </p>
-                </div>
+                                  <Briefcase className="w-8 h-8 text-portfolio-accent" />
+              </motion.div>
+              <div>
+                <h2 className="text-3xl font-bold text-portfolio-text-primary">
+                  Professional Experience
+                </h2>
+                <p className="text-portfolio-text-secondary">
+                  Building amazing digital experiences
+                </p>
+              </div>
               </div>
 
               <div className="relative">
@@ -559,10 +559,10 @@ export default function Resume({ className = '' }: ResumeProps) {
                   <GraduationCap className="w-8 h-8 text-cyan-400" />
                 </motion.div>
                 <div>
-                  <h2 className="text-3xl font-bold text-white-1">Education</h2>
-                  <p className="text-white-2">
-                    Academic foundation and learning journey
-                  </p>
+                                  <h2 className="text-3xl font-bold text-portfolio-text-primary">Education</h2>
+                <p className="text-portfolio-text-secondary">
+                  Academic foundation and learning journey
+                </p>
                 </div>
               </div>
 
@@ -603,16 +603,16 @@ export default function Resume({ className = '' }: ResumeProps) {
                     }}
                     className="bg-gradient-to-r from-orange-500/20 to-purple-500/20 p-3 rounded-2xl"
                   >
-                    <Brain className="w-8 h-8 text-orange-400" />
-                  </motion.div>
-                  <div>
-                    <h3 className="text-2xl font-bold text-white-1">
-                      Core Expertise
-                    </h3>
-                    <p className="text-white-2">
-                      Technologies I&apos;m passionate about
-                    </p>
-                  </div>
+                                      <Brain className="w-8 h-8 text-portfolio-accent" />
+                </motion.div>
+                <div>
+                  <h3 className="text-2xl font-bold text-portfolio-text-primary">
+                    Core Expertise
+                  </h3>
+                  <p className="text-portfolio-text-secondary">
+                    Technologies I&apos;m passionate about
+                  </p>
+                </div>
                 </div>
 
                 <motion.div
@@ -620,7 +620,7 @@ export default function Resume({ className = '' }: ResumeProps) {
                     performanceMode !== 'low' ? { scale: 1.1, rotate: 180 } : {}
                   }
                   transition={{ duration: 0.3 }}
-                  className="text-orange-400"
+                  className="text-portfolio-accent"
                 >
                   <Lightbulb className="w-8 h-8" />
                 </motion.div>
@@ -657,7 +657,7 @@ export default function Resume({ className = '' }: ResumeProps) {
                     whileHover={
                       performanceMode !== 'low' ? { scale: 1.05, y: -5 } : {}
                     }
-                    className="bg-eerie-black-2/50 backdrop-blur-sm rounded-2xl p-6 border border-jet/30 hover:border-orange-500/50 transition-all duration-300 group animate-scale-in"
+                    className="bg-portfolio-surface-secondary/50 backdrop-blur-sm rounded-2xl p-6 border border-border/30 hover:border-portfolio-accent/50 transition-all duration-300 group animate-scale-in"
                     style={{ animationDelay: `${1.1 + index * 0.1}s` }}
                   >
                     <div className="flex items-center gap-3 mb-4">
@@ -672,7 +672,7 @@ export default function Resume({ className = '' }: ResumeProps) {
                           className={`w-6 h-6 text-${category.color}-400`}
                         />
                       </motion.div>
-                      <h4 className="font-semibold text-white-1 group-hover:text-orange-300 transition-colors duration-300">
+                      <h4 className="font-semibold text-portfolio-text-primary group-hover:text-portfolio-accent transition-colors duration-300">
                         {category.title}
                       </h4>
                     </div>
@@ -681,7 +681,7 @@ export default function Resume({ className = '' }: ResumeProps) {
                       {category.skills.map((skill, idx) => (
                         <div
                           key={skill}
-                          className="flex items-center gap-2 text-sm text-white-2 group-hover:text-white-1 transition-colors duration-300 animate-fade-in"
+                          className="flex items-center gap-2 text-sm text-portfolio-text-secondary group-hover:text-portfolio-text-primary transition-colors duration-300 animate-fade-in"
                           style={{
                             animationDelay: `${
                               1.2 + index * 0.1 + idx * 0.05
