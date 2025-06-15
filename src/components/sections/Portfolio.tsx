@@ -12,8 +12,14 @@ import { motion } from 'framer-motion';
 import { allProjects } from '@/data/assetPaths';
 import { Project } from '@/types/portfolio';
 import ProjectDetail from '../ProjectDetail';
+import GlassButton from '@/components/ui/GlassButton';
+import { Button } from '@/components/ui/Button';
+import { Typography } from '@/components/ui/Typography';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/Card';
+import { Input } from '@/components/ui/Input';
 import { useAnimationPerformance } from '../../hooks/useAnimationPerformance';
 import { colorSystem } from '@/lib/colors';
+import { getGlassClasses } from '@/lib/utils';
 
 // Project categories for the new portfolio structure
 const projectCategories = [
@@ -51,23 +57,23 @@ interface ProjectCardProps {
   index?: number;
 }
 
-// Skeleton component for loading state
+// Glass skeleton component for loading state
 function ProjectCardSkeleton() {
   return (
-    <div className="bg-portfolio-surface-secondary/90 backdrop-blur-sm border border-border/50 rounded-3xl overflow-hidden animate-pulse shadow-lg">
-      <div className="h-48 bg-portfolio-surface-tertiary"></div>
+    <div className="glass-secondary glass-shimmer border border-glass-border rounded-3xl overflow-hidden animate-pulse shadow-glass-lg">
+      <div className="h-48 bg-glass-surface-tertiary"></div>
       <div className="p-4 space-y-3">
-        <div className="h-6 bg-muted/70 rounded-2xl w-3/4"></div>
+        <div className="h-6 bg-glass-surface-secondary rounded-2xl w-3/4"></div>
         <div className="space-y-2">
-          <div className="h-4 bg-muted/70 rounded-2xl"></div>
-          <div className="h-4 bg-muted/70 rounded-2xl w-5/6"></div>
+          <div className="h-4 bg-glass-surface-secondary rounded-2xl"></div>
+          <div className="h-4 bg-glass-surface-secondary rounded-2xl w-5/6"></div>
         </div>
         <div className="flex justify-between items-center">
           <div className="flex space-x-2">
-            <div className="h-4 w-4 bg-muted/70 rounded-2xl"></div>
-            <div className="h-4 w-4 bg-muted/70 rounded-2xl"></div>
+            <div className="h-4 w-4 bg-glass-surface-secondary rounded-2xl"></div>
+            <div className="h-4 w-4 bg-glass-surface-secondary rounded-2xl"></div>
           </div>
-          <div className="h-3 bg-muted/70 rounded-2xl w-16"></div>
+          <div className="h-3 bg-glass-surface-secondary rounded-2xl w-16"></div>
         </div>
       </div>
     </div>

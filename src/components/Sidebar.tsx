@@ -63,29 +63,33 @@ export default function Sidebar({ locale = 'en' }: SidebarProps) {
 
   return (
     <>
-      {/* Desktop Sidebar - Enhanced with wider professional layout */}
+      {/* Glass Desktop Sidebar - Liquid Glass Design */}
       <aside
         ref={sidebarRef}
         className="hidden lg:block w-80 lg:w-96 xl:w-[420px] 2xl:w-[480px] h-full
-                   bg-eerie-black-2/60 backdrop-blur-xl text-white-1
-                   relative overflow-hidden rounded-r-3xl border-r border-jet/30 shadow-xl shadow-smoky-black/20"
+                   glass-sidebar text-glass-text-primary
+                   relative overflow-hidden rounded-r-3xl border-r border-glass-border shadow-glass-xl"
       >
-        {/* Sidebar Background */}
-        <div className="absolute inset-0 bg-gradient-to-br from-eerie-black-2/70 via-eerie-black-1/50 to-eerie-black-2/70 pointer-events-none" />
+        {/* Glass Sidebar Background */}
+        <div className="absolute inset-0 bg-gradient-to-br from-glass-surface-secondary via-glass-surface-primary to-glass-surface-secondary pointer-events-none" />
 
-        {/* Subtle pattern overlay */}
+        {/* Glass texture overlay */}
         <div
           className="absolute inset-0 opacity-[0.02] pointer-events-none"
           style={{
-            backgroundImage: `radial-gradient(circle at 1px 1px, rgba(251,146,60,0.8) 1px, transparent 0)`,
+            backgroundImage: `radial-gradient(circle at 1px 1px, rgba(103, 126, 234, 0.8) 1px, transparent 0)`,
             backgroundSize: '20px 20px',
           }}
         />
 
+        {/* Floating glass orbs */}
+        <div className="absolute top-20 right-10 w-32 h-32 bg-glass-accent/5 rounded-full blur-2xl glass-float" />
+        <div className="absolute bottom-40 left-10 w-24 h-24 bg-glass-accent-secondary/5 rounded-full blur-2xl glass-float" style={{ animationDelay: '3s' }} />
+
         <div className="relative z-10 p-6 lg:p-8 xl:p-10 h-full overflow-y-auto overscroll-contain flex flex-col">
-          {/* Avatar and Info - Enhanced sizing and spacing */}
+          {/* Glass Avatar and Info - Enhanced with glass effects */}
           <div className="text-center mb-6 lg:mb-8">
-            <div className="relative w-24 h-24 lg:w-28 lg:h-28 xl:w-32 xl:h-32 mx-auto mb-4 lg:mb-6 overflow-hidden rounded-2xl lg:rounded-3xl shadow-xl shadow-orange-400/30">
+            <div className="relative w-24 h-24 lg:w-28 lg:h-28 xl:w-32 xl:h-32 mx-auto mb-4 lg:mb-6 overflow-hidden rounded-2xl lg:rounded-3xl shadow-glass-lg glass-glow">
               <Image
                 src={personalInfo.avatar}
                 alt="Profile picture"
@@ -94,26 +98,26 @@ export default function Sidebar({ locale = 'en' }: SidebarProps) {
                 className="w-full h-full object-cover transition-transform duration-500 hover:scale-110"
                 priority
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-orange-yellow-crayola/20 to-transparent opacity-0 hover:opacity-100 transition-opacity duration-500" />
+              <div className="absolute inset-0 bg-gradient-to-t from-glass-accent/20 to-transparent opacity-0 hover:opacity-100 transition-opacity duration-500" />
 
-              {/* Professional status indicator */}
-              <div className="absolute -bottom-1 -right-1 w-6 h-6 bg-green-500 border-2 border-eerie-black-2 rounded-full flex items-center justify-center">
+              {/* Glass status indicator */}
+              <div className="absolute -bottom-1 -right-1 w-6 h-6 bg-green-500 border-2 border-glass-surface-primary rounded-full flex items-center justify-center shadow-glass-glow">
                 <div className="w-2 h-2 bg-white rounded-full animate-pulse"></div>
               </div>
             </div>
 
-            {/* Name with enhanced typography */}
-            <h2 className="text-lg lg:text-xl xl:text-2xl font-bold text-white-1 mb-2 lg:mb-3 transition-colors duration-300 hover:text-orange-yellow-crayola leading-tight">
+            {/* Name with glass gradient text */}
+            <h2 className="text-lg lg:text-xl xl:text-2xl font-bold text-glass-text-primary mb-2 lg:mb-3 transition-colors duration-300 hover:text-glass-gradient leading-tight">
               {personalInfo.fullName}
             </h2>
 
-            <p className="text-sm lg:text-base xl:text-lg text-white-2 mb-3 lg:mb-4 font-medium">
+            <p className="text-sm lg:text-base xl:text-lg text-glass-text-secondary mb-3 lg:mb-4 font-medium">
               {personalInfo.displayName}
             </p>
 
-            {/* Role badge with enhanced styling */}
-            <div className="inline-flex items-center px-4 lg:px-6 py-2 lg:py-3 bg-gradient-to-r from-orange-yellow-crayola/20 to-vegas-gold/20 border border-orange-yellow-crayola/40 rounded-full shadow-lg">
-              <span className="text-orange-yellow-crayola text-sm lg:text-base font-semibold">
+            {/* Glass role badge */}
+            <div className="inline-flex items-center px-4 lg:px-6 py-2 lg:py-3 glass-primary border border-glass-accent/40 rounded-full shadow-glass-md glass-glow">
+              <span className="text-glass-accent text-sm lg:text-base font-semibold">
                 {personalInfo.title}
               </span>
             </div>
@@ -121,12 +125,12 @@ export default function Sidebar({ locale = 'en' }: SidebarProps) {
 
           {/* Contact Information Section - Enhanced layout */}
           <div className="flex-1 space-y-4 lg:space-y-6">
-            {/* Contact Header */}
+            {/* Glass Contact Header */}
             <div className="flex items-center justify-between">
-              <h3 className="text-sm lg:text-base font-bold text-white-1 uppercase tracking-wider">
+              <h3 className="text-sm lg:text-base font-bold text-glass-text-primary uppercase tracking-wider">
                 Contact Information
               </h3>
-              <div className="flex-1 ml-4 h-px bg-gradient-to-r from-orange-yellow-crayola to-transparent" />
+              <div className="flex-1 ml-4 h-px bg-gradient-to-r from-glass-accent to-transparent" />
             </div>
 
             {/* Contact Items - Enhanced spacing */}
@@ -162,13 +166,13 @@ export default function Sidebar({ locale = 'en' }: SidebarProps) {
               />
             </div>
 
-            {/* Social Media Section - Enhanced */}
+            {/* Glass Social Media Section */}
             <div className="pt-6 lg:pt-8">
               <div className="flex items-center justify-between mb-4 lg:mb-6">
-                <h3 className="text-sm lg:text-base font-bold text-white-1 uppercase tracking-wider">
+                <h3 className="text-sm lg:text-base font-bold text-glass-text-primary uppercase tracking-wider">
                   Social Media
                 </h3>
-                <div className="flex-1 ml-4 h-px bg-gradient-to-r from-orange-yellow-crayola to-transparent" />
+                <div className="flex-1 ml-4 h-px bg-gradient-to-r from-glass-accent to-transparent" />
               </div>
 
               <div className="flex justify-center space-x-3 lg:space-x-4">
@@ -178,7 +182,7 @@ export default function Sidebar({ locale = 'en' }: SidebarProps) {
                     href={social.url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="w-12 h-12 lg:w-14 lg:h-14 bg-jet/50 rounded-xl flex items-center justify-center text-white-2 hover:text-orange-yellow-crayola hover:bg-orange-yellow-crayola/10 hover:scale-110 transition-all duration-300 group shadow-lg hover:shadow-orange-yellow-crayola/20"
+                    className="w-12 h-12 lg:w-14 lg:h-14 glass-secondary rounded-xl flex items-center justify-center text-glass-text-secondary hover:text-glass-accent glass-hover hover:scale-110 transition-all duration-300 group shadow-glass-md hover:shadow-glass-glow"
                     aria-label={`Follow on ${social.platform}`}
                   >
                     <SocialIcon platform={social.platform} size="md" />
@@ -188,8 +192,8 @@ export default function Sidebar({ locale = 'en' }: SidebarProps) {
             </div>
           </div>
 
-          {/* Bottom Section - Legacy Versions with enhanced design */}
-          <div className="pt-6 lg:pt-8 border-t border-jet/30">
+          {/* Glass Bottom Section - Legacy Versions */}
+          <div className="pt-6 lg:pt-8 border-t border-glass-border">
             <LegacyVersionSelector />
           </div>
         </div>
@@ -302,15 +306,15 @@ interface ContactItemProps {
 
 function ContactItem({ icon, label, value, href }: ContactItemProps) {
   const content = (
-    <div className="flex items-center space-x-4 p-3 lg:p-4 rounded-xl hover:bg-jet/30 transition-all duration-300 group shadow-sm hover:shadow-md">
-      <div className="flex-shrink-0 w-5 h-5 lg:w-6 lg:h-6 text-orange-yellow-crayola group-hover:scale-110 transition-transform duration-300">
+    <div className="flex items-center space-x-4 p-3 lg:p-4 rounded-xl glass-secondary glass-hover transition-all duration-300 group shadow-glass-sm hover:shadow-glass-md">
+      <div className="flex-shrink-0 w-5 h-5 lg:w-6 lg:h-6 text-glass-accent group-hover:scale-110 transition-transform duration-300">
         {icon}
       </div>
       <div className="flex-1 min-w-0">
-        <div className="text-xs lg:text-sm text-white-2/80 uppercase tracking-wider font-semibold mb-1">
+        <div className="text-xs lg:text-sm text-glass-text-secondary uppercase tracking-wider font-semibold mb-1">
           {label}
         </div>
-        <div className="text-sm lg:text-base text-white-2 group-hover:text-white-1 transition-colors duration-300 truncate font-medium">
+        <div className="text-sm lg:text-base text-glass-text-primary group-hover:text-glass-accent transition-colors duration-300 truncate font-medium">
           {value}
         </div>
       </div>
@@ -321,7 +325,7 @@ function ContactItem({ icon, label, value, href }: ContactItemProps) {
     return (
       <a
         href={href}
-        className="block cursor-pointer hover:bg-jet/20 rounded-lg transition-all duration-300"
+        className="block cursor-pointer glass-tertiary rounded-lg transition-all duration-300 hover:scale-[1.02]"
       >
         {content}
       </a>

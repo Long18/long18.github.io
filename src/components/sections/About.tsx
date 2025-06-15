@@ -6,7 +6,12 @@ import Image from 'next/image';
 import { personalInfo } from '@/data/personal';
 import { skillCategories } from '@/data/skills';
 import SkillIcon from '@/components/ui/SkillIcon';
+import GlassButton from '@/components/ui/GlassButton';
+import { Button } from '@/components/ui/Button';
+import { Typography } from '@/components/ui/Typography';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/Card';
 import { useAnimationPerformance } from '../../hooks/useAnimationPerformance';
+import { getGlassClasses } from '@/lib/utils';
 import {
   Briefcase,
   Code,
@@ -208,13 +213,17 @@ export default function About({ className = '' }: AboutProps) {
         animate={isVisible ? 'visible' : 'hidden'}
         variants={containerVariants}
       >
-        {/* Background Effects - Only for high performance */}
+        {/* Glass Background Effects - Only for high performance */}
         {isClient && performanceMode === 'high' && (
           <div className="absolute inset-0 overflow-hidden pointer-events-none">
-            <div className="absolute top-10 left-10 w-72 h-72 bg-gradient-to-r from-orange-400/20 to-purple-500/20 rounded-full blur-3xl animate-pulse" />
+            <div className="absolute top-10 left-10 w-72 h-72 bg-glass-accent/8 rounded-full blur-3xl glass-pulse" />
             <div
-              className="absolute bottom-20 right-10 w-96 h-96 bg-gradient-to-r from-blue-400/15 to-cyan-500/15 rounded-full blur-3xl animate-pulse"
+              className="absolute bottom-20 right-10 w-96 h-96 bg-glass-accent-secondary/6 rounded-full blur-3xl glass-pulse"
               style={{ animationDelay: '1s' }}
+            />
+            <div
+              className="absolute top-1/2 right-1/3 w-48 h-48 bg-glass-accent-light/6 rounded-full blur-2xl glass-float"
+              style={{ animationDelay: '2s' }}
             />
           </div>
         )}
@@ -227,9 +236,9 @@ export default function About({ className = '' }: AboutProps) {
               variants={itemVariants}
               className="relative animate-slide-in-left"
             >
-              <div className="relative bg-gradient-to-br from-portfolio-surface-primary/80 to-portfolio-surface-secondary/80 backdrop-blur-xl rounded-3xl p-8 border border-border/50 shadow-2xl hover:shadow-portfolio-accent/20 transition-all duration-700 group">
-                {/* Holographic overlay */}
-                                  <div className="absolute inset-0 bg-gradient-to-r from-portfolio-accent/5 via-secondary/5 to-portfolio-accent/5 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+              <div className="relative glass-card glass-hover glass-shimmer p-8 shadow-glass-lg group">
+                {/* Glass holographic overlay */}
+                <div className="absolute inset-0 bg-gradient-to-r from-glass-accent/5 via-glass-accent-secondary/5 to-glass-accent/5 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
 
                 {/* Profile Image with enhanced effects */}
                 <div className="relative mb-6 flex justify-center">
@@ -248,8 +257,8 @@ export default function About({ className = '' }: AboutProps) {
                       </>
                     )}
 
-                    {/* Avatar with glow effect */}
-                    <div className="relative w-32 h-32 rounded-full overflow-hidden border-4 border-border/50 shadow-2xl group-hover:shadow-portfolio-accent/30 transition-all duration-500 animate-scale-in">
+                    {/* Glass avatar with glow effect */}
+                    <div className="relative w-32 h-32 rounded-full overflow-hidden border-4 border-glass-border shadow-glass-lg group-hover:shadow-glass-glow transition-all duration-500 animate-scale-in glass-glow">
                       <Image
                         src={personalInfo.portrait}
                         alt={personalInfo.fullName}
@@ -257,23 +266,29 @@ export default function About({ className = '' }: AboutProps) {
                         height={128}
                         className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
                       />
-                      <div className="absolute inset-0 bg-gradient-to-t from-portfolio-accent/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                      <div className="absolute inset-0 bg-gradient-to-t from-glass-accent/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                     </div>
                   </div>
                 </div>
 
-                {/* Name and Title with animated gradients */}
+                {/* Name and Title with modern typography */}
                 <div className="text-center mb-6">
-                  <h3 className="text-2xl font-bold mb-2 animate-fade-in-up">
-                    <span className="bg-gradient-to-r from-portfolio-accent via-secondary to-portfolio-accent bg-clip-text text-transparent animate-gradient-shift">
-                      {personalInfo.displayName}
-                    </span>
-                  </h3>
+                  <Typography
+                    variant="h2"
+                    color="gradient"
+                    className="mb-2 animate-fade-in-up animate-gradient-shift"
+                  >
+                    {personalInfo.displayName}
+                  </Typography>
 
-                  <p className="text-lg text-portfolio-text-secondary flex items-center justify-center gap-2 animate-fade-in">
-                    <Sparkles className="w-5 h-5 text-portfolio-accent" />
+                  <Typography
+                    variant="body-lg"
+                    color="glass-secondary"
+                    className="flex items-center justify-center gap-2 animate-fade-in"
+                  >
+                    <Sparkles className="w-5 h-5 text-glass-accent" />
                     {personalInfo.title}
-                  </p>
+                  </Typography>
                 </div>
 
                 {/* Personal Info with icons */}
@@ -281,31 +296,37 @@ export default function About({ className = '' }: AboutProps) {
                   className="space-y-3 text-sm animate-fade-in-up"
                   style={{ animationDelay: '0.4s' }}
                 >
-                  <div className="flex items-center gap-3 text-portfolio-text-secondary hover:text-portfolio-accent transition-colors duration-300">
-                    <Calendar className="w-4 h-4 text-portfolio-accent" />
+                  <div className="flex items-center gap-3 text-glass-text-secondary hover:text-glass-accent transition-colors duration-300">
+                    <Calendar className="w-4 h-4 text-glass-accent" />
                     <span>Born {personalInfo.birthday}</span>
                   </div>
 
-                  <div className="flex items-center gap-3 text-portfolio-text-secondary hover:text-portfolio-accent transition-colors duration-300">
-                    <MapPin className="w-4 h-4 text-portfolio-accent" />
+                  <div className="flex items-center gap-3 text-glass-text-secondary hover:text-glass-accent transition-colors duration-300">
+                    <MapPin className="w-4 h-4 text-glass-accent" />
                     <span>Ho Chi Minh City, Vietnam</span>
                   </div>
                 </div>
 
-                {/* Download Resume Button */}
-                <motion.a
-                  whileHover={performanceMode !== 'low' ? { scale: 1.05 } : {}}
-                  whileTap={{ scale: 0.95 }}
-                  href={personalInfo.resume}
-                  download="William_Resume.pdf"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="relative z-20 mt-6 w-full flex items-center justify-center gap-2 bg-gradient-to-r from-portfolio-accent to-secondary text-portfolio-accent-foreground py-3 px-6 rounded-2xl font-semibold hover:shadow-lg hover:shadow-portfolio-accent/25 transition-all duration-300 group/btn animate-scale-in cursor-pointer"
-                  style={{ animationDelay: '0.6s' }}
-                >
-                  <Download className="w-4 h-4 group-hover/btn:animate-bounce" />
-                  Download Resume
-                </motion.a>
+                {/* Modern Download Resume Button */}
+                <div className="mt-6 animate-scale-in" style={{ animationDelay: '0.6s' }}>
+                  <Button
+                    variant="gradient"
+                    size="lg"
+                    asChild
+                    className="w-full font-semibold"
+                  >
+                    <a
+                      href={personalInfo.resume}
+                      download="William_Resume.pdf"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center justify-center gap-2"
+                    >
+                      <Download className="w-4 h-4" />
+                      Download Resume
+                    </a>
+                  </Button>
+                </div>
               </div>
             </motion.div>
 
@@ -322,22 +343,22 @@ export default function About({ className = '' }: AboutProps) {
                     repeat: Infinity,
                     ease: 'linear',
                   }}
-                  className="w-12 h-12 bg-gradient-to-r from-orange-400 to-purple-500 rounded-2xl flex items-center justify-center"
+                  className="w-12 h-12 bg-gradient-to-r from-primary to-secondary rounded-2xl flex items-center justify-center"
                 >
-                  <Target className="w-6 h-6 text-white-1" />
+                  <Target className="w-6 h-6 text-white" />
                 </motion.div>
-                <h2 className="text-3xl font-bold text-portfolio-text-primary">About Me</h2>
+                <Typography variant="h1" color="glass">About Me</Typography>
               </div>
 
-              {/* Typed text effect */}
-              <div className="relative bg-portfolio-surface-secondary/50 backdrop-blur-sm rounded-2xl p-6 border border-border/30">
-                <div className="text-portfolio-text-secondary leading-relaxed text-lg">
+              {/* Glass typed text effect */}
+              <div className="relative glass-secondary rounded-2xl p-6 border border-glass-border">
+                <div className="text-glass-text-secondary leading-relaxed text-lg">
                   {typedText}
                   {performanceMode !== 'low' && (
                     <motion.span
                       animate={{ opacity: [1, 0] }}
                       transition={{ duration: 0.5, repeat: Infinity }}
-                      className="inline-block w-0.5 h-6 bg-portfolio-accent ml-1"
+                      className="inline-block w-0.5 h-6 bg-glass-accent ml-1"
                     />
                   )}
                 </div>
@@ -349,7 +370,7 @@ export default function About({ className = '' }: AboutProps) {
                   <motion.div
                     key={index}
                     variants={itemVariants}
-                    className="bg-portfolio-surface-secondary/30 backdrop-blur-sm rounded-xl p-4 border border-border/30 hover:border-portfolio-accent/50 transition-all duration-300 group cursor-pointer animate-scale-in"
+                    className="glass-tertiary glass-hover rounded-xl p-4 border border-glass-border transition-all duration-300 group cursor-pointer animate-scale-in"
                     style={{ animationDelay: `${0.8 + index * 0.1}s` }}
                   >
                     <div className="flex items-center gap-3">
@@ -357,7 +378,7 @@ export default function About({ className = '' }: AboutProps) {
                         className="w-5 h-5 group-hover:scale-110 transition-transform duration-300"
                         style={{ color: fact.color }}
                       />
-                      <span className="text-sm text-portfolio-text-secondary group-hover:text-portfolio-text-primary transition-colors duration-300">
+                      <span className="text-sm text-glass-text-secondary group-hover:text-glass-text-primary transition-colors duration-300">
                         {fact.text}
                       </span>
                     </div>
@@ -378,7 +399,7 @@ export default function About({ className = '' }: AboutProps) {
                 whileHover={
                   performanceMode !== 'low' ? { scale: 1.05, y: -5 } : {}
                 }
-                className="relative text-center p-6 bg-portfolio-surface-secondary/40 backdrop-blur-sm rounded-2xl border border-border/30 hover:border-portfolio-accent/50 hover:shadow-xl hover:shadow-portfolio-accent/10 transition-all duration-500 group cursor-pointer animate-scale-in"
+                className="relative text-center p-6 glass-secondary glass-hover rounded-2xl border border-glass-border hover:shadow-glass-glow transition-all duration-500 group cursor-pointer animate-scale-in"
                 style={{ animationDelay: `${1.2 + index * 0.1}s` }}
               >
                 {/* Icon */}

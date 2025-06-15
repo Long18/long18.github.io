@@ -76,63 +76,60 @@ export default function Navigation({
 
   return (
     <nav className="relative font-sans">
-      {/* Desktop Navigation - Professional Game Developer Style */}
+      {/* Glass Desktop Navigation - Liquid Glass Style */}
       <div className="hidden md:block">
-        <ul className="flex space-x-6 lg:space-x-8 xl:space-x-10 text-white-2">
-          {navigationItems.map((item) => (
-            <li key={item.id}>
-              <button
-                onClick={() => handleNavClick(item.id, item.href)}
-                className={`relative py-3 px-4 text-sm lg:text-base xl:text-lg font-medium transition-all duration-300 hover:text-portfolio-accent hover:scale-105 focus:outline-none focus:text-portfolio-accent group ${
-                  activeSection === item.id
-                    ? 'text-portfolio-accent font-semibold'
-                    : 'text-portfolio-text-secondary'
-                }`}
-                aria-current={activeSection === item.id ? 'page' : undefined}
-              >
-                <span className="relative z-10 flex items-center space-x-2">
-                  <span className="tracking-wide">{item.label}</span>
-                </span>
+        <div className="glass-nav px-6 py-3">
+          <ul className="flex space-x-2 lg:space-x-4 xl:space-x-6">
+            {navigationItems.map((item) => (
+              <li key={item.id}>
+                <button
+                  onClick={() => handleNavClick(item.id, item.href)}
+                  className={`glass-nav-item relative text-sm lg:text-base font-medium transition-all duration-300 hover:scale-105 focus:outline-none group ${
+                    activeSection === item.id
+                      ? 'active text-glass-accent'
+                      : 'text-glass-text-secondary hover:text-glass-text-primary'
+                  }`}
+                  aria-current={activeSection === item.id ? 'page' : undefined}
+                >
+                  <span className="relative z-10 flex items-center space-x-2">
+                    <span className="tracking-wide">{item.label}</span>
+                  </span>
 
-                {/* Active indicator background */}
-                {activeSection === item.id && (
-                  <motion.div
-                    layoutId="activeTab"
-                    className="absolute inset-0 bg-gradient-to-r from-portfolio-accent/15 to-secondary/15 rounded-xl border border-portfolio-accent/40 shadow-lg"
-                    initial={false}
-                    transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
-                  />
-                )}
+                  {/* Glass active indicator background */}
+                  {activeSection === item.id && (
+                    <motion.div
+                      layoutId="activeGlassTab"
+                      className="absolute inset-0 glass-primary rounded-xl border border-glass-accent/30 shadow-glass-md"
+                      initial={false}
+                      transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
+                    />
+                  )}
 
-                {/* Hover effect background */}
-                <div className="absolute inset-0 bg-portfolio-accent/8 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                  {/* Glass hover effect */}
+                  <div className="absolute inset-0 glass-tertiary rounded-xl opacity-0 group-hover:opacity-100 transition-all duration-300" />
 
-                {/* Bottom indicator line */}
-                <div className={`absolute bottom-0 left-1/2 transform -translate-x-1/2 w-8 h-1 bg-gradient-to-r from-portfolio-accent to-secondary rounded-full transition-all duration-300 ${
-                  activeSection === item.id ? 'opacity-100 scale-x-100' : 'opacity-0 scale-x-0 group-hover:opacity-75 group-hover:scale-x-100'
-                }`} />
-
-                {/* Top accent line for active state */}
-                {activeSection === item.id && (
-                  <motion.div
-                    initial={{ scaleX: 0 }}
-                    animate={{ scaleX: 1 }}
-                    className="absolute top-0 left-1/2 transform -translate-x-1/2 w-12 h-0.5 bg-gradient-to-r from-transparent via-portfolio-accent to-transparent rounded-full"
-                  />
-                )}
-              </button>
-            </li>
-          ))}
-        </ul>
+                  {/* Glass glow effect for active state */}
+                  {activeSection === item.id && (
+                    <motion.div
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      className="absolute inset-0 rounded-xl shadow-glass-glow"
+                    />
+                  )}
+                </button>
+              </li>
+            ))}
+          </ul>
+        </div>
       </div>
 
       {/* Mobile Navigation - Enhanced Professional Design */}
       <div className="md:hidden" ref={mobileMenuRef}>
-        {/* Mobile Menu Toggle */}
+        {/* Glass Mobile Menu Toggle */}
         <motion.button
           whileTap={{ scale: 0.95 }}
           onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-          className="p-3 rounded-xl text-portfolio-text-primary hover:text-portfolio-accent hover:bg-portfolio-accent/10 focus:outline-none focus:ring-2 focus:ring-portfolio-accent/30 transition-all duration-300 group shadow-lg hover:shadow-portfolio-accent/20"
+          className="glass-btn p-3 text-glass-text-primary hover:text-glass-accent focus:outline-none focus:ring-2 focus:ring-glass-accent/30 transition-all duration-300 group shadow-glass-md hover:shadow-glass-glow"
           aria-label="Toggle navigation menu"
           aria-expanded={isMobileMenuOpen}
         >
@@ -155,7 +152,7 @@ export default function Navigation({
           </div>
         </motion.button>
 
-        {/* Mobile Menu Dropdown - Professional Portfolio Style */}
+        {/* Glass Mobile Menu Dropdown */}
         <AnimatePresence>
           {isMobileMenuOpen && (
             <motion.div
@@ -163,12 +160,12 @@ export default function Navigation({
               animate={{ opacity: 1, y: 0, scale: 1 }}
               exit={{ opacity: 0, y: -20, scale: 0.95 }}
               transition={{ duration: 0.2, ease: 'easeOut' }}
-              className="absolute right-0 top-16 w-64 bg-portfolio-surface-secondary/95 backdrop-blur-xl rounded-2xl p-4 shadow-2xl border border-border/50 z-50"
+              className="absolute right-0 top-16 w-64 glass-modal rounded-2xl p-4 shadow-glass-xl border border-glass-border z-50"
             >
-              {/* Menu Header */}
-              <div className="px-4 py-3 border-b border-border/30 mb-3">
-                <h3 className="text-portfolio-text-primary text-base font-bold">Portfolio Navigation</h3>
-                <p className="text-portfolio-text-secondary text-sm mt-1">Game Developer • William</p>
+              {/* Glass Menu Header */}
+              <div className="px-4 py-3 border-b border-glass-border mb-3">
+                <h3 className="text-glass-text-primary text-base font-bold">Portfolio Navigation</h3>
+                <p className="text-glass-text-secondary text-sm mt-1">Game Developer • William</p>
               </div>
 
               <ul className="space-y-2">
@@ -183,8 +180,8 @@ export default function Navigation({
                       onClick={() => handleNavClick(item.id, item.href)}
                       className={`block w-full text-left px-4 py-3 rounded-xl font-medium transition-all duration-200 group ${
                         activeSection === item.id
-                          ? 'text-portfolio-accent bg-portfolio-accent/15 border border-portfolio-accent/30 font-semibold shadow-lg'
-                          : 'text-portfolio-text-secondary hover:text-portfolio-accent hover:bg-portfolio-surface-tertiary/50'
+                          ? 'text-glass-accent glass-primary border border-glass-accent/30 font-semibold shadow-glass-md'
+                          : 'text-glass-text-secondary hover:text-glass-accent hover:glass-tertiary'
                       }`}
                       aria-current={activeSection === item.id ? 'page' : undefined}
                     >
@@ -196,7 +193,7 @@ export default function Navigation({
                           <motion.div
                             initial={{ scale: 0, rotate: -180 }}
                             animate={{ scale: 1, rotate: 0 }}
-                            className="w-2 h-2 bg-portfolio-accent rounded-full shadow-lg"
+                            className="w-2 h-2 bg-glass-accent rounded-full shadow-glass-glow"
                           />
                         )}
                       </div>

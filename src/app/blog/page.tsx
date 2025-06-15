@@ -21,7 +21,7 @@ export default async function BlogPage() {
     <div className="min-h-screen bg-smoky-black">
       <div className="container mx-auto px-4 py-8">
         <BlogHeader />
-        <BlogList posts={posts} />
+        <BlogList posts={posts} locale="en" />
       </div>
     </div>
   )

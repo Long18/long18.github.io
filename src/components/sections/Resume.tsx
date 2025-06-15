@@ -3,7 +3,12 @@
 import React, { useRef, useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { experiences, education } from '@/data/experience';
+import GlassButton from '@/components/ui/GlassButton';
+import { Button } from '@/components/ui/Button';
+import { Typography } from '@/components/ui/Typography';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/Card';
 import { useAnimationPerformance } from '../../hooks/useAnimationPerformance';
+import { getGlassClasses } from '@/lib/utils';
 import {
   GraduationCap,
   Calendar,
@@ -114,50 +119,56 @@ function TimelineItem({
             </>
           )}
 
-          {/* Main dot */}
-          <div className="relative w-6 h-6 bg-gradient-to-r from-portfolio-accent to-secondary rounded-full border-4 border-portfolio-surface-primary shadow-lg shadow-portfolio-accent/30 group-hover:shadow-portfolio-accent/50 transition-all duration-300">
+          {/* Glass main dot */}
+          <div className="relative w-6 h-6 bg-gradient-to-r from-glass-accent to-glass-accent-secondary rounded-full border-4 border-glass-surface-primary shadow-glass-md group-hover:shadow-glass-glow transition-all duration-300">
             {performanceMode === 'high' && (
               <motion.div
                 animate={{ rotate: 360 }}
                 transition={{ duration: 10, repeat: Infinity, ease: 'linear' }}
-                className="absolute inset-1 bg-gradient-to-r from-orange-400 to-purple-500 rounded-full opacity-60"
+                className="absolute inset-1 bg-gradient-to-r from-glass-accent to-glass-accent-secondary rounded-full opacity-60"
               />
             )}
           </div>
         </div>
       </motion.div>
 
-      {/* Content Card */}
+      {/* Glass Content Card */}
       <motion.div
         whileHover={performanceMode !== 'low' ? { y: -5, scale: 1.02 } : {}}
         transition={{ type: 'spring', stiffness: 300, damping: 30 }}
-        className="relative bg-gradient-to-br from-portfolio-surface-primary/80 to-portfolio-surface-secondary/80 backdrop-blur-xl rounded-3xl p-6 border border-border/50 hover:border-portfolio-accent/30 hover:shadow-2xl hover:shadow-portfolio-accent/20 transition-all duration-500 overflow-hidden group/card"
+        className="relative glass-card glass-hover rounded-3xl p-6 border border-glass-border hover:shadow-glass-glow transition-all duration-500 overflow-hidden group/card"
       >
-        {/* Holographic overlay */}
-        <div className="absolute inset-0 bg-gradient-to-r from-orange-400/5 via-purple-500/5 to-cyan-400/5 rounded-3xl opacity-0 group-hover/card:opacity-100 transition-opacity duration-500" />
+        {/* Glass holographic overlay */}
+        <div className="absolute inset-0 bg-gradient-to-r from-glass-accent/5 via-glass-accent-secondary/5 to-glass-accent-light/5 rounded-3xl opacity-0 group-hover/card:opacity-100 transition-opacity duration-500" />
 
         {/* Header section */}
         <div className="relative z-10 flex flex-col md:flex-row md:items-start md:justify-between gap-4 mb-6">
           <div className="flex-1">
-            <h3 className="text-xl font-bold mb-2 group-hover/card:text-portfolio-accent transition-colors duration-300 animate-fade-in-up">
-              <span className="bg-gradient-to-r from-orange-400 via-purple-500 to-cyan-400 bg-clip-text text-transparent">
-                {title}
-              </span>
-            </h3>
+            <Typography
+              variant="h3"
+              color="gradient"
+              className="mb-2 group-hover/card:text-glass-accent transition-colors duration-300 animate-fade-in-up"
+            >
+              {title}
+            </Typography>
 
-                          <h4 className="text-lg text-portfolio-accent font-semibold mb-3 flex items-center gap-2 animate-fade-in">
+            <Typography
+              variant="body-lg"
+              color="glass"
+              className="font-semibold mb-3 flex items-center gap-2 animate-fade-in"
+            >
               <Sparkles className="w-5 h-5" />
               {subtitle}
-            </h4>
+            </Typography>
           </div>
 
           <div className="flex flex-col items-start md:items-end gap-2 animate-scale-in">
-            <div className="flex items-center gap-2 bg-gradient-to-r from-portfolio-accent/20 to-secondary/20 backdrop-blur-sm text-portfolio-accent px-4 py-2 rounded-2xl border border-portfolio-accent/30 shadow-lg shadow-portfolio-accent/10">
+            <div className="flex items-center gap-2 glass-primary text-glass-accent px-4 py-2 rounded-2xl border border-glass-accent/30 shadow-glass-md">
               <Calendar className="w-4 h-4" />
               <span className="font-medium whitespace-nowrap">{period}</span>
             </div>
             {location && (
-              <div className="flex items-center gap-2 text-sm text-white-2/80">
+              <div className="flex items-center gap-2 text-sm text-glass-text-secondary">
                 <MapPin className="w-3 h-3" />
                 <span>{location}</span>
               </div>
@@ -167,9 +178,9 @@ function TimelineItem({
 
         {/* Description */}
         {description && (
-          <p className="relative z-10 text-white-2 leading-relaxed mb-6 text-base animate-fade-in">
+          <Typography variant="body" color="glass-secondary" className="relative z-10 leading-relaxed mb-6 animate-fade-in">
             {description}
-          </p>
+          </Typography>
         )}
 
         {/* Achievements */}
@@ -179,8 +190,8 @@ function TimelineItem({
             style={{ animationDelay: '0.2s' }}
           >
             <div className="flex items-center gap-2 mb-4">
-                              <Trophy className="w-5 h-5 text-portfolio-accent" />
-                <h5 className="font-semibold text-portfolio-text-primary">Key Achievements</h5>
+              <Trophy className="w-5 h-5 text-glass-accent" />
+              <Typography variant="h4" color="glass" className="font-semibold">Key Achievements</Typography>
             </div>
             <div className="grid gap-3">
               {achievements.map((achievement, idx) => (

@@ -17,11 +17,60 @@ module.exports = {
       '3xl': '1920px',
     },
     extend: {
-      colors: {
-        // === LAYER 1: FOUNDATION COLORS (Design Tokens) ===
-        // Based on Tailwind's 11-step color scale (50-950)
-        // Reference: https://tailwindcss.com/docs/colors
+      // === NEW MODERN TYPOGRAPHY SYSTEM ===
+      fontFamily: {
+        'display': ['Cal Sans', 'Space Grotesk', 'Inter', 'system-ui', 'sans-serif'],
+        'body': ['Inter', 'Plus Jakarta Sans', 'system-ui', 'sans-serif'],
+        'mono': ['JetBrains Mono', 'Fira Code', 'Consolas', 'monospace'],
+      },
+      fontSize: {
+        // Responsive typography with clamp
+        'hero': ['clamp(3rem, 8vw, 6rem)', { lineHeight: '1.1', letterSpacing: '-0.02em' }],
+        'display': ['clamp(2.5rem, 6vw, 4rem)', { lineHeight: '1.1', letterSpacing: '-0.02em' }],
+        'h1': ['clamp(2.25rem, 5vw, 3rem)', { lineHeight: '1.2', letterSpacing: '-0.01em' }],
+        'h2': ['clamp(1.5rem, 3vw, 1.875rem)', { lineHeight: '1.3', letterSpacing: '-0.01em' }],
+        'h3': ['clamp(1.25rem, 2.5vw, 1.5rem)', { lineHeight: '1.4' }],
+        'h4': ['clamp(1.125rem, 2vw, 1.25rem)', { lineHeight: '1.4' }],
+        'body-lg': ['1.125rem', { lineHeight: '1.7' }],
+        'body': ['1rem', { lineHeight: '1.6' }],
+        'body-sm': ['0.875rem', { lineHeight: '1.5' }],
+        'caption': ['0.75rem', { lineHeight: '1.4' }],
+      },
 
+      // === MODERN SPACING SYSTEM ===
+      spacing: {
+        '18': '4.5rem',
+        '88': '22rem',
+        '128': '32rem',
+        '144': '36rem',
+      },
+
+      colors: {
+        // === LIQUID GLASS DESIGN SYSTEM COLORS (PRESERVED) ===
+        'glass-surface': {
+          primary: 'hsla(var(--glass-surface-primary), var(--glass-opacity-primary))',
+          secondary: 'hsla(var(--glass-surface-secondary), var(--glass-opacity-secondary))',
+          tertiary: 'hsla(var(--glass-surface-tertiary), var(--glass-opacity-tertiary))',
+          hover: 'hsla(var(--glass-surface-primary), var(--glass-opacity-hover))',
+          active: 'hsla(var(--glass-surface-primary), var(--glass-opacity-active))',
+        },
+        'glass-accent': {
+          DEFAULT: 'hsl(var(--glass-accent))',
+          secondary: 'hsl(var(--glass-accent-secondary))',
+          light: 'hsl(var(--glass-accent-light))',
+        },
+        'glass-text': {
+          primary: 'hsla(var(--glass-text-primary), 1)',
+          secondary: 'hsla(var(--glass-text-secondary), 0.9)',
+          tertiary: 'hsla(var(--glass-text-tertiary), 0.7)',
+          disabled: 'hsla(var(--glass-text-disabled), 0.6)',
+        },
+        'glass-border': {
+          DEFAULT: 'hsla(var(--glass-border), var(--glass-border-opacity))',
+          hover: 'hsla(var(--glass-border), var(--glass-border-hover))',
+        },
+
+        // === NEW MODERN COLOR SYSTEM ===
         // Semantic Base Layer (Shadcn/ui compatible)
         background: 'hsl(var(--background))',
         foreground: 'hsl(var(--foreground))',
@@ -30,69 +79,74 @@ module.exports = {
         popover: 'hsl(var(--popover))',
         'popover-foreground': 'hsl(var(--popover-foreground))',
 
-        // Primary Brand Colors (Portfolio Identity)
+        // Modern Primary Brand Colors (Blue-Violet System)
         primary: {
           DEFAULT: 'hsl(var(--primary))',
           foreground: 'hsl(var(--primary-foreground))',
-          50: 'hsl(var(--primary-50))',
-          100: 'hsl(var(--primary-100))',
-          200: 'hsl(var(--primary-200))',
-          300: 'hsl(var(--primary-300))',
-          400: 'hsl(var(--primary-400))',
-          500: 'hsl(var(--primary-500))',
-          600: 'hsl(var(--primary-600))',
-          700: 'hsl(var(--primary-700))',
-          800: 'hsl(var(--primary-800))',
-          900: 'hsl(var(--primary-900))',
-          950: 'hsl(var(--primary-950))',
+          50: '#eff6ff',
+          100: '#dbeafe',
+          200: '#bfdbfe',
+          300: '#93c5fd',
+          400: '#60a5fa',
+          500: '#3b82f6',
+          600: '#2563eb',
+          700: '#1d4ed8',
+          800: '#1e40af',
+          900: '#1e3a8a',
+          950: '#172554',
         },
 
-        // Secondary Brand Colors
+        // Modern Secondary Colors (Violet System)
         secondary: {
           DEFAULT: 'hsl(var(--secondary))',
           foreground: 'hsl(var(--secondary-foreground))',
-          50: 'hsl(var(--secondary-50))',
-          100: 'hsl(var(--secondary-100))',
-          200: 'hsl(var(--secondary-200))',
-          300: 'hsl(var(--secondary-300))',
-          400: 'hsl(var(--secondary-400))',
-          500: 'hsl(var(--secondary-500))',
-          600: 'hsl(var(--secondary-600))',
-          700: 'hsl(var(--secondary-700))',
-          800: 'hsl(var(--secondary-800))',
-          900: 'hsl(var(--secondary-900))',
-          950: 'hsl(var(--secondary-950))',
+          50: '#f5f3ff',
+          100: '#ede9fe',
+          200: '#ddd6fe',
+          300: '#c4b5fd',
+          400: '#a78bfa',
+          500: '#8b5cf6',
+          600: '#7c3aed',
+          700: '#6d28d9',
+          800: '#5b21b6',
+          900: '#4c1d95',
+          950: '#2e1065',
         },
 
-        // === LAYER 2: SEMANTIC UI COLORS ===
-        // Functional color roles with clear purpose
+        // Modern Accent Color (Amber for highlights)
+        accent: {
+          DEFAULT: 'hsl(var(--accent))',
+          foreground: 'hsl(var(--accent-foreground))',
+          50: '#fffbeb',
+          100: '#fef3c7',
+          200: '#fde68a',
+          300: '#fcd34d',
+          400: '#fbbf24',
+          500: '#f59e0b',
+          600: '#d97706',
+          700: '#b45309',
+          800: '#92400e',
+          900: '#78350f',
+          950: '#451a03',
+        },
 
+        // UI Semantic Colors
         muted: {
           DEFAULT: 'hsl(var(--muted))',
           foreground: 'hsl(var(--muted-foreground))',
         },
-
-        accent: {
-          DEFAULT: 'hsl(var(--accent))',
-          foreground: 'hsl(var(--accent-foreground))',
-        },
-
-        // Status Colors (Following Tailwind's semantic approach)
         destructive: {
           DEFAULT: 'hsl(var(--destructive))',
           foreground: 'hsl(var(--destructive-foreground))',
         },
-
         success: {
           DEFAULT: 'hsl(var(--success))',
           foreground: 'hsl(var(--success-foreground))',
         },
-
         warning: {
           DEFAULT: 'hsl(var(--warning))',
           foreground: 'hsl(var(--warning-foreground))',
         },
-
         info: {
           DEFAULT: 'hsl(var(--info))',
           foreground: 'hsl(var(--info-foreground))',
@@ -103,33 +157,24 @@ module.exports = {
         input: 'hsl(var(--input))',
         ring: 'hsl(var(--ring))',
 
-        // === LAYER 3: DOMAIN-SPECIFIC COLORS ===
-        // Portfolio-specific semantic colors
-
+        // === PORTFOLIO-SPECIFIC COLORS (UPDATED) ===
         portfolio: {
-          // Surface hierarchy
           surface: {
             primary: 'hsl(var(--portfolio-surface-primary))',
             secondary: 'hsl(var(--portfolio-surface-secondary))',
             tertiary: 'hsl(var(--portfolio-surface-tertiary))',
           },
-
-          // Brand accent system
           accent: {
             DEFAULT: 'hsl(var(--portfolio-accent))',
             foreground: 'hsl(var(--portfolio-accent-foreground))',
             muted: 'hsl(var(--portfolio-accent-muted))',
           },
-
-          // Text hierarchy
           text: {
             primary: 'hsl(var(--portfolio-text-primary))',
             secondary: 'hsl(var(--portfolio-text-secondary))',
             muted: 'hsl(var(--portfolio-text-muted))',
             inverse: 'hsl(var(--portfolio-text-inverse))',
           },
-
-          // Interactive states
           interactive: {
             DEFAULT: 'hsl(var(--portfolio-interactive))',
             hover: 'hsl(var(--portfolio-interactive-hover))',
@@ -138,11 +183,8 @@ module.exports = {
           },
         },
 
-        // === LAYER 4: TECHNOLOGY COLORS ===
-        // Organized by category with consistent naming
-
+        // === TECHNOLOGY COLORS (PRESERVED) ===
         tech: {
-          // Game Development
           unity: {
             DEFAULT: 'hsl(var(--tech-unity))',
             foreground: 'hsl(var(--tech-unity-foreground))',
@@ -151,8 +193,6 @@ module.exports = {
             DEFAULT: 'hsl(var(--tech-unreal))',
             foreground: 'hsl(var(--tech-unreal-foreground))',
           },
-
-          // Programming Languages
           csharp: {
             DEFAULT: 'hsl(var(--tech-csharp))',
             foreground: 'hsl(var(--tech-csharp-foreground))',
@@ -169,188 +209,124 @@ module.exports = {
             DEFAULT: 'hsl(var(--tech-typescript))',
             foreground: 'hsl(var(--tech-typescript-foreground))',
           },
-
-          // Development Categories
-          web: {
-            DEFAULT: 'hsl(var(--tech-web))',
-            foreground: 'hsl(var(--tech-web-foreground))',
+          react: {
+            DEFAULT: 'hsl(var(--tech-react))',
+            foreground: 'hsl(var(--tech-react-foreground))',
           },
-          mobile: {
-            DEFAULT: 'hsl(var(--tech-mobile))',
-            foreground: 'hsl(var(--tech-mobile-foreground))',
-          },
-          application: {
-            DEFAULT: 'hsl(var(--tech-application))',
-            foreground: 'hsl(var(--tech-application-foreground))',
-          },
-
-          // Default fallback
-          default: {
-            DEFAULT: 'hsl(var(--tech-default))',
-            foreground: 'hsl(var(--tech-default-foreground))',
-          },
-
-          // === SYNTAX HIGHLIGHTING COLORS ===
-          // Professional code block syntax highlighting
-          syntax: {
-            // Code block background (dark theme)
-            background: '#282C34',
-
-            // Syntax highlighting colors (VS Code Dark+ theme inspired)
-            keyword: '#C678DD',      // light purple for keywords (if, else, function, etc.)
-            string: '#98C379',       // green for strings and literals
-            comment: '#5C6370',      // gray for comments
-            function: '#61AFEF',     // blue for functions and decorators
-            import: '#E06C75',       // magenta for imports and built-in types
-            text: '#ABB2BF',         // light gray for variable names and general text
-            number: '#D19A66',       // orange for numbers
-            operator: '#56B6C2',     // cyan for operators
-            punctuation: '#ABB2BF',  // light gray for punctuation
-
-            // UI elements
-            border: 'rgba(255, 255, 255, 0.1)',
-            scrollbar: 'rgba(255, 255, 255, 0.2)',
-            scrollbarHover: 'rgba(255, 255, 255, 0.3)',
-
-            // Copy button colors
-            copyButton: 'rgba(255, 255, 255, 0.1)',
-            copyButtonHover: 'rgba(255, 255, 255, 0.2)',
-            copyButtonText: '#ABB2BF',
-            copyButtonSuccess: '#98C379',
+          nextjs: {
+            DEFAULT: 'hsl(var(--tech-nextjs))',
+            foreground: 'hsl(var(--tech-nextjs-foreground))',
           },
         },
-
-        // === LAYER 5: DATA VISUALIZATION ===
-        // Chart colors following Tailwind's approach
-        chart: {
-          1: 'hsl(var(--chart-1))',
-          2: 'hsl(var(--chart-2))',
-          3: 'hsl(var(--chart-3))',
-          4: 'hsl(var(--chart-4))',
-          5: 'hsl(var(--chart-5))',
-        },
-
-        // === LEGACY SUPPORT (Deprecated - for migration) ===
-        // Keep temporarily for backward compatibility
-        'smoky-black': 'hsl(var(--portfolio-surface-primary))',
-        'eerie-black-1': 'hsl(var(--portfolio-surface-secondary))',
-        'eerie-black-2': 'hsl(var(--portfolio-surface-tertiary))',
-        'orange-yellow-crayola': 'hsl(var(--portfolio-accent))',
-        'vegas-gold': 'hsl(var(--secondary))',
-        'unity-tag': 'hsl(var(--tech-unity))',
-        'unreal-tag': 'hsl(var(--tech-unreal))',
-        'application-tag': 'hsl(var(--tech-application))',
       },
 
-      fontFamily: {
-        sans: ['Inter', 'Poppins', 'system-ui', 'sans-serif'],
-        mono: ['JetBrains Mono', 'Consolas', 'monospace'],
+      // === MODERN BLUR SYSTEM ===
+      backdropBlur: {
+        'xs': '2px',
+        'sm': '4px',
+        'md': '8px',
+        'lg': '12px',
+        'xl': '16px',
+        '2xl': '24px',
+        '3xl': '40px',
       },
 
-      // === SPACING SCALE ===
-      // Following Tailwind's consistent spacing system
-      spacing: {
-        '18': '4.5rem',
-        '88': '22rem',
+      // === MODERN SHADOW SYSTEM ===
+      boxShadow: {
+        'glass-sm': '0 2px 8px rgba(0, 0, 0, 0.05), 0 1px 3px rgba(0, 0, 0, 0.1)',
+        'glass-md': '0 8px 25px rgba(0, 0, 0, 0.1), 0 4px 10px rgba(0, 0, 0, 0.05)',
+        'glass-lg': '0 12px 35px rgba(0, 0, 0, 0.15), 0 8px 15px rgba(0, 0, 0, 0.1)',
+        'glass-xl': '0 20px 50px rgba(0, 0, 0, 0.2), 0 12px 20px rgba(0, 0, 0, 0.15)',
+        'modern-sm': '0 1px 2px 0 rgb(0 0 0 / 0.05)',
+        'modern-md': '0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1)',
+        'modern-lg': '0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1)',
+        'modern-xl': '0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1)',
+        'glow-sm': '0 0 10px rgb(59 130 246 / 0.3)',
+        'glow-md': '0 0 20px rgb(59 130 246 / 0.4)',
+        'glow-lg': '0 0 30px rgb(59 130 246 / 0.5)',
       },
 
-      // === ANIMATION SYSTEM ===
-      // Clean, purposeful animations
+      // === MODERN ANIMATION SYSTEM ===
       animation: {
-        // Core animations
-        'fade-in': 'fadeIn 0.5s ease-out',
-        'slide-up': 'slideUp 0.5s ease-out',
+        'fade-in': 'fadeIn 0.5s ease-in-out',
+        'fade-in-up': 'fadeInUp 0.6s ease-out',
+        'fade-in-down': 'fadeInDown 0.6s ease-out',
+        'slide-in-left': 'slideInLeft 0.5s ease-out',
+        'slide-in-right': 'slideInRight 0.5s ease-out',
         'scale-in': 'scaleIn 0.3s ease-out',
-        'pulse-subtle': 'pulseSubtle 2s ease-in-out infinite',
-
-        // Enhanced animations for portfolio
-        'fade-in-up': 'fadeInUp 0.8s ease-out forwards',
-        'fade-in-down': 'fadeInDown 0.8s ease-out forwards',
-        'slide-in-left': 'slideInLeft 0.8s ease-out forwards',
-        'slide-in-right': 'slideInRight 0.8s ease-out forwards',
+        'bounce-gentle': 'bounceGentle 2s infinite',
         'float': 'float 6s ease-in-out infinite',
-        'shimmer': 'shimmer 3s ease-in-out infinite',
-        'gradient-shift': 'gradientShift 3s ease infinite',
+        'shimmer': 'shimmer 2s linear infinite',
+        'pulse-glow': 'pulseGlow 2s ease-in-out infinite alternate',
+        'gradient-shift': 'gradientShift 3s ease-in-out infinite',
       },
-
       keyframes: {
-        // Core keyframes
         fadeIn: {
           '0%': { opacity: '0' },
           '100%': { opacity: '1' },
         },
-        slideUp: {
+        fadeInUp: {
           '0%': { opacity: '0', transform: 'translateY(20px)' },
           '100%': { opacity: '1', transform: 'translateY(0)' },
         },
-        scaleIn: {
-          '0%': { opacity: '0', transform: 'scale(0.95)' },
-          '100%': { opacity: '1', transform: 'scale(1)' },
-        },
-        pulseSubtle: {
-          '0%, 100%': { opacity: '1' },
-          '50%': { opacity: '0.8' },
-        },
-
-        // Enhanced keyframes
-        fadeInUp: {
-          '0%': { opacity: '0', transform: 'translateY(30px)' },
-          '100%': { opacity: '1', transform: 'translateY(0)' },
-        },
         fadeInDown: {
-          '0%': { opacity: '0', transform: 'translateY(-30px)' },
+          '0%': { opacity: '0', transform: 'translateY(-20px)' },
           '100%': { opacity: '1', transform: 'translateY(0)' },
         },
         slideInLeft: {
-          '0%': { opacity: '0', transform: 'translateX(-50px)' },
+          '0%': { opacity: '0', transform: 'translateX(-20px)' },
           '100%': { opacity: '1', transform: 'translateX(0)' },
         },
         slideInRight: {
-          '0%': { opacity: '0', transform: 'translateX(50px)' },
+          '0%': { opacity: '0', transform: 'translateX(20px)' },
           '100%': { opacity: '1', transform: 'translateX(0)' },
         },
-        float: {
+        scaleIn: {
+          '0%': { opacity: '0', transform: 'scale(0.9)' },
+          '100%': { opacity: '1', transform: 'scale(1)' },
+        },
+        bounceGentle: {
           '0%, 100%': { transform: 'translateY(0)' },
+          '50%': { transform: 'translateY(-10px)' },
+        },
+        float: {
+          '0%, 100%': { transform: 'translateY(0px)' },
           '50%': { transform: 'translateY(-20px)' },
         },
         shimmer: {
-          '0%': { backgroundPosition: '-200% 0' },
-          '100%': { backgroundPosition: '200% 0' },
+          '0%': { transform: 'translateX(-100%)' },
+          '100%': { transform: 'translateX(100%)' },
+        },
+        pulseGlow: {
+          '0%': { boxShadow: '0 0 5px rgb(59 130 246 / 0.3)' },
+          '100%': { boxShadow: '0 0 20px rgb(59 130 246 / 0.6)' },
         },
         gradientShift: {
           '0%, 100%': { backgroundPosition: '0% 50%' },
           '50%': { backgroundPosition: '100% 50%' },
         },
       },
+
+      // === MODERN BORDER RADIUS SYSTEM ===
+      borderRadius: {
+        'xs': '0.125rem',
+        'sm': '0.25rem',
+        'md': '0.375rem',
+        'lg': '0.5rem',
+        'xl': '0.75rem',
+        '2xl': '1rem',
+        '3xl': '1.5rem',
+        '4xl': '2rem',
+      },
+
+      // === MODERN GRID SYSTEM ===
+      gridTemplateColumns: {
+        'auto-fit-xs': 'repeat(auto-fit, minmax(200px, 1fr))',
+        'auto-fit-sm': 'repeat(auto-fit, minmax(250px, 1fr))',
+        'auto-fit-md': 'repeat(auto-fit, minmax(300px, 1fr))',
+        'auto-fit-lg': 'repeat(auto-fit, minmax(350px, 1fr))',
+      },
     },
   },
-
-  // === PLUGINS ===
-  plugins: [
-    // Custom color utilities plugin
-    function({ addUtilities, theme }) {
-      const newUtilities = {
-        // Portfolio-specific utilities
-        '.text-portfolio-gradient': {
-          background: `linear-gradient(135deg, ${theme('colors.portfolio.accent.DEFAULT')}, ${theme('colors.primary.DEFAULT')})`,
-          '-webkit-background-clip': 'text',
-          '-webkit-text-fill-color': 'transparent',
-          'background-clip': 'text',
-        },
-
-        // Tech tag utilities
-        '.tech-tag': {
-          '@apply inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium transition-colors': {},
-        },
-      };
-
-      addUtilities(newUtilities);
-    },
-
-    // Touch device variants
-    function({ addVariant }) {
-      addVariant('touch', '@media (pointer: coarse)');
-      addVariant('no-touch', '@media (pointer: fine)');
-    },
-  ],
-};
+  plugins: [],
+}

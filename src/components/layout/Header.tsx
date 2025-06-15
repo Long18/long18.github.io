@@ -4,18 +4,20 @@ import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
-import { 
-  Menu, 
-  X, 
-  Sun, 
-  Moon, 
-  Monitor, 
+import {
+  Menu,
+  X,
+  Sun,
+  Moon,
+  Monitor,
   Globe,
   Palette,
   ChevronDown
 } from 'lucide-react';
 import { useTheme, type ColorTheme, colorThemes } from '@/context/ThemeContext';
 import { useTranslation } from 'react-i18next';
+import { Button } from '@/components/ui/Button';
+import { Typography } from '@/components/ui/Typography';
 import { cn } from '@/utils';
 
 const navigation = [
@@ -32,7 +34,7 @@ const Header: React.FC = () => {
   const [showThemeMenu, setShowThemeMenu] = useState(false);
   const [showColorMenu, setShowColorMenu] = useState(false);
   const [showLanguageMenu, setShowLanguageMenu] = useState(false);
-  
+
   const pathname = usePathname();
   const { mode, colorTheme, toggleMode, setColorTheme } = useTheme();
   const { t, i18n } = useTranslation();
@@ -97,8 +99,8 @@ const Header: React.FC = () => {
       <nav className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16 md:h-20">
           {/* Logo */}
-          <Link 
-            href="/" 
+          <Link
+            href="/"
             className="flex items-center space-x-2 text-xl font-bold text-foreground hover:text-primary transition-colors"
           >
             <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center text-primary-foreground font-bold">
@@ -148,7 +150,7 @@ const Header: React.FC = () => {
                 <span>{i18n.language.toUpperCase()}</span>
                 <ChevronDown className="h-3 w-3" />
               </button>
-              
+
               <AnimatePresence>
                 {showLanguageMenu && (
                   <motion.div
@@ -193,7 +195,7 @@ const Header: React.FC = () => {
                 <Palette className="h-4 w-4" />
                 <ChevronDown className="h-3 w-3" />
               </button>
-              
+
               <AnimatePresence>
                 {showColorMenu && (
                   <motion.div
@@ -211,7 +213,7 @@ const Header: React.FC = () => {
                           colorTheme === key ? 'text-primary font-medium' : 'text-foreground'
                         )}
                       >
-                        <div 
+                        <div
                           className="w-4 h-4 rounded-full mr-3 border border-border"
                           style={{ backgroundColor: theme.colors.primary }}
                         />
@@ -236,7 +238,7 @@ const Header: React.FC = () => {
                 {getModeIcon()}
                 <ChevronDown className="h-3 w-3" />
               </button>
-              
+
               <AnimatePresence>
                 {showThemeMenu && (
                   <motion.div
@@ -317,7 +319,7 @@ const Header: React.FC = () => {
                     {t(item.name)}
                   </Link>
                 ))}
-                
+
                 {/* Mobile Theme Controls */}
                 <div className="pt-4 mt-4 border-t border-border">
                   <div className="flex items-center justify-between px-3 py-2">
@@ -330,7 +332,7 @@ const Header: React.FC = () => {
                       <span className="capitalize">{mode}</span>
                     </button>
                   </div>
-                  
+
                   <div className="flex items-center justify-between px-3 py-2">
                     <span className="text-sm font-medium text-foreground">Language</span>
                     <button

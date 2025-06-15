@@ -22,9 +22,25 @@ const createCustomRenderer = () => {
     return `<div data-code-block="${id}" data-language="${lang || 'text'}" data-code="${encodeURIComponent(text)}"></div>`
   }
 
-  // Override inline code rendering with correct signature
+  // Override inline code rendering - dark theme
   renderer.codespan = ({ text }: { text: string }) => {
-    return `<code class="bg-portfolio-surface-secondary px-2 py-1 rounded text-sm font-mono text-portfolio-accent">${text}</code>`
+    return `<code class="blog-code px-2 py-1 rounded text-base font-mono">${text}</code>`
+  }
+
+  // Override blockquote rendering - dark theme
+  renderer.blockquote = ({ text }: { text: string }) => {
+    return `<blockquote class="blog-content-tertiary border-l-4 border-blue-500 pl-6 py-4 my-6 rounded-r-lg blog-text-secondary">${text}</blockquote>`
+  }
+
+  // Override table rendering - dark theme
+  renderer.table = (token: any) => {
+    const { header, body } = token
+    return `<div class="blog-content-secondary rounded-xl border blog-border overflow-hidden my-6">
+      <table class="w-full">
+        <thead class="blog-content-tertiary border-b blog-border">${header}</thead>
+        <tbody>${body}</tbody>
+      </table>
+    </div>`
   }
 
   return renderer
@@ -49,6 +65,23 @@ const processCodeBlocks = (html: string): React.ReactNode[] => {
         parts.push(
           <div
             key={`html-${lastIndex}`}
+            className="prose prose-xl max-w-none
+              prose-headings:blog-text-primary prose-headings:font-bold
+              prose-p:blog-text-secondary prose-p:leading-relaxed prose-p:text-lg
+              prose-strong:blog-text-primary prose-strong:font-bold
+              prose-em:blog-text-secondary prose-em:italic
+              prose-a:blog-interactive prose-a:hover:blog-interactive-hover prose-a:underline prose-a:font-medium
+              prose-ul:blog-text-secondary prose-ul:list-disc prose-ul:text-lg
+              prose-ol:blog-text-secondary prose-ol:list-decimal prose-ol:text-lg
+              prose-li:blog-text-secondary prose-li:leading-relaxed prose-li:text-lg
+              prose-h1:text-4xl prose-h1:mb-8 prose-h1:mt-12 prose-h1:blog-text-primary
+              prose-h2:text-3xl prose-h2:mb-6 prose-h2:mt-10 prose-h2:blog-text-primary
+              prose-h3:text-2xl prose-h3:mb-4 prose-h3:mt-8 prose-h3:blog-text-primary
+              prose-h4:text-xl prose-h4:mb-3 prose-h4:mt-6 prose-h4:blog-text-primary
+              prose-blockquote:blog-text-secondary
+              prose-table:blog-text-secondary
+              prose-th:blog-text-primary prose-th:font-bold
+              prose-td:blog-text-secondary"
             dangerouslySetInnerHTML={{ __html: htmlBefore }}
           />
         )
@@ -76,6 +109,23 @@ const processCodeBlocks = (html: string): React.ReactNode[] => {
       parts.push(
         <div
           key={`html-${lastIndex}`}
+          className="prose prose-xl max-w-none
+            prose-headings:blog-text-primary prose-headings:font-bold
+            prose-p:blog-text-secondary prose-p:leading-relaxed prose-p:text-lg
+            prose-strong:blog-text-primary prose-strong:font-bold
+            prose-em:blog-text-secondary prose-em:italic
+            prose-a:blog-interactive prose-a:hover:blog-interactive-hover prose-a:underline prose-a:font-medium
+            prose-ul:blog-text-secondary prose-ul:list-disc prose-ul:text-lg
+            prose-ol:blog-text-secondary prose-ol:list-decimal prose-ol:text-lg
+            prose-li:blog-text-secondary prose-li:leading-relaxed prose-li:text-lg
+            prose-h1:text-4xl prose-h1:mb-8 prose-h1:mt-12 prose-h1:blog-text-primary
+            prose-h2:text-3xl prose-h2:mb-6 prose-h2:mt-10 prose-h2:blog-text-primary
+            prose-h3:text-2xl prose-h3:mb-4 prose-h3:mt-8 prose-h3:blog-text-primary
+            prose-h4:text-xl prose-h4:mb-3 prose-h4:mt-6 prose-h4:blog-text-primary
+            prose-blockquote:blog-text-secondary
+            prose-table:blog-text-secondary
+            prose-th:blog-text-primary prose-th:font-bold
+            prose-td:blog-text-secondary"
           dangerouslySetInnerHTML={{ __html: htmlAfter }}
         />
       )
@@ -87,6 +137,23 @@ const processCodeBlocks = (html: string): React.ReactNode[] => {
     parts.push(
       <div
         key="original"
+        className="prose prose-xl max-w-none
+          prose-headings:blog-text-primary prose-headings:font-bold
+          prose-p:blog-text-secondary prose-p:leading-relaxed prose-p:text-lg
+          prose-strong:blog-text-primary prose-strong:font-bold
+          prose-em:blog-text-secondary prose-em:italic
+          prose-a:blog-interactive prose-a:hover:blog-interactive-hover prose-a:underline prose-a:font-medium
+          prose-ul:blog-text-secondary prose-ul:list-disc prose-ul:text-lg
+          prose-ol:blog-text-secondary prose-ol:list-decimal prose-ol:text-lg
+          prose-li:blog-text-secondary prose-li:leading-relaxed prose-li:text-lg
+          prose-h1:text-4xl prose-h1:mb-8 prose-h1:mt-12 prose-h1:blog-text-primary
+          prose-h2:text-3xl prose-h2:mb-6 prose-h2:mt-10 prose-h2:blog-text-primary
+          prose-h3:text-2xl prose-h3:mb-4 prose-h3:mt-8 prose-h3:blog-text-primary
+          prose-h4:text-xl prose-h4:mb-3 prose-h4:mt-6 prose-h4:blog-text-primary
+          prose-blockquote:blog-text-secondary
+          prose-table:blog-text-secondary
+          prose-th:blog-text-primary prose-th:font-bold
+          prose-td:blog-text-secondary"
         dangerouslySetInnerHTML={{ __html: html }}
       />
     )

@@ -15,8 +15,8 @@ import {
   Coffee,
   CheckCircle,
   AlertCircle,
-  Loader,
-  ChevronRight,
+  // Loader,
+  // ChevronRight,
   User,
   AtSign,
   FileText,
@@ -25,7 +25,12 @@ import {
 import { contactInfo } from '@/data/personal';
 import { sendContactEmail, type EmailData } from '@/services/emailService';
 import { professionalStats } from '../../data/skills';
+import { Button } from '@/components/ui/Button';
+import { Typography } from '@/components/ui/Typography';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/Card';
+import { Input } from '@/components/ui/Input';
 import { useAnimationPerformance } from '../../hooks/useAnimationPerformance';
+// import { getGlassClasses } from '@/lib/utils';
 
 interface FormData {
   name: string;
@@ -326,27 +331,29 @@ const Contact: React.FC = () => {
       <div className="relative z-10 max-w-6xl mx-auto px-6 py-16">
         {/* Header Section */}
         <div className="text-center mb-16 animate-fade-in-up">
-          <div className="inline-flex items-center gap-3 bg-gradient-to-r from-orange-500/20 to-purple-500/20 backdrop-blur-xl px-6 py-3 rounded-full border border-orange-500/30 mb-6 animate-scale-in">
+          <div className="inline-flex items-center gap-3 glass-secondary px-6 py-3 rounded-full border border-glass-border mb-6 animate-scale-in">
             <motion.div
               animate={performanceMode === 'high' ? { rotate: 360 } : {}}
               transition={{ duration: 3, repeat: Infinity, ease: 'linear' }}
             >
-              <Diamond className="w-5 h-5 text-portfolio-accent" />
+              <Diamond className="w-5 h-5 text-glass-accent" />
             </motion.div>
-            <span className="text-portfolio-accent font-semibold">Get In Touch</span>
+            <span className="text-glass-accent font-semibold">Get In Touch</span>
           </div>
 
-          <h1
-            className="text-4xl lg:text-6xl font-bold mb-6 animate-fade-in-up"
+          <Typography
+            variant="hero"
+            color="gradient"
+            className="mb-6 animate-fade-in-up"
             style={{ animationDelay: '0.2s' }}
           >
-            <span className="bg-gradient-to-r from-portfolio-accent via-secondary to-portfolio-accent bg-clip-text text-transparent">
-              Contact Me
-            </span>
-          </h1>
+            Contact Me
+          </Typography>
 
-          <div
-            className="text-xl text-portfolio-text-secondary max-w-3xl mx-auto leading-relaxed mb-4 animate-fade-in"
+          <Typography
+            variant="body-lg"
+            color="glass-secondary"
+            className="max-w-3xl mx-auto leading-relaxed mb-4 animate-fade-in"
             style={{ animationDelay: '0.3s' }}
           >
             {typedText}
@@ -354,20 +361,22 @@ const Contact: React.FC = () => {
               <motion.span
                 animate={{ opacity: [0, 1, 0] }}
                 transition={{ duration: 1, repeat: Infinity }}
-                className="text-portfolio-accent"
+                className="text-glass-accent"
               >
                 |
               </motion.span>
             )}
-          </div>
+          </Typography>
 
-          <p
-            className="text-portfolio-text-secondary/80 max-w-2xl mx-auto animate-fade-in"
+          <Typography
+            variant="body"
+            color="glass-secondary"
+            className="max-w-2xl mx-auto animate-fade-in opacity-80"
             style={{ animationDelay: '0.4s' }}
           >
             Whether you have a project in mind, want to collaborate, or just say
             hello - I&apos;d love to hear from you!
-          </p>
+          </Typography>
         </div>
 
         {/* Stats Section */}
@@ -382,8 +391,8 @@ const Contact: React.FC = () => {
               className="relative group animate-scale-in"
               style={{ animationDelay: `${0.5 + index * 0.1}s` }}
             >
-              <div className="bg-gradient-to-br from-portfolio-surface-primary/80 to-portfolio-surface-secondary/80 backdrop-blur-xl rounded-3xl p-6 border border-border/50 hover:border-portfolio-accent/50 transition-all duration-500 text-center overflow-hidden">
-                <div className="absolute inset-0 bg-gradient-to-r from-portfolio-accent/5 to-secondary/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+              <div className="glass-secondary glass-hover rounded-3xl p-6 border border-glass-border hover:border-glass-accent/50 transition-all duration-500 text-center overflow-hidden">
+                <div className="absolute inset-0 bg-gradient-to-r from-glass-accent/5 to-glass-accent-secondary/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
 
                 <motion.div
                   whileHover={
@@ -395,16 +404,18 @@ const Contact: React.FC = () => {
                   <stat.icon className={`w-8 h-8 text-${stat.color}-400`} />
                 </motion.div>
 
-                <h3
-                  className="text-2xl font-bold text-portfolio-text-primary mb-2 relative z-10 animate-count-up"
+                <Typography
+                  variant="h3"
+                  color="glass"
+                  className="mb-2 relative z-10 animate-count-up"
                   style={{ animationDelay: `${0.6 + index * 0.1}s` }}
                 >
                   {stat.value}
-                </h3>
+                </Typography>
 
-                <p className="text-portfolio-text-secondary text-sm font-medium relative z-10">
+                <Typography variant="body-sm" color="glass-secondary" className="font-medium relative z-10">
                   {stat.label}
-                </p>
+                </Typography>
               </div>
             </motion.div>
           ))}
@@ -422,8 +433,8 @@ const Contact: React.FC = () => {
               className="relative group animate-slide-in-up"
               style={{ animationDelay: `${0.8 + index * 0.1}s` }}
             >
-              <div className="bg-gradient-to-br from-portfolio-surface-primary/90 to-portfolio-surface-secondary/90 backdrop-blur-xl rounded-3xl p-6 border border-border/50 hover:border-portfolio-accent/50 transition-all duration-500 text-center overflow-hidden min-h-[280px] flex flex-col justify-between shadow-lg">
-                <div className="absolute inset-0 bg-gradient-to-r from-portfolio-accent/10 via-secondary/10 to-portfolio-accent/10 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+              <div className="glass-secondary glass-hover rounded-3xl p-6 border border-glass-border hover:border-glass-accent/50 transition-all duration-500 text-center overflow-hidden min-h-[280px] flex flex-col justify-between shadow-glass-lg">
+                <div className="absolute inset-0 bg-gradient-to-r from-glass-accent/10 via-glass-accent-secondary/10 to-glass-accent/10 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
 
                 <motion.div
                   whileHover={
@@ -436,13 +447,13 @@ const Contact: React.FC = () => {
                 </motion.div>
 
                 <div className="flex-1 flex flex-col justify-center">
-                  <h3 className="text-lg font-bold text-portfolio-text-primary mb-2 relative z-10 group-hover:text-portfolio-accent transition-colors duration-300">
+                  <Typography variant="h4" color="glass" className="mb-2 relative z-10 group-hover:text-glass-accent transition-colors duration-300">
                     {detail.title}
-                  </h3>
+                  </Typography>
 
-                  <p className="text-portfolio-text-secondary/80 text-xs mb-3 relative z-10">
+                  <Typography variant="caption" color="glass-secondary" className="mb-3 relative z-10 opacity-80">
                     {detail.description}
-                  </p>
+                  </Typography>
 
                   <div className="mt-auto">
                     {detail.href ? (
@@ -452,12 +463,12 @@ const Contact: React.FC = () => {
                           performanceMode !== 'low' ? { scale: 1.05 } : {}
                         }
                         whileTap={{ scale: 0.95 }}
-                        className="inline-block text-portfolio-accent font-semibold hover:text-portfolio-text-primary transition-colors duration-300 relative z-10 bg-portfolio-accent/25 border border-portfolio-accent/20 px-4 py-3 rounded-2xl hover:bg-portfolio-accent/40 hover:border-portfolio-accent/40 text-center text-sm max-w-full break-words leading-tight shadow-sm"
+                        className="inline-block text-glass-accent font-semibold hover:text-glass-text-primary transition-colors duration-300 relative z-10 glass-tertiary border border-glass-border px-4 py-3 rounded-2xl hover:glass-hover text-center text-sm max-w-full break-words leading-tight shadow-sm"
                       >
                         {detail.value}
                       </motion.a>
                     ) : (
-                      <span className="text-portfolio-text-primary font-medium relative z-10 block bg-portfolio-surface-primary/50 border border-border/30 px-4 py-3 rounded-2xl text-center text-sm max-w-full break-words leading-tight shadow-sm">
+                      <span className="text-glass-text-primary font-medium relative z-10 block glass-tertiary border border-glass-border px-4 py-3 rounded-2xl text-center text-sm max-w-full break-words leading-tight shadow-sm">
                         {detail.value}
                       </span>
                     )}
@@ -473,9 +484,9 @@ const Contact: React.FC = () => {
           className="max-w-4xl mx-auto animate-slide-in-up"
           style={{ animationDelay: '1s' }}
         >
-          <div className="bg-gradient-to-br from-portfolio-surface-primary/60 to-portfolio-surface-secondary/60 backdrop-blur-xl rounded-3xl p-8 lg:p-12 border border-border/50 hover:border-portfolio-accent/30 transition-all duration-500 relative overflow-hidden">
+          <div className="glass-secondary glass-hover rounded-3xl p-8 lg:p-12 border border-glass-border hover:border-glass-accent/30 transition-all duration-500 relative overflow-hidden">
             {/* Holographic overlay */}
-            <div className="absolute inset-0 bg-gradient-to-r from-portfolio-accent/5 via-secondary/5 to-portfolio-accent/5 rounded-3xl opacity-0 hover:opacity-100 transition-opacity duration-500" />
+            <div className="absolute inset-0 bg-gradient-to-r from-glass-accent/5 via-glass-accent-secondary/5 to-glass-accent/5 rounded-3xl opacity-0 hover:opacity-100 transition-opacity duration-500" />
 
             <div className="relative z-10">
               {/* Form Header */}
@@ -493,17 +504,17 @@ const Contact: React.FC = () => {
                       repeat: Infinity,
                       ease: 'linear',
                     }}
-                    className="bg-gradient-to-r from-portfolio-accent/20 to-secondary/20 p-3 rounded-2xl"
+                    className="glass-tertiary p-3 rounded-2xl"
                   >
-                    <Send className="w-8 h-8 text-portfolio-accent" />
+                    <Send className="w-8 h-8 text-glass-accent" />
                   </motion.div>
                   <div>
-                    <h3 className="text-3xl font-bold text-portfolio-text-primary">
+                    <Typography variant="h2" color="glass">
                       Send Message
-                    </h3>
-                    <p className="text-portfolio-text-secondary">
+                    </Typography>
+                    <Typography variant="body" color="glass-secondary">
                       Let&apos;s start a conversation
-                    </p>
+                    </Typography>
                   </div>
                 </div>
               </div>
@@ -515,36 +526,24 @@ const Contact: React.FC = () => {
                     className="relative group animate-slide-in-left"
                     style={{ animationDelay: '1.2s' }}
                   >
-                    <label className="flex items-center gap-2 text-white-2 text-sm font-medium mb-3">
+                    <label className="flex items-center gap-2 text-glass-text-primary text-sm font-medium mb-3">
                       <User className="w-4 h-4" />
                       Your Name *
                     </label>
-                    <div className="relative">
-                      <input
-                        type="text"
-                        name="name"
-                        value={formData.name}
-                        onChange={handleInputChange}
-                        onFocus={() => handleFocus('name')}
-                        onBlur={handleBlur}
-                        placeholder="Enter your full name"
-                        className={`w-full px-6 py-4 bg-eerie-black-2/50 backdrop-blur-sm border rounded-2xl text-white-1 placeholder-white-2/60 focus:outline-none transition-all duration-500 hover:bg-eerie-black-2/70 ${
-                          errors.name
-                            ? 'border-red-500 focus:border-red-400 focus:shadow-lg focus:shadow-red-500/20'
-                            : focusedField === 'name'
-                            ? 'border-orange-500 focus:shadow-lg focus:shadow-orange-500/20'
-                            : 'border-jet hover:border-jet/70'
-                        }`}
-                        required
-                      />
-                      {focusedField === 'name' && (
-                        <motion.div
-                          initial={{ scale: 0 }}
-                          animate={{ scale: 1 }}
-                          className="absolute -top-1 -right-1 w-3 h-3 bg-orange-500 rounded-full"
-                        />
-                      )}
-                    </div>
+                    <Input
+                      type="text"
+                      name="name"
+                      value={formData.name}
+                      onChange={handleInputChange}
+                      onFocus={() => handleFocus('name')}
+                      onBlur={handleBlur}
+                      placeholder="Enter your full name"
+                      variant="glass"
+                      size="lg"
+                      leftIcon={<User className="w-4 h-4" />}
+                      className={errors.name ? 'border-red-500' : ''}
+                      required
+                    />
                     <AnimatePresence>
                       {errors.name && (
                         <motion.div
@@ -564,36 +563,24 @@ const Contact: React.FC = () => {
                     className="relative group animate-slide-in-right"
                     style={{ animationDelay: '1.3s' }}
                   >
-                    <label className="flex items-center gap-2 text-white-2 text-sm font-medium mb-3">
+                    <label className="flex items-center gap-2 text-glass-text-primary text-sm font-medium mb-3">
                       <AtSign className="w-4 h-4" />
                       Email Address *
                     </label>
-                    <div className="relative">
-                      <input
-                        type="email"
-                        name="email"
-                        value={formData.email}
-                        onChange={handleInputChange}
-                        onFocus={() => handleFocus('email')}
-                        onBlur={handleBlur}
-                        placeholder="your.email@example.com"
-                        className={`w-full px-6 py-4 bg-eerie-black-2/50 backdrop-blur-sm border rounded-2xl text-white-1 placeholder-white-2/60 focus:outline-none transition-all duration-500 hover:bg-eerie-black-2/70 ${
-                          errors.email
-                            ? 'border-red-500 focus:border-red-400 focus:shadow-lg focus:shadow-red-500/20'
-                            : focusedField === 'email'
-                            ? 'border-purple-500 focus:shadow-lg focus:shadow-purple-500/20'
-                            : 'border-jet hover:border-jet/70'
-                        }`}
-                        required
-                      />
-                      {focusedField === 'email' && (
-                        <motion.div
-                          initial={{ scale: 0 }}
-                          animate={{ scale: 1 }}
-                          className="absolute -top-1 -right-1 w-3 h-3 bg-purple-500 rounded-full"
-                        />
-                      )}
-                    </div>
+                    <Input
+                      type="email"
+                      name="email"
+                      value={formData.email}
+                      onChange={handleInputChange}
+                      onFocus={() => handleFocus('email')}
+                      onBlur={handleBlur}
+                      placeholder="your.email@example.com"
+                      variant="glass"
+                      size="lg"
+                      leftIcon={<AtSign className="w-4 h-4" />}
+                      className={errors.email ? 'border-red-500' : ''}
+                      required
+                    />
                     <AnimatePresence>
                       {errors.email && (
                         <motion.div
@@ -619,32 +606,20 @@ const Contact: React.FC = () => {
                     <FileText className="w-4 h-4" />
                     Subject *
                   </label>
-                  <div className="relative">
-                    <input
-                      type="text"
-                      name="subject"
-                      value={formData.subject}
-                      onChange={handleInputChange}
-                      onFocus={() => handleFocus('subject')}
-                      onBlur={handleBlur}
-                      placeholder="What's this about?"
-                      className={`w-full px-6 py-4 bg-eerie-black-2/50 backdrop-blur-sm border rounded-2xl text-white-1 placeholder-white-2/60 focus:outline-none transition-all duration-500 hover:bg-eerie-black-2/70 ${
-                        errors.subject
-                          ? 'border-red-500 focus:border-red-400 focus:shadow-lg focus:shadow-red-500/20'
-                          : focusedField === 'subject'
-                          ? 'border-cyan-500 focus:shadow-lg focus:shadow-cyan-500/20'
-                          : 'border-jet hover:border-jet/70'
-                      }`}
-                      required
-                    />
-                    {focusedField === 'subject' && (
-                      <motion.div
-                        initial={{ scale: 0 }}
-                        animate={{ scale: 1 }}
-                        className="absolute -top-1 -right-1 w-3 h-3 bg-cyan-500 rounded-full"
-                      />
-                    )}
-                  </div>
+                  <Input
+                    type="text"
+                    name="subject"
+                    value={formData.subject}
+                    onChange={handleInputChange}
+                    onFocus={() => handleFocus('subject')}
+                    onBlur={handleBlur}
+                    placeholder="What's this about?"
+                    variant="glass"
+                    size="lg"
+                    leftIcon={<FileText className="w-4 h-4" />}
+                    className={errors.subject ? 'border-red-500' : ''}
+                    required
+                  />
                   <AnimatePresence>
                     {errors.subject && (
                       <motion.div
@@ -715,66 +690,31 @@ const Contact: React.FC = () => {
                   className="text-center pt-4 animate-scale-in"
                   style={{ animationDelay: '1.6s' }}
                 >
-                  <motion.button
+                  <Button
                     type="submit"
+                    variant="gradient"
+                    size="xl"
                     disabled={isSubmitting}
-                    whileHover={
-                      !isSubmitting && performanceMode !== 'low'
-                        ? { scale: 1.05 }
-                        : {}
-                    }
-                    whileTap={{ scale: isSubmitting ? 1 : 0.95 }}
-                    className="relative group px-12 py-4 bg-gradient-to-r from-orange-500 to-purple-600 hover:from-orange-600 hover:to-purple-700 text-white-1 font-semibold rounded-2xl transition-all duration-500 shadow-xl shadow-orange-500/25 hover:shadow-orange-500/40 disabled:opacity-50 disabled:cursor-not-allowed overflow-hidden"
-                  >
-                    <div className="absolute inset-0 bg-gradient-to-r from-orange-400/20 to-purple-500/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-
-                    <div className="relative z-10 flex items-center gap-3">
-                      {isSubmitting ? (
-                        <motion.div
-                          animate={{ rotate: 360 }}
-                          transition={{
-                            duration: 1,
-                            repeat: Infinity,
-                            ease: 'linear',
-                          }}
-                        >
-                          <Loader className="w-5 h-5" />
-                        </motion.div>
-                      ) : submitStatus === 'success' ? (
+                    loading={isSubmitting}
+                    leftIcon={
+                      submitStatus === 'success' ? (
                         <CheckCircle className="w-5 h-5" />
                       ) : submitStatus === 'error' ? (
                         <AlertCircle className="w-5 h-5" />
                       ) : (
-                        <motion.div
-                          whileHover={performanceMode !== 'low' ? { x: 5 } : {}}
-                          transition={{ duration: 0.2 }}
-                        >
-                          <Send className="w-5 h-5" />
-                        </motion.div>
-                      )}
-
-                      <span>
-                        {isSubmitting
-                          ? 'Sending...'
-                          : submitStatus === 'success'
-                          ? 'Message Sent!'
-                          : submitStatus === 'error'
-                          ? 'Send Failed - Try Again'
-                          : 'Send Message'}
-                      </span>
-
-                      {!isSubmitting &&
-                        submitStatus === 'idle' &&
-                        performanceMode === 'high' && (
-                          <motion.div
-                            animate={{ x: [0, 5, 0] }}
-                            transition={{ duration: 1.5, repeat: Infinity }}
-                          >
-                            <ChevronRight className="w-5 h-5" />
-                          </motion.div>
-                        )}
-                    </div>
-                  </motion.button>
+                        <Send className="w-5 h-5" />
+                      )
+                    }
+                    className="px-12 py-4"
+                  >
+                    {isSubmitting
+                      ? 'Sending...'
+                      : submitStatus === 'success'
+                      ? 'Message Sent!'
+                      : submitStatus === 'error'
+                      ? 'Send Failed - Try Again'
+                      : 'Send Message'}
+                  </Button>
                 </div>
 
                 {/* Status Messages */}

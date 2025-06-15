@@ -2,6 +2,9 @@
 
 import Link from 'next/link'
 import { Calendar, Clock, ArrowRight, BookOpen, Tag } from 'lucide-react'
+import { Button } from '@/components/ui/Button'
+import { Typography } from '@/components/ui/Typography'
+// import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/Card'
 
 interface BlogProps {
   locale: string
@@ -42,90 +45,97 @@ export default function Blog({ locale }: BlogProps) {
   }
 
   return (
-    <section className="blog-section">
-      <div className="container mx-auto px-4">
+    <section className="blog-section relative">
+      {/* Glass background effects */}
+      <div className="absolute inset-0 pointer-events-none opacity-10">
+        <div className="absolute inset-0 bg-gradient-to-br from-blue-500/20 to-purple-500/20" />
+        <div className="absolute top-20 left-10 w-72 h-72 bg-blue-500/10 rounded-full blur-3xl" />
+        <div className="absolute bottom-20 right-10 w-96 h-96 bg-purple-500/10 rounded-full blur-3xl" />
+      </div>
+
+      <div className="container mx-auto px-4 relative z-10">
         {/* Section Header */}
-        <header className="mb-12 text-center">
-                      <h2 className="text-3xl md:text-4xl font-bold text-portfolio-text-primary mb-4">
+        <header className="mb-16 text-center">
+          <Typography variant="hero" color="glass" className="mb-6">
             Technical Blog
-          </h2>
-          <p className="text-lg text-portfolio-text-secondary max-w-2xl mx-auto mb-6">
+          </Typography>
+          <Typography variant="body-lg" color="glass-secondary" className="max-w-3xl mx-auto mb-8 leading-relaxed">
             Insights, tutorials, and deep dives into game development, Unity optimization, and software architecture.
-          </p>
+          </Typography>
 
           {/* Blog Stats */}
-          <div className="flex items-center justify-center gap-8 text-sm text-portfolio-text-secondary">
-            <div className="flex items-center gap-2">
-              <BookOpen className="w-4 h-4 text-portfolio-accent" />
-              <span>{featuredPosts.length} Featured Articles</span>
+          <div className="flex items-center justify-center gap-8">
+            <div className="flex items-center gap-3 glass-secondary px-6 py-3 rounded-xl border border-glass-border">
+              <BookOpen className="w-5 h-5 text-glass-accent" />
+              <span className="text-glass-text-primary font-medium">{featuredPosts.length} Featured Articles</span>
             </div>
-            <div className="flex items-center gap-2">
-              <Tag className="w-4 h-4 text-portfolio-accent" />
-              <span>Game Development Focus</span>
+            <div className="flex items-center gap-3 glass-secondary px-6 py-3 rounded-xl border border-glass-border">
+              <Tag className="w-5 h-5 text-glass-accent" />
+              <span className="text-glass-text-primary font-medium">Game Development Focus</span>
             </div>
           </div>
         </header>
 
         {/* Featured Posts */}
-        <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-2 mb-12">
+        <div className="grid gap-8 md:grid-cols-2 mb-16">
           {featuredPosts.map((post) => (
             <article
               key={post.slug}
-              className="bg-portfolio-surface-secondary border border-border rounded-xl overflow-hidden hover:border-portfolio-accent/50 transition-all duration-300 group hover:transform hover:scale-[1.02]"
+              className="glass-secondary glass-hover rounded-3xl overflow-hidden shadow-glass-lg hover:shadow-glass-glow transition-all duration-300 group border border-glass-border"
             >
-              <div className="p-6">
+              <div className="p-8">
                 {/* Featured Badge */}
                 <div className="mb-4">
-                  <span className="inline-block px-3 py-1 text-xs font-semibold bg-portfolio-accent text-portfolio-accent-foreground rounded-full">
+                  <span className="inline-block px-4 py-2 text-sm font-semibold bg-gradient-to-r from-glass-accent to-glass-accent-secondary text-white rounded-lg">
                     Featured
                   </span>
                 </div>
 
                 {/* Category */}
-                <div className="mb-3">
-                  <span className="text-sm text-portfolio-accent font-medium uppercase tracking-wide">
+                <div className="mb-4">
+                  <span className="text-sm text-glass-accent font-medium uppercase tracking-wide">
                     {post.category}
                   </span>
                 </div>
 
                 {/* Title */}
-                <h3 className="text-xl font-semibold text-portfolio-text-primary mb-3 group-hover:text-portfolio-accent transition-colors line-clamp-2">
+                <Typography variant="h2" color="glass" className="mb-4 group-hover:text-glass-accent transition-colors line-clamp-2">
                   <Link href={`/blog/${post.slug}`} className="hover:underline">
                     {post.title}
                   </Link>
-                </h3>
+                </Typography>
 
                 {/* Excerpt */}
-                <p className="text-portfolio-text-secondary mb-4 line-clamp-3 leading-relaxed">
+                <p className="text-glass-text-secondary mb-6 line-clamp-3 leading-relaxed text-lg">
                   {post.excerpt}
                 </p>
 
                 {/* Meta Info */}
-                <div className="flex items-center gap-4 text-sm text-portfolio-text-secondary mb-4">
-                  <div className="flex items-center gap-1">
-                    <Calendar className="w-4 h-4" />
-                    {formatDate(post.date)}
+                <div className="flex items-center gap-6 text-sm text-glass-text-muted mb-6">
+                  <div className="flex items-center gap-2">
+                    <Calendar className="w-4 h-4 text-glass-accent" />
+                    <span className="text-glass-text-primary font-medium">{formatDate(post.date)}</span>
                   </div>
-                  <div className="flex items-center gap-1">
-                    <Clock className="w-4 h-4" />
-                    {post.readingTime} min read
+                  <div className="flex items-center gap-2">
+                    <Clock className="w-4 h-4 text-glass-accent" />
+                    <span className="text-glass-text-primary font-medium">{post.readingTime} min read</span>
                   </div>
                 </div>
 
                 {/* Tags */}
                 {post.tags.length > 0 && (
-                  <div className="flex flex-wrap gap-2 mb-4">
+                  <div className="flex flex-wrap gap-2 mb-6">
                     {post.tags.slice(0, 3).map((tag) => (
                       <span
                         key={tag}
-                        className="inline-flex items-center gap-1 px-2 py-1 text-xs bg-portfolio-surface-tertiary border border-border rounded text-portfolio-text-secondary"
+                        className="inline-flex items-center gap-1 px-3 py-1 text-sm glass-tertiary border border-glass-border rounded-lg hover:text-glass-accent transition-colors"
                       >
                         <Tag className="w-3 h-3" />
                         {tag}
                       </span>
                     ))}
                     {post.tags.length > 3 && (
-                      <span className="text-xs text-portfolio-text-secondary">
+                      <span className="text-sm text-glass-text-muted">
                         +{post.tags.length - 3} more
                       </span>
                     )}
@@ -135,10 +145,10 @@ export default function Blog({ locale }: BlogProps) {
                 {/* Read More Link */}
                 <Link
                   href={`/blog/${post.slug}`}
-                  className="inline-flex items-center gap-2 text-portfolio-accent hover:text-portfolio-accent/80 font-medium text-sm transition-colors group-hover:gap-3"
+                  className="inline-flex items-center gap-2 text-glass-accent hover:text-glass-accent-light font-semibold text-lg transition-colors"
                 >
                   Read Article
-                  <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+                  <ArrowRight className="w-5 h-5" />
                 </Link>
               </div>
             </article>
@@ -147,30 +157,35 @@ export default function Blog({ locale }: BlogProps) {
 
         {/* Call to Action */}
         <div className="text-center">
-          <Link
-            href="/blog"
-            className="inline-flex items-center gap-3 px-8 py-4 bg-gradient-to-r from-portfolio-accent to-portfolio-accent/80 text-portfolio-accent-foreground font-semibold rounded-xl hover:from-portfolio-accent/90 hover:to-portfolio-accent/70 transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl"
+          <Button
+            variant="gradient"
+            size="xl"
+            asChild
           >
-            <BookOpen className="w-5 h-5" />
-            View All Articles
-            <ArrowRight className="w-5 h-5" />
-          </Link>
+            <Link href="/blog" className="inline-flex items-center gap-3">
+              <BookOpen className="w-6 h-6" />
+              View All Articles
+              <ArrowRight className="w-6 h-6" />
+            </Link>
+          </Button>
         </div>
 
         {/* Additional Info */}
-        <div className="mt-12 text-center">
-          <p className="text-portfolio-text-secondary text-sm">
-            Want to stay updated? Follow me on{' '}
-            <a
-              href="https://www.linkedin.com/in/william186/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-portfolio-accent hover:underline"
-            >
-              LinkedIn
-            </a>{' '}
-            for the latest articles and insights.
-          </p>
+        <div className="mt-16 text-center">
+          <div className="glass-secondary rounded-2xl p-8 max-w-2xl mx-auto border border-glass-border">
+            <p className="text-glass-text-primary text-lg">
+              Want to stay updated? Follow me on{' '}
+              <a
+                href="https://www.linkedin.com/in/william186/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-glass-accent hover:text-glass-accent-light hover:underline transition-colors font-medium"
+              >
+                LinkedIn
+              </a>{' '}
+              for the latest articles and insights.
+            </p>
+          </div>
         </div>
       </div>
     </section>

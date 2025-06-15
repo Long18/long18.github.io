@@ -167,21 +167,31 @@ export default function MainApp({ locale }: MainAppProps) {
 
   return (
     <ThemeProvider>
-      {/* Portfolio layout with original orange/yellow color scheme */}
-      <div className="min-h-screen bg-portfolio-surface-primary text-portfolio-text-primary relative overflow-hidden">
-        {/* Subtle background effects with orange/purple gradients */}
-        <div className="absolute inset-0 opacity-[0.03]">
-          <div
-            className="absolute inset-0"
-            style={{
-              backgroundImage: `radial-gradient(circle at 1px 1px, rgba(251,146,60,0.15) 1px, transparent 0)`,
-              backgroundSize: '20px 20px',
-            }}
-          />
+      {/* Liquid Glass Portfolio Layout */}
+      <div className="min-h-screen bg-background text-glass-text-primary relative overflow-hidden">
+        {/* Glass Background Effects */}
+        <div className="absolute inset-0">
+          {/* Primary gradient background */}
+          <div className="absolute inset-0 bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900" />
+
+          {/* Glass texture overlay */}
+          <div className="absolute inset-0 opacity-[0.02]">
+            <div
+              className="absolute inset-0"
+              style={{
+                backgroundImage: `radial-gradient(circle at 1px 1px, rgba(103, 126, 234, 0.1) 1px, transparent 0)`,
+                backgroundSize: '20px 20px',
+              }}
+            />
+          </div>
+
+          {/* Floating glass orbs */}
+          <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-glass-accent/5 rounded-full blur-3xl glass-float" />
+          <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-glass-accent-secondary/5 rounded-full blur-3xl glass-float" style={{ animationDelay: '2s' }} />
         </div>
 
-        {/* Header Navigation - Fixed/Floating */}
-        <header className="fixed top-0 left-0 right-0 z-50 bg-portfolio-surface-primary/90 backdrop-blur-md border-b border-border/20 md:bg-transparent md:backdrop-blur-none md:border-none md:relative">
+        {/* Glass Header Navigation - Fixed/Floating */}
+        <header className="fixed top-0 left-0 right-0 z-50 glass-nav border-b border-glass-border md:bg-transparent md:backdrop-blur-none md:border-none md:relative">
           <div className="w-full flex items-center justify-end p-4">
             <Navigation
               activeSection={activeSection}
@@ -192,24 +202,27 @@ export default function MainApp({ locale }: MainAppProps) {
 
         {/* Main Layout Container */}
         <div className="relative z-10 flex flex-col md:flex-row min-h-screen pt-16 md:pt-0 pb-24 md:pb-0">
-          {/* Desktop Sidebar */}
-          <aside className="hidden lg:block w-80 lg:w-96 xl:w-[420px] 2xl:w-[480px] bg-portfolio-surface-secondary/60 backdrop-blur-xl">
+          {/* Glass Desktop Sidebar */}
+          <aside className="hidden lg:block w-80 lg:w-96 xl:w-[420px] 2xl:w-[480px] glass-sidebar">
             <Sidebar locale={locale} />
           </aside>
 
-                      {/* Main Content Area */}
+                      {/* Glass Main Content Area */}
             <main className="flex-1 relative overflow-hidden">
-              {/* Background gradient overlay */}
-              <div className="absolute inset-0 bg-gradient-to-b from-portfolio-surface-secondary/50 via-transparent to-portfolio-surface-primary/30 pointer-events-none" />
+              {/* Glass background overlay */}
+              <div className="absolute inset-0 bg-gradient-to-b from-glass-surface-secondary via-transparent to-glass-surface-primary pointer-events-none" />
 
-              {/* Scrollable Content */}
+              {/* Glass Scrollable Content */}
               <div className="relative z-10 scroll-smooth-enhanced transition-all duration-300 ease-out overflow-auto h-full main-content-mobile">
                 <div className="container mx-auto px-6 sm:px-8 lg:px-12 xl:px-16 py-8 sm:py-12 pb-24 lg:pb-12 max-w-7xl">
                   <div
                     key={activeSection}
                     className="content-section animate-fadeIn min-h-[calc(100vh-8rem)]"
                   >
-                    {renderSection()}
+                    {/* Glass content wrapper */}
+                    <div className="glass-card rounded-3xl p-8 glass-hover glass-shimmer">
+                      {renderSection()}
+                    </div>
                   </div>
                 </div>
               </div>

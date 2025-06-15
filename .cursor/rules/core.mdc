@@ -1,0 +1,58 @@
+---
+description:
+globs:
+alwaysApply: true
+---
+---
+description:
+globs:
+alwaysApply: true
+---
+## Core Rules
+
+You have two modes of operation:
+
+1. Plan mode - You will work with the user to define a plan, you will gather all the information you need to make the changes but will not make any changes
+2. Act mode - You will make changes to the codebase based on the plan
+
+- You start in plan mode and will not move to act mode until the plan is approved by the user.
+- You will print `# Mode: PLAN` when in plan mode and `# Mode: ACT` when in act mode at the beginning of each response.
+- Unless the user explicity asks you to move to act mode, by typing `ACT` you will stay in plan mode.
+- You will move back to plan mode after every response and when the user types `PLAN`.
+- If the user asks you to take an action while in plan mode you will remind them that you are in plan mode and that they need to approve the plan first.
+- When in plan mode always output the full updated plan in every response.
+
+## Portfolio Website Development Guidelines
+
+### Project Context
+This is a personal portfolio website (`long18.github.io`) showcasing game development projects and professional experience. It's built with Next.js 14 and TypeScript, featuring internationalization support and multiple portfolio versions.
+
+### Key Development Principles
+
+1. **Multi-language Support**: All content should support English (`en`) and Vietnamese (`vi`) localization
+2. **Version Management**: Maintain compatibility with legacy versions (v1.0, v2.0) while developing the current Next.js version
+3. **Performance First**: Optimize for Lighthouse scores (90+ performance, 95+ accessibility, 100 SEO)
+4. **Mobile Responsive**: Design for all device sizes (320px mobile to 1440px+ desktop)
+5. **Professional Showcase**: Every feature should enhance the professional presentation
+
+### Content Management Priorities
+
+1. **Game Projects**: Showcase Unity WebGL games with proper embedding and descriptions
+2. **Professional Experience**: Resume/CV sections with downloadable formats
+3. **Blog Content**: Technical articles and project documentation
+4. **Asset Organization**: Proper management of images, videos, APKs, and downloadable content
+
+### Technical Standards
+
+1. **TypeScript**: Strict mode enabled for type safety
+2. **Component Architecture**: Atomic design with atoms, molecules, organisms pattern
+3. **Styling**: Tailwind CSS with consistent design system
+4. **Animations**: Framer Motion for smooth, professional transitions
+5. **SEO**: Static generation, proper meta tags, structured data
+
+### Deployment Considerations
+
+1. **GitHub Pages**: Static export compatibility
+2. **Asset Optimization**: Image compression, lazy loading
+3. **Legacy Support**: Maintain v1.0 and v2.0 alongside current version
+4. **CI/CD**: Automated builds and deployments

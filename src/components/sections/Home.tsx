@@ -2,11 +2,15 @@
 
 import React, { useRef, useState, useEffect } from 'react';
 import Image from 'next/image';
-import { Download, ArrowRight, MessageCircle } from 'lucide-react';
+import { Download, ArrowRight, MessageCircle, Sparkles } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { personalInfo } from '../../data/personal';
 import { mainSkills } from '../../data/skills';
 import SkillIcon from '../ui/SkillIcon';
+import GlassButton from '../ui/GlassButton';
+import { Button } from '../ui/Button';
+import { Typography } from '../ui/Typography';
+import { Card } from '../ui/Card';
 import { useAnimationPerformance } from '../../hooks/useAnimationPerformance';
 
 interface HomeProps {
@@ -137,17 +141,24 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
       ref={sectionRef}
       className="relative overflow-hidden py-12 sm:py-16 animate-fade-in-up"
     >
-      {/* Subtle accent patterns - unified with main design */}
+      {/* Glass accent patterns - Liquid Glass Design */}
       <div className="absolute inset-0 pointer-events-none opacity-20">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(251,146,60,0.05)_0%,transparent_50%)] animate-pulse-slow" />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(103,126,234,0.08)_0%,transparent_50%)] glass-pulse" />
         <div
-          className="absolute inset-0 bg-[radial-gradient(circle_at_80%_20%,rgba(168,85,247,0.03)_0%,transparent_50%)] animate-pulse-slow"
+          className="absolute inset-0 bg-[radial-gradient(circle_at_80%_20%,rgba(118,75,162,0.06)_0%,transparent_50%)] glass-pulse"
           style={{ animationDelay: '1s' }}
         />
         <div
-          className="absolute inset-0 bg-[radial-gradient(circle_at_20%_80%,rgba(6,182,212,0.03)_0%,transparent_50%)] animate-pulse-slow"
+          className="absolute inset-0 bg-[radial-gradient(circle_at_20%_80%,rgba(96,165,250,0.06)_0%,transparent_50%)] glass-pulse"
           style={{ animationDelay: '2s' }}
         />
+      </div>
+
+      {/* Floating glass orbs */}
+      <div className="absolute inset-0 pointer-events-none">
+        <div className="absolute top-1/4 left-1/3 w-64 h-64 bg-glass-accent/3 rounded-full blur-3xl glass-float" />
+        <div className="absolute bottom-1/3 right-1/4 w-48 h-48 bg-glass-accent-secondary/3 rounded-full blur-3xl glass-float" style={{ animationDelay: '2s' }} />
+        <div className="absolute top-2/3 left-1/4 w-32 h-32 bg-glass-accent-light/3 rounded-full blur-2xl glass-float" style={{ animationDelay: '4s' }} />
       </div>
 
       <div className="relative z-10">
@@ -156,126 +167,108 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
           {/* Left Content */}
           <div className="max-w-xl animate-slide-in-left">
             {/* Greeting */}
-            <div
-              className="text-lg sm:text-xl font-semibold text-white-2 mb-4 animate-fade-in"
+            <Typography
+              variant="body-lg"
+              color="glass-secondary"
+              className="mb-4 animate-fade-in"
               style={{ animationDelay: '0.2s' }}
             >
               Hello, I&apos;m
-            </div>
+            </Typography>
 
-            {/* Name with gradient */}
-            <h1
-              className="text-4xl sm:text-5xl font-extrabold leading-tight mb-2 animate-fade-in-up"
+            {/* Name with modern gradient */}
+            <Typography
+              variant="hero"
+              className="mb-2 animate-fade-in-up animate-gradient-shift"
               style={{ animationDelay: '0.4s' }}
             >
-              <span className="block text-transparent bg-clip-text bg-gradient-to-r from-orange-400 to-purple-500 animate-gradient-shift">
-                {personalInfo.displayName}
-              </span>
-            </h1>
+              {personalInfo.displayName}
+            </Typography>
 
-            {/* Title and subtitle */}
+            {/* Title and subtitle with modern styling */}
             <div
               className="flex flex-col sm:flex-row sm:gap-4 mb-8 animate-fade-in-up"
               style={{ animationDelay: '0.6s' }}
             >
-              <h2 className="text-3xl sm:text-4xl font-bold text-portfolio-text-primary leading-tight mb-2 sm:mb-0">
+              <Typography variant="display" color="glass" className="mb-2 sm:mb-0">
                 Game Developer
-              </h2>
-              <p className="text-lg sm:text-xl text-white-2 leading-relaxed">
+              </Typography>
+              <Typography variant="body-lg" color="glass-secondary" className="leading-relaxed">
                 Creating immersive experiences with Unity & Unreal Engine
-              </p>
+              </Typography>
             </div>
 
-            {/* CTA Buttons */}
+            {/* Modern CTA Buttons */}
             <div
               className="space-y-6 animate-fade-in-up"
               style={{ animationDelay: '0.8s' }}
             >
-              {/* Primary CTA */}
-              <motion.button
-                whileTap={{ scale: 0.98 }}
+              {/* Primary Modern CTA */}
+              <Button
+                variant="gradient"
+                size="xl"
                 onClick={() => handleNavigation('portfolio', 'viewWork')}
-                disabled={buttonStates.viewWork.isLoading}
-                className="group relative inline-flex items-center justify-center w-full sm:w-auto px-12 py-5 text-xl font-bold text-white bg-gradient-to-r from-orange-500 via-orange-600 to-purple-600 rounded-2xl shadow-2xl hover:shadow-orange-500/25 transition-all duration-500 transform hover:scale-105 hover:-translate-y-3 focus:outline-none focus:ring-4 focus:ring-orange-500/50 disabled:opacity-70 disabled:cursor-not-allowed disabled:transform-none overflow-hidden animate-scale-in"
+                loading={buttonStates.viewWork.isLoading}
+                leftIcon={<Sparkles className="w-5 h-5" />}
+                rightIcon={<ArrowRight className="w-5 h-5" />}
+                className="w-full sm:w-auto text-xl font-bold animate-scale-in"
                 aria-label="View my portfolio"
               >
-                {buttonStates.viewWork.isLoading ? (
-                  <>
-                    <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-white mr-3"></div>
-                    <span className="relative z-10">Loading...</span>
-                  </>
-                ) : (
-                  <>
-                    <span className="relative z-10 mr-3">Explore My Games</span>
-                    <ArrowRight className="w-6 h-6 transition-transform group-hover:translate-x-2 group-hover:scale-110" />
-                  </>
-                )}
+                Explore My Games
+              </Button>
 
-                {/* Enhanced background gradient */}
-                <div className="absolute inset-0 bg-gradient-to-r from-orange-400 to-purple-500 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-
-                {/* Shine effects */}
-                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/40 to-transparent skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 ease-out"></div>
-                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-orange-300/30 to-transparent -skew-x-12 translate-x-full group-hover:-translate-x-full transition-transform duration-1200 ease-out"></div>
-
-                {/* Ripple effect */}
-                {buttonStates.viewWork.isPressed && (
-                  <div className="absolute inset-0 rounded-2xl animate-ping bg-white/30"></div>
-                )}
-              </motion.button>
-
-              {/* Secondary Actions */}
+              {/* Modern Secondary Actions */}
               <div
-                className="flex items-center justify-center gap-8 text-sm animate-fade-in"
+                className="flex items-center justify-center gap-6 text-sm animate-fade-in"
                 style={{ animationDelay: '1s' }}
               >
-                {/* Download Resume */}
-                <motion.a
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                  href={personalInfo.resume}
-                  download="William_Resume.pdf"
-                  onClick={handleResumeDownload}
-                  className="group flex items-center gap-2 text-white-2 hover:text-orange-400 transition-all duration-300 border-b border-transparent hover:border-orange-400/50 animate-float"
+                {/* Modern Download Resume Button */}
+                <Button
+                  variant="glass"
+                  size="lg"
+                  asChild
+                  className="animate-float"
                   aria-label="Download resume PDF"
                 >
-                  {buttonStates.downloadResume.isLoading ? (
-                    <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-gray-400"></div>
-                  ) : buttonStates.downloadResume.isSuccess ? (
-                    <div className="w-4 h-4 text-green-400 animate-bounce">
-                      <svg viewBox="0 0 20 20" fill="currentColor">
-                        <path
-                          fillRule="evenodd"
-                          d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                          clipRule="evenodd"
-                        />
-                      </svg>
-                    </div>
-                  ) : (
-                    <Download className="w-4 h-4 group-hover:animate-bounce transition-transform duration-300" />
-                  )}
-                  <span className="font-medium">Download Resume</span>
-                </motion.a>
+                  <a
+                    href={personalInfo.resume}
+                    download="William_Resume.pdf"
+                    onClick={handleResumeDownload}
+                    className="inline-flex items-center gap-2"
+                  >
+                    {buttonStates.downloadResume.isSuccess ? (
+                      <div className="w-4 h-4 text-green-400 animate-bounce">
+                        <svg viewBox="0 0 20 20" fill="currentColor">
+                          <path
+                            fillRule="evenodd"
+                            d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                            clipRule="evenodd"
+                          />
+                        </svg>
+                      </div>
+                    ) : (
+                      <Download className="w-4 h-4" />
+                    )}
+                    Download Resume
+                  </a>
+                </Button>
 
-                {/* Divider */}
-                <div className="w-px h-4 bg-jet"></div>
+                {/* Modern divider */}
+                <div className="w-px h-6 bg-border"></div>
 
-                {/* Contact Link */}
-                <motion.button
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
+                {/* Modern Contact Button */}
+                <Button
+                  variant="outline"
+                  size="lg"
                   onClick={() => handleNavigation('contact', 'contact')}
-                  className="group flex items-center gap-2 text-white-2 hover:text-purple-400 transition-all duration-300 border-b border-transparent hover:border-purple-400/50 animate-float"
+                  loading={buttonStates.contact.isLoading}
+                  leftIcon={<MessageCircle className="w-4 h-4" />}
+                  className="animate-float"
                   style={{ animationDelay: '0.5s' }}
                   aria-label="Navigate to contact section"
                 >
-                  {buttonStates.contact.isLoading ? (
-                    <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-gray-400"></div>
-                  ) : (
-                    <MessageCircle className="w-4 h-4 group-hover:scale-110 transition-transform duration-300" />
-                  )}
-                  <span className="font-medium">Get In Touch</span>
-                </motion.button>
+                  Get In Touch
+                </Button>
               </div>
             </div>
           </div>

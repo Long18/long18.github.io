@@ -17,6 +17,10 @@ import { cn } from '@/utils';
 import DownloadStatsDisplay from './DownloadStatsDisplay';
 import { getProjectDownloadStats } from '@/data/assetPaths';
 import { createPortal } from 'react-dom';
+// Modern components ready for future use
+// import { Button } from '@/components/ui/Button';
+// import { Typography } from '@/components/ui/Typography';
+// import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/Card';
 
 interface ProjectDetailProps {
   project: Project | null;
