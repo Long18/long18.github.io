@@ -76,16 +76,17 @@ const Typography = React.forwardRef<HTMLElement, TypographyProps>(
       }
     }
 
-    const Element = getElement() as any
+    const Element = getElement()
 
-    return (
-      <Element
-        ref={ref}
-        className={cn(typographyVariants({ variant, color, align, className }))}
-        {...props}
-      >
-        {children}
-      </Element>
+    // Create element with proper typing
+    return React.createElement(
+      Element,
+      {
+        ref,
+        className: cn(typographyVariants({ variant, color, align, className })),
+        ...props,
+      },
+      children
     )
   }
 )

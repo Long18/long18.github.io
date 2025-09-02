@@ -16,8 +16,6 @@ import {
 } from 'lucide-react';
 import { useTheme, type ColorTheme, colorThemes } from '@/context/ThemeContext';
 import { useTranslation } from 'react-i18next';
-import { Button } from '@/components/ui/Button';
-import { Typography } from '@/components/ui/Typography';
 import { cn } from '@/utils';
 
 const navigation = [

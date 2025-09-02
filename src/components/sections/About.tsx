@@ -6,12 +6,8 @@ import Image from 'next/image';
 import { personalInfo } from '@/data/personal';
 import { skillCategories } from '@/data/skills';
 import SkillIcon from '@/components/ui/SkillIcon';
-import GlassButton from '@/components/ui/GlassButton';
-import { Button } from '@/components/ui/Button';
-import { Typography } from '@/components/ui/Typography';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/Card';
+import { AnimatedButton, AnimatedText } from '../ui';
 import { useAnimationPerformance } from '../../hooks/useAnimationPerformance';
-import { getGlassClasses } from '@/lib/utils';
 import {
   Briefcase,
   Code,
@@ -273,22 +269,28 @@ export default function About({ className = '' }: AboutProps) {
 
                 {/* Name and Title with modern typography */}
                 <div className="text-center mb-6">
-                  <Typography
-                    variant="h2"
-                    color="gradient"
+                  <AnimatedText
+                    as="h2"
+                    variant="gradient"
+                    size="2xl"
+                    weight="bold"
+                    animation="slideUp"
                     className="mb-2 animate-fade-in-up animate-gradient-shift"
                   >
                     {personalInfo.displayName}
-                  </Typography>
+                  </AnimatedText>
 
-                  <Typography
-                    variant="body-lg"
-                    color="glass-secondary"
-                    className="flex items-center justify-center gap-2 animate-fade-in"
+                  <AnimatedText
+                    as="p"
+                    variant="default"
+                    size="lg"
+                    weight="normal"
+                    animation="fadeIn"
+                    className="flex items-center justify-center gap-2 text-glass-text-secondary"
                   >
                     <Sparkles className="w-5 h-5 text-glass-accent" />
                     {personalInfo.title}
-                  </Typography>
+                  </AnimatedText>
                 </div>
 
                 {/* Personal Info with icons */}
@@ -309,23 +311,24 @@ export default function About({ className = '' }: AboutProps) {
 
                 {/* Modern Download Resume Button */}
                 <div className="mt-6 animate-scale-in" style={{ animationDelay: '0.6s' }}>
-                  <Button
+                  <AnimatedButton
                     variant="gradient"
                     size="lg"
-                    asChild
+                    ripple={true}
+                    glow={true}
                     className="w-full font-semibold"
+                    onClick={() => {
+                      const link = document.createElement('a');
+                      link.href = personalInfo.resume;
+                      link.download = 'William_Resume.pdf';
+                      link.target = '_blank';
+                      link.rel = 'noopener noreferrer';
+                      link.click();
+                    }}
                   >
-                    <a
-                      href={personalInfo.resume}
-                      download="William_Resume.pdf"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex items-center justify-center gap-2"
-                    >
-                      <Download className="w-4 h-4" />
-                      Download Resume
-                    </a>
-                  </Button>
+                    <Download className="w-4 h-4" />
+                    Download Resume
+                  </AnimatedButton>
                 </div>
               </div>
             </motion.div>
@@ -347,7 +350,16 @@ export default function About({ className = '' }: AboutProps) {
                 >
                   <Target className="w-6 h-6 text-white" />
                 </motion.div>
-                <Typography variant="h1" color="glass">About Me</Typography>
+                <AnimatedText
+                  as="h1"
+                  variant="gradient"
+                  size="3xl"
+                  weight="bold"
+                  animation="slideUp"
+                  className="text-glass-text-primary"
+                >
+                  About Me
+                </AnimatedText>
               </div>
 
               {/* Glass typed text effect */}

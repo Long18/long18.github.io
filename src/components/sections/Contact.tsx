@@ -25,9 +25,9 @@ import {
 import { contactInfo } from '@/data/personal';
 import { sendContactEmail, type EmailData } from '@/services/emailService';
 import { professionalStats } from '../../data/skills';
+import { AnimatedText } from '../ui';
 import { Button } from '@/components/ui/Button';
 import { Typography } from '@/components/ui/Typography';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/Card';
 import { Input } from '@/components/ui/Input';
 import { useAnimationPerformance } from '../../hooks/useAnimationPerformance';
 // import { getGlassClasses } from '@/lib/utils';
@@ -174,14 +174,10 @@ const Contact: React.FC = () => {
 
   const sendEmail = async (data: EmailData): Promise<string> => {
     try {
-      console.log('🚀 Attempting to send email via EmailJS...', data);
       const result = await sendContactEmail(data);
       return result;
     } catch (error) {
-      console.error('❌ Failed to send email via EmailJS:', error);
-
       if (error instanceof Error && error.message.includes('not configured')) {
-        console.log('📖 EmailJS not configured, using mailto fallback');
         alert(
           '⚙️ EmailJS chưa được cấu hình. Sẽ mở email client để gửi email thủ công.\n\n📖 Xem docs/EMAILJS_SETUP.md để setup EmailJS'
         );
@@ -208,17 +204,12 @@ const Contact: React.FC = () => {
     setSubmitStatus('idle');
 
     try {
-      console.log('Form data being sent:', formData);
-
       const result = await sendEmail({
         name: formData.name,
         email: formData.email,
         subject: formData.subject,
         message: formData.message,
       });
-
-      console.log('Contact form submitted successfully:', formData);
-      console.log('Email send result:', result);
 
       setSubmitStatus('success');
       setFormData({
@@ -238,7 +229,6 @@ const Contact: React.FC = () => {
         );
       }
     } catch (error) {
-      console.error('Error opening email client:', error);
       setSubmitStatus('error');
       alert(
         'Sorry, there was an error opening your email client. Please contact me directly at us.thanhlong18@gmail.com'
@@ -341,42 +331,43 @@ const Contact: React.FC = () => {
             <span className="text-glass-accent font-semibold">Get In Touch</span>
           </div>
 
-          <Typography
-            variant="hero"
-            color="gradient"
+          <AnimatedText
+            as="h1"
+            variant="gradient"
+            size="4xl"
+            weight="bold"
+            animation="slideUp"
             className="mb-6 animate-fade-in-up"
             style={{ animationDelay: '0.2s' }}
           >
             Contact Me
-          </Typography>
+          </AnimatedText>
 
-          <Typography
-            variant="body-lg"
-            color="glass-secondary"
-            className="max-w-3xl mx-auto leading-relaxed mb-4 animate-fade-in"
+          <AnimatedText
+            as="p"
+            variant="default"
+            size="lg"
+            weight="normal"
+            animation="typewriter"
+            typewriterSpeed={50}
+            className="max-w-3xl mx-auto leading-relaxed mb-4 text-glass-text-secondary animate-fade-in"
             style={{ animationDelay: '0.3s' }}
           >
             {typedText}
-            {performanceMode !== 'low' && (
-              <motion.span
-                animate={{ opacity: [0, 1, 0] }}
-                transition={{ duration: 1, repeat: Infinity }}
-                className="text-glass-accent"
-              >
-                |
-              </motion.span>
-            )}
-          </Typography>
+          </AnimatedText>
 
-          <Typography
-            variant="body"
-            color="glass-secondary"
-            className="max-w-2xl mx-auto animate-fade-in opacity-80"
+          <AnimatedText
+            as="p"
+            variant="default"
+            size="base"
+            weight="normal"
+            animation="fadeIn"
+            className="max-w-2xl mx-auto text-glass-text-secondary animate-fade-in opacity-80"
             style={{ animationDelay: '0.4s' }}
           >
             Whether you have a project in mind, want to collaborate, or just say
             hello - I&apos;d love to hear from you!
-          </Typography>
+          </AnimatedText>
         </div>
 
         {/* Stats Section */}
@@ -692,8 +683,8 @@ const Contact: React.FC = () => {
                 >
                   <Button
                     type="submit"
-                    variant="gradient"
-                    size="xl"
+                    variant="primary"
+                    size="lg"
                     disabled={isSubmitting}
                     loading={isSubmitting}
                     leftIcon={

@@ -63,33 +63,33 @@ export default function Sidebar({ locale = 'en' }: SidebarProps) {
 
   return (
     <>
-      {/* Glass Desktop Sidebar - Liquid Glass Design */}
+      {/* Muted Desktop Sidebar - Serene Design */}
       <aside
         ref={sidebarRef}
         className="hidden lg:block w-80 lg:w-96 xl:w-[420px] 2xl:w-[480px] h-full
-                   glass-sidebar text-glass-text-primary
-                   relative overflow-hidden rounded-r-3xl border-r border-glass-border shadow-glass-xl"
+                   bg-muted-slate-600/60 backdrop-blur-md text-muted-text
+                   relative overflow-hidden rounded-r-3xl border-r border-muted-slate-400/30 shadow-xl"
       >
-        {/* Glass Sidebar Background */}
-        <div className="absolute inset-0 bg-gradient-to-br from-glass-surface-secondary via-glass-surface-primary to-glass-surface-secondary pointer-events-none" />
+        {/* Muted Sidebar Background */}
+        <div className="absolute inset-0 bg-gradient-to-br from-muted-slate-600/40 via-muted-slate-700/30 to-muted-slate-600/40 pointer-events-none" />
 
-        {/* Glass texture overlay */}
+        {/* Subtle texture overlay */}
         <div
           className="absolute inset-0 opacity-[0.02] pointer-events-none"
           style={{
-            backgroundImage: `radial-gradient(circle at 1px 1px, rgba(103, 126, 234, 0.8) 1px, transparent 0)`,
+            backgroundImage: `radial-gradient(circle at 1px 1px, rgba(168, 218, 220, 0.8) 1px, transparent 0)`,
             backgroundSize: '20px 20px',
           }}
         />
 
-        {/* Floating glass orbs */}
-        <div className="absolute top-20 right-10 w-32 h-32 bg-glass-accent/5 rounded-full blur-2xl glass-float" />
-        <div className="absolute bottom-40 left-10 w-24 h-24 bg-glass-accent-secondary/5 rounded-full blur-2xl glass-float" style={{ animationDelay: '3s' }} />
+        {/* Floating muted orbs */}
+        <div className="absolute top-20 right-10 w-32 h-32 bg-muted-lavender/5 rounded-full blur-2xl glass-float" />
+        <div className="absolute bottom-40 left-10 w-24 h-24 bg-muted-cyan/5 rounded-full blur-2xl glass-float" style={{ animationDelay: '3s' }} />
 
         <div className="relative z-10 p-6 lg:p-8 xl:p-10 h-full overflow-y-auto overscroll-contain flex flex-col">
-          {/* Glass Avatar and Info - Enhanced with glass effects */}
+          {/* Muted Avatar and Info - Enhanced with serene effects */}
           <div className="text-center mb-6 lg:mb-8">
-            <div className="relative w-24 h-24 lg:w-28 lg:h-28 xl:w-32 xl:h-32 mx-auto mb-4 lg:mb-6 overflow-hidden rounded-2xl lg:rounded-3xl shadow-glass-lg glass-glow">
+            <div className="relative w-24 h-24 lg:w-28 lg:h-28 xl:w-32 xl:h-32 mx-auto mb-4 lg:mb-6 overflow-hidden rounded-2xl lg:rounded-3xl shadow-lg hover:shadow-xl transition-shadow duration-500">
               <Image
                 src={personalInfo.avatar}
                 alt="Profile picture"
@@ -98,26 +98,26 @@ export default function Sidebar({ locale = 'en' }: SidebarProps) {
                 className="w-full h-full object-cover transition-transform duration-500 hover:scale-110"
                 priority
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-glass-accent/20 to-transparent opacity-0 hover:opacity-100 transition-opacity duration-500" />
+              <div className="absolute inset-0 bg-gradient-to-t from-muted-lavender/20 to-transparent opacity-0 hover:opacity-100 transition-opacity duration-500" />
 
-              {/* Glass status indicator */}
-              <div className="absolute -bottom-1 -right-1 w-6 h-6 bg-green-500 border-2 border-glass-surface-primary rounded-full flex items-center justify-center shadow-glass-glow">
+              {/* Muted status indicator */}
+              <div className="absolute -bottom-1 -right-1 w-6 h-6 bg-muted-cyan border-2 border-muted-slate-600 rounded-full flex items-center justify-center shadow-lg">
                 <div className="w-2 h-2 bg-white rounded-full animate-pulse"></div>
               </div>
             </div>
 
-            {/* Name with glass gradient text */}
-            <h2 className="text-lg lg:text-xl xl:text-2xl font-bold text-glass-text-primary mb-2 lg:mb-3 transition-colors duration-300 hover:text-glass-gradient leading-tight">
+            {/* Name with muted gradient text */}
+            <h2 className="text-lg lg:text-xl xl:text-2xl font-bold text-muted-text mb-2 lg:mb-3 transition-colors duration-300 hover:text-muted-lavender leading-tight">
               {personalInfo.fullName}
             </h2>
 
-            <p className="text-sm lg:text-base xl:text-lg text-glass-text-secondary mb-3 lg:mb-4 font-medium">
+            <p className="text-sm lg:text-base xl:text-lg text-muted-slate-300 mb-3 lg:mb-4 font-medium">
               {personalInfo.displayName}
             </p>
 
-            {/* Glass role badge */}
-            <div className="inline-flex items-center px-4 lg:px-6 py-2 lg:py-3 glass-primary border border-glass-accent/40 rounded-full shadow-glass-md glass-glow">
-              <span className="text-glass-accent text-sm lg:text-base font-semibold">
+            {/* Muted role badge */}
+            <div className="inline-flex items-center px-4 lg:px-6 py-2 lg:py-3 bg-muted-lavender/20 border border-muted-lavender/40 rounded-full shadow-md hover:shadow-lg transition-shadow duration-300">
+              <span className="text-muted-lavender text-sm lg:text-base font-semibold">
                 {personalInfo.title}
               </span>
             </div>

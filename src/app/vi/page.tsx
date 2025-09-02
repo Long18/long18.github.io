@@ -1,14 +1,11 @@
 import { Metadata } from 'next';
-import MainApp from '../../components/MainApp';
+import MainApp from '@/components/MainApp';
 
-export async function generateMetadata(): Promise<Metadata> {
-  return {
-    title: 'Lê Nguyễn Thành Long - William - Portfolio',
-    description: 'Passionate Game Developer with solid background of using Unreal Engine and Unity Engine in game development.',
-    metadataBase: new URL('https://long18.github.io'),
-  };
-}
+export const metadata: Metadata = {
+  title: 'Long Nguyen - Portfolio Nhà Phát Triển Game',
+  description: 'Portfolio chuyên nghiệp của nhà phát triển game, trình bày các dự án Unity, Unreal Engine và phát triển web.',
+};
 
 export default async function VietnamesePage() {
-  return <MainApp locale="vi" />;
+  return <MainApp />;
 }

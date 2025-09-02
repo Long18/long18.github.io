@@ -12,14 +12,8 @@ import { motion } from 'framer-motion';
 import { allProjects } from '@/data/assetPaths';
 import { Project } from '@/types/portfolio';
 import ProjectDetail from '../ProjectDetail';
-import GlassButton from '@/components/ui/GlassButton';
-import { Button } from '@/components/ui/Button';
-import { Typography } from '@/components/ui/Typography';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/Card';
-import { Input } from '@/components/ui/Input';
 import { useAnimationPerformance } from '../../hooks/useAnimationPerformance';
 import { colorSystem } from '@/lib/colors';
-import { getGlassClasses } from '@/lib/utils';
 
 // Project categories for the new portfolio structure
 const projectCategories = [

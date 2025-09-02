@@ -7,14 +7,6 @@ export default function LoadingOverlay() {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    // Performance tracking
-    if (window.performance) {
-      const pageLoadTime =
-        window.performance.timing.domContentLoadedEventEnd -
-        window.performance.timing.navigationStart;
-      console.log('Page load time:', pageLoadTime + 'ms');
-    }
-
     // Hide loading overlay after a short delay
     const timer = setTimeout(() => {
       setIsLoading(false);

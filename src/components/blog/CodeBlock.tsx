@@ -4,6 +4,7 @@ import React, { useState, useCallback } from 'react'
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter'
 import { Copy, Check, Code } from 'lucide-react'
 import { cn } from '@/utils'
+import { AnimatedButton } from '../ui'
 
 // Custom dark theme matching the specified colors
 const customDarkTheme = {
@@ -135,44 +136,52 @@ export default function CodeBlock({
   const displayLanguage = languageNames[detectedLanguage] || detectedLanguage.toUpperCase()
 
   return (
-    <div className={cn('relative group my-6', className)}>
-      {/* Header with language and filename */}
-      <div className="flex items-center justify-between bg-[#21252B] px-4 py-2 rounded-t-xl border border-b-0 border-[rgba(255,255,255,0.1)]">
-        <div className="flex items-center gap-2">
-          <Code className="w-4 h-4 text-[#ABB2BF]" />
-          <span className="text-sm font-medium text-[#ABB2BF]">
+    <div className={cn('relative group my-10 overflow-hidden bg-gray-900 border border-gray-700 rounded-xl shadow-2xl', className)}>
+      {/* Enhanced Header with language and filename */}
+              <div className="flex items-center justify-between bg-gradient-to-r from-gray-800 to-gray-700 px-6 py-4 border-b border-gray-600">
+        <div className="flex items-center gap-3">
+          <div className="flex gap-1.5">
+            <div className="w-3 h-3 rounded-full bg-red-400"></div>
+            <div className="w-3 h-3 rounded-full bg-yellow-400"></div>
+            <div className="w-3 h-3 rounded-full bg-green-400"></div>
+          </div>
+          <Code className="w-4 h-4 text-orange-400" />
+          <span className="text-sm font-bold text-white uppercase tracking-widest">
             {filename || displayLanguage}
           </span>
         </div>
 
-        {/* Copy Button */}
-        <button
+        {/* Enhanced Copy Button */}
+        <AnimatedButton
+          variant={copied ? "neon" : "glass"}
+          size="sm"
+          ripple={true}
+          glow={copied}
           onClick={handleCopy}
-          className={cn(
-            'flex items-center gap-2 px-3 py-1.5 rounded-md text-sm font-medium transition-all duration-200',
-            'bg-[rgba(255,255,255,0.1)] hover:bg-[rgba(255,255,255,0.2)]',
-            'text-[#ABB2BF] hover:text-white',
-            'border border-[rgba(255,255,255,0.1)] hover:border-[rgba(255,255,255,0.2)]',
-            copied && 'bg-[#98C379] text-white border-[#98C379]'
-          )}
           disabled={copied}
+          className={cn(
+            "text-sm font-bold uppercase tracking-wide transition-all duration-300",
+            copied
+              ? "text-green-400 border-green-400"
+              : "text-orange-400 hover:text-orange-300 border-orange-400/50 hover:border-orange-400"
+          )}
         >
           {copied ? (
             <>
-              <Check className="w-4 h-4" />
-              Copied!
+              <Check className="w-4 h-4 mr-2" />
+              COPIED!
             </>
           ) : (
             <>
-              <Copy className="w-4 h-4" />
-              Copy
+              <Copy className="w-4 h-4 mr-2" />
+              COPY
             </>
           )}
-        </button>
+        </AnimatedButton>
       </div>
 
-      {/* Code Content */}
-      <div className="relative overflow-hidden rounded-b-xl">
+      {/* Enhanced Code Content */}
+      <div className="relative overflow-hidden bg-gradient-to-br from-[#282C34] to-[#21252B]">
         <SyntaxHighlighter
           language={detectedLanguage}
           style={customDarkTheme}
@@ -189,9 +198,9 @@ export default function CodeBlock({
           })}
           customStyle={{
             margin: 0,
-            borderRadius: '0 0 12px 12px',
-            border: '1px solid rgba(255, 255, 255, 0.1)',
-            borderTop: 'none',
+            borderRadius: '0',
+            border: 'none',
+            background: 'transparent',
             fontSize: '14px',
             lineHeight: '1.5',
           }}
@@ -230,7 +239,7 @@ export default function CodeBlock({
             background: transparent;
           }
         `}</style>
+              </div>
       </div>
-    </div>
   )
 }

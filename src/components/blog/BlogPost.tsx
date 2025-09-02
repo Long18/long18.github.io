@@ -1,10 +1,11 @@
 'use client'
 
 import React from 'react'
-import { Calendar, Clock, User, Tag, ArrowLeft } from 'lucide-react'
+import { Calendar, Clock, User, Tag, ArrowLeft, Twitter, Linkedin } from 'lucide-react'
 import Link from 'next/link'
 import { BlogPost as BlogPostType } from '@/lib/blog'
 import MarkdownRenderer from './MarkdownRenderer'
+
 
 interface BlogPostProps {
   post: BlogPostType
@@ -22,15 +23,36 @@ export default function BlogPost({ post }: BlogPostProps) {
   }
 
   return (
-    <div className="relative">
-      {/* Glass background effects */}
-      <div className="absolute inset-0 pointer-events-none opacity-10">
+    <div className="relative min-h-screen w-full">
+      {/* Full-screen Glass background effects */}
+      <div className="fixed inset-0 pointer-events-none opacity-10 z-0">
         <div className="absolute inset-0 bg-gradient-to-br from-blue-500/20 to-purple-500/20" />
-        <div className="absolute top-20 left-10 w-72 h-72 bg-blue-500/10 rounded-full blur-3xl" />
-        <div className="absolute bottom-20 right-10 w-96 h-96 bg-purple-500/10 rounded-full blur-3xl" />
+
+        {/* Left side decorative elements */}
+        <div className="absolute top-20 left-4 w-32 h-32 bg-blue-500/10 rounded-full blur-2xl animate-pulse" />
+        <div className="absolute top-1/3 left-8 w-48 h-48 bg-cyan-500/8 rounded-full blur-3xl animate-pulse delay-1000" />
+        <div className="absolute bottom-32 left-12 w-24 h-24 bg-indigo-500/12 rounded-full blur-xl animate-pulse delay-3000" />
+
+        {/* Right side decorative elements */}
+        <div className="absolute top-32 right-4 w-40 h-40 bg-purple-500/10 rounded-full blur-2xl animate-pulse delay-500" />
+        <div className="absolute top-2/3 right-8 w-56 h-56 bg-violet-500/8 rounded-full blur-3xl animate-pulse delay-1500" />
+        <div className="absolute bottom-20 right-6 w-32 h-32 bg-pink-500/10 rounded-full blur-xl animate-pulse delay-2500" />
+
+        {/* Center large background */}
+        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[1000px] h-[800px] bg-purple-500/5 rounded-full blur-3xl animate-pulse delay-2000" />
+
+        {/* Additional ambient lighting */}
+        <div className="absolute top-0 left-1/4 w-96 h-96 bg-blue-400/5 rounded-full blur-3xl animate-pulse delay-4000" />
+        <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-purple-400/5 rounded-full blur-3xl animate-pulse delay-5000" />
       </div>
 
-      <article className="max-w-4xl mx-auto px-4 py-8 relative z-10">
+      {/* Side gradient overlays for visual flow */}
+      <div className="fixed left-0 top-0 bottom-0 w-32 bg-gradient-to-r from-black/20 to-transparent pointer-events-none z-5"></div>
+      <div className="fixed right-0 top-0 bottom-0 w-32 bg-gradient-to-l from-black/20 to-transparent pointer-events-none z-5"></div>
+
+      {/* Full-width container with proper content width */}
+      <div className="relative z-10 w-full">
+        <article className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 xl:px-12 py-8 sm:py-12 lg:py-16">
         {/* Header */}
         <header className="mb-12">
           <Link
@@ -90,7 +112,7 @@ export default function BlogPost({ post }: BlogPostProps) {
         </header>
 
         {/* Content - Dark theme consistent */}
-        <div className="blog-content rounded-3xl p-8 md:p-12 shadow-2xl">
+        <div className="blog-content rounded-3xl p-6 md:p-8 lg:p-12 shadow-2xl mx-auto">
           <div className="prose prose-xl max-w-none
             prose-headings:blog-text-primary prose-headings:font-bold
             prose-p:blog-text-secondary prose-p:leading-relaxed prose-p:text-lg
@@ -120,23 +142,26 @@ export default function BlogPost({ post }: BlogPostProps) {
             <p className="blog-text-primary mb-4 text-lg">
               Thanks for reading! If you found this article helpful, feel free to share it.
             </p>
-            <div className="flex justify-center gap-4">
+            <div className="flex flex-col sm:flex-row justify-center gap-4">
               <button
                 onClick={() => window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(post.title)}&url=${encodeURIComponent(window.location.href)}`, '_blank')}
-                className="px-6 py-3 blog-btn-primary rounded-lg font-medium"
+                className="inline-flex items-center justify-center px-6 py-3 blog-btn-primary rounded-lg font-medium"
               >
+                <Twitter className="w-4 h-4 mr-2" />
                 Share on Twitter
               </button>
               <button
                 onClick={() => window.open(`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(window.location.href)}`, '_blank')}
-                className="px-6 py-3 blog-btn-secondary rounded-lg font-medium"
+                className="inline-flex items-center justify-center px-6 py-3 blog-btn-secondary rounded-lg font-medium"
               >
+                <Linkedin className="w-4 h-4 mr-2" />
                 Share on LinkedIn
               </button>
             </div>
           </div>
         </footer>
-      </article>
+        </article>
+      </div>
     </div>
   )
 }

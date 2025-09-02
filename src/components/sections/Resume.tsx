@@ -3,12 +3,8 @@
 import React, { useRef, useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { experiences, education } from '@/data/experience';
-import GlassButton from '@/components/ui/GlassButton';
-import { Button } from '@/components/ui/Button';
 import { Typography } from '@/components/ui/Typography';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/Card';
 import { useAnimationPerformance } from '../../hooks/useAnimationPerformance';
-import { getGlassClasses } from '@/lib/utils';
 import {
   GraduationCap,
   Calendar,

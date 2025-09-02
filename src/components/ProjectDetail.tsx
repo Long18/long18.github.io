@@ -206,7 +206,7 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({
             animate={{ opacity: 1, backdropFilter: 'blur(12px)' }}
             exit={{ opacity: 0, backdropFilter: 'blur(0px)' }}
             transition={{ duration: 0.3, ease: 'easeOut' }}
-            className="fixed inset-0 bg-gradient-to-br from-smoky-black/95 via-eerie-black-1/90 to-smoky-black/95 backdrop-blur-xl z-[9999]"
+            className="fixed inset-0 bg-gradient-to-br from-muted-slate/95 via-muted-slate-700/90 to-muted-slate/95 backdrop-blur-xl z-[9999]"
             style={{
               position: 'fixed',
               top: 0,
@@ -245,15 +245,15 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({
               exit={{ opacity: 0, scale: 0.9, y: 50 }}
               transition={{ duration: 0.3, ease: 'easeOut' }}
               onClick={(e) => e.stopPropagation()}
-              className="relative w-full max-w-6xl xl:max-w-none h-[90vh] xl:h-[95vh] bg-gradient-to-br from-eerie-black-2/95 via-smoky-black/90 to-eerie-black-1/95 rounded-2xl shadow-2xl border border-jet/50 overflow-hidden flex flex-col"
+              className="relative w-full max-w-6xl xl:max-w-none h-[90vh] xl:h-[95vh] bg-gradient-to-br from-muted-slate-700/95 via-muted-slate-600/90 to-muted-slate-700/95 rounded-2xl shadow-2xl border border-muted-slate-400/50 overflow-hidden flex flex-col"
             >
               {/* Background Pattern */}
               <div className="absolute inset-0 opacity-[0.02] pointer-events-none">
-                <div className="absolute inset-0 bg-gradient-to-br from-orange-400/10 via-transparent to-orange-400/5" />
+                <div className="absolute inset-0 bg-gradient-to-br from-muted-lavender/10 via-transparent to-muted-cyan/5" />
                 <div
                   className="absolute inset-0"
                   style={{
-                    backgroundImage: `radial-gradient(circle at 1px 1px, rgba(251,146,60,0.15) 1px, transparent 0)`,
+                    backgroundImage: `radial-gradient(circle at 1px 1px, rgba(168,218,220,0.15) 1px, transparent 0)`,
                     backgroundSize: '20px 20px',
                   }}
                 />
@@ -272,11 +272,11 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({
               </div>
 
               {/* Enhanced Header with Better Visual Hierarchy */}
-              <div className="relative bg-gradient-to-r from-eerie-black-2/90 via-smoky-black/80 to-eerie-black-2/90 backdrop-blur-md border-b border-jet/50">
+              <div className="relative bg-gradient-to-r from-muted-slate-700/90 via-muted-slate-600/80 to-muted-slate-700/90 backdrop-blur-md border-b border-muted-slate-400/50">
                 {/* Header Background Effects */}
-                <div className="absolute inset-0 bg-gradient-to-r from-orange-400/5 via-transparent to-orange-400/5" />
-                <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-orange-400/40 to-transparent" />
-                <div className="absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-orange-400/60 to-transparent" />
+                <div className="absolute inset-0 bg-gradient-to-r from-muted-lavender/5 via-transparent to-muted-cyan/5" />
+                <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-muted-lavender/40 to-transparent" />
+                <div className="absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-muted-cyan/60 to-transparent" />
 
                 <div className="relative z-10 p-4 sm:p-6">
                   <div className="flex items-start justify-between gap-4">
@@ -284,8 +284,8 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({
                     <div className="flex-1 min-w-0 space-y-3">
                       {/* Category Badge */}
                       <div className="flex items-center gap-3">
-                        <span className="inline-flex items-center gap-2 px-3 py-1.5 bg-gradient-to-r from-orange-400/20 to-orange-500/20 text-orange-300 border border-orange-400/40 rounded-full text-xs font-semibold tracking-wide uppercase shadow-lg backdrop-blur-sm">
-                          <div className="w-1.5 h-1.5 bg-orange-400 rounded-full animate-pulse" />
+                        <span className="inline-flex items-center gap-2 px-3 py-1.5 bg-gradient-to-r from-muted-lavender/20 to-muted-cyan/20 text-muted-lavender border border-muted-lavender/40 rounded-full text-xs font-semibold tracking-wide uppercase shadow-lg backdrop-blur-sm">
+                          <div className="w-1.5 h-1.5 bg-muted-lavender rounded-full animate-pulse" />
                           {project.category.replace('-', ' ')}
                         </span>
 
@@ -309,16 +309,16 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({
                       {/* Project Title - Balanced Size */}
                       <h2
                         id="modal-title"
-                        className="text-xl sm:text-2xl md:text-3xl font-bold text-transparent bg-gradient-to-r from-white via-white-1 to-orange-200 bg-clip-text leading-tight"
+                        className="text-xl sm:text-2xl md:text-3xl font-bold text-transparent bg-gradient-to-r from-muted-text via-white to-muted-lavender bg-clip-text leading-tight"
                       >
                         {project.title}
                       </h2>
 
                       {/* Timeline with Enhanced Styling */}
                       <div className="flex items-center gap-3">
-                        <div className="flex items-center gap-2 px-3 py-1.5 bg-eerie-black-1/60 border border-jet/50 rounded-lg backdrop-blur-sm">
+                        <div className="flex items-center gap-2 px-3 py-1.5 bg-muted-slate-600/60 border border-muted-slate-400/50 rounded-lg backdrop-blur-sm">
                           <svg
-                            className="w-4 h-4 text-orange-400"
+                            className="w-4 h-4 text-muted-lavender"
                             fill="none"
                             stroke="currentColor"
                             viewBox="0 0 24 24"
@@ -330,14 +330,14 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({
                               d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
                             />
                           </svg>
-                          <span className="text-white-1 font-medium text-sm">
+                          <span className="text-muted-text font-medium text-sm">
                             {project.timeline}
                           </span>
                         </div>
 
                         {/* Download Stats Badge if available */}
                         {downloadStats && downloadStats.total > 0 && (
-                          <div className="flex items-center gap-2 px-3 py-1.5 bg-gradient-to-r from-blue-500/20 to-blue-600/20 text-blue-300 border border-blue-500/40 rounded-lg text-sm font-medium shadow-md backdrop-blur-sm">
+                          <div className="flex items-center gap-2 px-3 py-1.5 bg-gradient-to-r from-muted-cyan/20 to-muted-pink/20 text-muted-cyan border border-muted-cyan/40 rounded-lg text-sm font-medium shadow-md backdrop-blur-sm">
                             <svg
                               className="w-4 h-4"
                               fill="none"
@@ -360,16 +360,16 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({
                     {/* Enhanced Close Button */}
                     <button
                       onClick={onClose}
-                      className="relative group p-3 xl:p-3.5 bg-gradient-to-r from-red-500/80 to-rose-500/80 hover:from-red-400/90 hover:to-rose-400/90 border border-red-400/60 hover:border-red-300/80 rounded-xl transition-all duration-300 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-red-400/60 shadow-lg shadow-red-500/20 hover:shadow-red-400/30 backdrop-blur-sm"
+                      className="relative group p-3 xl:p-3.5 bg-gradient-to-r from-muted-pink/80 to-muted-lavender/80 hover:from-muted-pink/90 hover:to-muted-lavender/90 border border-muted-pink/60 hover:border-muted-lavender/80 rounded-xl transition-all duration-300 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-muted-lavender/60 shadow-lg shadow-muted-pink/20 hover:shadow-muted-lavender/30 backdrop-blur-sm"
                       aria-label="Close project details"
                     >
-                                            <div className="absolute inset-0 bg-gradient-to-r from-red-400/20 to-rose-400/20 group-hover:from-red-300/30 group-hover:to-rose-300/30 rounded-xl transition-all duration-300" />
+                      <div className="absolute inset-0 bg-gradient-to-r from-muted-pink/20 to-muted-lavender/20 group-hover:from-muted-pink/30 group-hover:to-muted-lavender/30 rounded-xl transition-all duration-300" />
 
                       {/* Bubble X icon */}
-                      <IoCloseOutline className="relative z-10 text-2xl text-white group-hover:text-red-50 transition-all duration-300 filter drop-shadow-lg group-hover:drop-shadow-2xl animate-pulse group-hover:animate-bounce"
+                      <IoCloseOutline className="relative z-10 text-2xl text-muted-text group-hover:text-white transition-all duration-300 filter drop-shadow-lg group-hover:drop-shadow-2xl animate-pulse group-hover:animate-bounce"
                         style={{
-                          textShadow: '0 0 10px rgba(255,255,255,0.5), 0 0 20px rgba(255,255,255,0.3), 0 0 30px rgba(255,255,255,0.1)',
-                          filter: 'drop-shadow(0 0 8px rgba(255,255,255,0.6)) drop-shadow(0 0 16px rgba(255,255,255,0.4))'
+                          textShadow: '0 0 10px rgba(228,228,228,0.5), 0 0 20px rgba(228,228,228,0.3), 0 0 30px rgba(228,228,228,0.1)',
+                          filter: 'drop-shadow(0 0 8px rgba(228,228,228,0.6)) drop-shadow(0 0 16px rgba(228,228,228,0.4))'
                         }}
                       />
                     </button>

@@ -1,0 +1,9 @@
+{
+    "formatter": "prettier",
+    "paths": {
+        "ui": "./src/blocks"
+    },
+    "registries": [
+        "github/DavidHDev/react-bits"
+    ]
+}
