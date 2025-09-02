@@ -15,7 +15,7 @@ import {
 import Image from 'next/image';
 import { cn } from '@/utils';
 import DownloadStatsDisplay from './DownloadStatsDisplay';
-import { getProjectDownloadStats } from '@/data/assetPaths';
+import { getProjectDownloadStats, getUnityDemoLink } from '@/data/assetPaths';
 import { createPortal } from 'react-dom';
 
 interface ProjectDetailProps {
@@ -557,6 +557,49 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({
                                 </div>
                               </a>
                             )}
+
+                            {/* Unity WebGL Demo Button */}
+                            {(() => {
+                              const unityDemoLink = getUnityDemoLink(project.id);
+                              return unityDemoLink ? (
+                                <a
+                                  href={unityDemoLink}
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                  className="group/link relative flex items-center gap-3 p-3 bg-gradient-to-r from-purple-500/15 via-purple-600/10 to-indigo-600/15 hover:from-purple-500/25 hover:via-purple-600/20 hover:to-indigo-600/25 border border-purple-500/40 hover:border-purple-400/60 rounded-lg transition-all duration-300 hover:scale-[1.02] hover:shadow-lg hover:shadow-purple-400/20"
+                                >
+                                  <div className="absolute inset-0 bg-gradient-to-r from-purple-400/8 to-indigo-400/8 rounded-lg opacity-0 group-hover/link:opacity-100 transition-opacity duration-300" />
+                                  <div className="relative z-10 p-2 bg-gradient-to-r from-purple-500/25 to-purple-600/25 rounded-lg border border-purple-500/40 group-hover/link:scale-105 transition-transform duration-300">
+                                    <svg className="w-5 h-5 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14.828 14.828a4 4 0 01-5.656 0M9 10h1m4 0h1m-6 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                    </svg>
+                                  </div>
+                                  <div className="relative z-10 flex-1">
+                                    <span className="text-white-1 group-hover/link:text-purple-100 font-semibold text-sm transition-colors duration-300">
+                                      Play WebGL Demo
+                                    </span>
+                                    <p className="text-purple-200/70 text-xs mt-0.5">
+                                      Try the game in browser
+                                    </p>
+                                  </div>
+                                  <div className="relative z-10 text-purple-300/60 group-hover/link:text-purple-200 transition-colors duration-300">
+                                    <svg
+                                      className="w-4 h-4"
+                                      fill="none"
+                                      stroke="currentColor"
+                                      viewBox="0 0 24 24"
+                                    >
+                                      <path
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
+                                        strokeWidth={2}
+                                        d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
+                                      />
+                                    </svg>
+                                  </div>
+                                </a>
+                              ) : null;
+                            })()}
                           </div>
                         </div>
                       </motion.div>

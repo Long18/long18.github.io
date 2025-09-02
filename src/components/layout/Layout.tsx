@@ -11,18 +11,22 @@ interface LayoutProps {
   className?: string;
   showHeader?: boolean;
   showFooter?: boolean;
+  activeSection?: string;
+  onSectionChange?: (section: string) => void;
 }
 
-const Layout: React.FC<LayoutProps> = ({ 
-  children, 
+const Layout: React.FC<LayoutProps> = ({
+  children,
   className,
   showHeader = true,
-  showFooter = true
+  showFooter = true,
+  activeSection = 'home',
+  onSectionChange = () => {}
 }) => {
   return (
     <div className="min-h-screen bg-background text-foreground">
-      {showHeader && <Header />}
-      
+      {showHeader && <Header activeSection={activeSection} onSectionChange={onSectionChange} />}
+
       <motion.main
         className={cn(
           'flex-1',
@@ -35,7 +39,7 @@ const Layout: React.FC<LayoutProps> = ({
       >
         {children}
       </motion.main>
-      
+
       {showFooter && <Footer />}
     </div>
   );
