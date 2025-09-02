@@ -356,11 +356,11 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({
                     {/* Enhanced Close Button */}
                     <button
                       onClick={onClose}
-                      className="relative group p-3 bg-gradient-to-r from-jet/80 to-eerie-black-1/80 hover:from-orange-400/20 hover:to-orange-500/20 border border-jet/60 hover:border-orange-400/60 rounded-xl transition-all duration-300 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-orange-400/50 shadow-lg hover:shadow-orange-400/20 backdrop-blur-sm"
+                      className="relative group p-3 bg-gradient-to-r from-red-500/15 to-red-600/15 hover:from-red-400/25 hover:to-red-500/25 border border-red-400/40 hover:border-red-400/60 rounded-xl transition-all duration-300 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-red-400/50 shadow-lg hover:shadow-red-400/20 backdrop-blur-sm"
                       aria-label="Close project details"
                     >
-                      <div className="absolute inset-0 bg-gradient-to-r from-orange-400/0 to-orange-400/0 group-hover:from-orange-400/10 group-hover:to-orange-400/5 rounded-xl transition-all duration-300" />
-                      <IoCloseOutline className="relative z-10 text-2xl text-white-1 group-hover:text-orange-400 transition-colors duration-300" />
+                      <div className="absolute inset-0 bg-gradient-to-r from-red-400/8 to-red-400/8 group-hover:from-red-400/15 group-hover:to-red-400/10 rounded-xl transition-all duration-300" />
+                      <IoCloseOutline className="relative z-10 text-2xl text-red-300 group-hover:text-red-400 transition-colors duration-300" />
                     </button>
                   </div>
                 </div>
@@ -404,30 +404,188 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({
                       </div>
                     </motion.div>
 
+                                        {/* Project Links Section - Refined Design */}
+                    {((project.storeLinks &&
+                      (project.storeLinks.android || project.storeLinks.ios)) ||
+                      project.website) && (
+                      <motion.div
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.5, delay: 0.15 }}
+                        className="relative group bg-gradient-to-br from-orange-500/15 via-orange-400/10 to-amber-500/15 border border-orange-400/50 hover:border-orange-300/70 rounded-xl p-5 backdrop-blur-md shadow-lg hover:shadow-xl hover:shadow-orange-400/20 transition-all duration-300"
+                      >
+                        {/* Subtle Background Effects */}
+                        <div className="absolute inset-0 bg-gradient-to-br from-orange-400/8 via-amber-400/5 to-orange-500/8 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                        <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-orange-400/40 to-transparent" />
+
+                        <div className="relative z-10">
+                          {/* Refined Header */}
+                          <div className="flex items-center gap-3 mb-4">
+                            <div className="p-2 bg-gradient-to-r from-orange-400/20 to-amber-400/20 rounded-lg border border-orange-400/30">
+                              <svg
+                                className="w-5 h-5 text-orange-300"
+                                fill="none"
+                                stroke="currentColor"
+                                viewBox="0 0 24 24"
+                              >
+                                <path
+                                  strokeLinecap="round"
+                                  strokeLinejoin="round"
+                                  strokeWidth={2}
+                                  d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"
+                                />
+                              </svg>
+                            </div>
+                            <div>
+                              <h3 className="text-lg font-bold text-transparent bg-gradient-to-r from-orange-200 to-amber-200 bg-clip-text">
+                                Try It Now
+                              </h3>
+                              <p className="text-orange-300/80 text-sm mt-0.5">
+                                Download or play the project
+                              </p>
+                            </div>
+                          </div>
+
+                          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+                            {project.storeLinks?.android && (
+                              <a
+                                href={project.storeLinks.android}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="group/link relative flex items-center gap-3 p-3 bg-gradient-to-r from-green-500/15 via-green-600/10 to-emerald-600/15 hover:from-green-500/25 hover:via-green-600/20 hover:to-emerald-600/25 border border-green-500/40 hover:border-green-400/60 rounded-lg transition-all duration-300 hover:scale-[1.02] hover:shadow-lg hover:shadow-green-400/20"
+                              >
+                                <div className="absolute inset-0 bg-gradient-to-r from-green-400/8 to-emerald-400/8 rounded-lg opacity-0 group-hover/link:opacity-100 transition-opacity duration-300" />
+                                <div className="relative z-10 p-2 bg-gradient-to-r from-green-500/25 to-green-600/25 rounded-lg border border-green-500/40 group-hover/link:scale-105 transition-transform duration-300">
+                                  {getLinkIcon('android')}
+                                </div>
+                                <div className="relative z-10 flex-1">
+                                  <span className="text-white-1 group-hover/link:text-green-100 font-semibold text-sm transition-colors duration-300">
+                                    {getLinkLabel('android')}
+                                  </span>
+                                  <p className="text-green-200/70 text-xs mt-0.5">
+                                    Download for Android
+                                  </p>
+                                </div>
+                                <div className="relative z-10 text-green-300/60 group-hover/link:text-green-200 transition-colors duration-300">
+                                  <svg
+                                    className="w-4 h-4"
+                                    fill="none"
+                                    stroke="currentColor"
+                                    viewBox="0 0 24 24"
+                                  >
+                                    <path
+                                      strokeLinecap="round"
+                                      strokeLinejoin="round"
+                                      strokeWidth={2}
+                                      d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
+                                    />
+                                  </svg>
+                                </div>
+                              </a>
+                            )}
+
+                            {project.storeLinks?.ios && (
+                              <a
+                                href={project.storeLinks.ios}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="group/link relative flex items-center gap-3 p-3 bg-gradient-to-r from-blue-500/15 via-blue-600/10 to-indigo-600/15 hover:from-blue-500/25 hover:via-blue-600/20 hover:to-indigo-600/25 border border-blue-500/40 hover:border-blue-400/60 rounded-lg transition-all duration-300 hover:scale-[1.02] hover:shadow-lg hover:shadow-blue-400/20"
+                              >
+                                <div className="absolute inset-0 bg-gradient-to-r from-blue-400/8 to-indigo-400/8 rounded-lg opacity-0 group-hover/link:opacity-100 transition-opacity duration-300" />
+                                <div className="relative z-10 p-2 bg-gradient-to-r from-blue-500/25 to-blue-600/25 rounded-lg border border-blue-500/40 group-hover/link:scale-105 transition-transform duration-300">
+                                  {getLinkIcon('ios')}
+                                </div>
+                                <div className="relative z-10 flex-1">
+                                  <span className="text-white-1 group-hover/link:text-blue-100 font-semibold text-sm transition-colors duration-300">
+                                    {getLinkLabel('ios')}
+                                  </span>
+                                  <p className="text-blue-200/70 text-xs mt-0.5">
+                                    Download for iOS
+                                  </p>
+                                </div>
+                                <div className="relative z-10 text-blue-300/60 group-hover/link:text-blue-200 transition-colors duration-300">
+                                  <svg
+                                    className="w-4 h-4"
+                                    fill="none"
+                                    stroke="currentColor"
+                                    viewBox="0 0 24 24"
+                                  >
+                                    <path
+                                      strokeLinecap="round"
+                                      strokeLinejoin="round"
+                                      strokeWidth={2}
+                                      d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
+                                    />
+                                  </svg>
+                                </div>
+                              </a>
+                            )}
+
+                            {project.website && (
+                              <a
+                                href={project.website}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="group/link relative flex items-center gap-3 p-3 bg-gradient-to-r from-orange-500/15 via-orange-600/10 to-amber-600/15 hover:from-orange-500/25 hover:via-orange-600/20 hover:to-amber-600/25 border border-orange-500/40 hover:border-orange-400/60 rounded-lg transition-all duration-300 hover:scale-[1.02] hover:shadow-lg hover:shadow-orange-400/20"
+                              >
+                                <div className="absolute inset-0 bg-gradient-to-r from-orange-400/8 to-amber-400/8 rounded-lg opacity-0 group-hover/link:opacity-100 transition-opacity duration-300" />
+                                <div className="relative z-10 p-2 bg-gradient-to-r from-orange-500/25 to-orange-600/25 rounded-lg border border-orange-500/40 group-hover/link:scale-105 transition-transform duration-300">
+                                  {getLinkIcon('website')}
+                                </div>
+                                <div className="relative z-10 flex-1">
+                                  <span className="text-white-1 group-hover/link:text-orange-100 font-semibold text-sm transition-colors duration-300">
+                                    {getLinkLabel('website')}
+                                  </span>
+                                  <p className="text-orange-200/70 text-xs mt-0.5">
+                                    View live website
+                                  </p>
+                                </div>
+                                <div className="relative z-10 text-orange-300/60 group-hover/link:text-orange-200 transition-colors duration-300">
+                                  <svg
+                                    className="w-4 h-4"
+                                    fill="none"
+                                    stroke="currentColor"
+                                    viewBox="0 0 24 24"
+                                  >
+                                    <path
+                                      strokeLinecap="round"
+                                      strokeLinejoin="round"
+                                      strokeWidth={2}
+                                      d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
+                                    />
+                                  </svg>
+                                </div>
+                              </a>
+                            )}
+                          </div>
+                        </div>
+                      </motion.div>
+                    )}
+
                     {/* Enhanced Key Achievements Card */}
                     {project.achievements && project.achievements.length > 0 && (
                       <motion.div
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.5, delay: 0.1 }}
-                        className="relative group bg-gradient-to-br from-emerald-500/10 via-green-600/10 to-teal-600/10 border border-emerald-500/30 hover:border-emerald-400/50 rounded-2xl p-6 lg:p-8 backdrop-blur-md shadow-lg hover:shadow-xl hover:shadow-emerald-400/10 transition-all duration-300"
+                        className="relative group bg-gradient-to-br from-eerie-black-2/70 via-smoky-black/60 to-eerie-black-1/70 border border-jet/50 hover:border-orange-400/40 rounded-2xl p-6 lg:p-8 backdrop-blur-md shadow-lg hover:shadow-xl hover:shadow-orange-400/10 transition-all duration-300"
                       >
                         {/* Card Background Effects */}
-                        <div className="absolute inset-0 bg-gradient-to-br from-emerald-400/5 via-transparent to-emerald-400/5 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                        <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-emerald-400/40 to-transparent" />
+                        <div className="absolute inset-0 bg-gradient-to-br from-orange-400/3 via-transparent to-orange-400/3 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                        <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-orange-400/30 to-transparent" />
 
                         <div className="relative z-10">
                           {/* Enhanced Header with Icon */}
                           <div className="flex items-center gap-4 mb-6">
-                            <div className="p-2.5 bg-gradient-to-r from-emerald-500/20 to-emerald-600/20 rounded-xl border border-emerald-500/30">
-                              <svg className="w-5 h-5 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <div className="p-2.5 bg-gradient-to-r from-orange-400/20 to-orange-500/20 rounded-xl border border-orange-400/30">
+                              <svg className="w-5 h-5 text-orange-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z" />
                               </svg>
                             </div>
-                            <h3 className="text-xl font-bold text-transparent bg-gradient-to-r from-emerald-300 to-green-300 bg-clip-text">
+                            <h3 className="text-xl font-bold text-transparent bg-gradient-to-r from-white to-orange-200 bg-clip-text">
                               Key Achievements
                             </h3>
-                            <div className="flex-1 ml-4 h-px bg-gradient-to-r from-emerald-400/30 to-transparent"></div>
+                            <div className="flex-1 ml-4 h-px bg-gradient-to-r from-orange-400/30 to-transparent"></div>
                           </div>
 
                           {/* Enhanced Achievement List */}
@@ -438,28 +596,28 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({
                                 initial={{ opacity: 0, x: -20 }}
                                 animate={{ opacity: 1, x: 0 }}
                                 transition={{ duration: 0.4, delay: index * 0.1 }}
-                                className="group/item relative flex items-start gap-4 p-4 bg-gradient-to-r from-eerie-black-1/60 to-smoky-black/40 rounded-xl border border-emerald-500/20 hover:border-emerald-400/40 hover:bg-emerald-500/5 transition-all duration-300"
+                                className="group/item relative flex items-start gap-4 p-4 bg-gradient-to-r from-eerie-black-1/60 to-smoky-black/40 rounded-xl border border-jet/40 hover:border-orange-400/40 hover:bg-orange-500/5 transition-all duration-300"
                               >
                                 {/* Achievement Icon */}
                                 <div className="relative mt-1">
-                                  <div className="w-6 h-6 bg-gradient-to-r from-emerald-500/30 to-emerald-600/30 rounded-full flex items-center justify-center border border-emerald-400/40 group-hover/item:scale-110 transition-transform duration-300">
-                                    <svg className="w-3 h-3 text-emerald-400" fill="currentColor" viewBox="0 0 20 20">
+                                  <div className="w-6 h-6 bg-gradient-to-r from-orange-500/30 to-orange-600/30 rounded-full flex items-center justify-center border border-orange-400/40 group-hover/item:scale-110 transition-transform duration-300">
+                                    <svg className="w-3 h-3 text-orange-400" fill="currentColor" viewBox="0 0 20 20">
                                       <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
                                     </svg>
                                   </div>
-                                  <div className="absolute inset-0 bg-emerald-400/20 rounded-full animate-ping opacity-0 group-hover/item:opacity-100"></div>
+                                  <div className="absolute inset-0 bg-orange-400/20 rounded-full animate-ping opacity-0 group-hover/item:opacity-100"></div>
                                 </div>
 
                                 {/* Achievement Content */}
                                 <div className="flex-1 min-w-0">
-                                  <p className="text-white-1 group-hover/item:text-emerald-100 font-medium leading-relaxed transition-colors duration-300">
+                                  <p className="text-white-1 group-hover/item:text-orange-100 font-medium leading-relaxed transition-colors duration-300">
                                     {achievement}
                                   </p>
                                 </div>
 
                                 {/* Hover Effect Indicator */}
                                 <div className="opacity-0 group-hover/item:opacity-100 transition-opacity duration-300">
-                                  <div className="w-2 h-2 bg-emerald-400 rounded-full"></div>
+                                  <div className="w-2 h-2 bg-orange-400 rounded-full"></div>
                                 </div>
                               </motion.div>
                             ))}
@@ -474,24 +632,24 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.5, delay: 0.2 }}
-                        className="relative group bg-gradient-to-br from-blue-500/10 via-blue-600/10 to-indigo-600/10 border border-blue-500/30 hover:border-blue-400/50 rounded-2xl p-6 lg:p-8 backdrop-blur-md shadow-lg hover:shadow-xl hover:shadow-blue-400/10 transition-all duration-300"
+                        className="relative group bg-gradient-to-br from-eerie-black-2/70 via-smoky-black/60 to-eerie-black-1/70 border border-jet/50 hover:border-orange-400/40 rounded-2xl p-6 lg:p-8 backdrop-blur-md shadow-lg hover:shadow-xl hover:shadow-orange-400/10 transition-all duration-300"
                       >
                         {/* Card Background Effects */}
-                        <div className="absolute inset-0 bg-gradient-to-br from-blue-400/5 via-transparent to-blue-400/5 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                        <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-blue-400/40 to-transparent" />
+                        <div className="absolute inset-0 bg-gradient-to-br from-orange-400/3 via-transparent to-orange-400/3 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                        <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-orange-400/30 to-transparent" />
 
                         <div className="relative z-10">
                           {/* Enhanced Header with Icon */}
                           <div className="flex items-center gap-4 mb-6">
-                            <div className="p-2.5 bg-gradient-to-r from-blue-500/20 to-blue-600/20 rounded-xl border border-blue-500/30">
-                              <svg className="w-5 h-5 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <div className="p-2.5 bg-gradient-to-r from-orange-400/20 to-orange-500/20 rounded-xl border border-orange-400/30">
+                              <svg className="w-5 h-5 text-orange-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5H7a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4" />
                               </svg>
                             </div>
-                            <h3 className="text-xl font-bold text-transparent bg-gradient-to-r from-blue-300 to-indigo-300 bg-clip-text">
+                            <h3 className="text-xl font-bold text-transparent bg-gradient-to-r from-white to-orange-200 bg-clip-text">
                               Key Responsibilities
                             </h3>
-                            <div className="flex-1 ml-4 h-px bg-gradient-to-r from-blue-400/30 to-transparent"></div>
+                            <div className="flex-1 ml-4 h-px bg-gradient-to-r from-orange-400/30 to-transparent"></div>
                           </div>
 
                           {/* Enhanced Responsibility List */}
@@ -502,28 +660,28 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({
                                 initial={{ opacity: 0, x: -20 }}
                                 animate={{ opacity: 1, x: 0 }}
                                 transition={{ duration: 0.4, delay: index * 0.1 }}
-                                className="group/item relative flex items-start gap-4 p-4 bg-gradient-to-r from-eerie-black-1/60 to-smoky-black/40 rounded-xl border border-blue-500/20 hover:border-blue-400/40 hover:bg-blue-500/5 transition-all duration-300"
+                                className="group/item relative flex items-start gap-4 p-4 bg-gradient-to-r from-eerie-black-1/60 to-smoky-black/40 rounded-xl border border-jet/40 hover:border-orange-400/40 hover:bg-orange-500/5 transition-all duration-300"
                               >
                                 {/* Responsibility Icon */}
                                 <div className="relative mt-1">
-                                  <div className="w-6 h-6 bg-gradient-to-r from-blue-500/30 to-blue-600/30 rounded-full flex items-center justify-center border border-blue-400/40 group-hover/item:scale-110 transition-transform duration-300">
-                                    <svg className="w-3 h-3 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                  <div className="w-6 h-6 bg-gradient-to-r from-orange-500/30 to-orange-600/30 rounded-full flex items-center justify-center border border-orange-400/40 group-hover/item:scale-110 transition-transform duration-300">
+                                    <svg className="w-3 h-3 text-orange-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                                     </svg>
                                   </div>
-                                  <div className="absolute inset-0 bg-blue-400/20 rounded-full animate-ping opacity-0 group-hover/item:opacity-100"></div>
+                                  <div className="absolute inset-0 bg-orange-400/20 rounded-full animate-ping opacity-0 group-hover/item:opacity-100"></div>
                                 </div>
 
                                 {/* Responsibility Content */}
                                 <div className="flex-1 min-w-0">
-                                  <p className="text-white-1 group-hover/item:text-blue-100 font-medium leading-relaxed transition-colors duration-300">
+                                  <p className="text-white-1 group-hover/item:text-orange-100 font-medium leading-relaxed transition-colors duration-300">
                                     {responsibility}
                                   </p>
                                 </div>
 
                                 {/* Hover Effect Indicator */}
                                 <div className="opacity-0 group-hover/item:opacity-100 transition-opacity duration-300">
-                                  <div className="w-2 h-2 bg-blue-400 rounded-full"></div>
+                                  <div className="w-2 h-2 bg-orange-400 rounded-full"></div>
                                 </div>
                               </motion.div>
                             ))}
@@ -630,15 +788,15 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({
 
                     {/* Enhanced Download Statistics */}
                     {downloadStats && downloadStats.total > 0 && (
-                      <div className="relative group bg-gradient-to-br from-blue-500/10 via-blue-600/10 to-purple-600/10 border border-blue-500/40 hover:border-blue-400/60 rounded-2xl p-5 backdrop-blur-md shadow-xl hover:shadow-2xl hover:shadow-blue-400/10 transition-all duration-300">
-                        <div className="absolute inset-0 bg-gradient-to-br from-blue-400/5 via-transparent to-purple-400/5 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                        <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-blue-400/40 to-transparent" />
+                      <div className="relative group bg-gradient-to-br from-eerie-black-2/80 via-smoky-black/70 to-eerie-black-1/80 border border-jet/60 hover:border-orange-400/50 rounded-2xl p-5 backdrop-blur-md shadow-xl hover:shadow-2xl hover:shadow-orange-400/10 transition-all duration-300">
+                        <div className="absolute inset-0 bg-gradient-to-br from-orange-400/5 via-transparent to-orange-400/5 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                        <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-orange-400/30 to-transparent" />
 
                         <div className="relative z-10">
                           <div className="flex items-center gap-3 mb-4">
-                            <div className="p-2 bg-gradient-to-r from-blue-500/20 to-blue-600/20 rounded-lg border border-blue-500/30">
+                            <div className="p-2 bg-gradient-to-r from-orange-400/20 to-orange-500/20 rounded-lg border border-orange-400/30">
                               <svg
-                                className="w-5 h-5 text-blue-400"
+                                className="w-5 h-5 text-orange-400"
                                 fill="none"
                                 stroke="currentColor"
                                 viewBox="0 0 24 24"
@@ -651,7 +809,7 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({
                                 />
                               </svg>
                             </div>
-                            <h3 className="text-lg font-bold text-transparent bg-gradient-to-r from-blue-300 to-purple-300 bg-clip-text">
+                            <h3 className="text-lg font-bold text-transparent bg-gradient-to-r from-white to-orange-200 bg-clip-text">
                               Download Statistics
                             </h3>
                           </div>
@@ -663,153 +821,7 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({
                       </div>
                     )}
 
-                    {/* Enhanced Links Section */}
-                    {((project.storeLinks &&
-                      (project.storeLinks.android || project.storeLinks.ios)) ||
-                      project.website) && (
-                      <div className="relative group bg-gradient-to-br from-eerie-black-2/80 via-smoky-black/70 to-eerie-black-1/80 border border-jet/60 hover:border-orange-400/50 rounded-2xl p-5 sm:p-6 backdrop-blur-md shadow-xl hover:shadow-2xl hover:shadow-orange-400/10 transition-all duration-300">
-                        {/* Card Background Effects */}
-                        <div className="absolute inset-0 bg-gradient-to-br from-orange-400/5 via-transparent to-orange-400/5 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                        <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-orange-400/30 to-transparent" />
 
-                        <div className="relative z-10">
-                          {/* Enhanced Header */}
-                          <div className="flex items-center gap-3 mb-5">
-                            <div className="p-2 bg-gradient-to-r from-emerald-400/20 to-emerald-500/20 rounded-lg border border-emerald-400/30">
-                              <svg
-                                className="w-5 h-5 text-emerald-400"
-                                fill="none"
-                                stroke="currentColor"
-                                viewBox="0 0 24 24"
-                              >
-                                <path
-                                  strokeLinecap="round"
-                                  strokeLinejoin="round"
-                                  strokeWidth={2}
-                                  d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"
-                                />
-                              </svg>
-                            </div>
-                            <h3 className="text-lg font-bold text-transparent bg-gradient-to-r from-emerald-300 to-green-300 bg-clip-text">
-                              Project Links
-                            </h3>
-                          </div>
-
-                          <div className="space-y-3">
-                            {project.storeLinks?.android && (
-                              <a
-                                href={project.storeLinks.android}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="group/link relative flex items-center gap-4 p-4 bg-gradient-to-r from-green-500/10 via-green-600/10 to-emerald-600/10 hover:from-green-500/20 hover:via-green-600/20 hover:to-emerald-600/20 border border-green-500/30 hover:border-green-400/50 rounded-xl transition-all duration-300 hover:scale-[1.02] hover:shadow-lg hover:shadow-green-400/20"
-                              >
-                                <div className="absolute inset-0 bg-gradient-to-r from-green-400/0 to-green-400/0 group-hover/link:from-green-400/5 group-hover/link:to-emerald-400/5 rounded-xl transition-all duration-300" />
-                                <div className="relative z-10 p-2 bg-gradient-to-r from-green-500/20 to-green-600/20 rounded-lg border border-green-500/40 group-hover/link:scale-110 transition-transform duration-300">
-                                  {getLinkIcon('android')}
-                                </div>
-                                <div className="relative z-10 flex-1">
-                                  <span className="text-white-1 group-hover/link:text-green-300 font-semibold text-sm transition-colors duration-300">
-                                    {getLinkLabel('android')}
-                                  </span>
-                                  <p className="text-green-400/70 text-xs mt-1">
-                                    Download for Android devices
-                                  </p>
-                                </div>
-                                <div className="relative z-10 text-green-400/60 group-hover/link:text-green-300 transition-colors duration-300">
-                                  <svg
-                                    className="w-5 h-5"
-                                    fill="none"
-                                    stroke="currentColor"
-                                    viewBox="0 0 24 24"
-                                  >
-                                    <path
-                                      strokeLinecap="round"
-                                      strokeLinejoin="round"
-                                      strokeWidth={2}
-                                      d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
-                                    />
-                                  </svg>
-                                </div>
-                              </a>
-                            )}
-
-                            {project.storeLinks?.ios && (
-                              <a
-                                href={project.storeLinks.ios}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="group/link relative flex items-center gap-4 p-4 bg-gradient-to-r from-blue-500/10 via-blue-600/10 to-indigo-600/10 hover:from-blue-500/20 hover:via-blue-600/20 hover:to-indigo-600/20 border border-blue-500/30 hover:border-blue-400/50 rounded-xl transition-all duration-300 hover:scale-[1.02] hover:shadow-lg hover:shadow-blue-400/20"
-                              >
-                                <div className="absolute inset-0 bg-gradient-to-r from-blue-400/0 to-blue-400/0 group-hover/link:from-blue-400/5 group-hover/link:to-indigo-400/5 rounded-xl transition-all duration-300" />
-                                <div className="relative z-10 p-2 bg-gradient-to-r from-blue-500/20 to-blue-600/20 rounded-lg border border-blue-500/40 group-hover/link:scale-110 transition-transform duration-300">
-                                  {getLinkIcon('ios')}
-                                </div>
-                                <div className="relative z-10 flex-1">
-                                  <span className="text-white-1 group-hover/link:text-blue-300 font-semibold text-sm transition-colors duration-300">
-                                    {getLinkLabel('ios')}
-                                  </span>
-                                  <p className="text-blue-400/70 text-xs mt-1">
-                                    Download for iOS devices
-                                  </p>
-                                </div>
-                                <div className="relative z-10 text-blue-400/60 group-hover/link:text-blue-300 transition-colors duration-300">
-                                  <svg
-                                    className="w-5 h-5"
-                                    fill="none"
-                                    stroke="currentColor"
-                                    viewBox="0 0 24 24"
-                                  >
-                                    <path
-                                      strokeLinecap="round"
-                                      strokeLinejoin="round"
-                                      strokeWidth={2}
-                                      d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
-                                    />
-                                  </svg>
-                                </div>
-                              </a>
-                            )}
-
-                            {project.website && (
-                              <a
-                                href={project.website}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="group/link relative flex items-center gap-4 p-4 bg-gradient-to-r from-orange-500/10 via-orange-600/10 to-red-600/10 hover:from-orange-500/20 hover:via-orange-600/20 hover:to-red-600/20 border border-orange-500/30 hover:border-orange-400/50 rounded-xl transition-all duration-300 hover:scale-[1.02] hover:shadow-lg hover:shadow-orange-400/20"
-                              >
-                                <div className="absolute inset-0 bg-gradient-to-r from-orange-400/0 to-orange-400/0 group-hover/link:from-orange-400/5 group-hover/link:to-red-400/5 rounded-xl transition-all duration-300" />
-                                <div className="relative z-10 p-2 bg-gradient-to-r from-orange-500/20 to-orange-600/20 rounded-lg border border-orange-500/40 group-hover/link:scale-110 transition-transform duration-300">
-                                  {getLinkIcon('website')}
-                                </div>
-                                <div className="relative z-10 flex-1">
-                                  <span className="text-white-1 group-hover/link:text-orange-300 font-semibold text-sm transition-colors duration-300">
-                                    {getLinkLabel('website')}
-                                  </span>
-                                  <p className="text-orange-400/70 text-xs mt-1">
-                                    View live website
-                                  </p>
-                                </div>
-                                <div className="relative z-10 text-orange-400/60 group-hover/link:text-orange-300 transition-colors duration-300">
-                                  <svg
-                                    className="w-5 h-5"
-                                    fill="none"
-                                    stroke="currentColor"
-                                    viewBox="0 0 24 24"
-                                  >
-                                    <path
-                                      strokeLinecap="round"
-                                      strokeLinejoin="round"
-                                      strokeWidth={2}
-                                      d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
-                                    />
-                                  </svg>
-                                </div>
-                              </a>
-                            )}
-                          </div>
-                        </div>
-                      </div>
-                    )}
                   </div>
                 </div>
 
@@ -819,7 +831,7 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({
                     initial={{ opacity: 0, y: 30 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.6, delay: 0.3 }}
-                    className="relative bg-gradient-to-br from-eerie-black-2/60 via-smoky-black/50 to-eerie-black-1/60 border border-jet/50 hover:border-orange-400/40 rounded-2xl p-6 backdrop-blur-md shadow-xl hover:shadow-2xl hover:shadow-orange-400/10 transition-all duration-300"
+                    className="relative bg-gradient-to-br from-eerie-black-2/70 via-smoky-black/60 to-eerie-black-1/70 border border-jet/50 hover:border-orange-400/40 rounded-2xl p-6 backdrop-blur-md shadow-xl hover:shadow-2xl hover:shadow-orange-400/10 transition-all duration-300"
                   >
                     {/* Section Background Effects */}
                     <div className="absolute inset-0 bg-gradient-to-br from-orange-400/3 via-transparent to-orange-400/3 rounded-2xl opacity-0 hover:opacity-100 transition-opacity duration-300" />
@@ -828,9 +840,9 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({
                     <div className="relative z-10">
                       {/* Enhanced Gallery Header */}
                       <div className="flex items-center gap-4 mb-6">
-                        <div className="p-3 bg-gradient-to-r from-purple-500/20 to-pink-500/20 rounded-xl border border-purple-500/30">
+                        <div className="p-3 bg-gradient-to-r from-orange-400/20 to-orange-500/20 rounded-xl border border-orange-400/30">
                           <svg
-                            className="w-6 h-6 text-purple-400"
+                            className="w-6 h-6 text-orange-400"
                             fill="none"
                             stroke="currentColor"
                             viewBox="0 0 24 24"
@@ -844,7 +856,7 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({
                           </svg>
                         </div>
                         <div>
-                          <h3 className="text-xl font-bold text-transparent bg-gradient-to-r from-purple-300 to-pink-300 bg-clip-text">
+                          <h3 className="text-xl font-bold text-transparent bg-gradient-to-r from-white to-orange-200 bg-clip-text">
                             Project Gallery
                           </h3>
                           <p className="text-white-2/70 text-sm mt-1">
@@ -864,7 +876,7 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({
                             animate={{ opacity: 1, scale: 1 }}
                             transition={{ duration: 0.4, delay: index * 0.1 }}
                             whileHover={{ scale: 1.05, y: -5 }}
-                            className="relative aspect-video bg-gradient-to-br from-eerie-black-2/80 to-smoky-black/60 rounded-xl overflow-hidden cursor-pointer group border border-jet/60 hover:border-purple-400/50 transition-all duration-300 shadow-lg hover:shadow-xl hover:shadow-purple-400/20"
+                            className="relative aspect-video bg-gradient-to-br from-eerie-black-2/80 to-smoky-black/60 rounded-xl overflow-hidden cursor-pointer group border border-jet/60 hover:border-orange-400/50 transition-all duration-300 shadow-lg hover:shadow-xl hover:shadow-orange-400/20"
                             onClick={() => openImageGallery(index)}
                           >
                             <Image
@@ -875,7 +887,7 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({
                               sizes="(max-width: 640px) 100vw, (max-width: 768px) 50vw, (max-width: 1024px) 33vw, 25vw"
                             />
                             <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                            <div className="absolute inset-0 bg-purple-500/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                            <div className="absolute inset-0 bg-orange-500/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                             <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300">
                               <div className="bg-white/20 backdrop-blur-sm rounded-full p-3 border border-white/30">
                                 <IoOpenOutline className="text-white text-xl" />
@@ -898,18 +910,18 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({
                     initial={{ opacity: 0, y: 30 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.6, delay: 0.4 }}
-                    className="relative bg-gradient-to-br from-eerie-black-2/60 via-smoky-black/50 to-eerie-black-1/60 border border-jet/50 hover:border-red-400/40 rounded-2xl p-6 backdrop-blur-md shadow-xl hover:shadow-2xl hover:shadow-red-400/10 transition-all duration-300"
+                    className="relative bg-gradient-to-br from-eerie-black-2/70 via-smoky-black/60 to-eerie-black-1/70 border border-jet/50 hover:border-orange-400/40 rounded-2xl p-6 backdrop-blur-md shadow-xl hover:shadow-2xl hover:shadow-orange-400/10 transition-all duration-300"
                   >
                     {/* Section Background Effects */}
-                    <div className="absolute inset-0 bg-gradient-to-br from-red-400/3 via-transparent to-red-400/3 rounded-2xl opacity-0 hover:opacity-100 transition-opacity duration-300" />
-                    <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-red-400/30 to-transparent" />
+                    <div className="absolute inset-0 bg-gradient-to-br from-orange-400/3 via-transparent to-orange-400/3 rounded-2xl opacity-0 hover:opacity-100 transition-opacity duration-300" />
+                    <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-orange-400/30 to-transparent" />
 
                     <div className="relative z-10">
                       {/* Enhanced Videos Header */}
                       <div className="flex items-center gap-4 mb-6">
-                        <div className="p-3 bg-gradient-to-r from-red-500/20 to-orange-500/20 rounded-xl border border-red-500/30">
+                        <div className="p-3 bg-gradient-to-r from-orange-400/20 to-orange-500/20 rounded-xl border border-orange-400/30">
                           <svg
-                            className="w-6 h-6 text-red-400"
+                            className="w-6 h-6 text-orange-400"
                             fill="none"
                             stroke="currentColor"
                             viewBox="0 0 24 24"
@@ -923,7 +935,7 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({
                           </svg>
                         </div>
                         <div>
-                          <h3 className="text-xl font-bold text-transparent bg-gradient-to-r from-red-300 to-orange-300 bg-clip-text">
+                          <h3 className="text-xl font-bold text-transparent bg-gradient-to-r from-white to-orange-200 bg-clip-text">
                             Project Videos
                           </h3>
                           <p className="text-white-2/70 text-sm mt-1">
@@ -942,7 +954,7 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({
                             initial={{ opacity: 0, scale: 0.9 }}
                             animate={{ opacity: 1, scale: 1 }}
                             transition={{ duration: 0.5, delay: index * 0.2 }}
-                            className="relative aspect-video bg-gradient-to-br from-eerie-black-2/80 to-smoky-black/60 rounded-xl overflow-hidden border border-jet/60 hover:border-red-400/50 transition-all duration-300 shadow-lg hover:shadow-xl hover:shadow-red-400/20 group"
+                            className="relative aspect-video bg-gradient-to-br from-eerie-black-2/80 to-smoky-black/60 rounded-xl overflow-hidden border border-jet/60 hover:border-orange-400/50 transition-all duration-300 shadow-lg hover:shadow-xl hover:shadow-orange-400/20 group"
                           >
                             <video
                               controls
@@ -953,7 +965,7 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({
                               <source src={video.src} type="video/mp4" />
                             </video>
                             {/* Video overlay effects */}
-                            <div className="absolute inset-0 bg-red-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none rounded-xl" />
+                            <div className="absolute inset-0 bg-orange-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none rounded-xl" />
                             {/* Video number indicator */}
                             <div className="absolute top-3 right-3 bg-black/80 text-white text-xs px-2 py-1 rounded-full">
                               Video {index + 1}
@@ -1121,7 +1133,7 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({
                     {/* Enhanced Controls */}
                     <button
                       onClick={() => setImageGalleryOpen(false)}
-                      className="absolute top-4 right-4 text-white hover:text-orange-400 bg-black/80 hover:bg-black/90 rounded-full p-3 transition-all duration-300 hover:scale-110 border border-white/20 backdrop-blur-sm"
+                      className="absolute top-4 right-4 text-red-300 hover:text-red-400 bg-black/80 hover:bg-red-500/20 rounded-full p-3 transition-all duration-300 hover:scale-110 border border-red-400/30 hover:border-red-400/50 backdrop-blur-sm"
                     >
                       <IoCloseOutline className="text-2xl" />
                     </button>
