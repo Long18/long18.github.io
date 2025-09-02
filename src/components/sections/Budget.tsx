@@ -20,8 +20,7 @@ import {
   formatVND,
   clamp,
   GUARDRAIL_PCT,
-  DEFAULT_NET,
-  PAYSLIP_NET_BY_MONTH
+  DEFAULT_NET
 } from "@/lib/aggregations";
 
 // Import components
@@ -107,7 +106,7 @@ export default function FinanceDashboardMVP() {
   );
 
   const seriesForMonth = monthAgg[selectedMonth] || { income: 0, expense: 0 };
-  const payslipNet = PAYSLIP_NET_BY_MONTH[selectedMonth] ?? DEFAULT_NET;
+  const [payslipNet, setPayslipNet] = useState<number>(DEFAULT_NET);
 
   // Pie data for current month (parent distribution)
   const pieData = useMemo(() => {
@@ -295,9 +294,18 @@ export default function FinanceDashboardMVP() {
           <div className="bg-white rounded-2xl shadow p-3 sm:p-4">
             <div className="text-xs sm:text-sm font-medium text-center mb-3">Payslip net income - Thu nhập ròng</div>
 
-            {/* Main payslip amount - big and centered */}
+            {/* Input field for payslip net income */}
             <div className="text-center mb-3">
-              <div className="text-2xl sm:text-3xl font-bold text-gray-900">{formatVND(payslipNet)}</div>
+              <input
+                type="number"
+                inputMode="numeric"
+                className="w-full text-2xl sm:text-3xl font-bold text-gray-900 text-center border-none outline-none bg-transparent"
+                value={payslipNet}
+                onChange={(e) => setPayslipNet(Number(e.target.value || 0))}
+                placeholder="0"
+                min="0"
+                step="1000"
+              />
             </div>
 
             {/* Baseline badge */}
@@ -312,7 +320,7 @@ export default function FinanceDashboardMVP() {
             </div>
 
             {/* Variance chip */}
-            {payslipNet > 0 && (
+            {payslipNet > 0 && seriesForMonth.income > 0 && (
               <div className="flex justify-center mb-2">
                 {(() => {
                   const variance = seriesForMonth.income - payslipNet;
@@ -335,7 +343,7 @@ export default function FinanceDashboardMVP() {
             {/* Context line */}
             <div className="text-center">
               <p className="text-xs text-neutral-500">
-                Observed income: {formatVND(seriesForMonth.income || payslipNet)}
+                Observed income: {formatVND(seriesForMonth.income)}
               </p>
             </div>
           </div>
@@ -424,6 +432,7 @@ export default function FinanceDashboardMVP() {
           selectedMonth={selectedMonth}
           parentCatsByMonth={parentCatsByMonth}
           subCatsByMonth={subCatsByMonth}
+          baseIncome={seriesForMonth.income || payslipNet}
         />
 
         {/* Insights */}

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useMemo } from "react";
 import { useCapsStore } from "@/lib/storeCaps";
 import { PARENT_TO_CHILDREN } from "@/lib/parsing";
 import { formatVND, round1000, clamp } from "@/lib/aggregations";
@@ -7,13 +7,16 @@ interface BudgetTableProps {
   selectedMonth: string;
   parentCatsByMonth: Record<string, Record<string, number>>;
   subCatsByMonth: Record<string, Record<string, number>>;
+  baseIncome?: number; // For guard-rail calculations
 }
 
-export default function BudgetTable({ selectedMonth, parentCatsByMonth, subCatsByMonth }: BudgetTableProps) {
+export default function BudgetTable({ selectedMonth, parentCatsByMonth, subCatsByMonth, baseIncome = 0 }: BudgetTableProps) {
   const { capsByMonth, setCap } = useCapsStore();
   const [budgetMode, setBudgetMode] = useState<"view" | "edit">("view");
+  const [sortBy, setSortBy] = useState<"overspend" | "alphabetical">("overspend");
 
-  const budgetRows = React.useMemo(() => {
+  // Enhanced budget rows with guard-rail calculations
+  const budgetRows = useMemo(() => {
     const caps = capsByMonth[selectedMonth] || {};
     return Object.keys(PARENT_TO_CHILDREN).map((parent) => {
       const children = PARENT_TO_CHILDREN[parent] || [];
@@ -23,135 +26,340 @@ export default function BudgetTable({ selectedMonth, parentCatsByMonth, subCatsB
       const ratio = cap > 0 ? actual / cap : 0;
       const over = ratio >= 1;
       const warn = !over && ratio >= 0.8;
-      return { key: parent, cap, actual, ratio, over, warn, children, childCaps };
+
+      // Guard-rail calculation
+      const guardrailRatio = baseIncome > 0 ? actual / baseIncome : 0;
+
+      return {
+        key: parent,
+        cap,
+        actual,
+        ratio,
+        over,
+        warn,
+        children,
+        childCaps,
+        guardrailRatio,
+        overspendAmount: Math.max(0, actual - cap)
+      };
     });
-  }, [capsByMonth, parentCatsByMonth, selectedMonth]);
+  }, [capsByMonth, parentCatsByMonth, selectedMonth, baseIncome]);
+
+  // Sort rows by overspend first, then by largest gap
+  const sortedRows = useMemo(() => {
+    const sorted = [...budgetRows];
+    if (sortBy === "overspend") {
+      return sorted.sort((a, b) => {
+        // First by status: Over > Near > OK
+        const statusOrder = { over: 3, near: 2, ok: 1 };
+        const aStatus = a.over ? "over" : a.warn ? "near" : "ok";
+        const bStatus = b.over ? "over" : b.warn ? "near" : "ok";
+
+        if (statusOrder[aStatus] !== statusOrder[bStatus]) {
+          return statusOrder[bStatus] - statusOrder[aStatus];
+        }
+
+        // Then by largest overspend amount
+        return b.overspendAmount - a.overspendAmount;
+      });
+    }
+    return sorted.sort((a, b) => a.key.localeCompare(b.key));
+  }, [budgetRows, sortBy]);
+
+  // Top overspends for insights
+  const topOverspends = useMemo(() => {
+    return sortedRows
+      .filter(r => r.overspendAmount > 0)
+      .slice(0, 3)
+      .map(r => ({ name: r.key, amount: r.overspendAmount }));
+  }, [sortedRows]);
+
+  // Handle cap changes with rounding
+  const handleCapChange = (childName: string, value: number) => {
+    const rounded = round1000(value);
+    setCap(selectedMonth, childName, rounded);
+  };
+
+  // Export/Import/Copy functions
+  const exportCapsCsv = () => {
+    const csvContent = [
+      "month,categoryChild,capAmount",
+      ...Object.entries(capsByMonth[selectedMonth] || {})
+        .map(([child, cap]) => `${selectedMonth},${child},${cap}`)
+    ].join("\n");
+
+    const blob = new Blob([csvContent], { type: "text/csv" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = `budget-caps-${selectedMonth}.csv`;
+    a.click();
+    URL.revokeObjectURL(url);
+  };
+
+  const copyCapsCsv = async () => {
+    const csvContent = [
+      "month,categoryChild,capAmount",
+      ...Object.entries(capsByMonth[selectedMonth] || {})
+        .map(([child, cap]) => `${selectedMonth},${child},${cap}`)
+    ].join("\n");
+
+    try {
+      await navigator.clipboard.writeText(csvContent);
+      // You could add a toast notification here
+    } catch (err) {
+      console.error("Failed to copy:", err);
+    }
+  };
+
+  const handleImportCapsFile = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (!file) return;
+
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      const text = e.target?.result as string;
+      const lines = text.split("\n").slice(1); // Skip header
+
+      lines.forEach(line => {
+        const [month, child, cap] = line.split(",");
+        if (month === selectedMonth && child && cap) {
+          setCap(selectedMonth, child, Number(cap));
+        }
+      });
+    };
+    reader.readAsText(file);
+  };
 
   return (
     <section className="bg-white rounded-2xl shadow p-3 sm:p-4 mb-6" aria-label="Budget versus actual">
       <h2 className="text-sm sm:text-base font-semibold mb-3">Budget vs Actual - Ngân sách và Thực chi</h2>
 
-      <div className="flex flex-wrap items-center gap-2 mb-3 justify-between">
-        <div className="flex items-center gap-2">
-          <div className="text-xs text-neutral-600">Mode:</div>
+      {/* Sticky Mode Toggle and Actions */}
+      <div className="flex flex-wrap items-center justify-between gap-2 sticky top-0 z-10 bg-white/80 backdrop-blur p-2 rounded-xl border border-neutral-200 mb-4">
+        <div className="flex items-center gap-3">
           <div className="inline-flex rounded-lg border border-neutral-200 overflow-hidden">
             <button
-              className={`px-2 sm:px-3 py-1 text-xs ${budgetMode === "view" ? "bg-neutral-100" : ""}`}
+              className={`px-3 py-1 text-xs ${budgetMode === "view" ? "bg-neutral-100" : ""}`}
               onClick={() => setBudgetMode("view")}
             >
               View
             </button>
             <button
-              className={`px-2 sm:px-3 py-1 text-xs ${budgetMode === "edit" ? "bg-neutral-100" : ""}`}
+              className={`px-3 py-1 text-xs ${budgetMode === "edit" ? "bg-neutral-100" : ""}`}
               onClick={() => setBudgetMode("edit")}
             >
               Edit
             </button>
           </div>
+
+          <select
+            value={sortBy}
+            onChange={(e) => setSortBy(e.target.value as "overspend" | "alphabetical")}
+            className="px-2 py-1 text-xs rounded-lg border border-neutral-200"
+          >
+            <option value="overspend">Sort: Overspend</option>
+            <option value="alphabetical">Sort: A-Z</option>
+          </select>
+        </div>
+
+        <div className="flex items-center gap-2">
+          <button onClick={exportCapsCsv} className="px-3 py-1 text-xs rounded-lg border hover:bg-neutral-50">
+            Export
+          </button>
+          <button onClick={copyCapsCsv} className="px-3 py-1 text-xs rounded-lg border hover:bg-neutral-50">
+            Copy
+          </button>
+          <label className="px-3 py-1 text-xs rounded-lg border hover:bg-neutral-50 cursor-pointer">
+            Import
+            <input type="file" accept=".csv" className="hidden" onChange={handleImportCapsFile} />
+          </label>
         </div>
       </div>
 
-      <div className="overflow-x-auto">
-        <table className="min-w-full text-xs sm:text-sm">
-          <thead>
-            <tr className="text-left text-neutral-600">
-              <th className="py-2">Category</th>
-              <th className="py-2">Budget</th>
-              <th className="py-2">Actual</th>
-              <th className="py-2">Status</th>
-              <th className="py-2 w-[280px] sm:w-[320px]">Bar</th>
-            </tr>
-          </thead>
-          <tbody>
-            {budgetRows.map((r) => {
-              const pct = r.cap > 0 ? clamp((r.actual / r.cap) * 100, 0, 300) : 0;
-              const status = r.over ? "Over" : r.warn ? "Near" : "OK";
-              const statusClass = r.over ? "text-red-700" : r.warn ? "text-amber-700" : "text-green-700";
+      {/* Top Overspends Insights */}
+      {topOverspends.length > 0 && (
+        <div className="mb-4 p-3 bg-amber-50 border border-amber-200 rounded-lg">
+          <div className="text-xs text-amber-800">
+            <strong>Top overspends:</strong>{" "}
+            {topOverspends.map((item, i) => (
+              <span key={item.name}>
+                {item.name} +{formatVND(item.amount)}
+                {i < topOverspends.length - 1 ? ", " : ""}
+              </span>
+            ))}
+          </div>
+        </div>
+      )}
 
-              return (
-                <React.Fragment key={r.key}>
-                  <tr className="border-t border-neutral-100">
-                    <td className="py-2 font-medium">{r.key}</td>
-                    <td className="py-2">{formatVND(r.cap)}</td>
-                    <td className="py-2">{formatVND(r.actual)}</td>
-                    <td className={`py-2 ${statusClass}`}>{status}</td>
-                    <td className="py-2">
-                      <div className="flex items-center gap-2">
-                        <div className="flex-1 h-3 bg-neutral-100 rounded-full overflow-hidden relative" aria-label={`Actual ${pct}% of cap`}>
-                          {/* Bullet bar with cap at 300% */}
-                          <div
-                            className={`h-full ${r.over ? "bg-red-500" : r.warn ? "bg-amber-500" : "bg-green-500"}`}
-                            style={{ width: `${Math.min(pct, 300)}%` }}
-                          />
-                          {/* Cap indicator at 100% */}
-                          <div className="absolute top-0 left-1/4 h-full w-px bg-gray-400" />
-                          {/* 300% cap indicator */}
-                          <div className="absolute top-0 right-0 h-full w-px bg-red-300" />
-                        </div>
-                        <span className="text-xs text-gray-600 min-w-[3rem] text-right">
-                          {pct.toFixed(0)}%
-                        </span>
-                      </div>
-                    </td>
-                  </tr>
-                  {r.children.map((cname, i) => {
-                    const actualChild = (subCatsByMonth[selectedMonth] || {})[cname] || 0;
-                    const capChild = r.childCaps[i] || 0;
-                    const pctChild = capChild > 0 ? clamp((actualChild / capChild) * 100, 0, 300) : 0;
-                    const overChild = capChild > 0 && actualChild >= capChild;
-                    const warnChild = !overChild && capChild > 0 && actualChild >= 0.8 * capChild;
-
-                    return (
-                      <tr key={`${r.key}-${cname}`} className="border-t border-neutral-100">
-                        <td className="py-2 pl-6 text-neutral-700">↳ {cname}</td>
-                        <td className="py-2">
-                          {budgetMode === "edit" ? (
-                            <input
-                              type="number"
-                              inputMode="numeric"
-                              className="w-36 rounded-lg border border-neutral-200 px-2 py-1"
-                              value={(capsByMonth[selectedMonth]?.[cname] || 0).toString()}
-                              onChange={(e) => setCap(selectedMonth, cname, Number(e.target.value || 0))}
-                            />
-                          ) : (
-                            <span>{formatVND(capsByMonth[selectedMonth]?.[cname] || 0)}</span>
-                          )}
-                        </td>
-                        <td className="py-2">{formatVND(actualChild)}</td>
-                        <td className={`py-2 ${overChild ? "text-red-700" : warnChild ? "text-amber-700" : "text-green-700"}`}>
-                          {overChild ? "Over" : warnChild ? "Near" : "OK"}
-                        </td>
-                        <td className="py-2">
-                          <div className="flex items-center gap-2">
-                            <div className="flex-1 h-2 bg-neutral-100 rounded-full overflow-hidden relative" aria-label={`Actual ${pctChild}% of cap`}>
-                              {/* Bullet bar with cap at 300% */}
-                              <div
-                                className={`h-full ${overChild ? "bg-red-500" : warnChild ? "bg-amber-500" : "bg-green-500"}`}
-                                style={{ width: `${Math.min(pctChild, 300)}%` }}
-                              />
-                              {/* Cap indicator at 100% */}
-                              <div className="absolute top-0 left-1/4 h-full w-px bg-gray-400" />
-                              {/* 300% cap indicator */}
-                              <div className="absolute top-0 right-0 h-full w-px bg-red-300" />
-                            </div>
-                            <span className="text-xs text-gray-600 min-w-[3rem] text-right">
-                              {pctChild.toFixed(0)}%
-                            </span>
-                          </div>
-                        </td>
-                      </tr>
-                    );
-                  })}
-                </React.Fragment>
-              );
-            })}
-          </tbody>
-        </table>
+      {/* Parent Groups - Mobile Cards / Desktop Rows */}
+      <div className="space-y-3">
+        {sortedRows.map((row) => (
+          <ParentGroup
+            key={row.key}
+            row={row}
+            selectedMonth={selectedMonth}
+            subCatsByMonth={subCatsByMonth}
+            capsByMonth={capsByMonth}
+            mode={budgetMode}
+            onCapChange={handleCapChange}
+          />
+        ))}
       </div>
 
-      <p className="mt-3 text-xs text-neutral-500">
+      <p className="mt-4 text-xs text-neutral-500">
         Budget ở cấp con có thể chỉnh trực tiếp (tự động làm tròn 1.000 VND). Tổng cha = tổng con. Guard-rail cảnh báo theo % thu nhập.
       </p>
     </section>
+  );
+}
+
+// ParentGroup Component - Mobile Cards / Desktop Rows
+interface ParentGroupProps {
+  row: {
+    key: string;
+    cap: number;
+    actual: number;
+    ratio: number;
+    over: boolean;
+    warn: boolean;
+    children: string[];
+    childCaps: number[];
+    guardrailRatio: number;
+    overspendAmount: number;
+  };
+  selectedMonth: string;
+  subCatsByMonth: Record<string, Record<string, number>>;
+  capsByMonth: Record<string, Record<string, number>>;
+  mode: "view" | "edit";
+  onCapChange: (childName: string, value: number) => void;
+}
+
+function ParentGroup({ row, selectedMonth, subCatsByMonth, capsByMonth, mode, onCapChange }: ParentGroupProps) {
+  const [open, setOpen] = useState(true);
+  const pct = row.cap > 0 ? Math.min(300, Math.max(0, (row.actual / row.cap) * 100)) : 0;
+  const status = row.over ? "Over" : row.warn ? "Near" : "OK";
+
+  return (
+    <div className="border border-neutral-200 rounded-2xl p-3 mb-2 bg-white">
+      {/* Column headers - only show on desktop */}
+      <div className="hidden md:grid grid-cols-12 gap-2 items-center mb-2 text-xs text-neutral-600 font-medium">
+        <div className="col-span-5">Category</div>
+        <div className="col-span-2">Budget</div>
+        <div className="col-span-2">Actual</div>
+        <div className="col-span-1">%</div>
+        <div className="col-span-2">Status</div>
+      </div>
+
+      {/* Parent header */}
+      <button
+        onClick={() => setOpen((v) => !v)}
+        className="w-full text-left"
+        aria-label={`Parent: ${row.key}, ${Math.round(pct)} percent of cap`}
+      >
+        <div className="grid grid-cols-12 gap-2 items-center">
+          <div className="col-span-12 md:col-span-5 font-medium">{row.key}</div>
+          <div className="col-span-4 md:col-span-2 text-sm">
+            <span className="md:hidden text-xs text-neutral-500 mr-1">Budget:</span>
+            {formatVND(row.cap)}
+          </div>
+          <div className="col-span-4 md:col-span-2 text-sm">
+            <span className="md:hidden text-xs text-neutral-500 mr-1">Actual:</span>
+            {formatVND(row.actual)}
+          </div>
+          <div className="col-span-2 md:col-span-1 text-sm">
+            <span className="md:hidden text-xs text-neutral-500 mr-1">%:</span>
+            {Math.round(pct)}%
+          </div>
+          <div className="col-span-2 md:col-span-2 text-xs">
+            <span className="md:hidden text-xs text-neutral-500 mr-1">Status:</span>
+            <span className={`px-2 py-1 rounded-full border ${
+              row.over ? "text-red-700 bg-red-50 border-red-200" :
+              row.warn ? "text-amber-700 bg-amber-50 border-amber-200" :
+              "text-green-700 bg-green-50 border-green-200"
+            }`}>
+              {status}
+            </span>
+          </div>
+        </div>
+
+        <div className="mt-2 h-3 w-full bg-neutral-100 rounded-full overflow-hidden" aria-label={`Actual ${pct}% of cap`}>
+          <div
+            className={`h-full ${row.over ? "bg-red-500" : row.warn ? "bg-amber-500" : "bg-green-500"}`}
+            style={{ width: `${pct}%` }}
+          />
+        </div>
+
+        {/* Guard-rail ribbon */}
+        {row.guardrailRatio > 0 && (
+          <div className={`mt-1 text-xs ${
+            row.guardrailRatio > 1 ? "text-red-700" :
+            row.guardrailRatio > 0.8 ? "text-amber-700" :
+            "text-neutral-500"
+          }`}>
+            Uses {Math.round((row.actual / Math.max(1, row.cap)) * 100)}% of cap.
+            Guard-rail: {Math.round(row.guardrailRatio * 100)}% of income.
+          </div>
+        )}
+      </button>
+
+      {/* Children */}
+      {open && (
+        <div className="mt-3 space-y-2">
+          {row.children.map((childName, i) => {
+            const actualChild = (subCatsByMonth[selectedMonth] || {})[childName] || 0;
+            const capChild = row.childCaps[i] || 0;
+            const pctChild = capChild > 0 ? Math.min(300, Math.max(0, (actualChild / capChild) * 100)) : 0;
+            const overChild = capChild > 0 && actualChild >= capChild;
+            const warnChild = !overChild && capChild > 0 && actualChild >= 0.8 * capChild;
+            const statusChild = overChild ? "Over" : warnChild ? "Near" : "OK";
+
+            return (
+              <div key={childName} className="grid grid-cols-12 gap-2 items-center">
+                <div className="col-span-12 md:col-span-5 text-neutral-700">↳ {childName}</div>
+                <div className="col-span-4 md:col-span-2">
+                  <span className="md:hidden text-xs text-neutral-500 mr-1">Budget:</span>
+                  {mode === "edit" ? (
+                    <input
+                      type="number"
+                      inputMode="numeric"
+                      className="w-full rounded-lg border border-neutral-200 px-2 py-1 text-sm"
+                      value={Math.round(capChild)}
+                      onChange={(e) => onCapChange(childName, Number(e.target.value || 0))}
+                      onBlur={(e) => onCapChange(childName, Math.round(Number(e.target.value || 0) / 1000) * 1000)}
+                      placeholder="0"
+                    />
+                  ) : (
+                    <span className="text-sm">{formatVND(capChild)}</span>
+                  )}
+                </div>
+                <div className="col-span-4 md:col-span-2 text-sm">
+                  <span className="md:hidden text-xs text-neutral-500 mr-1">Actual:</span>
+                  {formatVND(actualChild)}
+                </div>
+                <div className="col-span-4 md:col-span-3">
+                  <span className="md:hidden text-xs text-neutral-500 mr-1">Progress:</span>
+                  <div className="flex items-center gap-2">
+                    <div className="h-2 w-full bg-neutral-100 rounded-full overflow-hidden">
+                      <div
+                        className={`h-full ${
+                          statusChild === "Over" ? "bg-red-500" :
+                          statusChild === "Near" ? "bg-amber-500" :
+                          "bg-green-500"
+                        }`}
+                        style={{ width: `${pctChild}%` }}
+                      />
+                    </div>
+                    <span className="text-xs text-gray-600 min-w-[2rem] text-right">
+                      {Math.round(pctChild)}%
+                    </span>
+                  </div>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      )}
+    </div>
   );
 }

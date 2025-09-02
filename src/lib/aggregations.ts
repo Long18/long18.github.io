@@ -12,10 +12,8 @@ export const GUARDRAIL_PCT: Record<string, number> = {
     Others: 0.1,
 };
 
-// Net payslip lookup by month
-// Requirement: no cache, default should be 0
+// Net payslip lookup by month - removed, will use CSV data instead
 export const DEFAULT_NET = 0;
-export const PAYSLIP_NET_BY_MONTH: Record<string, number> = {};
 
 // =====================================================
 // Helpers
@@ -68,7 +66,7 @@ export function suggestCapsForMonth(
     monthAgg: Record<string, { income: number; expense: number }>,
     subCatsByMonth: Record<string, Record<string, number>>
 ): Record<string, number> {
-    const baseIncome = monthAgg[month]?.income || PAYSLIP_NET_BY_MONTH[month] || DEFAULT_NET;
+    const baseIncome = monthAgg[month]?.income || DEFAULT_NET;
     const caps: Record<string, number> = {};
     const monthsSorted = Object.keys(subCatsByMonth).sort();
     const prev = monthsSorted.filter((m) => m < month).slice(-1)[0];
