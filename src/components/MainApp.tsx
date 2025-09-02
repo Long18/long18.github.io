@@ -6,6 +6,7 @@ import { ThemeProvider } from '@/context/ThemeContext';
 import Sidebar from '@/components/Sidebar';
 import Header from '@/components/layout/Header';
 import ThemeToggle from '@/components/ThemeToggle';
+
 import Home from '@/components/sections/Home';
 import About from '@/components/sections/About';
 import Resume from '@/components/sections/Resume';
@@ -27,6 +28,7 @@ interface MainAppProps {
 export default function MainApp({ locale }: MainAppProps) {
   const [activeSection, setActiveSection] = useState('home'); // Default to Home section
   const [isMounted, setIsMounted] = useState(false);
+
 
   React.useEffect(() => {
     setIsMounted(true);
@@ -95,18 +97,18 @@ export default function MainApp({ locale }: MainAppProps) {
         </div>
 
                             {/* Main Layout Container - Version 2.0 Style */}
-                    <div className="relative z-10 min-h-screen pt-20 pb-32 md:pb-0 md:pt-20">
-          <div className="mx-3 md:mx-6 lg:mx-8 xl:mx-12 my-4 md:my-8 lg:my-12 xl:my-15 max-w-[1400px] mx-auto">
-            <div className="flex flex-col lg:flex-row justify-center items-stretch gap-4 lg:gap-6 xl:gap-8">
+                    <div className="relative z-10 min-h-screen pt-12 sm:pt-16 md:pt-20 pb-32 md:pb-0 lg:pt-4 lg:pb-4 lg:h-screen">
+          <div className="mx-2 sm:mx-3 md:mx-6 lg:mx-0 lg:ml-4 lg:mr-4 my-2 sm:my-4 md:my-8 lg:my-4 max-w-[1400px] mx-auto lg:max-w-none lg:h-full">
+            <div className="flex flex-col lg:flex-row lg:h-full gap-2 sm:gap-4 lg:gap-6 xl:gap-8">
               {/* Desktop Sidebar - Version 2.0 Style */}
-              <aside className="hidden lg:block w-full lg:w-72 xl:w-80 2xl:w-96 bg-eerie-black-2 border border-jet rounded-[20px] p-4 shadow-[--shadow-1] z-1 flex-shrink-0">
+              <aside className="hidden lg:block w-full lg:w-72 xl:w-80 2xl:w-96 bg-eerie-black-2 border border-jet rounded-[20px] p-4 shadow-[--shadow-1] z-1 flex-shrink-0 lg:h-full">
                 <Sidebar locale={locale} />
               </aside>
 
                             {/* Main Content Area - Version 2.0 Style */}
-              <div className="flex-1 min-w-0 relative">
+              <div className="flex-1 min-w-0 relative lg:h-full">
                 {/* Content Panel */}
-                <main className="bg-eerie-black-2 border border-jet rounded-[20px] p-4 md:p-6 lg:p-8 shadow-[--shadow-1] z-1 relative overflow-hidden">
+                <main className="bg-eerie-black-2 border border-jet rounded-[20px] p-2 sm:p-4 md:p-6 lg:p-8 shadow-[--shadow-1] z-1 relative overflow-hidden lg:h-full">
                   {/* Header Navigation - Inside Main Panel */}
                   <Header
                     activeSection={activeSection}
@@ -119,7 +121,7 @@ export default function MainApp({ locale }: MainAppProps) {
                   <div className="relative z-10 scroll-smooth-enhanced transition-all duration-300 ease-out overflow-auto h-full main-content-mobile">
                     <div
                       key={activeSection}
-                      className="content-section animate-fadeIn min-h-[calc(100vh-8rem)]"
+                      className="content-section animate-fadeIn min-h-[calc(100vh-6rem)] sm:min-h-[calc(100vh-8rem)]"
                     >
                       {renderSection()}
                     </div>
@@ -134,6 +136,8 @@ export default function MainApp({ locale }: MainAppProps) {
         <div className="md:hidden">
           {/* Mobile profile and contact toggle will be handled by Sidebar component */}
         </div>
+
+
       </div>
 
       {/* Global styles for scroll indicator and loading states */}

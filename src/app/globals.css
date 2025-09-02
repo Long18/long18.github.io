@@ -5,11 +5,12 @@
 /* Global styles for smooth scrolling and accessibility */
 html {
   scroll-behavior: smooth;
+  overflow-x: hidden; /* Remove horizontal scrollbar */
 }
 
 body {
   background-color: hsl(0, 0%, 7%); /* smoky-black */
-  overflow-x: hidden;
+  overflow-x: hidden; /* Remove horizontal scrollbar */
 }
 
 /* Focus styles for accessibility */
@@ -481,26 +482,49 @@ body {
 }
 
 /* Mobile responsive - top position */
-@media (max-width: 768px) {
+@media (max-width: 640px) {
   .navbar {
     top: 0;
     bottom: auto;
-    height: 60px;
-    border-radius: 0 0 20px 20px;
+    height: 50px;
+    border-radius: 0 0 16px 16px;
     margin: 0;
   }
 
   .navbar-list {
-    gap: 15px;
-    padding: 8px 10px;
+    gap: 8px;
+    padding: 4px 8px;
     height: 100%;
     align-items: center;
   }
 
   .navbar-link {
-    font-size: 15px;
+    font-size: 13px;
     font-weight: 500;
-    padding: 12px 5px;
+    padding: 8px 3px;
+  }
+}
+
+@media (min-width: 641px) and (max-width: 768px) {
+  .navbar {
+    top: 0;
+    bottom: auto;
+    height: 55px;
+    border-radius: 0 0 18px 18px;
+    margin: 0;
+  }
+
+  .navbar-list {
+    gap: 12px;
+    padding: 6px 10px;
+    height: 100%;
+    align-items: center;
+  }
+
+  .navbar-link {
+    font-size: 14px;
+    font-weight: 500;
+    padding: 10px 4px;
   }
 }
 

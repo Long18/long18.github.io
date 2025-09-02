@@ -283,10 +283,10 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
           {/* Right Content - Avatar */}
           <div
             ref={avatarRef}
-            className="relative flex items-center justify-center min-h-[400px] animate-slide-in-right"
+            className="relative flex items-center justify-center min-h-[300px] sm:min-h-[350px] lg:min-h-[400px] animate-slide-in-right"
           >
             {/* Avatar container with enhanced effects */}
-            <div className="relative w-[400px] h-[400px] flex items-center justify-center overflow-visible">
+            <div className="relative w-[300px] h-[300px] sm:w-[350px] sm:h-[350px] lg:w-[400px] lg:h-[400px] flex items-center justify-center overflow-visible">
               {/* Outer atmospheric rings */}
               <div className="absolute inset-0 rounded-full opacity-20 animate-pulse-slow bg-gradient-radial from-orange-400/20 via-purple-500/10 to-transparent" />
               <div
@@ -295,13 +295,13 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
               />
 
               {/* Rotating border ring */}
-              <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-60 h-60 rounded-full opacity-70 animate-spin-slow bg-gradient-conic from-orange-400 via-purple-500 to-orange-400 p-1">
+              <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-48 h-48 sm:w-56 sm:h-56 lg:w-60 lg:h-60 rounded-full opacity-70 animate-spin-slow bg-gradient-conic from-orange-400 via-purple-500 to-orange-400 p-1">
                 <div className="w-full h-full bg-eerie-black-1 rounded-full" />
               </div>
 
               {/* Avatar image */}
               <div
-                className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-40 h-40 bg-eerie-black-1 rounded-full p-1 shadow-2xl animate-scale-in"
+                className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-32 h-32 sm:w-36 sm:h-36 lg:w-40 lg:h-40 bg-eerie-black-1 rounded-full p-1 shadow-2xl animate-scale-in"
                 style={{ animationDelay: '0.6s' }}
               >
                 <Image
@@ -485,11 +485,11 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
             Main Skills
           </h2>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8">
             {mainSkills.map((category, categoryIndex) => (
               <div
                 key={category.title}
-                className="bg-eerie-black-2/20 backdrop-blur-sm rounded-2xl p-6 lg:p-8 border border-jet/20 hover:border-orange-500/30 hover:bg-eerie-black-2/30 transition-all duration-500 group relative overflow-hidden shadow-lg hover:shadow-xl hover:shadow-orange-500/10 animate-scale-in"
+                className="bg-eerie-black-2/20 backdrop-blur-sm rounded-2xl p-4 sm:p-6 lg:p-8 border border-jet/20 hover:border-orange-500/30 hover:bg-eerie-black-2/30 transition-all duration-500 group relative overflow-hidden shadow-lg hover:shadow-xl hover:shadow-orange-500/10 animate-scale-in"
                 style={{ animationDelay: `${1.4 + categoryIndex * 0.2}s` }}
               >
                 <div className="absolute inset-0 bg-gradient-to-br from-orange-500/3 via-transparent to-purple-500/3 opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-2xl" />
