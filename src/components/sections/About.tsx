@@ -10,14 +10,11 @@ import { useAnimationPerformance } from '../../hooks/useAnimationPerformance';
 import {
   Briefcase,
   Code,
-  Trophy,
   Target,
   Zap,
-  Star,
   Download,
   Calendar,
   MapPin,
-  Heart,
   Coffee,
   Gamepad2,
   Rocket,
@@ -67,23 +64,7 @@ const services = [
   },
 ];
 
-// Enhanced statistics with icons
-const statistics = [
-  { number: '3+', label: 'Years Experience', icon: Calendar, color: '#fb923c' },
-  {
-    number: '15+',
-    label: 'Projeccts Completed',
-    icon: Trophy,
-    color: '#8b5cf6',
-  },
-  {
-    number: '100%',
-    label: 'Client Satisfaction',
-    icon: Star,
-    color: '#22c55e',
-  },
-  { number: '24/7', label: 'Code Passion', icon: Heart, color: '#ef4444' },
-];
+
 
 // Fun facts about me
 const funFacts = [
@@ -368,55 +349,7 @@ export default function About({ className = '' }: AboutProps) {
           </div>
         </motion.section>
 
-        {/* Statistics Section */}
-        <motion.section variants={itemVariants} className="relative">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-            {statistics.map((stat, index) => (
-              <motion.div
-                key={stat.label}
-                variants={itemVariants}
-                whileHover={
-                  performanceMode !== 'low' ? { scale: 1.05, y: -5 } : {}
-                }
-                className="relative text-center p-6 bg-eerie-black-2/40 backdrop-blur-sm rounded-2xl border border-jet/30 hover:border-orange-500/50 hover:shadow-xl hover:shadow-orange-500/10 transition-all duration-500 group cursor-pointer animate-scale-in"
-                style={{ animationDelay: `${1.2 + index * 0.1}s` }}
-              >
-                {/* Icon */}
-                <motion.div
-                  whileHover={
-                    performanceMode !== 'low' ? { rotate: 360, scale: 1.1 } : {}
-                  }
-                  transition={{ duration: 0.5 }}
-                  className="w-12 h-12 mx-auto mb-4 rounded-xl flex items-center justify-center relative z-10"
-                  style={{
-                    background: `linear-gradient(135deg, ${stat.color}20, ${stat.color}10)`,
-                  }}
-                >
-                  <stat.icon
-                    className="w-6 h-6"
-                    style={{ color: stat.color }}
-                  />
-                </motion.div>
 
-                {/* Number */}
-                <div
-                  className="text-2xl lg:text-3xl font-bold mb-2 relative z-10 animate-count-up"
-                  style={{
-                    color: stat.color,
-                    animationDelay: `${1.4 + index * 0.1}s`,
-                  }}
-                >
-                  {stat.number}
-                </div>
-
-                {/* Label */}
-                <div className="text-sm text-white-2/80 group-hover:text-white-2 transition-colors duration-300 relative z-10">
-                  {stat.label}
-                </div>
-              </motion.div>
-            ))}
-          </div>
-        </motion.section>
 
         {/* Services Section */}
         <motion.section variants={itemVariants} className="space-y-8">
