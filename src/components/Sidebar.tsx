@@ -13,18 +13,20 @@ interface SidebarProps {
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 export default function Sidebar({ locale = 'en' }: SidebarProps) {
-  const [isContactsOpen, setIsContactsOpen] = useState(() => {
-    if (typeof window === 'undefined') return false;
-    const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
-      navigator.userAgent
-    ) || window.innerWidth < 768;
-    return !isMobile;
-  });
+  const [isContactsOpen, setIsContactsOpen] = useState(false);
+  const [isMounted, setIsMounted] = useState(false);
 
   const sidebarRef = useRef<HTMLDivElement>(null);
   const arrowRef = useRef<SVGSVGElement>(null);
 
   useEffect(() => {
+    // Set mounted state to prevent hydration mismatch
+    setIsMounted(true);
+
+    // Set initial state based on screen size
+    const isMobile = window.innerWidth < 768;
+    setIsContactsOpen(!isMobile);
+
     const handleResize = () => {
       const isMobile = window.innerWidth < 768;
       setIsContactsOpen(!isMobile);
@@ -225,7 +227,7 @@ export default function Sidebar({ locale = 'en' }: SidebarProps) {
                 aria-controls="mobile-contacts"
                 aria-expanded={isContactsOpen}
               >
-                <span>{isContactsOpen ? 'Hide' : 'Show'} Contact</span>
+                <span suppressHydrationWarning>{isContactsOpen ? 'Hide' : 'Show'} Contact</span>
                 <svg
                   ref={arrowRef}
                   className="w-4 h-4 transition-transform duration-300"

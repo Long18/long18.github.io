@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import { ThemeProvider } from '@/context/ThemeContext';
-import LoadingOverlay from '@/components/LoadingOverlay';
+// import LoadingOverlay from '@/components/LoadingOverlay'; // No longer needed
 import Sidebar from '@/components/Sidebar';
 import Navigation from '@/components/Navigation';
 import Home from '@/components/sections/Home';
@@ -25,15 +25,9 @@ interface MainAppProps {
 
 export default function MainApp({ locale }: MainAppProps) {
   const [activeSection, setActiveSection] = useState('hero'); // Keep Home as default
-  const [isLoading, setIsLoading] = useState(true);
-
-  React.useEffect(() => {
-    const timer = setTimeout(() => {
-      setIsLoading(false);
-    }, 2000);
-
-    return () => clearTimeout(timer);
-  }, []);
+  // Removed initial loading state - no more loading overlay
+  // const [isLoading, setIsLoading] = useState(true);
+  // React.useEffect(() => { ... }, []);
 
   const handleSectionChange = (section: string) => {
     console.log('🎯 handleSectionChange called for:', section);
@@ -52,83 +46,9 @@ export default function MainApp({ locale }: MainAppProps) {
       contentSection.classList.add('content-loading');
     }
 
-    // Show loading indicator
-    const showScrollIndicator = () => {
-      const existingIndicator = document.querySelector('.scroll-indicator');
-      if (existingIndicator) {
-        existingIndicator.remove();
-      }
-
-      const sectionTitle =
-        sections.find((s) => s.id === section)?.label || section;
-
-      const indicator = document.createElement('div');
-      indicator.className = 'scroll-indicator';
-      indicator.innerHTML = `
-        <div style="
-          position: fixed;
-          top: 20px;
-          right: 20px;
-          background: linear-gradient(135deg, rgba(15, 23, 42, 0.95), rgba(30, 41, 59, 0.95));
-          backdrop-filter: blur(10px);
-          color: hsl(45, 100%, 72%);
-          padding: 12px 20px;
-          border-radius: 12px;
-          font-size: 14px;
-          font-weight: 500;
-          box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3), 0 0 20px rgba(251, 146, 60, 0.2);
-          border: 1px solid hsl(45, 100%, 72%);
-          z-index: 9999;
-          transform: translateY(-50%) scale(0.9);
-          opacity: 0;
-          transition: all 0.3s ease-out;
-        ">
-          <div style="display: flex; align-items: center; gap: 8px;">
-            <span style="animation: bounce 0.6s infinite; transform-origin: center;">→</span>
-            <span>Loading ${sectionTitle}</span>
-          </div>
-        </div>
-      `;
-
-      if (!document.querySelector('#bounce-keyframes')) {
-        const style = document.createElement('style');
-        style.id = 'bounce-keyframes';
-        style.textContent = `
-          @keyframes bounce {
-            0%, 20%, 53%, 80%, 100% { transform: translateX(0); }
-            40%, 43% { transform: translateX(3px); }
-            70% { transform: translateX(1px); }
-            90% { transform: translateX(-1px); }
-          }
-        `;
-        document.head.appendChild(style);
-      }
-
-      document.body.appendChild(indicator);
-
-      setTimeout(() => {
-        const indicatorEl = indicator.firstElementChild as HTMLElement;
-        if (indicatorEl) {
-          indicatorEl.style.opacity = '1';
-          indicatorEl.style.transform = 'translateY(-50%) scale(1)';
-        }
-      }, 100);
-
-      setTimeout(() => {
-        const indicatorEl = indicator.firstElementChild as HTMLElement;
-        if (indicatorEl) {
-          indicatorEl.style.opacity = '0';
-          indicatorEl.style.transform = 'translateY(-50%) scale(0.9)';
-          setTimeout(() => {
-            if (indicator.parentNode) {
-              indicator.remove();
-            }
-          }, 300);
-        }
-      }, 1500);
-    };
-
-    showScrollIndicator();
+    // Loading indicator removed - no longer showing when switching tabs
+    // const showScrollIndicator = () => { ... };
+    // showScrollIndicator(); // Removed call to prevent loading indicator
 
     // Change section after a brief delay
     setTimeout(() => {
@@ -155,9 +75,10 @@ export default function MainApp({ locale }: MainAppProps) {
     return <Component />;
   };
 
-  if (isLoading) {
-    return <LoadingOverlay />;
-  }
+  // Removed loading overlay - no more initial loading screen
+  // if (isLoading) {
+  //   return <LoadingOverlay />;
+  // }
 
   return (
     <ThemeProvider>
