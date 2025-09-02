@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import toast from 'react-hot-toast';
 import { useAnalyticsScopeStore } from '@/lib/storeAnalyticsScope';
 import { PARENT_TO_CHILDREN } from '@/lib/parsing';
@@ -9,6 +9,7 @@ interface AnalyticsScopeProps {
 }
 
 export default function AnalyticsScope({ selectedMonth, transactions }: AnalyticsScopeProps) {
+  const store = useAnalyticsScopeStore();
   const {
     mode,
     setMode,
@@ -20,7 +21,7 @@ export default function AnalyticsScope({ selectedMonth, transactions }: Analytic
     excludeParent,
     getExcludedSet,
     getIncludedCount,
-  } = useAnalyticsScopeStore();
+  } = store;
 
   const [searchQuery, setSearchQuery] = useState('');
   const [expandedParents, setExpandedParents] = useState<Set<string>>(new Set());
@@ -120,7 +121,7 @@ export default function AnalyticsScope({ selectedMonth, transactions }: Analytic
           <div className="flex bg-neutral-100 rounded-lg p-1">
             <button
               onClick={() => setMode('global')}
-              className={`px-3 py-1 text-sm font-medium rounded-md transition-colors ${
+              className={`px-3 py-1 text-sm font-medium rounded-md transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 ${
                 mode === 'global'
                   ? 'bg-white text-indigo-700 shadow-sm'
                   : 'text-neutral-600 hover:text-neutral-800'
@@ -130,7 +131,7 @@ export default function AnalyticsScope({ selectedMonth, transactions }: Analytic
             </button>
             <button
               onClick={() => setMode('per-month')}
-              className={`px-3 py-1 text-sm font-medium rounded-md transition-colors ${
+              className={`px-3 py-1 text-sm font-medium rounded-md transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 ${
                 mode === 'per-month'
                   ? 'bg-white text-indigo-700 shadow-sm'
                   : 'text-neutral-600 hover:text-neutral-800'
@@ -161,9 +162,43 @@ export default function AnalyticsScope({ selectedMonth, transactions }: Analytic
 
       {/* Summary Badge */}
       <div className="mb-4">
-        <span className="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-indigo-100 text-indigo-800">
-          Included {includedCount} of {allChildren.length}
-        </span>
+        <div className="flex items-center gap-2">
+          <span className={`inline-flex items-center px-3 py-1 rounded-full text-sm font-medium ${
+            includedCount === allChildren.length
+              ? 'bg-green-100 text-green-800'
+              : includedCount === 0
+              ? 'bg-neutral-100 text-neutral-600'
+              : 'bg-amber-100 text-amber-800'
+          }`}>
+            {includedCount === allChildren.length ? (
+              <>
+                <svg className="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                </svg>
+                All {allChildren.length} categories included
+              </>
+            ) : includedCount === 0 ? (
+              <>
+                <svg className="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                </svg>
+                All {allChildren.length} categories excluded
+              </>
+            ) : (
+              <>
+                <svg className="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L3.732 16.5c-.77.833.192 2.5 1.732 2.5z" />
+                </svg>
+                {includedCount} of {allChildren.length} categories included
+              </>
+            )}
+          </span>
+          {includedCount < allChildren.length && (
+            <span className="text-xs text-neutral-500">
+              ({allChildren.length - includedCount} excluded)
+            </span>
+          )}
+        </div>
       </div>
 
       {/* Bulk Actions */}
@@ -173,13 +208,13 @@ export default function AnalyticsScope({ selectedMonth, transactions }: Analytic
             includeAll(selectedMonth);
             toast.success('Included all categories');
           }}
-          className="px-3 py-1 text-xs font-medium text-green-700 bg-green-50 border border-green-200 rounded-lg hover:bg-green-100 transition-colors"
+          className="px-3 py-1 text-xs font-medium text-green-700 bg-green-50 border border-green-200 rounded-lg hover:bg-green-100 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 focus:bg-green-100 transition-all duration-200"
         >
           Include All
         </button>
         <button
           onClick={handleExcludeAll}
-          className="px-3 py-1 text-xs font-medium text-red-700 bg-red-50 border border-red-200 rounded-lg hover:bg-red-100 transition-colors"
+          className="px-3 py-1 text-xs font-medium text-red-700 bg-red-50 border border-red-200 rounded-lg hover:bg-red-100 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 focus:bg-red-100 transition-all duration-200"
         >
           Exclude All
         </button>
@@ -188,7 +223,7 @@ export default function AnalyticsScope({ selectedMonth, transactions }: Analytic
             reset(selectedMonth);
             toast.success('Reset to default scope');
           }}
-          className="px-3 py-1 text-xs font-medium text-neutral-700 bg-neutral-50 border border-neutral-200 rounded-lg hover:bg-neutral-100 transition-colors"
+          className="px-3 py-1 text-xs font-medium text-neutral-700 bg-neutral-50 border border-neutral-200 rounded-lg hover:bg-neutral-100 focus:outline-none focus:ring-2 focus:ring-neutral-400 focus:ring-offset-2 focus:bg-neutral-100 transition-all duration-200"
         >
           Reset
         </button>
@@ -209,7 +244,7 @@ export default function AnalyticsScope({ selectedMonth, transactions }: Analytic
               <div key={parentName} className="border border-neutral-200 rounded-lg">
                 <button
                   onClick={() => handleToggleParent(parentName)}
-                  className="w-full flex items-center justify-between p-3 text-left hover:bg-neutral-50 transition-colors"
+                  className="w-full flex items-center justify-between p-3 text-left hover:bg-neutral-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:bg-neutral-50 transition-all duration-200"
                 >
                   <div className="flex items-center gap-3">
                     <svg
@@ -221,7 +256,19 @@ export default function AnalyticsScope({ selectedMonth, transactions }: Analytic
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                     </svg>
                     <span className="font-medium text-sm">{parentName}</span>
-                    <span className="text-xs text-neutral-500">({includedInParent}/{children.length})</span>
+                    <div className="flex items-center gap-1">
+                      <span className={`text-xs px-2 py-0.5 rounded-full ${
+                        includedInParent === children.length
+                          ? 'bg-green-100 text-green-700'
+                          : includedInParent === 0
+                          ? 'bg-neutral-100 text-neutral-500'
+                          : 'bg-amber-100 text-amber-700'
+                      }`}>
+                        {includedInParent === children.length ? 'All Included' :
+                         includedInParent === 0 ? 'All Excluded' :
+                         `${includedInParent}/${children.length} Included`}
+                      </span>
+                    </div>
                   </div>
                   <div className="flex gap-1">
                     <button
@@ -229,7 +276,7 @@ export default function AnalyticsScope({ selectedMonth, transactions }: Analytic
                         e.stopPropagation();
                         handleIncludeParent(parentName);
                       }}
-                      className="px-2 py-1 text-xs text-green-700 bg-green-50 rounded hover:bg-green-100 transition-colors"
+                      className="px-2 py-1 text-xs text-green-700 bg-green-50 rounded hover:bg-green-100 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 focus:bg-green-100 transition-all duration-200"
                     >
                       Include All
                     </button>
@@ -238,7 +285,7 @@ export default function AnalyticsScope({ selectedMonth, transactions }: Analytic
                         e.stopPropagation();
                         handleExcludeParent(parentName);
                       }}
-                      className="px-2 py-1 text-xs text-red-700 bg-red-50 rounded hover:bg-red-100 transition-colors"
+                      className="px-2 py-1 text-xs text-red-700 bg-red-50 rounded hover:bg-red-100 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 focus:bg-red-100 transition-all duration-200"
                     >
                       Exclude All
                     </button>
@@ -254,14 +301,28 @@ export default function AnalyticsScope({ selectedMonth, transactions }: Analytic
                           <button
                             key={child}
                             onClick={() => toggleChild(child, selectedMonth)}
-                            className={`px-3 py-1 text-xs font-medium rounded-full border transition-colors ${
+                            className={`px-3 py-1 text-xs font-medium rounded-full border transition-all duration-200 flex items-center gap-1 focus:outline-none focus:ring-2 focus:ring-offset-2 ${
                               isExcluded
-                                ? 'bg-neutral-100 text-neutral-500 border-neutral-200 line-through'
-                                : 'bg-indigo-50 text-indigo-700 border-indigo-200 hover:bg-indigo-100'
+                                ? 'bg-neutral-100 text-neutral-500 border-neutral-200 hover:bg-neutral-200 focus:ring-neutral-400 focus:bg-neutral-200'
+                                : 'bg-green-50 text-green-700 border-green-200 hover:bg-green-100 focus:ring-green-500 focus:bg-green-100'
                             }`}
                             aria-pressed={!isExcluded}
                           >
-                            {child}
+                            {isExcluded ? (
+                              <>
+                                <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                                </svg>
+                                {child}
+                              </>
+                            ) : (
+                              <>
+                                <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                                </svg>
+                                {child}
+                              </>
+                            )}
                           </button>
                         );
                       })}

@@ -72,7 +72,7 @@ export const PARENT_TO_CHILDREN: Record<string, string[]> = {
         "Apple Store",
         "Apple Music",
         "AI",
-        "Tools (nếu có phát sinh, thấy trong sheet cha)",
+        "Tools",
         "Credits",
     ],
 };

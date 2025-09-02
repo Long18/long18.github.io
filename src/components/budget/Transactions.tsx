@@ -117,7 +117,12 @@ export default function Transactions({ transactions, selectedMonth }: Transactio
 
   return (
     <section className="bg-white rounded-2xl shadow p-4 mb-16" aria-label="Transactions">
-      <h2 className="text-base font-semibold mb-3">Transactions - Giao dịch</h2>
+      <h2 className="text-base font-semibold mb-3 flex items-center gap-2">
+        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5H7a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4" />
+        </svg>
+        Transactions - Giao dịch
+      </h2>
 
       <div className="flex flex-col md:flex-row gap-2 md:items-end mb-3">
         <div className="flex-1">

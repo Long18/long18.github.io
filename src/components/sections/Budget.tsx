@@ -21,6 +21,7 @@ import {
   suggestCapsForMonth,
   formatVND,
   clamp,
+  round1000,
   GUARDRAIL_PCT,
   DEFAULT_NET
 } from "@/lib/aggregations";
@@ -246,22 +247,22 @@ export default function FinanceDashboardMVP() {
     <div className="min-h-screen w-full bg-neutral-50 text-neutral-900">
       <div className="mx-auto max-w-7xl p-4 md:p-6 lg:p-8">
         {/* Header */}
-        <header className="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-6">
+        <header className="flex flex-col md:flex-row md:items-end md:justify-between gap-3 mb-6">
           <div className="flex-1">
-            <h1 className="text-xl sm:text-2xl md:text-3xl font-semibold tracking-tight">Personal Finance Dashboard</h1>
-            <p className="text-xs sm:text-sm text-neutral-600 mt-1">
+            <h1 className="text-lg sm:text-xl md:text-2xl font-semibold tracking-tight">Personal Finance Dashboard</h1>
+            <p className="text-xs text-neutral-600 mt-1">
               Upload Money Lover CSV (Sổ giao dịch, Khoản thu/chi). Month filter applies to all views.
               (Tải CSV. Bộ lọc tháng áp dụng cho mọi màn hình.)
             </p>
           </div>
-          <div className="flex gap-3 items-center w-full md:w-auto">
+          <div className="flex gap-2 items-center w-full md:w-auto">
             <input
               aria-label="Upload CSV"
               type="file"
               accept=".csv"
               multiple
               onChange={onFile}
-              className="block w-full text-xs sm:text-sm file:mr-2 sm:file:mr-4 file:py-1 sm:file:py-2 file:px-2 sm:file:px-4 file:rounded-lg file:border-0 file:text-xs sm:file:text-sm file:font-medium file:bg-indigo-50 file:text-indigo-700 hover:file:bg-indigo-100"
+              className="block w-full text-xs file:mr-2 file:py-1 file:px-2 file:rounded-lg file:border-0 file:text-xs file:font-medium file:bg-indigo-50 file:text-indigo-700 hover:file:bg-indigo-100"
             />
           </div>
         </header>
@@ -275,23 +276,31 @@ export default function FinanceDashboardMVP() {
         )}
 
         {/* Top controls */}
-        <section className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-6">
-          <div className="bg-white rounded-2xl shadow p-3 sm:p-4">
-            <label className="text-xs sm:text-sm font-medium">Select month - Chọn tháng</label>
-            <div className="mt-2">
-              <MonthCalendar value={selectedMonth} onChange={setSelectedMonth} monthsWithData={new Set(months)} />
-            </div>
+        <section className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 mb-6">
+          <div className="bg-white rounded-xl border border-neutral-200 p-3">
+            <label className="text-xs font-medium text-neutral-700 mb-2 block flex items-center gap-1">
+              <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+              </svg>
+              Select month - Chọn tháng
+            </label>
+            <MonthCalendar value={selectedMonth} onChange={setSelectedMonth} monthsWithData={new Set(months)} />
           </div>
 
-          <div className="bg-white rounded-2xl shadow p-3 sm:p-4">
-            <div className="text-xs sm:text-sm font-medium text-center mb-3">Net income - Thu nhập ròng</div>
+          <div className="bg-white rounded-xl border border-neutral-200 p-3">
+            <div className="text-xs font-medium text-neutral-700 text-center mb-2 flex items-center justify-center gap-1">
+              <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1" />
+              </svg>
+              Net income - Thu nhập ròng
+            </div>
 
             {/* Input field for payslip net income */}
-            <div className="text-center mb-3">
+            <div className="text-center mb-2">
               <input
                 type="number"
                 inputMode="numeric"
-                className="w-full text-2xl sm:text-3xl font-bold text-gray-900 text-center border-none outline-none bg-transparent"
+                className="w-full text-xl font-bold text-gray-900 text-center border-none outline-none bg-transparent"
                 value={payslipNet}
                 onChange={(e) => setPayslipNet(Number(e.target.value || 0))}
                 placeholder="0"
@@ -301,8 +310,8 @@ export default function FinanceDashboardMVP() {
             </div>
 
             {/* Baseline badge and delta */}
-            <div className="flex justify-center items-center gap-2 mb-2">
-              <span className={`px-2 py-0.5 text-xs rounded-full border ${
+            <div className="flex justify-center items-center gap-1 mb-1">
+              <span className={`px-1.5 py-0.5 text-xs rounded-full border ${
                 seriesForMonth.income > 0
                   ? "bg-indigo-50 border-indigo-200 text-indigo-700"
                   : "bg-neutral-100 border-neutral-200 text-neutral-600"
@@ -313,7 +322,7 @@ export default function FinanceDashboardMVP() {
                 (() => {
                   const delta = seriesForMonth.income - payslipNet;
                   return (
-                    <span className={`px-1.5 py-0.5 text-[11px] rounded border ${
+                    <span className={`px-1 py-0.5 text-[11px] rounded border ${
                       delta >= 0
                         ? "bg-green-50 border-green-200 text-green-700"
                         : "bg-red-50 border-red-200 text-red-700"
@@ -333,81 +342,155 @@ export default function FinanceDashboardMVP() {
             </div>
           </div>
 
-          <div className="bg-white rounded-2xl shadow p-3 sm:p-4 sm:col-span-2 lg:col-span-1">
-            <div className="flex items-center gap-2 mb-3">
-              <svg className="w-4 h-4 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <div className="bg-white rounded-xl border border-neutral-200 p-3 sm:col-span-2 lg:col-span-1">
+            <div className="flex items-center gap-1 mb-2">
+              <svg className="w-3 h-3 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
               </svg>
-              <label className="text-xs sm:text-sm font-semibold text-indigo-900">Status - Trạng thái</label>
+              <label className="text-xs font-semibold text-indigo-900">Status & Insights - Trạng thái & Nhận định</label>
             </div>
             <div className="space-y-2">
-              {(() => {
-                const msgs: string[] = [];
-                const baseIncome = seriesForMonth.income || payslipNet;
-                if (!baseIncome) {
-                  return (
-                    <div className="flex items-center gap-2 p-2 bg-neutral-50 rounded-lg border border-neutral-200">
-                      <svg className="w-4 h-4 text-neutral-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                      </svg>
-                      <span className="text-xs text-neutral-600">Chưa có thu nhập để tính guard-rail</span>
-                    </div>
-                  );
-                } else {
-                  const parentMap = parentCatsByMonth[selectedMonth] || {};
-                  for (const [p, pct] of Object.entries(GUARDRAIL_PCT)) {
-                    const spent = parentMap[p] || 0;
-                    if (spent / baseIncome > pct) {
-                      msgs.push(`${p} > ${Math.round(pct * 100)}% of income`);
+              {/* Status Section */}
+              <div>
+                <div className="text-xs font-medium text-neutral-600 mb-1">Guard-rail Status</div>
+                {(() => {
+                  const msgs: string[] = [];
+                  const baseIncome = seriesForMonth.income || payslipNet;
+                  if (!baseIncome) {
+                    return (
+                      <div className="flex items-center gap-1 p-1.5 bg-neutral-50 rounded-lg border border-neutral-200">
+                        <svg className="w-3 h-3 text-neutral-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                        <span className="text-xs text-neutral-600">Chưa có thu nhập để tính guard-rail</span>
+                      </div>
+                    );
+                  } else {
+                    const parentMap = parentCatsByMonth[selectedMonth] || {};
+                    for (const [p, pct] of Object.entries(GUARDRAIL_PCT)) {
+                      const spent = parentMap[p] || 0;
+                      if (spent / baseIncome > pct) {
+                        msgs.push(`${p} > ${Math.round(pct * 100)}% of income`);
+                      }
                     }
                   }
-                }
 
-                if (msgs.length > 0) {
+                  if (msgs.length > 0) {
+                    return (
+                      <div className="space-y-1">
+                        {msgs.map((m, index) => (
+                          <div key={index} className="flex items-center gap-1 p-1.5 bg-red-50 rounded-lg border border-red-200">
+                            <svg className="w-3 h-3 text-red-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L3.732 16.5c-.77.833.192 2.5 1.732 2.5z" />
+                            </svg>
+                            <span className="text-xs text-red-700 break-words">{m}</span>
+                          </div>
+                        ))}
+                      </div>
+                    );
+                  } else {
+                    return (
+                      <div className="flex items-center gap-1 p-1.5 bg-green-50 rounded-lg border border-green-200">
+                        <svg className="w-3 h-3 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                        <span className="text-xs text-green-700">Không có cảnh báo guard-rail</span>
+                      </div>
+                    );
+                  }
+                })()}
+              </div>
+
+              {/* Insights Section */}
+              <div>
+                <div className="text-xs font-medium text-neutral-600 mb-1">Top Overspends</div>
+                {(() => {
+                  const caps = capsByMonth[selectedMonth] || {};
+                  const subMap = subCatsByMonth[selectedMonth] || {};
+                  const items = Object.keys(subMap)
+                    .map((child) => {
+                      const cap = Math.max(0, round1000(caps[child] || 0));
+                      const actual = subMap[child] || 0;
+                      const over = Math.max(0, actual - cap);
+                      return { child, over, cap, actual };
+                    })
+                    .filter((item) => item.over > 0)
+                    .sort((a, b) => b.over - a.over)
+                    .slice(0, 3);
+
+                  if (items.length === 0) {
+                    return (
+                      <div className="flex items-center gap-1 p-1.5 bg-green-50 rounded-lg border border-green-200">
+                        <svg className="w-3 h-3 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                        <span className="text-xs text-green-700">Không có vượt ngân sách</span>
+                      </div>
+                    );
+                  }
+
                   return (
-                    <div className="space-y-2">
-                      {msgs.map((m, index) => (
-                        <div key={index} className="flex items-center gap-2 p-2 bg-red-50 rounded-lg border border-red-200">
-                          <svg className="w-4 h-4 text-red-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L3.732 16.5c-.77.833.192 2.5 1.732 2.5z" />
-                          </svg>
-                          <span className="text-xs text-red-700 break-words">{m}</span>
+                    <div className="space-y-1">
+                      {items.map((item, index) => (
+                        <div key={index} className="flex items-center justify-between p-1.5 bg-amber-50 rounded-lg border border-amber-200">
+                          <div className="flex items-center gap-1">
+                            <svg className="w-3 h-3 text-amber-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L3.732 16.5c-.77.833.192 2.5 1.732 2.5z" />
+                            </svg>
+                            <span className="text-xs text-amber-700 font-medium">{item.child}</span>
+                          </div>
+                          <span className="text-xs text-amber-700 font-semibold">+{formatVND(item.over)}</span>
                         </div>
                       ))}
                     </div>
                   );
-                } else {
-                  return (
-                    <div className="flex items-center gap-2 p-2 bg-green-50 rounded-lg border border-green-200">
-                      <svg className="w-4 h-4 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                      </svg>
-                      <span className="text-xs text-green-700">Không có cảnh báo guard-rail</span>
-                    </div>
-                  );
-                }
-              })()}
+                })()}
+              </div>
             </div>
           </div>
         </section>
 
         {/* KPI cards */}
-        <section className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 mb-6">
-          <div className="bg-white rounded-2xl shadow p-3 sm:p-4">
-            <div className="text-xs sm:text-sm text-neutral-500">Income - Thu</div>
-            <div className="text-lg sm:text-2xl font-semibold">{formatVND(seriesForMonth.income)}</div>
+        <section className="grid grid-cols-2 lg:grid-cols-4 gap-3 mb-6">
+          <div className="bg-white rounded-xl border border-neutral-200 p-3">
+            <div className="text-xs text-neutral-500 mb-1 flex items-center gap-1">
+              <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
+              </svg>
+              Income - Thu
+            </div>
+            <div className="text-lg font-semibold text-green-700">{formatVND(seriesForMonth.income)}</div>
           </div>
-          <div className="bg-white rounded-2xl shadow p-3 sm:p-4">
-            <div className="text-xs sm:text-sm text-neutral-500">Expense - Chi</div>
-            <div className="text-lg sm:text-2xl font-semibold">{formatVND(seriesForMonth.expense)}</div>
+          <div className="bg-white rounded-xl border border-neutral-200 p-3">
+            <div className="text-xs text-neutral-500 mb-1 flex items-center gap-1">
+              <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 17h8m0 0V9m0 8l-8-8-4 4-6-6" />
+              </svg>
+              Expense - Chi
+            </div>
+            <div className="text-lg font-semibold text-red-700">{formatVND(seriesForMonth.expense)}</div>
           </div>
-          <div className="bg-white rounded-2xl shadow p-3 sm:p-4">
-            <div className="text-xs sm:text-sm text-neutral-500">Balance - Cân đối</div>
-            <div className="text-lg sm:text-2xl font-semibold">{formatVND(seriesForMonth.income - seriesForMonth.expense)}</div>
+          <div className="bg-white rounded-xl border border-neutral-200 p-3">
+            <div className="text-xs text-neutral-500 mb-1 flex items-center gap-1">
+              <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+              </svg>
+              Balance - Cân đối
+            </div>
+            <div className={`text-lg font-semibold ${
+              (seriesForMonth.income - seriesForMonth.expense) >= 0 ? 'text-green-700' : 'text-red-700'
+            }`}>
+              {formatVND(seriesForMonth.income - seriesForMonth.expense)}
+            </div>
           </div>
-          <div className="bg-white rounded-2xl shadow p-3 sm:p-4">
-            <div className="text-xs sm:text-sm text-neutral-500">Saving rate - Tỉ lệ tiết kiệm</div>
-            <div className="text-lg sm:text-2xl font-semibold">
+          <div className="bg-white rounded-xl border border-neutral-200 p-3">
+            <div className="text-xs text-neutral-500 mb-1 flex items-center gap-1">
+              <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+              Saving rate - Tỉ lệ tiết kiệm
+            </div>
+            <div className="text-lg font-semibold text-indigo-700">
               {(() => {
                 const saved = (parentCatsByMonth[selectedMonth] || {})["Investment & Savings"] || 0;
                 const base = seriesForMonth.income || payslipNet;
@@ -432,39 +515,7 @@ export default function FinanceDashboardMVP() {
           baseIncome={seriesForMonth.income || payslipNet}
         />
 
-        {/* Insights */}
-        <section className="bg-white rounded-2xl shadow p-3 sm:p-4 mb-6" aria-label="Insights">
-          <h2 className="text-sm sm:text-base font-semibold mb-3">Insights - Nhận định</h2>
-          {(() => {
-            const caps = capsByMonth[selectedMonth] || {};
-            const subMap = subCatsByMonth[selectedMonth] || {};
-            const items = Object.keys(subMap)
-              .map((child) => {
-                const actual = subMap[child] || 0;
-                const cap = caps[child] || 0;
-                const over = Math.max(0, actual - cap);
-                const pct = cap > 0 ? Math.round((actual / cap) * 100) : 0;
-                return { child, actual, cap, over, pct };
-              })
-              .filter((x) => x.over > 0)
-              .sort((a, b) => b.over - a.over)
-              .slice(0, 3);
-            return items.length ? (
-              <ul className="text-xs sm:text-sm list-disc pl-4 sm:pl-5">
-                {items.map((i) => (
-                  <li key={i.child} className="break-words">
-                    <span className="font-medium">{i.child}</span>: over {formatVND(i.over)} ({i.pct}% of cap)
-                  </li>
-                ))}
-              </ul>
-            ) : (
-              <div className="text-xs sm:text-sm text-neutral-600">No overspends this month - Không có mục vượt ngân sách tháng này</div>
-            );
-          })()}
-          <p className="mt-2 text-xs text-neutral-500">
-            Exclusions affect analytics only, not the transactions list. (Loại trừ chỉ ảnh hưởng phân tích, không ẩn giao dịch.)
-          </p>
-        </section>
+
 
         {/* Transactions */}
         <Transactions transactions={transactions} selectedMonth={selectedMonth} />
