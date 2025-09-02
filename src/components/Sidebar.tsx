@@ -87,11 +87,6 @@ export default function Sidebar({ locale = 'en' }: SidebarProps) {
                 priority
               />
               <div className="absolute inset-0 bg-gradient-to-t from-orange-yellow-crayola/20 to-transparent opacity-0 hover:opacity-100 transition-opacity duration-500" />
-
-              {/* Professional status indicator */}
-              <div className="absolute -bottom-1 -right-1 w-6 h-6 bg-green-500 border-2 border-eerie-black-2 rounded-full flex items-center justify-center">
-                <div className="w-2 h-2 bg-white rounded-full animate-pulse"></div>
-              </div>
             </div>
 
             {/* Name with enhanced typography */}
