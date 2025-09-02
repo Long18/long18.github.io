@@ -283,22 +283,35 @@ function ParentGroup({ row, selectedMonth, subCatsByMonth, capsByMonth, mode, on
           </div>
         </div>
 
-        <div className="mt-2 h-3 w-full bg-neutral-100 rounded-full overflow-hidden" aria-label={`Actual ${pct}% of cap`}>
-          <div
-            className={`h-full ${row.over ? "bg-red-500" : row.warn ? "bg-amber-500" : "bg-green-500"}`}
-            style={{ width: `${pct}%` }}
-          />
+        <div className="mt-2 space-y-1">
+          <div className="h-3 w-full bg-neutral-100 rounded-full overflow-hidden" aria-label={`Actual ${pct}% of cap`}>
+            <div
+              className={`h-full ${row.over ? "bg-red-500" : row.warn ? "bg-amber-500" : "bg-green-500"}`}
+              style={{ width: `${pct}%` }}
+            />
+          </div>
+          <div className="text-xs text-neutral-600 flex justify-between">
+            <span>{formatVND(row.actual)}</span>
+            <span>/</span>
+            <span>{formatVND(row.cap)}</span>
+          </div>
         </div>
 
-        {/* Guard-rail ribbon */}
-        {row.guardrailRatio > 0 && (
-          <div className={`mt-1 text-xs ${
-            row.guardrailRatio > 1 ? "text-red-700" :
-            row.guardrailRatio > 0.8 ? "text-amber-700" :
-            "text-neutral-500"
-          }`}>
-            Uses {Math.round((row.actual / Math.max(1, row.cap)) * 100)}% of cap.
-            Guard-rail: {Math.round(row.guardrailRatio * 100)}% of income.
+        {/* Guard-rail warning chip */}
+        {row.guardrailRatio > 0.3 && (
+          <div className="mt-2 flex flex-wrap gap-1">
+            <span className={`inline-flex items-center px-2 py-1 rounded-full text-xs font-medium ${
+              row.guardrailRatio > 1
+                ? "bg-red-100 text-red-800 border border-red-200"
+                : row.guardrailRatio > 0.8
+                ? "bg-amber-100 text-amber-800 border border-amber-200"
+                : "bg-blue-100 text-blue-800 border border-blue-200"
+            }`}>
+              <svg className="w-3 h-3 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L3.732 16.5c-.77.833.192 2.5 1.732 2.5z" />
+              </svg>
+              {Math.round(row.guardrailRatio * 100)}% of income
+            </span>
           </div>
         )}
       </button>
@@ -339,7 +352,7 @@ function ParentGroup({ row, selectedMonth, subCatsByMonth, capsByMonth, mode, on
                 </div>
                 <div className="col-span-4 md:col-span-3">
                   <span className="md:hidden text-xs text-neutral-500 mr-1">Progress:</span>
-                  <div className="flex items-center gap-2">
+                  <div className="space-y-1">
                     <div className="h-2 w-full bg-neutral-100 rounded-full overflow-hidden">
                       <div
                         className={`h-full ${
@@ -350,9 +363,11 @@ function ParentGroup({ row, selectedMonth, subCatsByMonth, capsByMonth, mode, on
                         style={{ width: `${pctChild}%` }}
                       />
                     </div>
-                    <span className="text-xs text-gray-600 min-w-[2rem] text-right">
-                      {Math.round(pctChild)}%
-                    </span>
+                    <div className="text-xs text-neutral-600 flex justify-between">
+                      <span>{formatVND(actualChild)}</span>
+                      <span>/</span>
+                      <span>{formatVND(capChild)}</span>
+                    </div>
                   </div>
                 </div>
               </div>

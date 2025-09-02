@@ -1,4 +1,5 @@
 import React, { useEffect, useMemo, useState, useRef, useCallback } from "react";
+import { Toaster } from "react-hot-toast";
 import Papa from "papaparse";
 import { parseAmount } from "@/lib/parsing";
 
@@ -13,6 +14,7 @@ import {
   useCapsStore,
   CapsByMonth
 } from "@/lib/storeCaps";
+import { useAnalyticsScopeStore } from "@/lib/storeAnalyticsScope";
 import {
   aggregateByMonth,
   parentAndSubMaps,
@@ -24,10 +26,11 @@ import {
 } from "@/lib/aggregations";
 
 // Import components
-import MonthPicker from "@/components/budget/MonthPicker";
+import MonthCalendar from "@/components/budget/MonthCalendar";
 import BudgetTable from "@/components/budget/BudgetTable";
 import Charts from "@/components/budget/Charts";
 import Transactions from "@/components/budget/Transactions";
+import AnalyticsScope from "@/components/budget/AnalyticsScope";
 
 // =====================================================
 // Main component
@@ -40,27 +43,16 @@ export default function FinanceDashboardMVP() {
   const { transactions, importCsv, notice, loading } = useCsvImport();
 
   // Exclusion toggles (analytics only)
-  const [excludedChildren, setExcludedChildren] = useState<Set<string>>(() => {
-    try {
-      const raw = typeof window !== "undefined" ? localStorage.getItem("excludedChildren") : null;
-      return new Set(raw ? JSON.parse(raw) : []);
-    } catch {
-      return new Set();
-    }
-  });
+  // Analytics scope store
+  const { getExcludedSet } = useAnalyticsScopeStore();
 
-  const toggleExclude = useCallback((child: string) =>
-    setExcludedChildren((prev) => {
-      const next = new Set(prev);
-      if (next.has(child)) next.delete(child);
-      else next.add(child);
-      if (typeof window !== "undefined") localStorage.setItem("excludedChildren", JSON.stringify(Array.from(next)));
-      return next;
-    }), []);
+  // Get excluded set for current month
+  const excludedSet = useMemo(() => getExcludedSet(selectedMonth), [getExcludedSet, selectedMonth]);
 
+  // Analytics transactions filtered by scope
   const analyticsTransactions = useMemo(() =>
-    transactions.filter((t) => !excludedChildren.has(t.categoryChild)),
-    [transactions, excludedChildren]
+    transactions.filter((t) => !excludedSet.has(t.categoryChild)),
+    [transactions, excludedSet]
   );
 
   // Available months from data
@@ -287,12 +279,12 @@ export default function FinanceDashboardMVP() {
           <div className="bg-white rounded-2xl shadow p-3 sm:p-4">
             <label className="text-xs sm:text-sm font-medium">Select month - Chọn tháng</label>
             <div className="mt-2">
-              <MonthPicker value={selectedMonth} onChange={setSelectedMonth} monthsAvailable={new Set(months)} />
+              <MonthCalendar value={selectedMonth} onChange={setSelectedMonth} monthsWithData={new Set(months)} />
             </div>
           </div>
 
           <div className="bg-white rounded-2xl shadow p-3 sm:p-4">
-            <div className="text-xs sm:text-sm font-medium text-center mb-3">Payslip net income - Thu nhập ròng</div>
+            <div className="text-xs sm:text-sm font-medium text-center mb-3">Net income - Thu nhập ròng</div>
 
             {/* Input field for payslip net income */}
             <div className="text-center mb-3">
@@ -308,63 +300,92 @@ export default function FinanceDashboardMVP() {
               />
             </div>
 
-            {/* Baseline badge */}
-            <div className="flex justify-center mb-2">
-              <span className={`inline-flex items-center px-2 py-1 rounded-full text-xs font-medium ${
+            {/* Baseline badge and delta */}
+            <div className="flex justify-center items-center gap-2 mb-2">
+              <span className={`px-2 py-0.5 text-xs rounded-full border ${
                 seriesForMonth.income > 0
-                  ? "bg-blue-100 text-blue-800"
-                  : "bg-gray-100 text-gray-800"
+                  ? "bg-indigo-50 border-indigo-200 text-indigo-700"
+                  : "bg-neutral-100 border-neutral-200 text-neutral-600"
               }`}>
-                Baseline: {seriesForMonth.income > 0 ? "Transactions" : "Payslip"}
+                {seriesForMonth.income > 0 ? "Baseline: Transactions" : "Baseline: Payslip"}
               </span>
-            </div>
-
-            {/* Variance chip */}
-            {payslipNet > 0 && seriesForMonth.income > 0 && (
-              <div className="flex justify-center mb-2">
-                {(() => {
-                  const variance = seriesForMonth.income - payslipNet;
-                  const variancePct = Math.round((variance / payslipNet) * 100);
-                  const isPositive = variance >= 0;
-
+              {payslipNet > 0 && seriesForMonth.income > 0 && (
+                (() => {
+                  const delta = seriesForMonth.income - payslipNet;
                   return (
-                    <span className={`inline-flex items-center px-2 py-1 rounded-full text-xs font-medium ${
-                      isPositive
-                        ? "bg-green-100 text-green-800"
-                        : "bg-red-100 text-red-800"
+                    <span className={`px-1.5 py-0.5 text-[11px] rounded border ${
+                      delta >= 0
+                        ? "bg-green-50 border-green-200 text-green-700"
+                        : "bg-red-50 border-red-200 text-red-700"
                     }`}>
-                      {isPositive ? "+" : ""}{formatVND(variance)} ({isPositive ? "+" : ""}{variancePct}%)
+                      {delta >= 0 ? "+" : ""}{formatVND(Math.abs(delta))}
                     </span>
                   );
-                })()}
-              </div>
-            )}
+                })()
+              )}
+            </div>
 
             {/* Context line */}
             <div className="text-center">
               <p className="text-xs text-neutral-500">
-                Observed income: {formatVND(seriesForMonth.income)}
+                Observed: {formatVND(seriesForMonth.income)}
               </p>
             </div>
           </div>
 
           <div className="bg-white rounded-2xl shadow p-3 sm:p-4 sm:col-span-2 lg:col-span-1">
-            <label className="text-xs sm:text-sm font-medium">Status - Trạng thái</label>
-            <div className="mt-2 space-y-1 text-xs sm:text-sm">
+            <div className="flex items-center gap-2 mb-3">
+              <svg className="w-4 h-4 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+              <label className="text-xs sm:text-sm font-semibold text-indigo-900">Status - Trạng thái</label>
+            </div>
+            <div className="space-y-2">
               {(() => {
                 const msgs: string[] = [];
                 const baseIncome = seriesForMonth.income || payslipNet;
-                if (!baseIncome) msgs.push("Chưa có thu nhập để tính guard-rail");
-                else {
+                if (!baseIncome) {
+                  return (
+                    <div className="flex items-center gap-2 p-2 bg-neutral-50 rounded-lg border border-neutral-200">
+                      <svg className="w-4 h-4 text-neutral-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                      </svg>
+                      <span className="text-xs text-neutral-600">Chưa có thu nhập để tính guard-rail</span>
+                    </div>
+                  );
+                } else {
                   const parentMap = parentCatsByMonth[selectedMonth] || {};
                   for (const [p, pct] of Object.entries(GUARDRAIL_PCT)) {
                     const spent = parentMap[p] || 0;
-                    if (spent / baseIncome > pct) msgs.push(`⚠ ${p} > ${Math.round(pct * 100)}% of income`);
+                    if (spent / baseIncome > pct) {
+                      msgs.push(`${p} > ${Math.round(pct * 100)}% of income`);
+                    }
                   }
                 }
-                return msgs.length ?
-                  msgs.map((m) => <div key={m} className="text-amber-700 break-words">{m}</div>) :
-                  <div className="text-green-700">Không có cảnh báo guard-rail</div>;
+
+                if (msgs.length > 0) {
+                  return (
+                    <div className="space-y-2">
+                      {msgs.map((m, index) => (
+                        <div key={index} className="flex items-center gap-2 p-2 bg-red-50 rounded-lg border border-red-200">
+                          <svg className="w-4 h-4 text-red-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L3.732 16.5c-.77.833.192 2.5 1.732 2.5z" />
+                          </svg>
+                          <span className="text-xs text-red-700 break-words">{m}</span>
+                        </div>
+                      ))}
+                    </div>
+                  );
+                } else {
+                  return (
+                    <div className="flex items-center gap-2 p-2 bg-green-50 rounded-lg border border-green-200">
+                      <svg className="w-4 h-4 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                      </svg>
+                      <span className="text-xs text-green-700">Không có cảnh báo guard-rail</span>
+                    </div>
+                  );
+                }
               })()}
             </div>
           </div>
@@ -397,32 +418,8 @@ export default function FinanceDashboardMVP() {
           </div>
         </section>
 
-        {/* Analytics scope: exclude toggles */}
-        <section className="bg-white rounded-2xl shadow p-3 sm:p-4 mb-6" aria-label="Analytics scope">
-          <h2 className="text-sm sm:text-base font-semibold mb-3">Analytics scope - Phạm vi phân tích</h2>
-          <p className="text-xs text-neutral-500 mb-2">
-            Tắt các nhóm con để loại trừ khỏi phân tích và biểu đồ. Giao dịch vẫn hiển thị ở bảng bên dưới.
-          </p>
-          <div className="flex flex-wrap gap-1 sm:gap-2">
-            {Array.from(new Set(transactions.filter((t) => getMonthKey(t.date) === selectedMonth).map((t) => t.categoryChild)))
-              .sort()
-              .map((c) => {
-                const off = excludedChildren.has(c);
-                return (
-                  <button
-                    key={c}
-                    onClick={() => toggleExclude(c)}
-                    className={`px-2 sm:px-3 py-1 rounded-full text-xs border transition-colors ${
-                      off ? "bg-neutral-100 text-neutral-500 line-through border-neutral-200" : "bg-indigo-50 text-indigo-700 border-indigo-200"
-                    }`}
-                    title={off ? "Excluded from analytics" : "Included in analytics"}
-                  >
-                    {c}
-                  </button>
-                );
-              })}
-          </div>
-        </section>
+        {/* Analytics scope */}
+        <AnalyticsScope selectedMonth={selectedMonth} transactions={transactions} />
 
         {/* Charts */}
         <Charts monthlySeries={monthlySeries} pieData={pieData} />
@@ -474,11 +471,21 @@ export default function FinanceDashboardMVP() {
 
         <footer className="text-xs text-neutral-500 pb-8">
           <div>
-            Charts có tooltip và số liệu, trạng thái có nhãn chữ để tránh phụ thuộc màu.
-            (Đối chiếu số liệu diễn ra theo tháng đã chọn.)
-          </div>
+            This is a personal budget management tool designed for tracking expenses and income. If you're interested in using it or would like to learn more about its features, please feel free to contact me at us.thanhlong18@gmail.com. I'd be happy to help you get started!</div>
         </footer>
       </div>
+
+      {/* Toast notifications */}
+      <Toaster
+        position="top-right"
+        toastOptions={{
+          duration: 2000,
+          style: {
+            background: '#363636',
+            color: '#fff',
+          },
+        }}
+      />
     </div>
   );
 }

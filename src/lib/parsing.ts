@@ -95,6 +95,7 @@ export const INCOME_CHILDREN = new Set<string>([
     "Other Bonus",
     "Thu nhập khác",
     "Internal Transfers",
+    "Momo",
 ]);
 
 // =====================================================

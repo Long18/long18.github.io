@@ -2,6 +2,32 @@ import React, { useState, useMemo } from "react";
 import { Tx, getMonthKey } from "@/lib/parsing";
 import { formatVND } from "@/lib/aggregations";
 
+// Helper function to render note with hashtags
+const renderNoteWithHashtags = (note: string) => {
+  if (!note) return null;
+
+  // Split by hashtags and render them as styled chips
+  const parts = note.split(/(#\w+)/g);
+
+  return (
+    <div className="flex flex-wrap items-center gap-1">
+      {parts.map((part, index) => {
+        if (part.startsWith('#')) {
+          return (
+            <span
+              key={index}
+              className="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-blue-50 text-blue-700 border border-blue-200"
+            >
+              {part}
+            </span>
+          );
+        }
+        return part ? <span key={index}>{part}</span> : null;
+      })}
+    </div>
+  );
+};
+
 interface TransactionsProps {
   transactions: Tx[];
   selectedMonth: string;
@@ -11,6 +37,7 @@ export default function Transactions({ transactions, selectedMonth }: Transactio
   const [query, setQuery] = useState("");
   const [cat, setCat] = useState("");
   const [payer, setPayer] = useState("");
+  const [typeFilter, setTypeFilter] = useState<"all" | "income" | "expense">("all");
 
   const rows = useMemo(() => {
     const monthFiltered = transactions.filter((t) => getMonthKey(t.date) === selectedMonth);
@@ -21,10 +48,48 @@ export default function Transactions({ transactions, selectedMonth }: Transactio
       const matchQ = q ? t.note?.toLowerCase().includes(q) || t.categoryChild.toLowerCase().includes(q) : true;
       const matchCat = cat ? t.categoryChild === cat : true;
       const matchPayer = payer ? (t.payer || "You") === payer : true;
-      return matchQ && matchCat && matchPayer;
+      const matchType = typeFilter === "all" ||
+        (typeFilter === "income" && t.amount > 0) ||
+        (typeFilter === "expense" && t.amount < 0);
+      return matchQ && matchCat && matchPayer && matchType;
     });
-    return { cats, payers, filtered };
-  }, [transactions, query, cat, payer, selectedMonth]);
+
+    // Group transactions by date for mobile view
+    const groupedByDate = filtered.reduce((acc, t) => {
+      const dateKey = t.rawDate;
+      if (!acc[dateKey]) {
+        acc[dateKey] = {
+          date: dateKey,
+          transactions: [],
+          totalIncome: 0,
+          totalExpense: 0,
+          balance: 0
+        };
+      }
+      acc[dateKey].transactions.push(t);
+      if (t.amount > 0) {
+        acc[dateKey].totalIncome += t.amount;
+      } else {
+        acc[dateKey].totalExpense += Math.abs(t.amount);
+      }
+      acc[dateKey].balance = acc[dateKey].totalIncome - acc[dateKey].totalExpense;
+      return acc;
+    }, {} as Record<string, {
+      date: string;
+      transactions: Tx[];
+      totalIncome: number;
+      totalExpense: number;
+      balance: number;
+    }>);
+
+    // Sort dates in descending order (newest first)
+    const sortedDates = Object.values(groupedByDate).sort((a, b) =>
+      new Date(b.date.split('/').reverse().join('-')).getTime() -
+      new Date(a.date.split('/').reverse().join('-')).getTime()
+    );
+
+    return { cats, payers, filtered, groupedByDate: sortedDates };
+  }, [transactions, query, cat, payer, typeFilter, selectedMonth]);
 
   const totalExpense = rows.filtered.filter((t) => t.amount < 0).reduce((s, t) => s + Math.abs(t.amount), 0);
   const totalIncome = rows.filtered.filter((t) => t.amount > 0).reduce((s, t) => s + t.amount, 0);
@@ -101,7 +166,7 @@ export default function Transactions({ transactions, selectedMonth }: Transactio
                   }`}>
                     {p}
                   </span>
-                  <span className="text-xs text-neutral-500">{data.count} txns</span>
+                  <span className="text-xs text-neutral-500">{data.count} giao dịch</span>
                 </div>
                 <div className="space-y-1">
                   <div className="flex justify-between text-sm">
@@ -127,9 +192,32 @@ export default function Transactions({ transactions, selectedMonth }: Transactio
         </div>
       )}
 
+      {/* Type filter */}
+      <div className="flex flex-wrap gap-2 mb-3">
+        <span className="text-xs text-neutral-600 font-medium">Filter by type:</span>
+        {["all", "income", "expense"].map((type) => (
+          <button
+            key={type}
+            onClick={() => setTypeFilter(type as "all" | "income" | "expense")}
+            className={`px-3 py-1 rounded-full text-xs border transition-colors ${
+              typeFilter === type
+                ? type === "income"
+                  ? "bg-green-100 text-green-700 border-green-300"
+                  : type === "expense"
+                  ? "bg-red-100 text-red-700 border-red-300"
+                  : "bg-indigo-100 text-indigo-700 border-indigo-300"
+                : "bg-neutral-100 text-neutral-700 border-neutral-200 hover:bg-neutral-200"
+            }`}
+          >
+            {type === "all" ? "All" : type === "income" ? "Income - Thu" : "Expense - Chi"}
+          </button>
+        ))}
+      </div>
+
       {/* Payer filter chips */}
       {rows.payers.length > 1 && (
         <div className="flex flex-wrap gap-2 mb-3">
+          <span className="text-xs text-neutral-600 font-medium">Filter by payer:</span>
           {rows.payers.map((p) => (
             <button
               key={p}
@@ -151,114 +239,116 @@ export default function Transactions({ transactions, selectedMonth }: Transactio
         Total expense - Tổng chi: <span className="font-medium text-red-700">{formatVND(totalExpense)}</span>
       </div>
 
-      <div className="overflow-x-auto">
-        <table className="min-w-full text-sm">
-          <thead>
-            <tr className="text-left text-neutral-600">
-              <th className="py-2">Date - Ngày</th>
-              <th className="py-2">Category - Nhóm</th>
-              <th className="py-2 hidden md:table-cell">Payer - Người trả</th>
-              <th className="py-2">Amount - Số tiền</th>
-              <th className="py-2 hidden md:table-cell">Wallet - Ví</th>
-              <th className="py-2">Note - Ghi chú</th>
-            </tr>
-          </thead>
-          <tbody>
-            {rows.filtered.map((t) => (
-              <tr key={t.id} className="border-t border-neutral-100">
-                <td className="py-1">{t.rawDate}</td>
-                <td className="py-1">
-                  <div className="md:hidden">
-                    <div className="space-y-1">
-                      <div className="font-medium text-sm">{t.categoryChild}</div>
-                      <div className="text-xs text-neutral-500">{t.categoryParent}</div>
-                    </div>
-                    <div className="flex items-center gap-2 mt-2">
-                      <span className={`inline-flex items-center px-2 py-0.5 rounded-full text-xs border ${
-                        (t.payer || "You") === "You"
-                          ? "bg-indigo-50 text-indigo-700 border-indigo-200"
-                          : "bg-neutral-100 text-neutral-700 border-neutral-200"
-                      }`}>
-                        {t.payer || "You"}
-                      </span>
-                      {t.wallet && (
-                        <span className="inline-flex items-center px-1.5 py-0.5 rounded text-xs bg-purple-50 text-purple-600">
-                          <svg className="w-2.5 h-2.5 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z" />
-                          </svg>
-                          {t.wallet}
-                        </span>
-                      )}
+      {/* Mobile-first grouped layout */}
+      <div className="space-y-4">
+        {rows.groupedByDate.map((dayGroup) => (
+          <div key={dayGroup.date} className="bg-white rounded-xl border border-neutral-200 overflow-hidden">
+            {/* Day header with totals */}
+            <div className="bg-gradient-to-r from-neutral-50 to-neutral-100 px-3 py-2 border-b border-neutral-200">
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-2">
+                  <div className="w-6 h-6 bg-indigo-100 rounded-full flex items-center justify-center">
+                    <span className="text-xs font-semibold text-indigo-700">
+                      {new Date(dayGroup.date.split('/').reverse().join('-')).getDate()}
+                    </span>
+                  </div>
+                  <div>
+                    <div className="font-medium text-sm text-neutral-900">{dayGroup.date}</div>
+                    <div className="text-xs text-neutral-500">
+                      {dayGroup.transactions.length} giao dịch
                     </div>
                   </div>
-                  <div className="hidden md:block">
-                    <div className="space-y-1">
-                      <div className="font-medium text-sm">{t.categoryChild}</div>
-                      <div className="text-xs text-neutral-500 flex items-center gap-1">
-                        <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                        </svg>
-                        {t.categoryParent}
+                </div>
+                <div className={`text-right font-semibold text-sm ${
+                  dayGroup.balance >= 0 ? 'text-green-700' : 'text-red-700'
+                }`}>
+                  {dayGroup.balance >= 0 ? '+' : ''}{formatVND(dayGroup.balance)}
+                </div>
+              </div>
+            </div>
+
+                        {/* Transactions for this day */}
+            <div className="divide-y divide-neutral-100">
+              {dayGroup.transactions.map((t) => (
+                <div key={t.id} className="p-3">
+                  <div className="flex items-start justify-between gap-2">
+                    {/* Left side - Category and details */}
+                    <div className="flex-1 min-w-0">
+                      <div className="flex items-center gap-2 mb-1">
+                        <div className="font-medium text-sm text-neutral-900 truncate">
+                          {t.categoryChild}
+                        </div>
+                        <div className="text-xs text-neutral-500">
+                          {t.categoryParent}
+                        </div>
+                      </div>
+
+                      {/* Payer and wallet chips */}
+                      <div className="flex items-center gap-1 mb-1">
+                        <span className={`inline-flex items-center px-1.5 py-0.5 rounded-full text-xs border ${
+                          (t.payer || "You") === "You"
+                            ? "bg-indigo-50 text-indigo-700 border-indigo-200"
+                            : "bg-neutral-100 text-neutral-700 border-neutral-200"
+                        }`}>
+                          {t.payer || "You"}
+                        </span>
+                        {t.wallet && (
+                          <span className="inline-flex items-center px-1 py-0.5 rounded text-xs bg-purple-50 text-purple-600">
+                            <svg className="w-2.5 h-2.5 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z" />
+                            </svg>
+                            {t.wallet}
+                          </span>
+                        )}
+                      </div>
+
+                      {/* Note with hashtags */}
+                      {t.note && (
+                        <div className="mb-1">
+                          {renderNoteWithHashtags(t.note)}
+                        </div>
+                      )}
+
+                      {/* Badges */}
+                      <div className="flex items-center gap-1">
+                        {t.note && /split|chia tiền|share/i.test(t.note) && (
+                          <span className="inline-block px-1.5 py-0.5 text-[11px] rounded border bg-neutral-50 text-neutral-700">
+                            Split
+                          </span>
+                        )}
+                        {t.note && /reimburse|hoàn tiền/i.test(t.note) && (
+                          <span className="inline-block px-1.5 py-0.5 text-[11px] rounded border bg-green-50 text-green-700">
+                            Reimbursed
+                          </span>
+                        )}
+                        {/(transfer|internal)/i.test(t.categoryParent || "") && (
+                          <span className="inline-block px-1.5 py-0.5 text-[11px] rounded border bg-blue-50 text-blue-700">
+                            Transfer
+                          </span>
+                        )}
                       </div>
                     </div>
+
+                    {/* Right side - Amount */}
+                    <div className={`text-right font-semibold text-base ${
+                      t.amount < 0 ? "text-red-700" : "text-green-700"
+                    }`}>
+                      {t.amount < 0 ? "-" : "+"}{formatVND(Math.abs(t.amount))}
+                    </div>
                   </div>
-                </td>
-                <td className="py-1 hidden md:table-cell">
-                  <span className={`inline-flex items-center px-2 py-0.5 rounded-full text-xs border ${
-                    (t.payer || "You") === "You"
-                      ? "bg-indigo-50 text-indigo-700 border-indigo-200"
-                      : "bg-neutral-100 text-neutral-700 border-neutral-200"
-                  }`}>
-                    {t.payer || "You"}
-                  </span>
-                </td>
-                <td className={`py-1 ${t.amount < 0 ? "text-red-700" : "text-green-700"}`}>
-                  {formatVND(Math.abs(t.amount))}
-                </td>
-                <td className="py-1 hidden md:table-cell">
-                  {t.wallet ? (
-                    <span className="inline-flex items-center px-2 py-1 rounded-full text-xs bg-purple-50 text-purple-700 border border-purple-200">
-                      <svg className="w-3 h-3 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z" />
-                      </svg>
-                      {t.wallet}
-                    </span>
-                  ) : (
-                    <span className="text-xs text-neutral-400">—</span>
-                  )}
-                </td>
-                <td className="py-1">
-                  <div className="flex items-center gap-2">
-                    <span>{t.note || ""}</span>
-                    {/* Badges for split/reimbursed/transfer */}
-                    {t.note && /split|chia tiền|share/i.test(t.note) && (
-                      <span className="inline-block px-1.5 py-0.5 text-[11px] rounded border bg-neutral-50 text-neutral-700">
-                        Split
-                      </span>
-                    )}
-                    {t.note && /reimburse|hoàn tiền/i.test(t.note) && (
-                      <span className="inline-block px-1.5 py-0.5 text-[11px] rounded border bg-green-50 text-green-700">
-                        Reimbursed
-                      </span>
-                    )}
-                    {/(transfer|internal)/i.test(t.categoryParent || "") && (
-                      <span className="inline-block px-1.5 py-0.5 text-[11px] rounded border bg-blue-50 text-blue-700">
-                        Transfer
-                      </span>
-                    )}
-                  </div>
-                </td>
-              </tr>
-            ))}
-            {rows.filtered.length === 0 && (
-              <tr>
-                <td colSpan={6} className="py-6 text-center text-neutral-500">
-                  {payer ? `No transactions paid by ${payer} this month - Không có giao dịch do ${payer} trả trong tháng này` : "No transactions for this filter - Không có giao dịch phù hợp"}
-                </td>
-              </tr>
-            )}
-          </tbody>
-        </table>
+                </div>
+              ))}
+            </div>
+          </div>
+        ))}
+
+        {rows.groupedByDate.length === 0 && (
+          <div className="text-center py-12 text-neutral-500">
+            <div className="text-4xl mb-4">📊</div>
+            <div className="text-lg font-medium mb-2">No transactions found</div>
+            <div className="text-sm">Try adjusting your filters or import some data</div>
+          </div>
+        )}
       </div>
     </section>
   );
