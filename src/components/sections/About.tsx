@@ -3,6 +3,7 @@
 import React, { useRef, useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import Image from 'next/image';
+import { useRouter } from 'next/navigation';
 import { personalInfo } from '@/data/personal';
 import { skillCategories } from '@/data/skills';
 import SkillIcon from '@/components/ui/SkillIcon';
@@ -86,8 +87,32 @@ export default function About({ className = '' }: AboutProps) {
     null
   );
   const [hoveredSkill, setHoveredSkill] = useState<string | null>(null);
+  const [avatarClickCount, setAvatarClickCount] = useState(0);
+  const [showSecretHint, setShowSecretHint] = useState(false);
 
+  const router = useRouter();
   const { performanceMode, isMobile, isClient } = useAnimationPerformance();
+
+  // Secret button handler for avatar clicks
+  const handleAvatarClick = () => {
+    const newCount = avatarClickCount + 1;
+    setAvatarClickCount(newCount);
+
+    // Show hint after 3 clicks
+    if (newCount === 3) {
+      setShowSecretHint(true);
+      setTimeout(() => setShowSecretHint(false), 3000);
+    }
+
+    // Trigger secret action after 7 clicks
+    if (newCount >= 7) {
+      setAvatarClickCount(0); // Reset counter
+      setShowSecretHint(false);
+
+      // Navigate to budget page
+      router.push('/budget');
+    }
+  };
 
   // Close mobile tooltip when switching to desktop or on escape key
   useEffect(() => {
@@ -229,8 +254,11 @@ export default function About({ className = '' }: AboutProps) {
                       </>
                     )}
 
-                    {/* Avatar with glow effect */}
-                    <div className="relative w-32 h-32 rounded-full overflow-hidden border-4 border-jet/50 shadow-2xl group-hover:shadow-orange-500/30 transition-all duration-500 animate-scale-in">
+                    {/* Avatar with glow effect and secret click handler */}
+                    <div
+                      onClick={handleAvatarClick}
+                      className="relative w-32 h-32 rounded-full overflow-hidden border-4 border-jet/50 shadow-2xl group-hover:shadow-orange-500/30 transition-all duration-500 animate-scale-in cursor-pointer"
+                    >
                       <Image
                         src={personalInfo.portrait}
                         alt={personalInfo.fullName}
@@ -239,6 +267,15 @@ export default function About({ className = '' }: AboutProps) {
                         className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
                       />
                       <div className="absolute inset-0 bg-gradient-to-t from-orange-400/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+
+                      {/* Secret hint overlay */}
+                      {showSecretHint && (
+                        <div className="absolute inset-0 bg-orange-400/20 flex items-center justify-center">
+                          <div className="text-white-1 text-xs font-bold bg-eerie-black-2/80 px-2 py-1 rounded-lg">
+                            {7 - avatarClickCount} more clicks...
+                          </div>
+                        </div>
+                      )}
                     </div>
                   </div>
                 </div>

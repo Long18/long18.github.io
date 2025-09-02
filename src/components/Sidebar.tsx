@@ -2,6 +2,7 @@
 
 import { useState, useRef, useEffect, useLayoutEffect } from 'react';
 import Image from 'next/image';
+import { useRouter } from 'next/navigation';
 import { personalInfo, contactInfo, socialLinks } from '@/data/personal';
 import { useGSAP } from '@/hooks/useGSAP';
 import gsap from 'gsap';
@@ -15,9 +16,14 @@ interface SidebarProps {
 export default function Sidebar({ locale = 'en' }: SidebarProps) {
   const [isContactsOpen, setIsContactsOpen] = useState(false);
   const [isMounted, setIsMounted] = useState(false);
+  const [avatarClickCount, setAvatarClickCount] = useState(0);
+  const [showSecretHint, setShowSecretHint] = useState(false);
 
+  const router = useRouter();
   const sidebarRef = useRef<HTMLDivElement>(null);
   const arrowRef = useRef<SVGSVGElement>(null);
+  const desktopAvatarRef = useRef<HTMLDivElement>(null);
+  const mobileAvatarRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     // Set mounted state to prevent hydration mismatch
@@ -63,6 +69,39 @@ export default function Sidebar({ locale = 'en' }: SidebarProps) {
     }
   };
 
+  const handleAvatarClick = () => {
+    const newCount = avatarClickCount + 1;
+    setAvatarClickCount(newCount);
+
+    // Add visual feedback for clicks on both avatars
+    [desktopAvatarRef.current, mobileAvatarRef.current].forEach(ref => {
+      if (ref) {
+        gsap.to(ref, {
+          scale: 0.95,
+          duration: 0.1,
+          yoyo: true,
+          repeat: 1,
+          ease: 'power2.out',
+        });
+      }
+    });
+
+    // Show hint after 3 clicks
+    if (newCount === 3) {
+      setShowSecretHint(true);
+      setTimeout(() => setShowSecretHint(false), 3000);
+    }
+
+    // Trigger secret action after 7 clicks
+    if (newCount >= 7) {
+      setAvatarClickCount(0); // Reset counter
+      setShowSecretHint(false);
+
+      // Navigate to budget page
+      router.push('/budget');
+    }
+  };
+
   return (
     <>
       {/* Desktop Sidebar - Version 2.0 Style */}
@@ -77,7 +116,11 @@ export default function Sidebar({ locale = 'en' }: SidebarProps) {
         <div className="relative z-10 h-full overflow-y-auto overscroll-contain flex flex-col">
           {/* Avatar and Info - Enhanced sizing and spacing */}
           <div className="text-center mb-6 lg:mb-8">
-            <div className="relative w-24 h-24 lg:w-28 lg:h-28 xl:w-32 xl:h-32 mx-auto mb-4 lg:mb-6 overflow-hidden rounded-2xl lg:rounded-3xl shadow-xl shadow-orange-400/30">
+            <div
+              ref={desktopAvatarRef}
+              onClick={handleAvatarClick}
+              className="relative w-24 h-24 lg:w-28 lg:h-28 xl:w-32 xl:h-32 mx-auto mb-4 lg:mb-6 overflow-hidden rounded-2xl lg:rounded-3xl shadow-xl shadow-orange-400/30 cursor-pointer transition-all duration-300 hover:shadow-orange-400/50"
+            >
               <Image
                 src={personalInfo.avatar}
                 alt="Profile picture"
@@ -87,6 +130,15 @@ export default function Sidebar({ locale = 'en' }: SidebarProps) {
                 priority
               />
               <div className="absolute inset-0 bg-gradient-to-t from-orange-yellow-crayola/20 to-transparent opacity-0 hover:opacity-100 transition-opacity duration-500" />
+
+              {/* Secret hint overlay */}
+              {showSecretHint && (
+                <div className="absolute inset-0 bg-orange-yellow-crayola/20 flex items-center justify-center">
+                  <div className="text-white-1 text-xs font-bold bg-eerie-black-2/80 px-2 py-1 rounded-lg">
+                    {7 - avatarClickCount} more clicks...
+                  </div>
+                </div>
+              )}
             </div>
 
             {/* Name with enhanced typography */}
@@ -190,7 +242,11 @@ export default function Sidebar({ locale = 'en' }: SidebarProps) {
             {/* Mobile Header */}
             <div className="flex items-center justify-between mb-3">
               <div className="flex items-center space-x-3">
-                <div className="w-10 h-10 lg:w-12 lg:h-12 rounded-xl overflow-hidden">
+                <div
+                  ref={mobileAvatarRef}
+                  onClick={handleAvatarClick}
+                  className="w-10 h-10 lg:w-12 lg:h-12 rounded-xl overflow-hidden cursor-pointer transition-all duration-300 hover:shadow-lg hover:shadow-orange-400/30 relative"
+                >
                   <Image
                     src={personalInfo.avatar}
                     alt="Profile picture"
@@ -198,6 +254,15 @@ export default function Sidebar({ locale = 'en' }: SidebarProps) {
                     height={48}
                     className="w-full h-full object-cover"
                   />
+
+                  {/* Secret hint overlay for mobile */}
+                  {showSecretHint && (
+                    <div className="absolute inset-0 bg-orange-yellow-crayola/20 flex items-center justify-center">
+                      <div className="text-white-1 text-[10px] font-bold bg-eerie-black-2/80 px-1 py-0.5 rounded">
+                        {7 - avatarClickCount} more...
+                      </div>
+                    </div>
+                  )}
                 </div>
                 <div>
                   <h2 className="text-sm lg:text-base font-semibold text-white-1">{personalInfo.displayName}</h2>
