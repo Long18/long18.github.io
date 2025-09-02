@@ -8,11 +8,8 @@ import {
   MapPin,
   Send,
   MessageCircle,
-  Clock,
-  Globe,
   Sparkles,
   Heart,
-  Coffee,
   CheckCircle,
   AlertCircle,
   Loader,
@@ -24,7 +21,6 @@ import {
 } from 'lucide-react';
 import { contactInfo } from '@/data/personal';
 import { sendContactEmail, type EmailData } from '@/services/emailService';
-import { professionalStats } from '../../data/skills';
 import { useAnimationPerformance } from '../../hooks/useAnimationPerformance';
 
 interface FormData {
@@ -81,33 +77,7 @@ const Contact: React.FC = () => {
     return () => clearInterval(timer);
   }, [performanceMode]);
 
-  // Contact stats
-  const contactStats = [
-    {
-      icon: Clock,
-      label: 'Response Time',
-      value: professionalStats.responseTime,
-      color: 'orange',
-    },
-    {
-      icon: Globe,
-      label: 'Availability',
-      value: professionalStats.availability,
-      color: 'purple',
-    },
-    {
-      icon: MessageCircle,
-      label: 'Languages',
-      value: professionalStats.languages,
-      color: 'cyan',
-    },
-    {
-      icon: Coffee,
-      label: 'Projects',
-      value: professionalStats.projectsReady,
-      color: 'emerald',
-    },
-  ];
+
 
   // Email validation regex
   const validateEmail = (email: string): boolean => {
@@ -370,45 +340,7 @@ const Contact: React.FC = () => {
           </p>
         </div>
 
-        {/* Stats Section */}
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
-          {contactStats.map((stat, index) => (
-            <motion.div
-              key={stat.label}
-              whileHover={
-                performanceMode !== 'low' ? { scale: 1.05, rotateY: 10 } : {}
-              }
-              transition={{ duration: 0.3 }}
-              className="relative group animate-scale-in"
-              style={{ animationDelay: `${0.5 + index * 0.1}s` }}
-            >
-              <div className="bg-gradient-to-br from-eerie-black-1/80 to-eerie-black-2/80 backdrop-blur-xl rounded-3xl p-6 border border-jet/50 hover:border-orange-500/50 transition-all duration-500 text-center overflow-hidden">
-                <div className="absolute inset-0 bg-gradient-to-r from-orange-400/5 to-purple-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
 
-                <motion.div
-                  whileHover={
-                    performanceMode !== 'low' ? { rotate: 360, scale: 1.2 } : {}
-                  }
-                  transition={{ duration: 0.6 }}
-                  className={`inline-flex items-center justify-center w-16 h-16 bg-gradient-to-r from-${stat.color}-500/20 to-${stat.color}-600/20 rounded-2xl mb-4 relative z-10`}
-                >
-                  <stat.icon className={`w-8 h-8 text-${stat.color}-400`} />
-                </motion.div>
-
-                <h3
-                  className="text-2xl font-bold text-white-1 mb-2 relative z-10 animate-count-up"
-                  style={{ animationDelay: `${0.6 + index * 0.1}s` }}
-                >
-                  {stat.value}
-                </h3>
-
-                <p className="text-white-2 text-sm font-medium relative z-10">
-                  {stat.label}
-                </p>
-              </div>
-            </motion.div>
-          ))}
-        </div>
 
         {/* Contact Cards */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">

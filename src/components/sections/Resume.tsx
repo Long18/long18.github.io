@@ -10,9 +10,6 @@ import {
   MapPin,
   Code2,
   Sparkles,
-  Trophy,
-  Rocket,
-  Star,
   Briefcase,
   Brain,
   Globe,
@@ -20,8 +17,9 @@ import {
   Lightbulb,
   Layers,
   ChevronRight,
-  Users,
   Download,
+  Rocket,
+  Trophy,
 } from 'lucide-react';
 
 interface TimelineItemProps {
@@ -60,11 +58,17 @@ function TimelineItem({
       { threshold: 0.1 }
     );
 
-    if (itemRef.current) {
-      observer.observe(itemRef.current);
+    const currentRef = itemRef.current;
+    if (currentRef) {
+      observer.observe(currentRef);
     }
 
-    return () => observer.disconnect();
+    return () => {
+      if (currentRef) {
+        observer.unobserve(currentRef);
+      }
+      observer.disconnect();
+    };
   }, []);
 
   return (
@@ -248,40 +252,27 @@ export default function Resume({ className = '' }: ResumeProps) {
   const [activeTab, setActiveTab] = useState<'experience' | 'education'>(
     'experience'
   );
+  const [hasError, setHasError] = useState(false);
 
   const { performanceMode, isClient } = useAnimationPerformance();
 
-  // Stats data with animations
-  const stats = [
-    {
-      icon: Trophy,
-      label: 'Years Experience',
-      value: '3+',
-      color: 'orange',
-      delay: 0.1,
-    },
-    {
-      icon: Rocket,
-      label: 'Projects Completed',
-      value: '16+',
-      color: 'purple',
-      delay: 0.2,
-    },
-    {
-      icon: Star,
-      label: 'Technologies',
-      value: '20+',
-      color: 'cyan',
-      delay: 0.3,
-    },
-    {
-      icon: Users,
-      label: 'Team Projects',
-      value: '10+',
-      color: 'emerald',
-      delay: 0.4,
-    },
-  ];
+  // Error boundary
+  if (hasError) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="text-center">
+          <h2 className="text-2xl font-bold text-white-1 mb-4">Error Loading Resume</h2>
+          <p className="text-white-2 mb-4">Something went wrong while loading the resume.</p>
+          <button
+            onClick={() => setHasError(false)}
+            className="px-4 py-2 bg-orange-500 text-white rounded-lg hover:bg-orange-600 transition-colors"
+          >
+            Try Again
+          </button>
+        </div>
+      </div>
+    );
+  }
 
   // Tab data
   const tabs = [
@@ -299,11 +290,12 @@ export default function Resume({ className = '' }: ResumeProps) {
     },
   ];
 
-  return (
-    <motion.div
-      ref={containerRef}
-      className={`relative min-h-screen overflow-hidden ${className} animate-fade-in-up`}
-    >
+  try {
+    return (
+      <motion.div
+        ref={containerRef}
+        className={`relative min-h-screen overflow-hidden ${className} animate-fade-in-up`}
+      >
       {/* Animated Background - Only for high performance */}
       {isClient && performanceMode === 'high' && (
         <div className="absolute inset-0 -z-10">
@@ -393,46 +385,7 @@ export default function Resume({ className = '' }: ResumeProps) {
           </div>
         </div>
 
-        {/* Stats Section */}
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
-          {stats.map((stat, index) => (
-            <motion.div
-              key={stat.label}
-              whileHover={
-                performanceMode !== 'low' ? { scale: 1.05, rotateY: 10 } : {}
-              }
-              transition={{ duration: 0.3 }}
-              className="relative group animate-scale-in"
-              style={{ animationDelay: `${0.5 + index * 0.1}s` }}
-            >
-              <div className="bg-gradient-to-br from-eerie-black-1/80 to-eerie-black-2/80 backdrop-blur-xl rounded-3xl p-6 border border-jet/50 hover:border-orange-500/50 transition-all duration-500 text-center overflow-hidden">
-                {/* Animated background */}
-                <div className="absolute inset-0 bg-gradient-to-r from-orange-400/5 to-purple-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
 
-                <motion.div
-                  whileHover={
-                    performanceMode !== 'low' ? { rotate: 360, scale: 1.2 } : {}
-                  }
-                  transition={{ duration: 0.6 }}
-                  className={`inline-flex items-center justify-center w-16 h-16 bg-gradient-to-r from-${stat.color}-500/20 to-${stat.color}-600/20 rounded-2xl mb-4 relative z-10`}
-                >
-                  <stat.icon className={`w-8 h-8 text-${stat.color}-400`} />
-                </motion.div>
-
-                <h3
-                  className="text-3xl font-bold text-white-1 mb-2 relative z-10 animate-count-up"
-                  style={{ animationDelay: `${0.6 + index * 0.1}s` }}
-                >
-                  {stat.value}
-                </h3>
-
-                <p className="text-white-2 text-sm font-medium relative z-10">
-                  {stat.label}
-                </p>
-              </div>
-            </motion.div>
-          ))}
-        </div>
 
         {/* Tab Navigation */}
         <div
@@ -707,4 +660,9 @@ export default function Resume({ className = '' }: ResumeProps) {
       </div>
     </motion.div>
   );
+  } catch (error) {
+    console.error('Resume component error:', error);
+    setHasError(true);
+    return null;
+  }
 }

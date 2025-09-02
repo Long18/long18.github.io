@@ -65,26 +65,16 @@ export default function Sidebar({ locale = 'en' }: SidebarProps) {
 
   return (
     <>
-      {/* Desktop Sidebar - Enhanced with wider professional layout */}
+      {/* Desktop Sidebar - Version 2.0 Style */}
       <aside
         ref={sidebarRef}
-        className="hidden lg:block w-80 lg:w-96 xl:w-[420px] 2xl:w-[480px] h-full
-                   bg-eerie-black-2/60 backdrop-blur-xl text-white-1
-                   relative overflow-hidden rounded-r-3xl border-r border-jet/30 shadow-xl shadow-smoky-black/20"
+        className="hidden lg:block w-full h-full
+                   bg-transparent text-white-1
+                   relative overflow-hidden"
       >
-        {/* Sidebar Background */}
-        <div className="absolute inset-0 bg-gradient-to-br from-eerie-black-2/70 via-eerie-black-1/50 to-eerie-black-2/70 pointer-events-none" />
+        {/* Version 2.0 Background - handled by parent container */}
 
-        {/* Subtle pattern overlay */}
-        <div
-          className="absolute inset-0 opacity-[0.02] pointer-events-none"
-          style={{
-            backgroundImage: `radial-gradient(circle at 1px 1px, rgba(251,146,60,0.8) 1px, transparent 0)`,
-            backgroundSize: '20px 20px',
-          }}
-        />
-
-        <div className="relative z-10 p-6 lg:p-8 xl:p-10 h-full overflow-y-auto overscroll-contain flex flex-col">
+        <div className="relative z-10 h-full overflow-y-auto overscroll-contain flex flex-col">
           {/* Avatar and Info - Enhanced sizing and spacing */}
           <div className="text-center mb-6 lg:mb-8">
             <div className="relative w-24 h-24 lg:w-28 lg:h-28 xl:w-32 xl:h-32 mx-auto mb-4 lg:mb-6 overflow-hidden rounded-2xl lg:rounded-3xl shadow-xl shadow-orange-400/30">

@@ -46,7 +46,7 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
           const duration = Math.random() * 3 + 2;
 
           return `
-            <div 
+            <div
               class="absolute rounded-full bg-orange-400/40 animate-twinkle"
               style="
                 width: ${size}px;
@@ -527,37 +527,7 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
           </div>
         </section>
 
-        {/* Statistics Section */}
-        <section
-          className="grid grid-cols-2 md:grid-cols-4 gap-6 lg:gap-8 py-8 mt-16 animate-fade-in-up"
-          style={{ animationDelay: '2s' }}
-        >
-          {[
-            { number: '15+', label: 'Projects Completed', icon: '🚀' },
-            { number: '3+', label: 'Years Experience', icon: '⏰' },
-            { number: '100%', label: 'Client Satisfaction', icon: '⭐' },
-            { number: '24/7', label: 'Support Available', icon: '💬' },
-          ].map((stat, index) => (
-            <div
-              key={stat.label}
-              className="text-center p-6 bg-eerie-black-2/15 backdrop-blur-sm border border-jet/20 rounded-xl hover:border-orange-500/30 hover:bg-eerie-black-2/25 transition-all duration-300 group animate-scale-in"
-              style={{ animationDelay: `${2.2 + index * 0.1}s` }}
-            >
-              <div
-                className="text-3xl mb-2 group-hover:scale-110 transition-transform duration-300 animate-bounce"
-                style={{ animationDelay: `${index * 0.2}s` }}
-              >
-                {stat.icon}
-              </div>
-              <div className="text-2xl lg:text-3xl font-bold text-orange-400 mb-2 group-hover:text-orange-300 transition-colors duration-300 animate-count-up">
-                {stat.number}
-              </div>
-              <div className="text-sm text-white-2 group-hover:text-white-1 transition-colors duration-300">
-                {stat.label}
-              </div>
-            </div>
-          ))}
-        </section>
+
       </div>
     </section>
   );

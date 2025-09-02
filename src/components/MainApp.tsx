@@ -4,7 +4,8 @@ import React, { useState } from 'react';
 import { ThemeProvider } from '@/context/ThemeContext';
 // import LoadingOverlay from '@/components/LoadingOverlay'; // No longer needed
 import Sidebar from '@/components/Sidebar';
-import Navigation from '@/components/Navigation';
+import Header from '@/components/layout/Header';
+import ThemeToggle from '@/components/ThemeToggle';
 import Home from '@/components/sections/Home';
 import About from '@/components/sections/About';
 import Resume from '@/components/sections/Resume';
@@ -12,7 +13,7 @@ import Portfolio from '@/components/sections/Portfolio';
 import Contact from '@/components/sections/Contact';
 
 const sections = [
-  { id: 'hero', label: 'Home', component: Home },
+  { id: 'home', label: 'Home', component: Home },
   { id: 'about', label: 'About', component: About },
   { id: 'resume', label: 'Resume', component: Resume },
   { id: 'portfolio', label: 'Portfolio', component: Portfolio },
@@ -24,13 +25,15 @@ interface MainAppProps {
 }
 
 export default function MainApp({ locale }: MainAppProps) {
-  const [activeSection, setActiveSection] = useState('hero'); // Keep Home as default
-  // Removed initial loading state - no more loading overlay
-  // const [isLoading, setIsLoading] = useState(true);
-  // React.useEffect(() => { ... }, []);
+  const [activeSection, setActiveSection] = useState('home'); // Default to Home section
+  const [isMounted, setIsMounted] = useState(false);
+
+  React.useEffect(() => {
+    setIsMounted(true);
+  }, []);
 
   const handleSectionChange = (section: string) => {
-    console.log('🎯 handleSectionChange called for:', section);
+    console.log('🎯 MainApp handleSectionChange called for:', section);
 
     // Scroll to top immediately when changing sections
     const mainContent = document.querySelector('main');
@@ -65,19 +68,15 @@ export default function MainApp({ locale }: MainAppProps) {
 
   const renderSection = () => {
     const section = sections.find((s) => s.id === activeSection);
-    if (!section) return <About />;
+    if (!section) return <Home />;
     const Component = section.component;
-
-    if (section.id === 'hero') {
-      return <Component onNavigate={handleSectionChange} />;
-    }
 
     return <Component />;
   };
 
-  // Removed loading overlay - no more initial loading screen
-  // if (isLoading) {
-  //   return <LoadingOverlay />;
+  // Prevent hydration mismatch - temporarily disabled to debug
+  // if (!isMounted) {
+  //   return <div style={{ visibility: 'hidden' }}>Loading...</div>;
   // }
 
   return (
@@ -95,40 +94,40 @@ export default function MainApp({ locale }: MainAppProps) {
           />
         </div>
 
-        {/* Header Navigation - Fixed/Floating */}
-        <header className="fixed top-0 left-0 right-0 z-50 bg-eerie-black-1/90 backdrop-blur-md border-b border-jet/20 md:bg-transparent md:backdrop-blur-none md:border-none md:relative">
-          <div className="w-full flex items-center justify-end p-4">
-            <Navigation
-              activeSection={activeSection}
-              onSectionChange={handleSectionChange}
-            />
-          </div>
-        </header>
+                            {/* Main Layout Container - Version 2.0 Style */}
+                    <div className="relative z-10 min-h-screen pt-20 pb-32 md:pb-0 md:pt-20">
+          <div className="mx-3 md:mx-6 lg:mx-8 xl:mx-12 my-4 md:my-8 lg:my-12 xl:my-15 max-w-[1400px] mx-auto">
+            <div className="flex flex-col lg:flex-row justify-center items-stretch gap-4 lg:gap-6 xl:gap-8">
+              {/* Desktop Sidebar - Version 2.0 Style */}
+              <aside className="hidden lg:block w-full lg:w-72 xl:w-80 2xl:w-96 bg-eerie-black-2 border border-jet rounded-[20px] p-4 shadow-[--shadow-1] z-1 flex-shrink-0">
+                <Sidebar locale={locale} />
+              </aside>
 
-        {/* Main Layout Container */}
-        <div className="relative z-10 flex flex-col md:flex-row min-h-screen pt-16 md:pt-0 pb-24 md:pb-0">
-          {/* Desktop Sidebar */}
-          <aside className="hidden lg:block w-80 lg:w-96 xl:w-[420px] 2xl:w-[480px] bg-eerie-black-2/60 backdrop-blur-xl">
-            <Sidebar locale={locale} />
-          </aside>
+                            {/* Main Content Area - Version 2.0 Style */}
+              <div className="flex-1 min-w-0 relative">
+                {/* Content Panel */}
+                <main className="bg-eerie-black-2 border border-jet rounded-[20px] p-4 md:p-6 lg:p-8 shadow-[--shadow-1] z-1 relative overflow-hidden">
+                  {/* Header Navigation - Inside Main Panel */}
+                  <Header
+                    activeSection={activeSection}
+                    onSectionChange={handleSectionChange}
+                  />
+                  {/* Background gradient overlay */}
+                  <div className="absolute inset-0 bg-gradient-to-b from-eerie-black-2/50 via-transparent to-eerie-black-1/30 pointer-events-none rounded-[20px]" />
 
-                      {/* Main Content Area */}
-            <main className="flex-1 relative overflow-hidden">
-              {/* Background gradient overlay */}
-              <div className="absolute inset-0 bg-gradient-to-b from-eerie-black-2/50 via-transparent to-eerie-black-1/30 pointer-events-none" />
-
-              {/* Scrollable Content */}
-              <div className="relative z-10 scroll-smooth-enhanced transition-all duration-300 ease-out overflow-auto h-full main-content-mobile">
-                <div className="container mx-auto px-6 sm:px-8 lg:px-12 xl:px-16 py-8 sm:py-12 pb-24 lg:pb-12 max-w-7xl">
-                  <div
-                    key={activeSection}
-                    className="content-section animate-fadeIn min-h-[calc(100vh-8rem)]"
-                  >
-                    {renderSection()}
+                  {/* Scrollable Content */}
+                  <div className="relative z-10 scroll-smooth-enhanced transition-all duration-300 ease-out overflow-auto h-full main-content-mobile">
+                    <div
+                      key={activeSection}
+                      className="content-section animate-fadeIn min-h-[calc(100vh-8rem)]"
+                    >
+                      {renderSection()}
+                    </div>
                   </div>
-                </div>
+                </main>
               </div>
-            </main>
+            </div>
+          </div>
         </div>
 
         {/* Mobile Layout - Profile and Navigation handled by components */}

@@ -264,32 +264,58 @@ export default function Portfolio({ onProjectSelect }: PortfolioProps) {
 
       {/* Header */}
       <motion.div className="space-y-6" variants={itemVariants}>
-        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-          <h2 className="text-2xl font-bold text-white-1 animate-fade-in-up">
-            Portfolio
-          </h2>
-
-          {/* Project Count & Clear Filters */}
+        <div className="flex flex-col gap-4">
+          {/* Title with Project Count */}
           <div className="flex items-center gap-4">
-            <span className="text-sm text-white-2">
-              {filteredProjects.length} project
-              {filteredProjects.length !== 1 ? 's' : ''}
-              {searchQuery && ' found'}
-            </span>
+            <h2 className="text-2xl font-bold text-white-1 animate-fade-in-up">
+              Portfolio
+            </h2>
 
-            {(searchQuery ||
-              selectedCategory !== 'all' ||
-              sortBy !== 'default') && (
+            {/* Project Count Badge */}
+            <motion.div
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ delay: 0.2, duration: 0.5 }}
+              whileHover={{ scale: 1.05 }}
+              className="group flex items-center gap-2 bg-gradient-to-r from-orange-500/20 to-purple-500/20 backdrop-blur-sm border border-orange-500/30 rounded-full px-4 py-2 hover:border-orange-400/50 transition-all duration-300"
+            >
+              <motion.div
+                className="w-2 h-2 bg-orange-400 rounded-full"
+                animate={{
+                  scale: [1, 1.2, 1],
+                  opacity: [0.7, 1, 0.7]
+                }}
+                transition={{
+                  duration: 2,
+                  repeat: Infinity,
+                  ease: "easeInOut"
+                }}
+              />
+              <span className="text-sm font-bold text-white-1 group-hover:text-orange-300 transition-colors">
+                {filteredProjects.length}
+              </span>
+              <span className="text-xs text-white-2 group-hover:text-white-1 transition-colors">
+                {filteredProjects.length === 1 ? 'Project' : 'Projects'}
+                {searchQuery && ' Found'}
+              </span>
+            </motion.div>
+          </div>
+
+          {/* Clear Filters */}
+          {(searchQuery ||
+            selectedCategory !== 'all' ||
+            sortBy !== 'default') && (
+            <div className="flex justify-end">
               <motion.button
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
                 onClick={clearFilters}
-                className="text-xs text-orange-yellow-crayola hover:text-vegas-gold transition-colors duration-500 px-2 py-1 rounded-2xl hover:bg-orange-yellow-crayola/10 backdrop-blur-sm hover:shadow-lg hover:shadow-orange-yellow-crayola/20"
+                className="text-xs text-orange-yellow-crayola hover:text-vegas-gold transition-colors duration-500 px-3 py-2 rounded-full hover:bg-orange-yellow-crayola/10 backdrop-blur-sm hover:shadow-lg hover:shadow-orange-yellow-crayola/20 border border-orange-yellow-crayola/20"
               >
                 Clear filters
               </motion.button>
-            )}
-          </div>
+            </div>
+          )}
         </div>
 
         {/* Enhanced Search Bar */}
