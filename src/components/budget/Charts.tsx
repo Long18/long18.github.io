@@ -75,15 +75,22 @@ export default function Charts({ monthlySeries, pieData }: ChartsProps) {
   const innerRadius = isMobile ? 30 : 50;
 
   return (
-    <section className="space-y-6 mb-6">
+    <section className="bg-white rounded-2xl shadow p-4 sm:p-6 mb-6" aria-label="Financial analytics charts">
+      <h2 className="text-base sm:text-lg font-semibold mb-6 flex items-center gap-2">
+        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+        </svg>
+        Financial Analytics - Phân tích Tài chính
+      </h2>
+
       {/* Monthly Income vs Expense vs Balance Chart */}
-      <div className="bg-white rounded-2xl shadow p-4 sm:p-6" aria-label="Monthly income expense balance chart">
-        <h2 className="text-base sm:text-lg font-semibold mb-4 flex items-center gap-2">
+      <div className="mb-8">
+        <h3 className="text-sm font-semibold mb-4 flex items-center gap-2">
           <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
           </svg>
           Monthly income vs expense vs balance - Thu, Chi, Cân đối theo tháng
-        </h2>
+        </h3>
         <div className="h-64 sm:h-72 lg:h-80">
           <ResponsiveContainer>
             <LineChart data={safeMonthlySeries} margin={{ top: 20, right: 30, bottom: 20, left: 20 }}>
@@ -142,15 +149,18 @@ export default function Charts({ monthlySeries, pieData }: ChartsProps) {
         </div>
       </div>
 
+      {/* Divider */}
+      <div className="my-6 border-t border-neutral-200"></div>
+
       {/* Category Share Donut Chart */}
-      <div className="bg-white rounded-2xl shadow p-4 sm:p-6" aria-label="Category share donut">
-        <h2 className="text-base sm:text-lg font-semibold mb-4 flex items-center gap-2">
+      <div>
+        <h3 className="text-sm font-semibold mb-4 flex items-center gap-2">
           <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 3.055A9.001 9.001 0 1020.945 13H11V3.055z" />
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20.488 9H15V3.512A9.025 9.025 0 0120.488 9z" />
           </svg>
           Category share this month - Tỉ trọng chi theo nhóm (cha)
-        </h2>
+        </h3>
 
         {/* Mobile: Stack chart and legend vertically */}
         {isMobile ? (

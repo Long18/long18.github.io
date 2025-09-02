@@ -275,7 +275,7 @@ export default function FinanceDashboardMVP() {
           </div>
         )}
 
-        {/* Top controls */}
+        {/* Dashboard Controls */}
         <section className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 mb-6">
           <div className="bg-white rounded-xl border border-neutral-200 p-3">
             <label className="text-xs font-medium text-neutral-700 mb-2 block flex items-center gap-1">
@@ -348,14 +348,14 @@ export default function FinanceDashboardMVP() {
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
               </svg>
               <label className="text-xs font-semibold text-indigo-900">Status & Insights - Trạng thái & Nhận định</label>
-            </div>
+          </div>
             <div className="space-y-2">
               {/* Status Section */}
               <div>
                 <div className="text-xs font-medium text-neutral-600 mb-1">Guard-rail Status</div>
-                {(() => {
-                  const msgs: string[] = [];
-                  const baseIncome = seriesForMonth.income || payslipNet;
+              {(() => {
+                const msgs: string[] = [];
+                const baseIncome = seriesForMonth.income || payslipNet;
                   if (!baseIncome) {
                     return (
                       <div className="flex items-center gap-1 p-1.5 bg-neutral-50 rounded-lg border border-neutral-200">
@@ -366,9 +366,9 @@ export default function FinanceDashboardMVP() {
                       </div>
                     );
                   } else {
-                    const parentMap = parentCatsByMonth[selectedMonth] || {};
-                    for (const [p, pct] of Object.entries(GUARDRAIL_PCT)) {
-                      const spent = parentMap[p] || 0;
+                  const parentMap = parentCatsByMonth[selectedMonth] || {};
+                  for (const [p, pct] of Object.entries(GUARDRAIL_PCT)) {
+                    const spent = parentMap[p] || 0;
                       if (spent / baseIncome > pct) {
                         msgs.push(`${p} > ${Math.round(pct * 100)}% of income`);
                       }
@@ -444,13 +444,13 @@ export default function FinanceDashboardMVP() {
                       ))}
                     </div>
                   );
-                })()}
+              })()}
               </div>
             </div>
           </div>
         </section>
 
-        {/* KPI cards */}
+        {/* Key Performance Indicators */}
         <section className="grid grid-cols-2 lg:grid-cols-4 gap-3 mb-6">
           <div className="bg-white rounded-xl border border-neutral-200 p-3">
             <div className="text-xs text-neutral-500 mb-1 flex items-center gap-1">
@@ -501,13 +501,13 @@ export default function FinanceDashboardMVP() {
           </div>
         </section>
 
-        {/* Analytics scope */}
+        {/* Analytics Scope */}
         <AnalyticsScope selectedMonth={selectedMonth} transactions={transactions} />
 
-        {/* Charts */}
+        {/* Financial Analytics */}
         <Charts monthlySeries={monthlySeries} pieData={pieData} />
 
-        {/* Budget vs Actual */}
+        {/* Budget Management */}
         <BudgetTable
           selectedMonth={selectedMonth}
           parentCatsByMonth={parentCatsByMonth}
@@ -517,7 +517,7 @@ export default function FinanceDashboardMVP() {
 
 
 
-        {/* Transactions */}
+        {/* Transaction History */}
         <Transactions transactions={transactions} selectedMonth={selectedMonth} />
 
         <footer className="text-xs text-neutral-500 pb-8">
