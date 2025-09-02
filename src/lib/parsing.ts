@@ -5,6 +5,17 @@ import { useState, useCallback, useRef, useEffect } from "react";
 // Types
 // =====================================================
 
+// Helper function to normalize payer names
+const normalizePayer = (s?: string): string => {
+    const x = (s || "").trim();
+    if (!x) return "";
+    const lower = x.toLowerCase();
+    if (["tôi", "minh", "mình", "me", "self", "ban than", "bản thân", "toi"].includes(lower)) {
+        return "You";
+    }
+    return x;
+};
+
 export type Tx = {
     id: string;
     date: Date;
@@ -13,6 +24,8 @@ export type Tx = {
     categoryChild: string;
     amount: number; // >0 income, <0 expense
     note?: string;
+    wallet?: string;
+    payer?: string; // NEW: who paid for this transaction
 };
 
 // =====================================================
@@ -166,6 +179,10 @@ export function useCsvImport() {
                             let amt = rawAmt;
                             if (amt > 0 && !INCOME_CHILDREN.has(child)) amt = -amt; // fix sign for expenses
                             if (amt < 0 && INCOME_CHILDREN.has(child)) amt = Math.abs(amt); // normalize income
+                            // Parse payer from "Với" or "Thành viên" columns
+                            const payerRaw = r["Với"] ?? r["Thành viên"] ?? "";
+                            const payer = normalizePayer(String(payerRaw));
+
                             const tx: Tx = {
                                 id: String(r["Id"] ?? `${fileName}-${i}`),
                                 rawDate,
@@ -174,6 +191,8 @@ export function useCsvImport() {
                                 categoryChild: child,
                                 amount: amt,
                                 note: r["Ghi chú"]?.toString(),
+                                wallet: r["Ví"]?.toString(),
+                                payer,
                             };
                             const key = hashRow(tx.rawDate, tx.categoryChild, tx.amount, tx.note);
                             if (!next.has(key)) next.set(key, tx);
@@ -194,6 +213,10 @@ export function useCsvImport() {
                             const parent = CHILD_TO_PARENT[child] || child;
                             const rawAmt = parseAmount(String(r["Số tiền"]));
                             const amt = isIncome ? Math.abs(rawAmt) : -Math.abs(rawAmt);
+                            // For summary CSVs, infer payer from note or leave blank
+                            const note = r["Ghi chú"]?.toString() || "";
+                            const payerHint = /reimbursement|company|hoan tien|hoàn tiền/i.test(note) ? "Company" : "";
+
                             const tx: Tx = {
                                 id: `${fileName}-${i}`,
                                 rawDate: `01/${String(anchorDate.getMonth() + 1).padStart(2, "0")}/${anchorDate.getFullYear()}`,
@@ -201,7 +224,9 @@ export function useCsvImport() {
                                 categoryParent: parent,
                                 categoryChild: child,
                                 amount: amt,
-                                note: "Imported summary",
+                                note: note || "Imported summary",
+                                wallet: r["Ví"]?.toString(),
+                                payer: payerHint,
                             };
                             const key = hashRow(tx.rawDate, tx.categoryChild, tx.amount, tx.note);
                             if (!next.has(key)) next.set(key, tx);
